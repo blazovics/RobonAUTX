@@ -31,6 +31,8 @@ quint32 SpeedRace::GetPenaltyPoint() {
  */
 quint32 SpeedRace::GetBestLapTime() {
 
+    //WHAT ABOUT WARMUP?
+
     quint32 fastestTime = 0;
     for(int i=0; i<this->completedLaps.length(); i++)
     {
