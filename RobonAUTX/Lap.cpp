@@ -10,3 +10,13 @@
 /**
  * Lap implementation
  */
+
+quint32 Lap::GetChoosenLapTime()
+{
+    switch (choosenLapType) {
+        case TimeSourceType::laserTime:
+        return laserTime;
+    case TimeSourceType::manualTime:
+        return  manualTime;
+    }
+}

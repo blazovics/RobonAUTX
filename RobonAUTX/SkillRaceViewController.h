@@ -17,7 +17,7 @@ public:
 /**
  * @param team
  */
-void InitRace(Team team);
+    void InitRace(Team team);
 };
 
 #endif //_SKILLRACEVIEWCONTROLLER_H

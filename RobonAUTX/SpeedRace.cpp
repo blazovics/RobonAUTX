@@ -15,7 +15,7 @@
 /**
  * @param teamID
  */
-void SpeedRace::SpeedRace(quint32 teamID) {
+SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
 
 }
 
@@ -23,21 +23,41 @@ void SpeedRace::SpeedRace(quint32 teamID) {
  * @return quint32
  */
 quint32 SpeedRace::GetPenaltyPoint() {
-    return null;
+    return touchCount * 2;
 }
 
 /**
  * @return quint32
  */
 quint32 SpeedRace::GetBestLapTime() {
-    return null;
+
+    quint32 fastestTime = 0;
+    for(int i=0; i<this->completedLaps.length(); i++)
+    {
+         Lap actualLap = this->completedLaps[i];
+         quint32 candidateTime = actualLap.GetChoosenLapTime();
+
+         if(i == 0)
+         {
+             fastestTime = candidateTime;
+         }
+         else if(fastestTime > candidateTime)
+         {
+             fastestTime = candidateTime;
+         }
+    }
+
+    return fastestTime;
 }
 
 /**
  * @return vector<quint32>
  */
-vector<quint32> SpeedRace::GetLapTimes() {
-    return null;
+QList<quint32> SpeedRace::GetLapTimes() {
+
+    QList<quint32> times
+
+    return comp;
 }
 
 /**

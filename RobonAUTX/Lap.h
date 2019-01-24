@@ -15,8 +15,10 @@ class Lap: public DBRecord {
 public: 
     quint32 laserTime;
     quint32 manualTime;
-    TimeSourceType choosenLapTime;
+    TimeSourceType choosenLapType;
     bool isWarmUp;
+
+    quint32 GetChoosenLapTime();
 };
 
 #endif //_LAP_H

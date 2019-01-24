@@ -9,9 +9,11 @@ class Event
     QByteArray rawData;
 
 public:
+    Event();
     Event(quint32 eventID, const QByteArray &rawData);
     quint32 getEventID() const;
     void setEventID(const quint32 &value);
+    quint32 getRawDataSize()const;
     QByteArray getRawData() const;
     void setRawData(const QByteArray &value);
 };

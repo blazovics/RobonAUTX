@@ -8,6 +8,8 @@ QT       += qml quick network sql
 
 QT       -= gui
 
+CONFIG += c++14
+
 TARGET = RobonAUTX
 TEMPLATE = lib
 
