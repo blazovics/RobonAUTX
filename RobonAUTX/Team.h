@@ -17,11 +17,12 @@ private:
     quint32 teamID;
     quint32 audiencePoint;
     quint32 qualificationPoint;
+    bool isJunior;
 public:
     Team();
     Team(QByteArray data);
     
-QByteArray serialize();
+    QByteArray serialize();
 };
 
 #endif //_TEAM_H

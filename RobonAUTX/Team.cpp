@@ -29,6 +29,9 @@ Team::Team(QByteArray data)
     memoryStream >> this->teamID;
     memoryStream >> this->audiencePoint;
     memoryStream >> this->qualificationPoint;
+    quint32 intIsJunior;
+    memoryStream >> intIsJunior;
+    this->isJunior = bool(intIsJunior);
 }
 
 QByteArray Team::serialize() {
@@ -40,6 +43,7 @@ QByteArray Team::serialize() {
     memoryStream << teamID;
     memoryStream << audiencePoint;
     memoryStream << qualificationPoint;
+    memoryStream << quint32(isJunior);
 
     return returnArray;
 }

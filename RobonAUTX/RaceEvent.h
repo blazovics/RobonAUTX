@@ -12,6 +12,7 @@
 #include "Race.h"
 #include "RTimer.h"
 #include "DatabaseManager.h"
+#include <memory>
 
 #include <QTimer>
 
@@ -24,13 +25,13 @@ protected:
 
     QTimer *updateTimer;
 
-    DatabaseManager& dbManager;
+    std::shared_ptr<DatabaseManager> dbManager;
 
     void startRaceTimer();
     void stopRaceTimer();
 
 public: 
-    explicit RaceEvent(DatabaseManager& dbManager, QObject *parent = nullptr);
+    explicit RaceEvent(shared_ptr<DatabaseManager> dbManager, QObject *parent = nullptr);
     ~RaceEvent();
     
     /**
@@ -51,7 +52,7 @@ public:
     void ReleaseActualRace();
 
 public slots:
-    virtual void updateTimerFired() = 0;
+    virtual void UpdateTimerFired() = 0;
 
 };
 

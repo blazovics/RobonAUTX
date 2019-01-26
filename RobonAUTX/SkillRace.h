@@ -9,6 +9,9 @@
 #define SKILLRACE_H
 
 #define SkillCheckpointCount 12
+#define SkillCheckpointPoint 2
+#define SkillStartPoint 2
+#define SkillLaneChangePoint 2
 
 #include "Race.h"
 #include <vector>
@@ -24,32 +27,35 @@ private:
 
 public: 
     
-    static const unsigned checkpointCount;
+    static const quint32 checkpointCount;
+    static const quint32 checkpointPoint;
+    static const quint32 startPoint;
+    static const quint32 laneChangePoint;
 
     /**
     * @param teamID
     */
     SkillRace(quint32 teamID);
     
-    quint32 GetRacePoint();
+    quint32 GetRacePoint() const;
     
-    bool GetCheckpointState(quint32 index);
+    bool GetCheckpointState(quint32 index) const;
 
     void SetCheckpoint(quint32 index, bool checked);
     
-    bool getStartSucceeded();
+    bool GetStartSucceeded() const;
     
-    void setStartSucceeded(bool value);
+    void SetStartSucceeded(bool value);
     
-    bool getLaneChangeSucceeded();
+    bool GetLaneChangeSucceeded() const;
     
-    void setLaneChangeSucceeded(bool value);
+    void SetLaneChangeSucceeded(bool value);
 
-    qint64 GetTimeCredit();
+    qint64 GetTimeCredit() const;
 
     static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded);
 
-    quint32 SerializeCheckpointStates();
+    quint32 GetSerializedCheckpointStates() const;
 
 };
 

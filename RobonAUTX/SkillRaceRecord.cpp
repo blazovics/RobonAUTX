@@ -17,8 +17,8 @@
  */
 void SkillRaceRecord::SkillRaceResult(SkillRace skillRace) {
 
-    this->checkpointsState = skillRace.SerializeCheckpointStates();
+    this->checkpointsState = skillRace.GetSerializedCheckpointStates();
     this->racePoint = skillRace.GetRacePoint();
-    this->laneChangeSucceeded = skillRace.getLaneChangeSucceeded();
-    this->startSucceeded = skillRace.getStartSucceeded();
+    this->laneChangeSucceeded = skillRace.GetLaneChangeSucceeded();
+    this->startSucceeded = skillRace.GetStartSucceeded();
 }

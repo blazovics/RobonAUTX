@@ -6,15 +6,27 @@
 
 
 #include "SpeedRace.h"
+#include <stdexcept>
 
 /**
  * SpeedRace implementation
  */
 
+const unsigned SpeedRace::maximumProhibitedTouchCount = MaximumProhibitedTouchCount;
 
 /**
  * @param teamID
  */
+Lap SpeedRace::GetWarmUpLap() const
+{
+    return warmUpLap;
+}
+
+void SpeedRace::SetWarmUpLap(const Lap &value)
+{
+    this->warmUpLap = value;
+}
+
 SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
 
 }
@@ -22,16 +34,14 @@ SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
 /**
  * @return quint32
  */
-quint32 SpeedRace::GetPenaltyPoint() {
+quint32 SpeedRace::GetPenaltyPoint() const {
     return touchCount * 2;
 }
 
 /**
  * @return quint32
  */
-quint32 SpeedRace::GetBestLapTime() {
-
-    //WHAT ABOUT WARMUP?
+quint32 SpeedRace::GetBestLapTime() const {
 
     quint32 fastestTime = 0;
     for(int i=0; i<this->completedLaps.length(); i++)
@@ -55,87 +65,75 @@ quint32 SpeedRace::GetBestLapTime() {
 /**
  * @return vector<quint32>
  */
-QList<quint32> SpeedRace::GetLapTimes() {
+QList<quint32> SpeedRace::GetLapTimes() const{
 
-    QList<quint32> times
+    QList<quint32> times;
+    for(int i=0; i<this->completedLaps.length(); i++)
+    {
+        Lap actualLap = this->completedLaps[i];
+        times.push_back(actualLap.GetChoosenLapTime());
+    }
 
-    return comp;
+    return times;
 }
 
 /**
  * @param lapIndex
  * @return quint32
  */
-quint32 SpeedRace::GetLapTime(quint32 lapIndex) {
-    return null;
+quint32 SpeedRace::GetLapTime(int lapIndex) const{
+    if(lapIndex >= completedLaps.size())
+    {
+        throw std::out_of_range("required lap not exists");
+    }
+
+    Lap actualLap = this->completedLaps[lapIndex];
+    return actualLap.GetChoosenLapTime();
+}
+
+quint32 SpeedRace::GetProhibitedTouchTouchCount()
+{
+    return this->touchCount;
+}
+
+quint32 SpeedRace::GetCompletedLapCount() const
+{
+    return quint32(completedLaps.count());
 }
 
 /**
  * @param touchCount
  */
-void SpeedRace::UpdateProhibitedTouch(quint32 touchCount) {
-
+void SpeedRace::SetProhibitedTouchCount(quint32 touchCount) {
+    if(touchCount > SpeedRace::maximumProhibitedTouchCount)
+    {
+        touchCount = SpeedRace::maximumProhibitedTouchCount;
+    }
+    else {
+        this->touchCount = touchCount;
+    }
 }
 
-/**
- * @return Lap
- */
-Lap SpeedRace::getCompletedLaps() {
-    return null;
+
+bool SpeedRace::GetSafetyCarFollowed() const{
+    return this->safetyCarFollowed;
 }
 
-/**
- * @param value
- */
-void SpeedRace::setCompletedLaps(Lap value) {
-
+void SpeedRace::SetSafetyCarFollowed(bool value) {
+    this->safetyCarFollowed = value;
 }
 
-/**
- * @return bool
- */
-bool SpeedRace::getSafetyCarFollowed() {
-    return false;
+bool SpeedRace::GetSafetyCarOvertaken() const{
+    return this->safetyCarOvertaken;
 }
 
-/**
- * @param value
- */
-void SpeedRace::setSafetyCarFollowed(bool value) {
-
-}
-
-/**
- * @return bool
- */
-bool SpeedRace::getSafetyCarOvertaken() {
-    return false;
-}
-
-/**
- * @param value
- */
-void SpeedRace::setSafetyCarOvertaken(bool value) {
-
-}
-
-/**
- * @return quint32
- */
-quint32 SpeedRace::getTouchCount() {
-    return null;
-}
-
-/**
- * @param value
- */
-void SpeedRace::setTouchCount(quint32 value) {
-
+void SpeedRace::SetSafetyCarOvertaken(bool value) {
+    this->safetyCarOvertaken = value;
 }
 
 /**
  * @param newLap
  */
-void SpeedRace::AddCompletedLap(Lap newLap) {
-
+void SpeedRace::AddCompletedLap(const Lap &newLap) {
+    this->completedLaps.push_back(newLap);
 }

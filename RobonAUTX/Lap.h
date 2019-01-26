@@ -13,6 +13,8 @@
 
 class Lap: public DBRecord {
 public: 
+    Lap();
+
     quint32 laserTime;
     quint32 manualTime;
     TimeSourceType choosenLapType;

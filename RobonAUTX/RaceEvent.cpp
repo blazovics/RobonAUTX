@@ -11,11 +11,13 @@
  * RaceEvent implementation
  */
 
-RaceEvent::RaceEvent(DatabaseManager& dbManager, QObject *parent):QObject (parent),dbManager(dbManager)
+RaceEvent::RaceEvent(shared_ptr<DatabaseManager> dbManager, QObject *parent):QObject (parent)
 {
+    this->dbManager = dbManager;
+
     actualRace = nullptr;
     updateTimer = new QTimer();
-    connect(updateTimer,SIGNAL(timeout()),this,SLOT(updateTimerFired()));
+    connect(updateTimer,SIGNAL(timeout()),this,SLOT(UpdateTimerFired()));
 }
 
 RaceEvent::~RaceEvent()

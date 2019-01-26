@@ -8,10 +8,21 @@
 #ifndef SPEEDRACE_H
 #define SPEEDRACE_H
 
+#define MaximumProhibitedTouchCount 5
+
 #include "Race.h"
 #include "Lap.h"
 
 class SpeedRace: public Race {
+
+private:
+    Lap warmUpLap;
+    QList<Lap> completedLaps;
+    bool safetyCarFollowed;
+    bool safetyCarOvertaken;
+    quint32 touchCount;
+
+    static const quint32 maximumProhibitedTouchCount;
 
 public: 
     
@@ -20,59 +31,33 @@ public:
  */
     SpeedRace(quint32 teamID);
     
-    quint32 GetPenaltyPoint();
+    quint32 GetPenaltyPoint() const;
     
-    quint32 GetBestLapTime();
+    quint32 GetBestLapTime() const;
+
+    QList<quint32> GetLapTimes() const;
     
-    QList<quint32> GetLapTimes();
+    quint32 GetLapTime(int lapIndex) const;
     
-    /**
- * @param lapIndex
- */
-    quint32 GetLapTime(quint32 lapIndex);
+    void SetProhibitedTouchCount(quint32 touchCount);
+
+    quint32 GetProhibitedTouchTouchCount();
+
+    quint32 GetCompletedLapCount() const;
     
-    /**
- * @param touchCount
- */
-    void UpdateProhibitedTouch(quint32 touchCount);
+    bool GetSafetyCarFollowed() const;
     
-    Lap getCompletedLaps();
+    void SetSafetyCarFollowed(bool value);
     
-    /**
- * @param value
- */
-    void setCompletedLaps(Lap value);
+    bool GetSafetyCarOvertaken() const;
     
-    bool getSafetyCarFollowed();
+    void SetSafetyCarOvertaken(bool value);
     
-    /**
- * @param value
- */
-    void setSafetyCarFollowed(bool value);
-    
-    bool getSafetyCarOvertaken();
-    
-    /**
- * @param value
- */
-    void setSafetyCarOvertaken(bool value);
-    
-    quint32 getTouchCount();
-    
-    /**
- * @param value
- */
-    void setTouchCount(quint32 value);
-private: 
-    QList<Lap> completedLaps;
-    bool safetyCarFollowed;
-    bool safetyCarOvertaken;
-    quint32 touchCount;
-    
-    /**
- * @param newLap
- */
-    void AddCompletedLap(Lap newLap);
+    void AddCompletedLap(const Lap &newLap);
+
+    Lap GetWarmUpLap() const;
+
+    void SetWarmUpLap(const Lap &value);
 };
 
 #endif //_SPEEDRACE_H

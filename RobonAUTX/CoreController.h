@@ -27,11 +27,11 @@ public:
     vector<RemoteDevice> remoteDevices;
     vector<IVoteCounter*> voteControllers;
     
-void initDevices();
+    void initDevices();
     
-void initializeRemoteDeviceSockets();
+    void initializeRemoteDeviceSockets();
     
-void InitNetworkInterface();
+    void InitNetworkInterface();
 };
 
 #endif //_CORECONTROLLER_H

@@ -8,6 +8,6 @@
 #ifndef TIMESOURCETYPE_H
 #define TIMESOURCETYPE_H
 
-enum TimeSourceType { laserTime, manualTime };
+enum TimeSourceType { LaserTime, ManualTime, Undefined };
 
 #endif //_TIMESOURCETYPE_H

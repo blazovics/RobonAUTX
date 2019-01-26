@@ -10,6 +10,7 @@
 
 #include "RaceEvent.h"
 #include "SkillRace.h"
+#include <memory>
 
 class SkillRaceEvent: public RaceEvent {
 
@@ -17,7 +18,7 @@ private:
      qint64 remainingTime;
 
 public: 
-    explicit SkillRaceEvent(DatabaseManager& dbManager, QObject *parent = nullptr);
+    explicit SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent = nullptr);
     /**
  * @param teamID
  */
@@ -41,7 +42,7 @@ public:
     void AbortRace();
 
 public slots:
-    void updateTimerFired();
+    void UpdateTimerFired();
 
 };
 

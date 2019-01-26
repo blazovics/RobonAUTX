@@ -35,9 +35,7 @@ public:
  */
 
     
-    virtual void StartRace() = 0;
-    
-    virtual void FinishRace() = 0;
+
 
 signals:
     void teamUpdated(QVariant teamName, QVariant teamID);

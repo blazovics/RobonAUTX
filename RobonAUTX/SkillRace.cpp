@@ -7,7 +7,10 @@
 #include "SkillRace.h"
 #include <stdexcept>
 
-const unsigned SkillRace::checkpointCount = SkillCheckpointCount;
+const quint32 SkillRace::checkpointCount = SkillCheckpointCount;
+const quint32 SkillRace::checkpointPoint = SkillCheckpointPoint;
+const quint32 SkillRace::startPoint = SkillStartPoint;
+const quint32 SkillRace::laneChangePoint = SkillLaneChangePoint;
 
 /**
  * SkillRace implementation
@@ -26,11 +29,11 @@ SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     laneChangeSucceeded = false;
 }
 
-quint32 SkillRace::GetRacePoint() {
+quint32 SkillRace::GetRacePoint() const {
     return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded);
 }
 
-bool SkillRace::GetCheckpointState(quint32 index)
+bool SkillRace::GetCheckpointState(quint32 index) const
 {
     if(index < this->checkpointStates.size() )
     {
@@ -53,32 +56,32 @@ void SkillRace::SetCheckpoint(quint32 index, bool checked) {
 /**
  * @return bool
  */
-bool SkillRace::getStartSucceeded() {
+bool SkillRace::GetStartSucceeded() const {
     return false;
 }
 
 /**
  * @param value
  */
-void SkillRace::setStartSucceeded(bool value) {
+void SkillRace::SetStartSucceeded(bool value) {
     this->startSucceeded = value;
 }
 
 /**
  * @return bool
  */
-bool SkillRace::getLaneChangeSucceeded() {
+bool SkillRace::GetLaneChangeSucceeded() const {
     return false;
 }
 
 /**
  * @param value
  */
-void SkillRace::setLaneChangeSucceeded(bool value) {
+void SkillRace::SetLaneChangeSucceeded(bool value) {
     this->laneChangeSucceeded = value;
 }
 
-qint64 SkillRace::GetTimeCredit()
+qint64 SkillRace::GetTimeCredit() const
 {
     qint64 timeCredit = 20;
     for(unsigned i = 0; i < checkpointStates.size(); i++)
@@ -99,21 +102,21 @@ quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool 
     {
         if(checkpointStates[i] == true)
         {
-            resultPoint += 2;
+            resultPoint += checkpointPoint;
         }
     }
     if(startSucceeded == true)
     {
-        resultPoint += 2;
+        resultPoint += startPoint;
     }
     if(laneChangeSucceeded == true)
     {
-        resultPoint += 2;
+        resultPoint += laneChangePoint;
     }
     return resultPoint;
 }
 
-quint32 SkillRace::SerializeCheckpointStates()
+quint32 SkillRace::GetSerializedCheckpointStates() const
 {
     quint32 checkpointState = 0;
     for(unsigned i = 0; i < checkpointStates.size(); i++)

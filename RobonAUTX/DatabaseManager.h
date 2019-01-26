@@ -10,6 +10,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QtSql/QSqlDatabase>
+
 #include "Team.h"
 #include "SkillRace.h"
 #include "SpeedRace.h"
@@ -22,11 +24,11 @@
 class DatabaseManager : public QObject {
 
     Q_OBJECT
-    //TODO database manager entities
+    QSqlDatabase db;
 
 public: 
 
-    explicit DatabaseManager(QObject *parent = nullptr);
+    explicit DatabaseManager(QString defaultPath = "", QObject *parent = nullptr);
     
     QList<Team> getTeamList();
     
@@ -44,7 +46,7 @@ public:
  * @param teamID
  * @param voteCount
  */
-    void updateVoteForTeam(int teamID, int voteCount);
+    void updateVoteForTeam(unsigned teamID, unsigned voteCount);
     
     /**
  * @param skillRace
@@ -73,6 +75,9 @@ public:
  * @param isJunior
  */
     QList<FinalResult> GetFinalResults(bool isJunior);
+
+private:
+    void openDatabse();
 };
 
 #endif //_DATABASEMANAGER_H

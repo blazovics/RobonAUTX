@@ -18,7 +18,7 @@
 /**
  * @param teamID
  */
-SkillRaceEvent::SkillRaceEvent(DatabaseManager& dbManager, QObject *parent):RaceEvent (dbManager, parent)
+SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent):RaceEvent (dbManager, parent)
 {
 
 }
@@ -55,12 +55,12 @@ void SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
 
 void SkillRaceEvent::SetStartSucceeded(bool value)
 {
-    static_cast<SkillRace*>(this->actualRace)->setStartSucceeded(value);
+    static_cast<SkillRace*>(this->actualRace)->SetStartSucceeded(value);
 }
 
 void SkillRaceEvent::SetLanChangeSuccess(bool value)
 {
-    static_cast<SkillRace*>(this->actualRace)->setLaneChangeSucceeded(value);
+    static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value);
 }
 
 void SkillRaceEvent::StartRace() {
@@ -78,7 +78,7 @@ void SkillRaceEvent::AbortRace() {
     RaceEvent::AbortRace();
 }
 
-void SkillRaceEvent::updateTimerFired()
+void SkillRaceEvent::UpdateTimerFired()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
     throw "NI";
