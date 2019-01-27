@@ -14,6 +14,7 @@ class MainViewcontroller : public QObject{
 
     Q_OBJECT
 
+
 public: 
     explicit MainViewcontroller(QObject* parent = nullptr);
 

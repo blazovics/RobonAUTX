@@ -18,6 +18,11 @@ RaceViewController::RaceViewController(QObject *parent): QObject (parent)
     throw "NL";
 }
 
+RaceViewController::~RaceViewController()
+{
+
+}
+
 void RaceViewController::StartRaceTimer() {
     throw "NL";
 }

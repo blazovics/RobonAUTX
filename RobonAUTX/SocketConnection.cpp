@@ -24,6 +24,11 @@ SocketConnection::SocketConnection(QTcpSocket *socket, QObject *parent):QObject 
     connect(activeSocket.get(),SIGNAL(readyRead()),this,SLOT(dataReceived()));
 }
 
+SocketConnection::~SocketConnection()
+{
+
+}
+
 void SocketConnection::sendEvent(Event event) {
     QDataStream out(&this->outputBuffer,QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);

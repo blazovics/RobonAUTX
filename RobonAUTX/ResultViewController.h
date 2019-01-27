@@ -15,7 +15,7 @@ class ResultViewController : public QObject {
     Q_OBJECT
 
 public: 
-    ResultViewController(QObject *parent);
+    explicit ResultViewController(QObject *parent = nullptr);
 
 signals:
     void showSpeedResults(quint32 fromPos = 1);

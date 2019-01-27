@@ -28,6 +28,7 @@ class RaceControlUnit: public QObject, public IRaceControlUnit {
     
 public:
     explicit RaceControlUnit(QObject* parent = nullptr);
+
     virtual ~RaceControlUnit();
 
     /**

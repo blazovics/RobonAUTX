@@ -68,12 +68,12 @@ void SkillRaceEvent::StartRace() {
 }
 
 void SkillRaceEvent::SaveRace() {
-    this->dbManager.SaveSkillRace(static_cast<SkillRace*>(this->actualRace),false);
+    this->dbManager->SaveSkillRace(static_cast<SkillRace*>(this->actualRace),false);
     RaceEvent::SaveRace();
 }
 
 void SkillRaceEvent::AbortRace() {
-    this->dbManager.SaveSkillRace(static_cast<SkillRace*>(this->actualRace),true);
+    this->dbManager->SaveSkillRace(static_cast<SkillRace*>(this->actualRace),true);
     stopRaceTimer();
     RaceEvent::AbortRace();
 }

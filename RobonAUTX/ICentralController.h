@@ -12,10 +12,11 @@
 #include "Team.h"
 #include "TimeSourceType.h"
 
-class ICentralController {
-public: 
+class ICentralController : QObject{
 
-    virtual ~ICentralController() = 0;
+    Q_OBJECT
+
+public:
 
 signals:
     void SkillRaceInitiated(quint32 teamID);

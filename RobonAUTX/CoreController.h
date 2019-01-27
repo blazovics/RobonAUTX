@@ -13,8 +13,8 @@
 #include "RemoteDevice.h"
 #include "IVoteCounter.h"
 
-using namespace std;
 
+using namespace std;
 
 class CoreController: public QObject {
 

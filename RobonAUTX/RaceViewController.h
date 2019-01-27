@@ -9,6 +9,7 @@
 #define RACEVIEWCONTROLLER_H
 
 #include <QObject>
+#include <QVariant>
 #include "RTimer.h"
 #include "Team.h"
 

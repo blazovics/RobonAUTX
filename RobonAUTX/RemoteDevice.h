@@ -13,27 +13,23 @@
 #include "ConnectionState.h"
 #include "Event.h"
 
-class RemoteDevice: public QObject {
+class RemoteDevice{
 
-    Q_OBJECT
 
 private:
-    QTimer heartbeatTimer;
     ConnectionState state;
     
     void updateConnectionStatus();
 
 public:
-    RemoteDevice(QObject *parent=nullptr);
+    virtual ~RemoteDevice();
+
+    virtual void EventReceived(Event event) =0;
 
 protected:
     void sendHeartBeat();
 
-public slots:
-    /**
-    * @param event
-    */
-    virtual void EventReceived(Event event) =0;
+
 
 };
 

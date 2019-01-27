@@ -63,7 +63,10 @@ SOURCES += \
     Team.cpp \
     VoteCounter.cpp \
     VoteResult.cpp \
-    Event.cpp
+    Event.cpp \
+    MainSystemController.cpp \
+    Simpleini/ConvertUTF.c \
+    Configuration.cpp
 
 HEADERS += \
         robonautx.h \
@@ -117,7 +120,11 @@ HEADERS += \
     VoteCounter.h \
     VoteResult.h \
     IRaceControlUnit.h \
-    Event.h
+    Event.h \
+    MainSystemController.h \
+    Configuration.h \
+    Simpleini/ConvertUTF.h \
+    Simpleini/SimpleIni.h
 
 unix {
     target.path = /usr/lib

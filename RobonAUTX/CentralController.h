@@ -22,6 +22,9 @@ public:
 
    virtual ~CentralController();
 
+signals:
+
+public slots:
    void InitSkillRace(quint32 teamID);
    void InitSpeedRace(quint32 teamID);
    void UpdateVotesForTeam(quint32 teamID, quint32 voteCount);

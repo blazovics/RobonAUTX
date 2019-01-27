@@ -8,9 +8,11 @@
 #ifndef ILASERGATE_H
 #define ILASERGATE_H
 
-class ILaserGate {
-public: 
-    virtual ~ILaserGate();
+#include <QObject>
+
+class ILaserGate : public QObject {
+
+public:
     virtual void LaserMeasure() = 0;
 };
 

@@ -16,7 +16,7 @@ void RemoteDevice::updateConnectionStatus() {
 
 }
 
-RemoteDevice::RemoteDevice(QObject *parent):QObject (parent)
+RemoteDevice::~RemoteDevice()
 {
 
 }
