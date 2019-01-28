@@ -16,4 +16,7 @@ public:
     quint32 qualificationPoint;
 };
 
+QDataStream &operator<<(QDataStream &, const QualificationResult &);
+QDataStream &operator>>(QDataStream &, QualificationResult &);
+
 #endif //_QUALIFICATIONRESULT_H

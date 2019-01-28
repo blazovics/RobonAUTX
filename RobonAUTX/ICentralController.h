@@ -12,7 +12,7 @@
 #include "Team.h"
 #include "TimeSourceType.h"
 
-class ICentralController : QObject{
+class ICentralController : public QObject{
 
     Q_OBJECT
 

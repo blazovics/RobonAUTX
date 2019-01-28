@@ -11,20 +11,15 @@
 #include <QObject>
 
 
-class IVoteCounter {
+class IVoteCounter : public QObject {
+
 public: 
-    virtual ~IVoteCounter() = 0;
-    /**
- * @param teamID
- * @param voteCount
- */
-    virtual void updateVotesForTeam(quint32 teamID, int voteCount) = 0;
+
+signals:
+    void updateVotesForTeam(quint32 teamID, quint32 voteCount);
     
-    /**
- * @param teamID
- * @param voteCount
- */
-    virtual void votesForTeamUpdated(quint32 teamID, int voteCount) = 0;
+public slots:
+    virtual void votesForTeamUpdated(quint32 teamID, quint32 voteCount) = 0;
 };
 
 #endif //_IVOTECOUNTER_H
