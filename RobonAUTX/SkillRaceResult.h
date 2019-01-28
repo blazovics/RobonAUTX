@@ -14,8 +14,6 @@
 class SkillRaceResult: public BaseResult {
 public: 
     quint32 skillPoint;
-
-    QByteArray Serialize();
 };
 
 QDataStream &operator<<(QDataStream &, const SkillRaceResult &);

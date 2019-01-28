@@ -12,22 +12,32 @@
 #include <QTimer>
 #include "ConnectionState.h"
 #include "Event.h"
+#include "SocketConnection.h"
+#include <QTcpSocket>
+#include "ISocketConnectionDelegate.h"
 
-class RemoteDevice{
+class CoreController;
 
+class RemoteDevice: public ISocketConnectionDelegate{
 
-private:
+protected:
+
+    CoreController* parentController;
+    SocketConnection socketConnection;
+
     ConnectionState state;
     
     void updateConnectionStatus();
 
 public:
+    RemoteDevice(CoreController* parentController, QTcpSocket *socket);
+
     virtual ~RemoteDevice();
 
-    virtual void EventReceived(Event event) =0;
-
 protected:
+
     void sendHeartBeat();
+    void sendEvent(Event& event);
 
 
 

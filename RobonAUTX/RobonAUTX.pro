@@ -52,7 +52,6 @@ SOURCES += \
     RTimer.cpp \
     SkillRace.cpp \
     SkillRaceEvent.cpp \
-    SkillRaceRecord.cpp \
     SkillRaceResult.cpp \
     SkillRaceViewController.cpp \
     SocketConnection.cpp \
@@ -66,7 +65,8 @@ SOURCES += \
     Event.cpp \
     MainSystemController.cpp \
     Simpleini/ConvertUTF.c \
-    Configuration.cpp
+    Configuration.cpp \
+    RemoteSkillRaceGate.cpp
 
 HEADERS += \
         robonautx.h \
@@ -92,7 +92,6 @@ HEADERS += \
     Race.h \
     RaceControlUnit.h \
     RaceEvent.h \
-    RaceRecord.h \
     RaceViewController.h \
     RemoteCentralController.h \
     RemoteDevice.h \
@@ -107,7 +106,6 @@ HEADERS += \
     RTimer.h \
     SkillRace.h \
     SkillRaceEvent.h \
-    SkillRaceRecord.h \
     SkillRaceResult.h \
     SkillRaceViewController.h \
     SocketConnection.h \
@@ -124,7 +122,10 @@ HEADERS += \
     MainSystemController.h \
     Configuration.h \
     Simpleini/ConvertUTF.h \
-    Simpleini/SimpleIni.h
+    Simpleini/SimpleIni.h \
+    ISocketConnectionDelegate.h \
+    RemoteSkillRaceGate.h \
+    ISkillRaceGate.h
 
 unix {
     target.path = /usr/lib

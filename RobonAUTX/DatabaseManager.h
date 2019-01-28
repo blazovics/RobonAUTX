@@ -31,49 +31,22 @@ public:
     explicit DatabaseManager(QString defaultPath = "", QObject *parent = nullptr);
     
     QList<Team> getTeamList();
-    
-    /**
- * @param name
- */
     Team getTeam(QString name);
-    
-    /**
- * @param id
- */
     Team getTeam(int id);
-    
-    /**
- * @param teamID
- * @param voteCount
- */
+
     void updateVoteForTeam(unsigned teamID, unsigned voteCount);
-    
-    /**
- * @param skillRace
- * @param aborted
- */
+
     void SaveSkillRace(SkillRace *skillRace, bool aborted);
-    
-    /**
- * @param speedRace
- * @param aborted
- */
     void SaveSpeedRace(SpeedRace *speedRace, bool aborted);
     
     QList<VoteResult> GetVoteResults();
     
     QList<SkillRaceResult> GetSkillRaceResults();
     
-    /**
- * @param isJunior
- */
     QList<SpeedRaceResult> GetSpeedRaceResults(bool isJunior);
     
     QList<QualificationResult> GetQualificationResults();
-    
-    /**
- * @param isJunior
- */
+
     QList<FinalResult> GetFinalResults(bool isJunior);
 
 private:

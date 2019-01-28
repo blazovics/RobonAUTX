@@ -2,6 +2,7 @@
 
 Configuration *Configuration::instance = nullptr;
 
+//FIXME: Who will Call it?
 bool Configuration::InitializeConfiguration(QString path)
 {
     if(instance == nullptr)

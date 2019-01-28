@@ -10,8 +10,7 @@
 
 #include <QObject>
 
-
-class BaseResult: public QObject {
+class BaseResult {
 public: 
     quint32 teamID;
     quint32 position;

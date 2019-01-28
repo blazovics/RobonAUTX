@@ -17,11 +17,21 @@
 /**
  * @param event
  */
+ISocketConnectionDelegate *SocketConnection::getSocketDelegate() const
+{
+    return socketDelegate;
+}
+
+void SocketConnection::setSocketDelegate(ISocketConnectionDelegate *value)
+{
+    socketDelegate = value;
+}
+
 SocketConnection::SocketConnection(QTcpSocket *socket, QObject *parent):QObject (parent)
 {
-    activeSocket = std::make_unique<QTcpSocket>(socket);
+    activeSocket = socket;
 
-    connect(activeSocket.get(),SIGNAL(readyRead()),this,SLOT(dataReceived()));
+    connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
 }
 
 SocketConnection::~SocketConnection()
@@ -29,7 +39,7 @@ SocketConnection::~SocketConnection()
 
 }
 
-void SocketConnection::sendEvent(Event event) {
+void SocketConnection::SendEvent(const Event &event) {
     QDataStream out(&this->outputBuffer,QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
     out<<sizeof(quint32) + event.getRawDataSize();
@@ -41,17 +51,28 @@ void SocketConnection::sendEvent(Event event) {
         qDebug()<<"SendEvent error";
     }
 
-    qint64 bytesWritten = activeSocket.get()->write(this->outputBuffer);
+    qint64 bytesWritten = activeSocket->write(this->outputBuffer);
     if(bytesWritten != -1)
     {
         this->outputBuffer.remove(0,int(bytesWritten));
     }
 }
 
-void SocketConnection::dataReceived()
+void SocketConnection::DataReceived()
 {
-    this->inputBuffer.append(activeSocket.get()->readAll());
+    this->inputBuffer.append(activeSocket->readAll());
     this->processInputBuffer();
+}
+
+void SocketConnection::SocketDisconnected()
+{
+
+}
+
+void SocketConnection::SocketErrorOccured(QAbstractSocket::SocketError socketError)
+{
+    //TODO: EasyLogging
+    qDebug()<<socketError;
 }
 
 void SocketConnection::extractEventFromBuffer()
@@ -82,7 +103,7 @@ void SocketConnection::extractEventFromBuffer()
 
     Event newEvent(messageID,data);
 
-    emit eventReceived(newEvent);
+    this->socketDelegate->EventReceived(newEvent);
 }
 
 void SocketConnection::processInputBuffer()

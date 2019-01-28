@@ -16,34 +16,81 @@
 /**
  * @return QByteArray
  */
+QString Team::getName() const
+{
+    return name;
+}
+
+void Team::setName(const QString &value)
+{
+    name = value;
+}
+
+quint32 Team::getTeamID() const
+{
+    return teamID;
+}
+
+void Team::setTeamID(const quint32 &value)
+{
+    teamID = value;
+}
+
+quint32 Team::getQualificationPoint() const
+{
+    return qualificationPoint;
+}
+
+void Team::setQualificationPoint(const quint32 &value)
+{
+    qualificationPoint = value;
+}
+
+bool Team::getIsJunior() const
+{
+    return isJunior;
+}
+
+void Team::setIsJunior(bool value)
+{
+    isJunior = value;
+}
+
+quint32 Team::getAudienceVoteCount() const
+{
+    return audienceVoteCount;
+}
+
+void Team::setAudienceVoteCount(const quint32 &value)
+{
+    audienceVoteCount = value;
+}
+
 Team::Team()
 {
-
+    
 }
 
-Team::Team(QByteArray data)
+QDataStream &operator<<(QDataStream &out, const Team &team)
 {
-    QDataStream memoryStream(&data,QIODevice::ReadOnly);
+    out << team.name;
+    out << team.teamID;
+    out << team.audienceVoteCount;
+    out << team.qualificationPoint;
+    out << quint32(team.isJunior);
 
-    memoryStream >> this->name;
-    memoryStream >> this->teamID;
-    memoryStream >> this->audiencePoint;
-    memoryStream >> this->qualificationPoint;
-    quint32 intIsJunior;
-    memoryStream >> intIsJunior;
-    this->isJunior = bool(intIsJunior);
+    return out;
 }
 
-QByteArray Team::serialize() {
-    QByteArray returnArray;
+QDataStream &operator>>(QDataStream &in, Team &team)
+{
+    in >> team.name;
+    in >> team.teamID;
+    in >> team.audienceVoteCount;
+    in >> team.qualificationPoint;
+    quint32 intIsJunior;
+    in >> intIsJunior;
+    team.isJunior = bool(intIsJunior);
 
-    QDataStream memoryStream(&returnArray,QIODevice::ReadWrite);
-
-    memoryStream << name;
-    memoryStream << teamID;
-    memoryStream << audiencePoint;
-    memoryStream << qualificationPoint;
-    memoryStream << quint32(isJunior);
-
-    return returnArray;
+    return in;
 }

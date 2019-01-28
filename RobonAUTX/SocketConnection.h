@@ -12,17 +12,20 @@
 #include <QTcpSocket>
 #include <QObject>
 #include <memory>
+#include "ISocketConnectionDelegate.h"
 
 class SocketConnection : public QObject {
 
     Q_OBJECT
 
 private:
-    std::unique_ptr<QTcpSocket> activeSocket;
+    QTcpSocket* activeSocket;
     QByteArray inputBuffer;
     QByteArray outputBuffer;
 
     quint32 pendingMessageSize;
+
+    ISocketConnectionDelegate* socketDelegate;
 
 public: 
     explicit SocketConnection(QTcpSocket* socket, QObject *parent = nullptr);
@@ -32,14 +35,15 @@ public:
  */
 
 
+    ISocketConnectionDelegate *getSocketDelegate() const;
+    void setSocketDelegate(ISocketConnectionDelegate *value);
+
 public slots:
-    void sendEvent(Event event);
-    void dataReceived();
-    /**
- * @param event
- */
-signals:
-    void eventReceived(Event event);
+    void SendEvent(const Event& event);
+    void DataReceived();
+
+    void SocketDisconnected();
+    void SocketErrorOccured(QAbstractSocket::SocketError socketError);
 
 private:
     void processInputBuffer();
