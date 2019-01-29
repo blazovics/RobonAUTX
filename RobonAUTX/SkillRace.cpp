@@ -16,11 +16,18 @@ const quint32 SkillRace::laneChangePoint = SkillLaneChangePoint;
  * SkillRace implementation
  */
 
-/**
- * @param teamID
- */
-SkillRace::SkillRace(quint32 teamID):Race(teamID) {
+qint64 SkillRace::getRaceTime() const
+{
+    return raceTime;
+}
 
+void SkillRace::setRaceTime(const qint64 &value)
+{
+    raceTime = value;
+}
+
+SkillRace::SkillRace(quint32 teamID):Race(teamID) {
+    
     for(unsigned i = 0; i<checkpointCount; i++)
     {
         checkpointStates.push_back(false);

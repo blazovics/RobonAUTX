@@ -24,6 +24,7 @@ private:
     vector<bool> checkpointStates;
     bool startSucceeded;
     bool laneChangeSucceeded;
+    qint64 raceTime;
 
 public: 
     
@@ -57,6 +58,8 @@ public:
 
     quint32 GetSerializedCheckpointStates() const;
 
+    qint64 getRaceTime() const;
+    void setRaceTime(const qint64 &value);
 };
 
 

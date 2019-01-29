@@ -12,6 +12,8 @@
 #include <QRegExp>
 #include "Configuration.h"
 
+#include <QDebug>
+
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
@@ -153,7 +155,11 @@ void DatabaseManager::updateVoteForTeam(unsigned teamID, unsigned voteCount) {
     query.bindValue(":voteCount", voteCount);
     query.bindValue(":teamid", teamID);
 
-    query.exec();
+    if(!query.exec())
+    {
+        //TODO: EasyLogging
+        qDebug()<<"Updating votes failed";
+    }
 
     db.close();
 }
@@ -164,7 +170,29 @@ void DatabaseManager::updateVoteForTeam(unsigned teamID, unsigned voteCount) {
  */
 void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    db.transaction();
+
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO SkillRace (TeamID, StartSucceeded, LaneChangeSucceeded, CheckpointState, Time, Points, IsAborted)"
+                  "VALUES (:TeamID, :StartSucceeded, :LaneChangeSucceeded, :CheckpointState, :Time, :Points, :IsAborted)");
+
+    query.bindValue(":TeamID",skillRace->getTeamID());
+    query.bindValue(":StartSucceeded",quint32(skillRace->GetStartSucceeded()));
+    query.bindValue(":LaneChangeSucceeded",quint32(skillRace->GetLaneChangeSucceeded()));
+    query.bindValue(":CheckpointState",skillRace->GetSerializedCheckpointStates());
+    query.bindValue(":Time",skillRace->getRaceTime());
+    query.bindValue("Points", skillRace->GetRacePoint());
+    query.bindValue(":IsAborted", quint32(aborted));
+
+    if(!query.exec())
+    {
+        //TODO: EasyLogging
+        qDebug()<<"Saving Skill Race failed";
+    }
+    db.commit();
+
     db.close();
 }
 
@@ -174,8 +202,59 @@ void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
  */
 void DatabaseManager::SaveSpeedRace(SpeedRace *speedRace, bool aborted) {
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    db.transaction();
+
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO SpeedRace (TeamID, SafetyCarFollowed, SafetyCarOvertaken, BestLapTime, IsAborted)"
+                  "VALUES (:TeamID, :SafetyCarFollowed, :SafetyCarOvertaken, :BestLapTime, :IsAborted)");
+
+    query.bindValue(":TeamID",speedRace->getTeamID());
+    query.bindValue(":SafetyCarFollowed",quint32(speedRace->GetSafetyCarFollowed()));
+    query.bindValue(":SafetyCarOvertaken",quint32(speedRace->GetSafetyCarOvertaken()));
+    query.bindValue(":BestLapTime",speedRace->GetBestLapTime());
+    query.bindValue(":IsAborted", quint32(aborted));
+
+    if(!query.exec())
+    {
+        //TODO: EasyLogging
+        qDebug()<<"Saving Speed Race failed";
+    }
+
+    int SpeedRaceID = query.lastInsertId().toInt();
+
+    saveLap(speedRace->GetWarmUpLap(),SpeedRaceID);
+    const QList<Lap> & laps = speedRace->GetCompletedLaps();
+
+    for(const Lap& lap : laps)
+    {
+        saveLap(lap, SpeedRaceID);
+    }
+
+    db.commit();
+
     db.close();
+}
+
+void DatabaseManager::saveLap(const Lap &lap, int SpeedRaceID)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Lap (SpeedRaceID, LaserTime, ManualTime, SelectedTime, IsWarmUp)"
+                  "VALUES (:SpeedRaceID, :LaserTime, :ManualTime, :SelectedTime, :IsWarmUp)");
+
+    query.bindValue(":SpeedRaceID",SpeedRaceID);
+    query.bindValue(":LaserTime",lap.laserTime);
+    query.bindValue(":ManualTime",lap.manualTime);
+    query.bindValue(":SelectedTime",int(lap.choosenLapType));
+    query.bindValue(":IsWarmUp", quint32(lap.isWarmUp));
+
+    if(!query.exec())
+    {
+        //TODO: EasyLogging
+        qDebug()<<"Saving Lap failed";
+    }
 }
 
 /**
@@ -242,5 +321,7 @@ void DatabaseManager::openDatabse()
         throw std::runtime_error("Unable to open Database!");
     }
 
-    #include <QDir>
+#include <QDir>
 }
+
+

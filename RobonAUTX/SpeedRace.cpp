@@ -17,7 +17,7 @@ const unsigned SpeedRace::maximumProhibitedTouchCount = MaximumProhibitedTouchCo
 /**
  * @param teamID
  */
-Lap SpeedRace::GetWarmUpLap() const
+const Lap& SpeedRace::GetWarmUpLap() const
 {
     return warmUpLap;
 }
@@ -25,6 +25,11 @@ Lap SpeedRace::GetWarmUpLap() const
 void SpeedRace::SetWarmUpLap(const Lap &value)
 {
     this->warmUpLap = value;
+}
+
+const QList<Lap>& SpeedRace::GetCompletedLaps() const
+{
+    return completedLaps;
 }
 
 SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {

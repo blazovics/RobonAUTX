@@ -55,9 +55,11 @@ public:
     
     void AddCompletedLap(const Lap &newLap);
 
-    Lap GetWarmUpLap() const;
+    const Lap& GetWarmUpLap() const;
 
     void SetWarmUpLap(const Lap &value);
+
+    const QList<Lap>& GetCompletedLaps() const;
 };
 
 #endif //_SPEEDRACE_H

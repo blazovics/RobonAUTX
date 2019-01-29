@@ -51,6 +51,8 @@ public:
 
 private:
     void openDatabse();
+
+    void saveLap(const Lap &lap, int SpeedRaceID);
 };
 
 #endif //_DATABASEMANAGER_H

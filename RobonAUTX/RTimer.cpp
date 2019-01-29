@@ -22,9 +22,9 @@ void RTimer::setTimerState(const TimerState &value)
     timerState = value;
 }
 
-RTimer::RTimer(QObject *parent):QObject(parent)
+RTimer::RTimer(QObject *parent):QObject(parent),timerState(Stopped),elapsed(0)
 {
-    timerState = Stopped;
+
 }
 
 void RTimer::StartTimer() {
@@ -32,25 +32,28 @@ void RTimer::StartTimer() {
     {
         elapsedTimer.start();
         pauseOffset = 0;
+        elapsed = 0;
     }
     else{
-        throw "Failed to Start Timer";
+        throw std::runtime_error("Failed to Start Timer");
     }
 
 }
 
 void RTimer::StopTimer() {
-    if(timerState == Running)
+
+    if(timerState == Running || timerState == Paused)
     {
+        elapsed = Elapsed();
+
         elapsedTimer.invalidate();
-    }
-    else if(timerState == Paused)
-    {
-        elapsedTimer.invalidate();
-        pauseTimer.invalidate();
+        if(timerState == Paused)
+        {
+            pauseTimer.invalidate();
+        }
     }
     else{
-        throw "Failed to Stop timer";
+        throw std::runtime_error("Failed to Stop timer");
     }
 }
 
@@ -85,10 +88,10 @@ qint64 RTimer::Elapsed() {
     }
     else if(timerState == Paused)
     {
-        return  elapsedTimer.elapsed() - pauseOffset - elapsedTimer.elapsed();
+        return  elapsedTimer.elapsed() - pauseOffset - pauseTimer.elapsed();
     }
     else
     {
-        throw "Timer is not running";
+        return elapsed;
     }
 }

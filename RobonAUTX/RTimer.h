@@ -27,6 +27,8 @@ class RTimer: public QObject {
 
     TimerState timerState;
 
+    qint64 elapsed;
+
 public: 
     explicit RTimer(QObject* parent = nullptr);
 
