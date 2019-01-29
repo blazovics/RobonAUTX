@@ -53,6 +53,8 @@ private:
     void openDatabse();
 
     void saveLap(const Lap &lap, int SpeedRaceID);
+
+    quint32 calculcateVotePointForPosition(quint32 position);
 };
 
 #endif //_DATABASEMANAGER_H

@@ -257,13 +257,48 @@ void DatabaseManager::saveLap(const Lap &lap, int SpeedRaceID)
     }
 }
 
+quint32 DatabaseManager::calculcateVotePointForPosition(quint32 position)
+{
+    //TODO: Make it more static
+    switch (position) {
+    case 1:
+        return 10;
+    case 2:
+        return 7;
+    case 3:
+        return  4;
+    default:
+        return  0;
+    }
+}
+
 /**
  * @return QList<VoteResult>
  */
 QList<VoteResult> DatabaseManager::GetVoteResults() {
     QList<VoteResult> returnResult;
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    QSqlQuery query(QString("SELECT  TeamID, AudienceVoteCount FROM Team ORDER BY AudienceVoteCount DESC"));
+
+    while (query.next()) {
+        VoteResult result;
+        result.teamID = query.value(0).toUInt();
+        result.voteCount = query.value(1).toUInt();
+        returnResult.push_back(result);
+    }
+
+
+    for(int i=0, pos = 1; i<returnResult.size(); i++)
+    {
+        if(i>0 && returnResult[i].voteCount != returnResult[i-1].voteCount)
+        {
+            pos++;
+        }
+        returnResult[i].position = quint32(pos);
+        returnResult[i].votePoint = this->calculcateVotePointForPosition(returnResult[i].position);
+    }
+
     db.close();
     return returnResult;
 }
@@ -274,7 +309,25 @@ QList<VoteResult> DatabaseManager::GetVoteResults() {
 QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
     QList<SkillRaceResult> returnResult;
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    QSqlQuery query(QString("SELECT  TeamID, MAX(Points) As Result FROM SkillRace WHERE IsAborted = 0 GROUP BY teamID ORDER BY Result DESC"));
+
+    while (query.next()) {
+        SkillRaceResult result;
+        result.teamID = query.value(0).toUInt();
+        result.skillPoint = query.value(1).toUInt();
+    }
+
+
+    for(int i=0, pos = 1; i<returnResult.size(); i++)
+    {
+        if(i>0 && returnResult[i].skillPoint != returnResult[i-1].skillPoint)
+        {
+            pos++;
+        }
+        returnResult[i].position = quint32(pos);
+    }
+
     db.close();
     return returnResult;
 }
@@ -286,7 +339,25 @@ QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
 QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
     QList<SpeedRaceResult> returnResult;
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    QSqlQuery query(QString("SELECT  TeamID, MAX(BestLapTime) As Result FROM SpeedRace WHERE IsAborted = 0 AND TeamID IN (SELECT TeamID From Team WHERE IsJunior = %1) GROUP BY teamID ORDER BY Result DESC").arg(int(isJunior)));
+
+    while (query.next()) {
+        SkillRaceResult result;
+        result.teamID = query.value(0).toUInt();
+        result.skillPoint = query.value(1).toUInt();
+    }
+
+
+    for(int i=0, pos = 1; i<returnResult.size(); i++)
+    {
+        if(i>0 && returnResult[i].skillPoint != returnResult[i-1].skillPoint)
+        {
+            pos++;
+        }
+        returnResult[i].position = quint32(pos);
+    }
+
     db.close();
     return returnResult;
 }
@@ -297,7 +368,25 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
 QList<QualificationResult> DatabaseManager::GetQualificationResults() {
     QList<QualificationResult> returnResult;
     openDatabse();
-    throw "myFunction is not implemented yet.";
+
+    QSqlQuery query(QString("SELECT  TeamID, QualificationPoint FROM Team ORDER BY QualificationPoint DESC"));
+
+    while (query.next()) {
+        QualificationResult result;
+        result.teamID = query.value(0).toUInt();
+        result.qualificationPoint = query.value(1).toUInt();
+    }
+
+
+    for(int i=0, pos = 1; i<returnResult.size(); i++)
+    {
+        if(i>0 && returnResult[i].qualificationPoint != returnResult[i-1].qualificationPoint)
+        {
+            pos++;
+        }
+        returnResult[i].position = quint32(pos);
+    }
+
     db.close();
     return returnResult;
 }

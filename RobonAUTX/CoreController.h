@@ -40,8 +40,12 @@ public:
 
     explicit CoreController(QObject *parent = nullptr);
 
-    template<class Device>
-    void connectDevice(Device *device);
+    void connectDevice(IVoteCounter *device);
+    void connectDevice(IDisplayManager *device);
+    void connectDevice(IRaceControlUnit *device);
+    void connectDevice(ILaserGate *device);
+    void connectDevice(ISkillRaceGate *device);
+    void connectDevice(ISkillRaceFieldUnit *device);
     
     void initDevices();
     
@@ -50,54 +54,6 @@ public:
     void InitNetworkInterface();
 };
 
-template<class Device>
-void CoreController::connectDevice(Device *device)
-{
-
-}
-
-template<>
-void CoreController::connectDevice(IVoteCounter *device)
-{
-    if(centralController.first != nullptr)
-    {
-        ICentralController* centralControllerDevice = centralController.first;
-
-        connect(device, SIGNAL(updateVotesForTeam(quint32, quint32)),centralControllerDevice,SLOT(UpdateVotesForTeam(quint32, quint32)));
-
-        connect(centralControllerDevice,SIGNAL(VotesUpdated(quint32, quint32)),device,SLOT(votesForTeamUpdated(quint32,quint32)));
-    }
-}
-
-template<>
-void CoreController::connectDevice(IDisplayManager *device)
-{
-
-}
-
-template<>
-void CoreController::connectDevice(IRaceControlUnit *device)
-{
-
-}
-
-template<>
-void CoreController::connectDevice(ILaserGate *device)
-{
-
-}
-
-template<>
-void CoreController::connectDevice(ISkillRaceGate *device)
-{
-
-}
-
-template<>
-void CoreController::connectDevice(ISkillRaceFieldUnit *device)
-{
-
-}
 
 
 
