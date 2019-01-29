@@ -12,6 +12,8 @@
 
 class ILaserGate : public QObject {
 
+    Q_OBJECT
+
 public:
     virtual void LaserMeasure() = 0;
 };

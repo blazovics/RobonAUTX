@@ -32,6 +32,8 @@ public:
     SpeedRace(quint32 teamID);
     
     quint32 GetPenaltyPoint() const;
+
+    quint32 GetAdditionalPoint() const;
     
     quint32 GetBestLapTime() const;
 
@@ -60,6 +62,8 @@ public:
     void SetWarmUpLap(const Lap &value);
 
     const QList<Lap>& GetCompletedLaps() const;
+
+    quint32 GetTouchCount() const;
 };
 
 #endif //_SPEEDRACE_H

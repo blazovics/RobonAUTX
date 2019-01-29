@@ -28,7 +28,7 @@ private:
     ISocketConnectionDelegate* socketDelegate;
 
 public: 
-    explicit SocketConnection(QTcpSocket* socket, QObject *parent = nullptr);
+    explicit SocketConnection(QTcpSocket* socket, ISocketConnectionDelegate* delegate,  QObject *parent = nullptr);
     ~SocketConnection();
     /**
  * @param event
@@ -37,6 +37,8 @@ public:
 
     ISocketConnectionDelegate *getSocketDelegate() const;
     void setSocketDelegate(ISocketConnectionDelegate *value);
+
+    QTcpSocket *GetActiveSocket() const;
 
 public slots:
     void SendEvent(const Event& event);

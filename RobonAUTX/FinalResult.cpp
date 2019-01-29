@@ -39,3 +39,14 @@ QDataStream &operator>>(QDataStream &in, FinalResult &res)
 
     return in;
 }
+
+quint32 FinalResult::CalculateFinalPoint()
+{
+    this->finalPoint = skillPoint + speedPoint + votePoint + qualificationPoint;
+    return finalPoint;
+}
+
+bool FinalResult::operator < (const FinalResult& otherResult) const
+{
+    return (finalPoint > otherResult.finalPoint);
+}

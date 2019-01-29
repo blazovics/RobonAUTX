@@ -207,13 +207,15 @@ void DatabaseManager::SaveSpeedRace(SpeedRace *speedRace, bool aborted) {
 
     QSqlQuery query;
 
-    query.prepare("INSERT INTO SpeedRace (TeamID, SafetyCarFollowed, SafetyCarOvertaken, BestLapTime, IsAborted)"
-                  "VALUES (:TeamID, :SafetyCarFollowed, :SafetyCarOvertaken, :BestLapTime, :IsAborted)");
+    query.prepare("INSERT INTO SpeedRace (TeamID, SafetyCarFollowed, SafetyCarOvertaken, BestLapTime, TouchCount, AdditionalPoints, IsAborted)"
+                  "VALUES (:TeamID, :SafetyCarFollowed, :SafetyCarOvertaken, :BestLapTime, :TouchCount, :AdditionalPoints, :IsAborted)");
 
     query.bindValue(":TeamID",speedRace->getTeamID());
     query.bindValue(":SafetyCarFollowed",quint32(speedRace->GetSafetyCarFollowed()));
     query.bindValue(":SafetyCarOvertaken",quint32(speedRace->GetSafetyCarOvertaken()));
     query.bindValue(":BestLapTime",speedRace->GetBestLapTime());
+    query.bindValue(":TouchCount",speedRace->GetTouchCount());
+    query.bindValue(":AdditionalPoints",speedRace->GetAdditionalPoint());
     query.bindValue(":IsAborted", quint32(aborted));
 
     if(!query.exec())
@@ -259,14 +261,43 @@ void DatabaseManager::saveLap(const Lap &lap, int SpeedRaceID)
 
 quint32 DatabaseManager::calculcateVotePointForPosition(quint32 position)
 {
-    //TODO: Make it more static
+    //TODO: Make vote point calculcation more static
     switch (position) {
     case 1:
         return 10;
     case 2:
         return 7;
     case 3:
-        return  4;
+        return 4;
+    default:
+        return 0;
+    }
+}
+
+quint32 DatabaseManager::calculcateSpeedPointForPosition(quint32 position)
+{
+    //TODO: Make vote point calculcation more static
+    switch (position) {
+    case 1:
+        return 25;
+    case 2:
+        return 18;
+    case 3:
+        return 15;
+    case 4:
+        return 12;
+    case 5:
+        return 10;
+    case 6:
+        return 8;
+    case 7:
+        return 6;
+    case 8:
+        return 4;
+    case 9:
+        return 2;
+    case 10:
+        return 1;
     default:
         return  0;
     }
@@ -340,22 +371,24 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
     QList<SpeedRaceResult> returnResult;
     openDatabse();
 
-    QSqlQuery query(QString("SELECT  TeamID, MAX(BestLapTime) As Result FROM SpeedRace WHERE IsAborted = 0 AND TeamID IN (SELECT TeamID From Team WHERE IsJunior = %1) GROUP BY teamID ORDER BY Result DESC").arg(int(isJunior)));
+    QSqlQuery query(QString("SELECT  TeamID , AdditionalPoints , MIN(BestLapTime) As Result FROM SpeedRace WHERE IsAborted = 0 AND TeamID IN (SELECT TeamID From Team WHERE IsJunior >= %1) GROUP BY teamID ORDER BY Result ASC").arg(int(isJunior)));
 
     while (query.next()) {
-        SkillRaceResult result;
+        SpeedRaceResult result;
         result.teamID = query.value(0).toUInt();
-        result.skillPoint = query.value(1).toUInt();
+        result.speedTime = query.value(2).toUInt();
+        result.speedPoint = query.value(1).toUInt();
     }
 
 
     for(int i=0, pos = 1; i<returnResult.size(); i++)
     {
-        if(i>0 && returnResult[i].skillPoint != returnResult[i-1].skillPoint)
+        if(i>0 && returnResult[i].speedTime != returnResult[i-1].speedTime)
         {
             pos++;
         }
         returnResult[i].position = quint32(pos);
+        returnResult[i].speedPoint += this->calculcateSpeedPointForPosition(returnResult[i].position);
     }
 
     db.close();
@@ -397,9 +430,59 @@ QList<QualificationResult> DatabaseManager::GetQualificationResults() {
  */
 QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
     QList<FinalResult> returnResult;
-    openDatabse();
-    throw "myFunction is not implemented yet.";
-    db.close();
+
+    QList<SkillRaceResult> skillRaceResult = this->GetSkillRaceResults();
+    QList<SpeedRaceResult> speedRaceResult = this->GetSpeedRaceResults(isJunior);
+
+    QList<Team> teams = this->getTeamList();
+
+    for(int i=0; i < teams.size(); i++)
+    {
+        if(isJunior && !teams[i].getIsJunior())
+        {
+            continue;
+        }
+
+        FinalResult result;
+        result.isJunior = teams[i].getIsJunior();
+        result.teamID = teams[i].getTeamID();
+        result.qualificationPoint = teams[i].getQualificationPoint();
+        result.votePoint = teams[i].getAudienceVoteCount();
+        returnResult.push_back(result);
+    }
+
+    for(int i=0; i < returnResult.size(); i++)
+    {
+        for (int j=0; j < skillRaceResult.size(); j++) {
+            if(returnResult[i].teamID == skillRaceResult[j].teamID)
+            {
+                returnResult[i].skillPoint = skillRaceResult[j].skillPoint;
+            }
+        }
+        for (int j=0; j < speedRaceResult.size(); j++) {
+            if(returnResult[i].teamID == speedRaceResult[j].teamID)
+            {
+                returnResult[i].skillPoint = speedRaceResult[j].speedPoint;
+            }
+        }
+    }
+
+    for(int i=0; i < returnResult.size(); i++)
+    {
+        returnResult[i].CalculateFinalPoint();
+    }
+
+    std::sort(returnResult.begin(),returnResult.end());
+
+    for(int i=0, pos = 1; i<returnResult.size(); i++)
+    {
+        if(i>0 && returnResult[i].finalPoint != returnResult[i-1].finalPoint)
+        {
+            pos++;
+        }
+        returnResult[i].position = quint32(pos);
+    }
+
     return returnResult;
 }
 
@@ -409,8 +492,6 @@ void DatabaseManager::openDatabse()
     {
         throw std::runtime_error("Unable to open Database!");
     }
-
-#include <QDir>
 }
 
 

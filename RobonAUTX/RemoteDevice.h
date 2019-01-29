@@ -23,23 +23,22 @@ class RemoteDevice: public ISocketConnectionDelegate{
 protected:
 
     CoreController* parentController;
-    SocketConnection socketConnection;
-
-    ConnectionState state;
-    
-    void updateConnectionStatus();
-
-public:
-    RemoteDevice(CoreController* parentController, QTcpSocket *socket);
-
-    virtual ~RemoteDevice();
-
-protected:
+    QList<std::shared_ptr<SocketConnection>> socketConnections;
 
     void sendHeartBeat();
     void sendEvent(Event& event);
 
+public:
+    RemoteDevice(CoreController* parentController);
 
+    virtual ~RemoteDevice();
+
+    void EventReceived(const Event& event);
+    void SocketError();
+    void SocketDisconnected();
+
+    void AddConnection(QTcpSocket *socket);
+    void RemoveConnection(QTcpSocket *socket);
 
 };
 

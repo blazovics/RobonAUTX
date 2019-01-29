@@ -32,6 +32,11 @@ const QList<Lap>& SpeedRace::GetCompletedLaps() const
     return completedLaps;
 }
 
+quint32 SpeedRace::GetTouchCount() const
+{
+    return touchCount;
+}
+
 SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
 
 }
@@ -40,7 +45,25 @@ SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
  * @return quint32
  */
 quint32 SpeedRace::GetPenaltyPoint() const {
+    //TODO Make penalty calculation more static a configurable
     return touchCount * 2;
+}
+
+quint32 SpeedRace::GetAdditionalPoint() const
+{
+    quint32 additionalPoint = 0;
+    if(this->safetyCarFollowed)
+    {
+        additionalPoint += 5;
+    }
+    if(this->safetyCarOvertaken)
+    {
+        additionalPoint += 10;
+    }
+
+    additionalPoint -= touchCount * 2;
+
+    return  additionalPoint;
 }
 
 /**

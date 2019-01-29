@@ -80,7 +80,6 @@ HEADERS += \
     DisplayManager.h \
     FinalResult.h \
     ICentralController.h \
-    IDatabaseAccess.h \
     IDisplayManager.h \
     ILaserGate.h \
     ISafetyCar.h \

@@ -55,6 +55,7 @@ private:
     void saveLap(const Lap &lap, int SpeedRaceID);
 
     quint32 calculcateVotePointForPosition(quint32 position);
+    quint32 calculcateSpeedPointForPosition(quint32 position);
 };
 
 #endif //_DATABASEMANAGER_H

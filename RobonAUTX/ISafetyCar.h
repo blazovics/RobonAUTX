@@ -8,10 +8,13 @@
 #ifndef ISAFETYCAR_H
 #define ISAFETYCAR_H
 
+#include <QObject>
 
-class ISafetyCar{
-public: 
-    virtual ~ISafetyCar() = 0;
+class ISafetyCar : public QObject{
+
+    Q_OBJECT
+
+public:
 
     virtual void startSafetyCar() = 0;
     

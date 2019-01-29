@@ -17,7 +17,7 @@
  * @param teamID
  * @return Team
  */
-RaceControlUnit::RaceControlUnit(QObject *parent):QObject(parent)
+RaceControlUnit::RaceControlUnit()
 {
 
 }

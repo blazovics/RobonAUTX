@@ -2,12 +2,15 @@
 #define ISOCKETCONNECTIONDELEGATE_H
 
 #include "Event.h"
+#include <QTcpSocket>
 
 class ISocketConnectionDelegate{
 
 public:
 
     virtual void EventReceived(const Event& event) =0;
+    virtual void SocketError(QTcpSocket* socket) = 0;
+    virtual void SocketDisconnected(QTcpSocket* socket) = 0;
 
 };
 

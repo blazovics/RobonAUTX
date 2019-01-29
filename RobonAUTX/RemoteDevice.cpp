@@ -13,14 +13,10 @@
  */
 
 
-void RemoteDevice::updateConnectionStatus() {
-
-}
-
-RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket* socket):socketConnection(socket)
+RemoteDevice::RemoteDevice(CoreController *parentController)
 {
     parentController = this->parentController;
-    this->socketConnection.setSocketDelegate(this);
+
 
     if(parentController == nullptr)
     {
@@ -31,6 +27,28 @@ RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket* socket)
 
 RemoteDevice::~RemoteDevice()
 {
+
+}
+
+void RemoteDevice::AddConnection(QTcpSocket *socket)
+{
+    socketConnections.append(std::shared_ptr<SocketConnection>(new SocketConnection(socket, this)));
+}
+
+void RemoteDevice::RemoveConnection(QTcpSocket *socket)
+{
+    int index = -1;
+
+    for (int i=0; socketConnections.size(); i++) {
+        if(socketConnections[i]->GetActiveSocket() == socket)
+        {
+            index = i;
+        }
+    }
+    if(index > -1)
+    {
+        socketConnections.removeAt(index);
+    }
 
 }
 

@@ -16,9 +16,7 @@
 #include "SpeedRaceViewController.h"
 #include "ResultViewController.h"
 
-class RaceControlUnit: public QObject, public IRaceControlUnit {
-
-    Q_OBJECT
+class RaceControlUnit: public IRaceControlUnit {
 
     MainViewcontroller mainViewController;
     SkillRaceViewController skillRaceViewController;
@@ -27,7 +25,7 @@ class RaceControlUnit: public QObject, public IRaceControlUnit {
     QList<Team> teams;
     
 public:
-    explicit RaceControlUnit(QObject* parent = nullptr);
+    explicit RaceControlUnit();
 
     virtual ~RaceControlUnit();
 

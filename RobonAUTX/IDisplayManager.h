@@ -15,7 +15,7 @@ class IDisplayManager : public QObject {
 
     Q_OBJECT
 
-public: 
+public slots:
 
     virtual void showSpeedResults(bool isJunior, quint32 fromPos) = 0;
     virtual void showSkillResults(quint32 fromPos) = 0;

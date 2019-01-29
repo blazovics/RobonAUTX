@@ -27,9 +27,15 @@ void SocketConnection::setSocketDelegate(ISocketConnectionDelegate *value)
     socketDelegate = value;
 }
 
-SocketConnection::SocketConnection(QTcpSocket *socket, QObject *parent):QObject (parent)
+QTcpSocket *SocketConnection::GetActiveSocket() const
+{
+    return activeSocket;
+}
+
+SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate *delegate, QObject *parent):QObject (parent)
 {
     activeSocket = socket;
+    socketDelegate = delegate;
 
     connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
 }
@@ -66,13 +72,14 @@ void SocketConnection::DataReceived()
 
 void SocketConnection::SocketDisconnected()
 {
-
+    socketDelegate->SocketDisconnected(this->activeSocket);
 }
 
 void SocketConnection::SocketErrorOccured(QAbstractSocket::SocketError socketError)
 {
     //TODO: EasyLogging
     qDebug()<<socketError;
+    socketDelegate->SocketError(this->activeSocket);
 }
 
 void SocketConnection::extractEventFromBuffer()

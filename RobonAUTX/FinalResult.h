@@ -19,7 +19,11 @@ public:
     quint32 qualificationPoint;
     quint32 votePoint;
     quint32 finalPoint;
+
+    quint32 CalculateFinalPoint();
+    bool operator < (const FinalResult& otherResult) const;
 };
+
 
 QDataStream &operator<<(QDataStream &, const FinalResult &);
 QDataStream &operator>>(QDataStream &, FinalResult &);
