@@ -25,33 +25,25 @@ class CoreController: public QObject {
 
     Q_OBJECT
 
-protected:
-    QPair<ICentralController*,QTcpSocket*> centralController;
-
-    QList<QPair<IVoteCounter*,QTcpSocket*>> voteCounters;
-    QList<QPair<IDisplayManager*,QTcpSocket*>> displayManagers;
-    QList<QPair<IRaceControlUnit*,QTcpSocket*>> raceControlUnits;
-
-    QPair<ILaserGate*,QTcpSocket*> laserGate;
-    QPair<ISkillRaceGate*,QTcpSocket*> skillRaceGates;
-    QPair<ISkillRaceFieldUnit*,QTcpSocket*> skillRaceFieldUnits;
 
 public: 
 
     explicit CoreController(QObject *parent = nullptr);
 
-    void connectDevice(IVoteCounter *device);
-    void connectDevice(IDisplayManager *device);
-    void connectDevice(IRaceControlUnit *device);
-    void connectDevice(ILaserGate *device);
-    void connectDevice(ISkillRaceGate *device);
-    void connectDevice(ISkillRaceFieldUnit *device);
+    static void connectDevice(ICentralController* controller, IVoteCounter *voteCounter);
+    static void connectDevice(ICentralController* controller, IDisplayManager *device);
+    static void connectDevice(ICentralController* controller, IRaceControlUnit *device);
+    static void connectDevice(ICentralController* controller, ILaserGate *device);
+    static void connectDevice(ICentralController* controller, ISkillRaceGate *device);
+    static void connectDevice(ICentralController* controller, ISkillRaceFieldUnit *device);
+
+    static void disconnectDevice(ICentralController* controller, IVoteCounter *voteCounter);
+    static void disconnectDevice(ICentralController* controller, IDisplayManager *device);
+    static void disconnectDevice(ICentralController* controller, IRaceControlUnit *device);
+    static void disconnectDevice(ICentralController* controller, ILaserGate *device);
+    static void disconnectDevice(ICentralController* controller, ISkillRaceGate *device);
+    static void disconnectDevice(ICentralController* controller, ISkillRaceFieldUnit *device);
     
-    void initDevices();
-    
-    void initializeRemoteDeviceSockets();
-    
-    void InitNetworkInterface();
 };
 
 

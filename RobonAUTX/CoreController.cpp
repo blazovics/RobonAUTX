@@ -17,52 +17,67 @@ CoreController::CoreController(QObject *parent):QObject (parent)
 
 }
 
-void CoreController::initDevices() {
 
-}
-
-void CoreController::initializeRemoteDeviceSockets() {
-
-}
-
-void CoreController::InitNetworkInterface() {
-
-}
-
-void CoreController::connectDevice(IVoteCounter *device)
+void CoreController::connectDevice(ICentralController *controller, IVoteCounter *voteCounter)
 {
-    if(centralController.first != nullptr)
-    {
-        ICentralController* centralControllerDevice = centralController.first;
 
-        connect(device, SIGNAL(updateVotesForTeam(quint32, quint32)),centralControllerDevice,SLOT(UpdateVotesForTeam(quint32, quint32)));
-
-        connect(centralControllerDevice,SIGNAL(VotesUpdated(quint32, quint32)),device,SLOT(votesForTeamUpdated(quint32,quint32)));
-    }
+    connect(voteCounter, SIGNAL(updateVotesForTeam(quint32, quint32)),controller,SLOT(UpdateVotesForTeam(quint32, quint32)));
+    connect(controller,SIGNAL(VotesUpdated(quint32, quint32)),voteCounter,SLOT(votesForTeamUpdated(quint32,quint32)));
 }
 
-void CoreController::connectDevice(IDisplayManager *device)
+void CoreController::connectDevice(ICentralController *controller, IDisplayManager *device)
 {
 
 }
 
-void CoreController::connectDevice(IRaceControlUnit *device)
+void CoreController::connectDevice(ICentralController *controller, IRaceControlUnit *device)
 {
 
 }
 
-void CoreController::connectDevice(ILaserGate *device)
+void CoreController::connectDevice(ICentralController *controller, ILaserGate *device)
 {
 
 }
 
-void CoreController::connectDevice(ISkillRaceGate *device)
+void CoreController::connectDevice(ICentralController *controller, ISkillRaceGate *device)
 {
 
 }
 
-void CoreController::connectDevice(ISkillRaceFieldUnit *device)
+void CoreController::connectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
 {
 
 }
+
+void CoreController::disconnectDevice(ICentralController *controller, IVoteCounter *voteCounter)
+{
+
+}
+
+void CoreController::disconnectDevice(ICentralController *controller, IDisplayManager *device)
+{
+
+}
+
+void CoreController::disconnectDevice(ICentralController *controller, IRaceControlUnit *device)
+{
+
+}
+
+void CoreController::disconnectDevice(ICentralController *controller, ILaserGate *device)
+{
+
+}
+
+void CoreController::disconnectDevice(ICentralController *controller, ISkillRaceGate *device)
+{
+
+}
+
+void CoreController::disconnectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
+{
+
+}
+
 

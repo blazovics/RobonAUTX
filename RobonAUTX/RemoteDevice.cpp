@@ -30,6 +30,21 @@ RemoteDevice::~RemoteDevice()
 
 }
 
+void RemoteDevice::EventReceived(const Event &event)
+{
+
+}
+
+void RemoteDevice::SocketError(QTcpSocket *socket)
+{
+
+}
+
+void RemoteDevice::SocketDisconnected(QTcpSocket *socket)
+{
+
+}
+
 void RemoteDevice::AddConnection(QTcpSocket *socket)
 {
     socketConnections.append(std::shared_ptr<SocketConnection>(new SocketConnection(socket, this)));

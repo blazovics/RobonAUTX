@@ -34,8 +34,8 @@ public:
     virtual ~RemoteDevice();
 
     void EventReceived(const Event& event);
-    void SocketError();
-    void SocketDisconnected();
+    void SocketError(QTcpSocket* socket);
+    void SocketDisconnected(QTcpSocket* socket);
 
     void AddConnection(QTcpSocket *socket);
     void RemoveConnection(QTcpSocket *socket);
