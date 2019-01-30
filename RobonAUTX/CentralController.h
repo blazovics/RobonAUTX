@@ -29,7 +29,7 @@ public slots:
    void InitSpeedRace(quint32 teamID);
    void UpdateVotesForTeam(quint32 teamID, quint32 voteCount);
    void ManualMeasureReceived();
-   void LaserMeasureReceived();
+   void LaserMeasureReceived(quint32 time);
    void TimeSourceForLapSelected(TimeSourceType timeSource);
    void UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced);
    void StartRace();

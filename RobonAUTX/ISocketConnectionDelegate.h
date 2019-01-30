@@ -8,7 +8,7 @@ class ISocketConnectionDelegate{
 
 public:
 
-    virtual void EventReceived(const Event& event) =0;
+    virtual void EventReceived(Event& event) =0;
     virtual void SocketError(QTcpSocket* socket) = 0;
     virtual void SocketDisconnected(QTcpSocket* socket) = 0;
 

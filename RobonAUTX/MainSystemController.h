@@ -4,8 +4,30 @@
 #include <QTcpServer>
 #include "CoreController.h"
 
+#include "RemoteCentralController.h"
+#include "RemoteDisplayManager.h"
+#include "RemoteLaserGate.h"
+#include "RemoteRaceControlUnit.h"
+#include "RemoteSafetyCar.h"
+#include "RemoteSkillRaceFieldUnit.h"
+#include "RemoteSkillRaceGate.h"
+#include "RemoteVoteCounter.h"
+#include "CentralController.h"
+#include "RemoteCentralController.h"
+
 class MainSystemController : public CoreController
 {
+    std::unique_ptr<CentralController> centralController;
+    std::unique_ptr<RemoteCentralController> proxiCentralController;
+
+    QPair<std::shared_ptr<RemoteLaserGate>,QTcpSocket*> remoteLaserGate;
+    QPair<std::shared_ptr<RemoteSkillRaceFieldUnit>,QTcpSocket*> remoteSkillRaceFieldUnit;
+    QPair<std::shared_ptr<RemoteVoteCounter>,QTcpSocket*> remoteVoteCounter;
+    QPair<std::shared_ptr<RemoteSkillRaceGate>,QTcpSocket*> remoteSkillRaceGate;
+    QList<QPair<std::shared_ptr<RemoteSkillRaceGate>,QTcpSocket*>> remoteRaceControlUnits;
+    QList<QPair<std::shared_ptr<RemoteDisplayManager>,QTcpSocket*>> remoteDisplayManagers;
+
+
     QTcpServer laserGateServer;
     QTcpServer skillRaceFieldUnitServer;
     QTcpServer voteCounterServer;
@@ -19,10 +41,19 @@ public:
 
     MainSystemController();
 
+    void RemoteDeviceDisconnected(RemoteDevice* device, QTcpSocket* socket);
 
     void StartServers();
 
     void StopServers();
+
+public slots:
+    void newLaserGateConnection();
+    void newSkillRaceFieldUnitConnection();
+    void newVoteCounterConnection();
+    void newSkillRaceGateConnection();
+    void newRaceControlUnitConnection();
+    void newDisplayManagerConnection();
 };
 
 #endif // MAINSYSTEMCONTROLLER_H

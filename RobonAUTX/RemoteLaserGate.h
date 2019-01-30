@@ -11,8 +11,11 @@
 #include "ILaserGate.h"
 #include "RemoteDevice.h"
 
-
 class RemoteLaserGate: public ILaserGate, public RemoteDevice {
+
+public:
+    explicit RemoteLaserGate(CoreController* parentController, QTcpSocket *socket);
+    void EventReceived(Event& event);
 };
 
 #endif //_REMOTELASERGATE_H

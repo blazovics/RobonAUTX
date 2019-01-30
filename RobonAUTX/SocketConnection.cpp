@@ -32,12 +32,32 @@ QTcpSocket *SocketConnection::GetActiveSocket() const
     return activeSocket;
 }
 
-SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate *delegate, QObject *parent):QObject (parent)
+SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate *delegate, QObject *parent):QObject (parent),activeSocket(socket),socketDelegate(delegate)
 {
-    activeSocket = socket;
-    socketDelegate = delegate;
+    if(activeSocket == nullptr)
+    {
+        //TODO: easylogging
+        qDebug()<<"No active socket in SocketConnection";
+    }
+    if(socketDelegate == nullptr)
+    {
+        //TODO: easylogging
+        qDebug()<<"No socket delegate in SocketConnection";
+    }
 
-    connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
+    bool connected[3];
+
+    connected[0] = connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
+    connected[1] = connect(activeSocket,SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
+    connected[2] = connect(activeSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(SocketErrorOccured(QAbstractSocket::SocketError)));
+
+    for (int i=0; i < 3; i++) {
+        if(!connected[i])
+        {
+            //TODO: EasyLogging
+            qDebug()<<"Socket Connection - signal-slot connection failed: " << i;
+        }
+    }
 }
 
 SocketConnection::~SocketConnection()
@@ -79,6 +99,7 @@ void SocketConnection::SocketErrorOccured(QAbstractSocket::SocketError socketErr
 {
     //TODO: EasyLogging
     qDebug()<<socketError;
+
     socketDelegate->SocketError(this->activeSocket);
 }
 
@@ -88,6 +109,7 @@ void SocketConnection::extractEventFromBuffer()
 
     quint32 messageID;
     in >> messageID;
+    this->inputBuffer.remove(0,sizeof (quint32));
 
     int rawDataLength = int(pendingMessageSize) - int(sizeof (quint32));
 
@@ -100,6 +122,7 @@ void SocketConnection::extractEventFromBuffer()
     data.resize(rawDataLength);
 
     int bytesReadFromBuffer = in.readRawData(data.data(),rawDataLength);
+    this->inputBuffer.remove(0,rawDataLength);
 
     if(bytesReadFromBuffer != int(pendingMessageSize))
     {
@@ -138,6 +161,7 @@ void SocketConnection::processInputBuffer()
         {
             QDataStream in(&this->inputBuffer,QIODevice::ReadOnly);
             in >> pendingMessageSize;
+            this->inputBuffer.remove(0,sizeof (quint32));
 
             if(inputBuffer.size() < int(pendingMessageSize))
             {

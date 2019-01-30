@@ -7,7 +7,14 @@
 class RemoteSkillRaceGate: public ISkillRaceGate, public RemoteDevice
 {
 public:
-    RemoteSkillRaceGate();
+    explicit RemoteSkillRaceGate(CoreController* parentController, QTcpSocket *socket);
+
+    void EventReceived(Event& event);
+
+public slots:
+
+    void StartSkillRaceGate();
+
 };
 
 #endif // REMOTESKILLRACEGATE_H

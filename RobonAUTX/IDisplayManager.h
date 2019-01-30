@@ -10,6 +10,11 @@
 
 #include <QObject>
 #include "Team.h"
+#include "SpeedRaceResult.h"
+#include "SkillRaceResult.h"
+#include "VoteResult.h"
+#include "QualificationResult.h"
+#include "FinalResult.h"
 
 class IDisplayManager : public QObject {
 
@@ -17,11 +22,12 @@ class IDisplayManager : public QObject {
 
 public slots:
 
-    virtual void showSpeedResults(bool isJunior, quint32 fromPos) = 0;
-    virtual void showSkillResults(quint32 fromPos) = 0;
-    virtual void showFinalResults(bool isJunior, quint32 fromPos) = 0;
-    virtual void showFinalResultAtPosition(bool isJunior, quint32 position) = 0;
-    virtual void showVotesResults(quint32 fromPos) = 0;  
+    virtual void showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos) = 0;
+    virtual void showSkillResults(QList<SkillRaceResult> result, quint32 fromPos) = 0;
+    virtual void showFinalResults(QList<FinalResult> result, bool isJunior, quint32 fromPos) = 0;
+    virtual void showFinalResultAtPosition(QList<FinalResult> result, bool isJunior, quint32 position) = 0;
+    virtual void showVotesResults(QList<VoteResult> result, quint32 fromPos) = 0;
+    virtual void showQualificationResults(QList<QualificationResult> result, quint32 fromPos) = 0;
     virtual void showInterRaceScreen() = 0;
     virtual void SkillRaceInitiated() = 0;
     virtual void SpeedRaceInitiated() = 0;  
@@ -32,6 +38,7 @@ public slots:
     virtual void SkillPointUpdated(quint32 skillPoint) = 0;
     virtual void TeamListUpdated(QList<Team> teams) = 0;
     virtual void TeamSelected(quint32 teamID) = 0;
+
 };
 
 #endif //_IDISPLAYMANAGER_H

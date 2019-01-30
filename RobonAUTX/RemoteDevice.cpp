@@ -6,22 +6,26 @@
 
 
 #include "RemoteDevice.h"
-#include "QDebug"
+#include <QDebug>
+#include "CoreController.h"
 
 /**
  * RemoteDevice implementation
  */
 
 
-RemoteDevice::RemoteDevice(CoreController *parentController)
+RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket *socket):parentController(parentController)
 {
-    parentController = this->parentController;
-
 
     if(parentController == nullptr)
     {
         //TODO: EasyLogging
         qDebug()<<"parent controller is not set!";
+    }
+
+    if(socket != nullptr)
+    {
+        this->AddConnection(socket);
     }
 }
 
@@ -30,19 +34,14 @@ RemoteDevice::~RemoteDevice()
 
 }
 
-void RemoteDevice::EventReceived(const Event &event)
-{
-
-}
-
 void RemoteDevice::SocketError(QTcpSocket *socket)
 {
-
+    parentController->RemoteDeviceDisconnected(this,socket);
 }
 
 void RemoteDevice::SocketDisconnected(QTcpSocket *socket)
 {
-
+    parentController->RemoteDeviceDisconnected(this,socket);
 }
 
 void RemoteDevice::AddConnection(QTcpSocket *socket)
@@ -67,6 +66,10 @@ void RemoteDevice::RemoveConnection(QTcpSocket *socket)
 
 }
 
-void RemoteDevice::sendHeartBeat() {
-
+void RemoteDevice::sendEvent(Event &event)
+{
+    for(int i = 0; i < socketConnections.size(); i++)
+    {
+        socketConnections[i]->SendEvent(event);
+    }
 }

@@ -10,3 +10,16 @@
 /**
  * RemoteLaserGate implementation
  */
+
+RemoteLaserGate::RemoteLaserGate(CoreController* parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+{
+
+}
+
+void RemoteLaserGate::EventReceived(Event &event)
+{
+    if(event.getEventID() == Event_LaserTimeReceived)
+    {
+        emit LaserMeasure(event.extractQuint32FromRawData());
+    }
+}

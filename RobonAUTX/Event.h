@@ -2,20 +2,48 @@
 #define EVENT_H
 
 #include <QObject>
+#include "Team.h"
+#include "SpeedRaceResult.h"
+#include "SkillRaceResult.h"
+#include "VoteResult.h"
+#include "QualificationResult.h"
+#include "FinalResult.h"
+#include "memory"
 
 class Event
 {
     quint32 eventID;
     QByteArray rawData;
+    std::unique_ptr<QDataStream> outStream;
+    std::unique_ptr<QDataStream> inStream;
 
 public:
     Event();
+    Event(quint32 eventID);
     Event(quint32 eventID, const QByteArray &rawData);
     quint32 getEventID() const;
     void setEventID(const quint32 &value);
     quint32 getRawDataSize()const;
     QByteArray getRawData() const;
-    void setRawData(const QByteArray &value);
+
+    quint32 extractQuint32FromRawData();
+    bool extractBoolFromRawData();
+    QList<SpeedRaceResult> extractSpeedRaceResultsFromRawData();
+    QList<SkillRaceResult> extractSkillRaceResultFromRawData();
+    QList<VoteResult> extractVoteResultsFromRawData();
+    QList<QualificationResult> extractQualificationResultsFromRawData();
+    QList<FinalResult> extractFinalResultsFromRawData();
+    QList<Team> extractTeamsFromRawData();
+
+    void instertTeams(QList<Team> teams);
+    void insertQuint32(quint32 value);
+    void insertBool(bool value);
+    void insertSpeedRaceResults(QList<SpeedRaceResult> results);
+    void insertVoteResults(QList<VoteResult> results);
+    void insertSkillRaceResults(QList<SkillRaceResult> results);
+    void insertQualificationResuls(QList<QualificationResult> results);
+    void insertFinalResults(QList<FinalResult> results);
+
 };
 
 #endif // EVENT_H

@@ -10,12 +10,15 @@
 
 #include <QObject>
 
+//FIXME put it somewhere else to be more robust
+#define Event_LaserTimeReceived 20
+
 class ILaserGate : public QObject {
 
     Q_OBJECT
 
-public:
-    virtual void LaserMeasure() = 0;
+signals:
+    void LaserMeasure(quint32 time);
 };
 
 #endif //_ILASERGATE_H

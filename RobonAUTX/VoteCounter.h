@@ -12,6 +12,8 @@
 
 
 class VoteCounter: public IVoteCounter {
+
+    //FIXME: Should have been an implementation
 };
 
 #endif //_VOTECOUNTER_H

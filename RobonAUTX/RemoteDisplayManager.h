@@ -15,11 +15,14 @@
 class RemoteDisplayManager: public IDisplayManager, public RemoteDevice {
 
 public slots:
-    void showSpeedResults(bool isJunior, quint32 fromPos);
-    void showSkillResults(quint32 fromPos);
-    void showFinalResults(bool isJunior, quint32 fromPos);
-    void showFinalResultAtPosition(bool isJunior, quint32 position);
-    void showVotesResults(quint32 fromPos);
+
+    void showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos);
+    void showSkillResults(QList<SkillRaceResult> result, quint32 fromPos);
+    void showFinalResults(QList<FinalResult> result, bool isJunior, quint32 fromPos);
+    void showFinalResultAtPosition(QList<FinalResult> result, bool isJunior, quint32 position);
+    void showVotesResults(QList<VoteResult> result, quint32 fromPos);
+    void showQualificationResults(QList<QualificationResult> result, quint32 fromPos);
+
     void showInterRaceScreen();
     void SkillRaceInitiated();
     void SpeedRaceInitiated();

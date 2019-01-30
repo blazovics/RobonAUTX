@@ -11,18 +11,28 @@
 #include "ICentralController.h"
 #include "RemoteDevice.h"
 
+#include "CentralController.h"
 
 class RemoteCentralController: public ICentralController, public RemoteDevice {
 
+    CentralController* localController;
+
 public:
+    explicit RemoteCentralController(CoreController* parentController, QTcpSocket *socket);
     virtual ~RemoteCentralController();
 
+    CentralController *getLocalController() const;
+    void setLocalController(CentralController *value);
+
 public slots:
+
+    void EventReceived(Event& event);
+
     void InitSkillRace(quint32 teamID);
     void InitSpeedRace(quint32 teamID);
     void UpdateVotesForTeam(quint32 teamID, quint32 voteCount);
     void ManualMeasureReceived();
-    void LaserMeasureReceived();
+    void LaserMeasureReceived(quint32 time);
     void TimeSourceForLapSelected(TimeSourceType timeSource);
     void UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced);
     void StartRace();

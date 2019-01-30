@@ -10,13 +10,18 @@
 
 #include <QObject>
 
+//FIXME: put it somewhere else to be moe robust!
+#define Event_updateVotesForTeam 26
+#define Event_fetchVotesForTeam 28
+#define Event_votesForTeamUpdated 27
 
 class IVoteCounter : public QObject {
 
-public: 
+    Q_OBJECT
 
 signals:
     void updateVotesForTeam(quint32 teamID, quint32 voteCount);
+    void fetchVotesForTeam(quint32 teamID);
     
 public slots:
     virtual void votesForTeamUpdated(quint32 teamID, quint32 voteCount) = 0;

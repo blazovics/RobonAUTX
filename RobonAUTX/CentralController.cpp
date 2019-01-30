@@ -15,6 +15,7 @@
 
 
 CentralController::CentralController() {
+    //FIXME Consider change to unique
     databaseManager = std::make_shared<DatabaseManager>();
 
 }
@@ -62,7 +63,7 @@ void CentralController::ManualMeasureReceived()
     }
 }
 
-void CentralController::LaserMeasureReceived()
+void CentralController::LaserMeasureReceived(quint32 time)
 {
     SpeedRaceEvent* currentEvent = dynamic_cast<SpeedRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)

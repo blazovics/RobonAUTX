@@ -30,6 +30,8 @@ public:
 
     explicit CoreController(QObject *parent = nullptr);
 
+    virtual void RemoteDeviceDisconnected(RemoteDevice* device, QTcpSocket* socket) = 0;
+
     static void connectDevice(ICentralController* controller, IVoteCounter *voteCounter);
     static void connectDevice(ICentralController* controller, IDisplayManager *device);
     static void connectDevice(ICentralController* controller, IRaceControlUnit *device);

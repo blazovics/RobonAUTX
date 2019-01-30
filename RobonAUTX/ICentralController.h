@@ -8,6 +8,24 @@
 #ifndef ICENTRALCONTROLLER_H
 #define ICENTRALCONTROLLER_H
 
+#define Event_InitSkillRace 1
+#define Event_InitSpeedRace 2
+#define Event_UpdateVotesForTeam 3
+#define Event_ManualMeasureReceived 4
+#define Event_LaserMeasureReceived 5
+#define Event_TimeSourceForLapSelected 6
+#define Event_UpdateCheckpointState 7
+#define Event_StartRace 8
+#define Event_FinishRace 9
+#define Event_TeamListRequested 10
+#define Event_VechicleStartAchieved 11
+#define Event_LaneChangeAchieved 12
+#define Event_SafetyCarFollowed 13
+#define Event_SafetyCarOvertaken 14
+#define Event_ModifyTouchCount 15
+
+#define Device_ICentralController 100
+
 #include <QObject>
 #include "Team.h"
 #include "TimeSourceType.h"
@@ -41,8 +59,9 @@ public slots:
     virtual void InitSkillRace(quint32 teamID) = 0;
     virtual void InitSpeedRace(quint32 teamID) = 0;
     virtual void UpdateVotesForTeam(quint32 teamID, quint32 voteCount) = 0;
+    //WARNING Send time along manual measure?
     virtual void ManualMeasureReceived() = 0;
-    virtual void LaserMeasureReceived() = 0;
+    virtual void LaserMeasureReceived(quint32 time) = 0;
     virtual void TimeSourceForLapSelected(TimeSourceType timeSource) = 0;
     virtual void UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced) = 0;
     virtual void StartRace() = 0;

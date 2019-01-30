@@ -5,7 +5,14 @@
 
 MainSystemController::MainSystemController()
 {
+    centralController = std::make_unique<CentralController>();
+    proxiCentralController = std::make_unique<RemoteCentralController>(this,nullptr);
+    proxiCentralController->setLocalController(centralController.get());
+}
 
+void MainSystemController::RemoteDeviceDisconnected(RemoteDevice *device, QTcpSocket *socket)
+{
+    //FIXME: Implement!
 }
 
 void MainSystemController::StartServers()
@@ -81,6 +88,75 @@ void MainSystemController::StartServers()
 }
 
 void MainSystemController::StopServers()
+{
+
+}
+
+void MainSystemController::newLaserGateConnection()
+{
+    QTcpSocket* newSocket = this->laserGateServer.nextPendingConnection();
+    std::shared_ptr<RemoteLaserGate> newRemoteLaserGate = std::make_shared<RemoteLaserGate>(this,newSocket);
+
+    if(this->remoteLaserGate.second != nullptr)
+    {
+        CoreController::disconnectDevice(this->centralController.get(),remoteLaserGate.first.get());
+    }
+
+    this->remoteLaserGate = QPair<std::shared_ptr<RemoteLaserGate>,QTcpSocket*>(newRemoteLaserGate,newSocket);
+    CoreController::connectDevice(this->centralController.get(),remoteLaserGate.first.get());
+}
+
+void MainSystemController::newSkillRaceFieldUnitConnection()
+{
+    QTcpSocket* newSocket = this->skillRaceFieldUnitServer.nextPendingConnection();
+    std::shared_ptr<RemoteSkillRaceFieldUnit> newRemoteSkillRaceFieldUnit = std::make_shared<RemoteSkillRaceFieldUnit>(this,newSocket);
+
+    if(this->remoteSkillRaceFieldUnit.second != nullptr)
+    {
+        CoreController::disconnectDevice(this->centralController.get(),remoteSkillRaceFieldUnit.first.get());
+    }
+
+    this->remoteSkillRaceFieldUnit = QPair<std::shared_ptr<RemoteSkillRaceFieldUnit>,QTcpSocket*>(newRemoteSkillRaceFieldUnit,newSocket);
+
+    CoreController::connectDevice(this->centralController.get(),remoteSkillRaceFieldUnit.first.get());
+}
+
+void MainSystemController::newVoteCounterConnection()
+{
+    QTcpSocket* newSocket = this->voteCounterServer.nextPendingConnection();
+    std::shared_ptr<RemoteVoteCounter> newRemoteVoteCounter = std::make_shared<RemoteVoteCounter>(this,newSocket);
+
+    if(this->remoteVoteCounter.second != nullptr)
+    {
+        CoreController::disconnectDevice(this->centralController.get(),remoteVoteCounter.first.get());
+    }
+
+    this->remoteVoteCounter = QPair<std::shared_ptr<RemoteVoteCounter>,QTcpSocket*>(newRemoteVoteCounter,newSocket);
+
+    CoreController::connectDevice(this->centralController.get(),remoteVoteCounter.first.get());
+}
+
+void MainSystemController::newSkillRaceGateConnection()
+{
+    QTcpSocket* newSocket = this->skillRaceGateServer.nextPendingConnection();
+    std::shared_ptr<RemoteSkillRaceGate> newRemoteSkillRaceGate = std::make_shared<RemoteSkillRaceGate>(this,newSocket);
+
+    if(this->remoteSkillRaceGate.second != nullptr)
+    {
+        CoreController::disconnectDevice(this->centralController.get(),remoteSkillRaceGate.first.get());
+    }
+
+    this->remoteSkillRaceGate = QPair<std::shared_ptr<RemoteSkillRaceGate>,QTcpSocket*>(newRemoteSkillRaceGate,newSocket);
+
+    CoreController::connectDevice(this->centralController.get(),remoteSkillRaceGate.first.get());
+}
+
+void MainSystemController::newRaceControlUnitConnection()
+{
+
+}
+
+void MainSystemController::newDisplayManagerConnection()
 {
 
 }

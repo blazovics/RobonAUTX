@@ -29,11 +29,11 @@ protected:
     void sendEvent(Event& event);
 
 public:
-    RemoteDevice(CoreController* parentController);
+    explicit RemoteDevice(CoreController* parentController, QTcpSocket *socket);
 
     virtual ~RemoteDevice();
 
-    void EventReceived(const Event& event);
+    virtual void EventReceived(Event& event) = 0;
     void SocketError(QTcpSocket* socket);
     void SocketDisconnected(QTcpSocket* socket);
 
