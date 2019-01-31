@@ -19,9 +19,59 @@ RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentControl
 void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
 {
     //FIXME Implement!
+    switch (event.getEventID()) {
+        case Event_AISetGate:
+        break;
+            case Event_AIResetGate:
+
+        break;
+            case Event_SetGate:
+        break;
+            case Event_ResetGate:
+        break;
+            case Event_ResetAllGates:
+        break;
+            case Event_HeartBeat:
+        break;
+    }
 }
 
-void RemoteSkillRaceFieldUnit::updateCheckpointState(quint32 checkpointID, bool state)
+void RemoteSkillRaceFieldUnit::UpdateCheckpointState(quint32 checkpointID, bool state)
 {
-    //FIXME Implement!
+   if(state)
+   {
+       this->sendSet(checkpointID);
+   }
+   else
+   {
+       this->sendReset(checkpointID);
+   }
+
 }
+
+void RemoteSkillRaceFieldUnit::ResetCheckpoints()
+{
+    Event event(Event_ResetAllGates);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::SendHeartBeat()
+{
+    Event event(Event_HeartBeat);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::sendReset(quint32 checkpointID)
+{
+    Event event(Event_ResetGate);
+    event.insertQuint32(checkpointID);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::sendSet(quint32 checkpointID)
+{
+    Event event(Event_SetGate);
+    event.insertQuint32(checkpointID);
+    sendEvent(event);
+}
+

@@ -11,18 +11,30 @@
 #include <QObject>
 
 
+#define Event_AISetGate 50
+#define Event_AIResetGate 51
+#define Event_SetGate 52
+#define Event_ResetGate 53
+#define Event_ResetAllGates 54
+#define Event_HeartBeat 2
+
 class ISkillRaceFieldUnit : public QObject {
 
     Q_OBJECT
 
+signals:
+    void checkpointUpdated(quint32 checkpointID, bool state);
+    //Fixme: Connect this
+    void checkpointsReseted();
+    void ConnectionStatusUpdated(quint32 status);
+
 public slots:
 
     //FIXME: Create a correct implementation
-    virtual void updateCheckpointState(quint32 checkpointID, bool state) = 0;
+    virtual void UpdateCheckpointState(quint32 checkpointID, bool state) = 0;
+    virtual void ResetCheckpoints() = 0;
+    virtual void SendHeartBeat() = 0;
 
-   /*virtual void Start() = 0;
-    virtual void CheckpointStateUpdated(quint32 checkpointID) = 0;
-    virtual void ManualSetCheckpoint(quint32 checkpointID, quint32 state) = 0;*/
 };
 
 #endif //_ISKILLRACEFIELDUNIT_H

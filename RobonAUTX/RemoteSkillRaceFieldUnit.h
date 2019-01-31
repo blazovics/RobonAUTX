@@ -18,7 +18,13 @@ public:
     void EventReceived(Event& event);
 
 public slots:
-    void updateCheckpointState(quint32 checkpointID, bool state);
+    void UpdateCheckpointState(quint32 checkpointID, bool state);
+    void ResetCheckpoints();
+    void SendHeartBeat();
+
+private:
+    void sendReset(quint32 checkpointID);
+    void sendSet(quint32 checkpointID);
 
 };
 
