@@ -28,7 +28,7 @@ private:
     ISocketConnectionDelegate* socketDelegate;
 
 public: 
-    explicit SocketConnection(QTcpSocket* socket, ISocketConnectionDelegate* delegate,  QObject *parent = nullptr);
+    explicit SocketConnection(QTcpSocket* socket, ISocketConnectionDelegate* delegate, QIODevice::OpenMode mode,  QObject *parent = nullptr);
     ~SocketConnection();
     /**
  * @param event

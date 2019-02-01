@@ -20,7 +20,7 @@ class RemoteCentralController: public ICentralController, public RemoteDevice {
     CentralController* localController;
 
 public:
-    explicit RemoteCentralController(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteCentralController(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
     virtual ~RemoteCentralController();
 
     CentralController *getLocalController() const;

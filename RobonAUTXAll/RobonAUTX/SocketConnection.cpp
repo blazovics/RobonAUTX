@@ -32,7 +32,7 @@ QTcpSocket *SocketConnection::GetActiveSocket() const
     return activeSocket;
 }
 
-SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate *delegate, QObject *parent):QObject (parent),activeSocket(socket),pendingMessageSize(0),socketDelegate(delegate)
+SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate *delegate, QIODevice::OpenMode mode, QObject *parent):QObject (parent),activeSocket(socket),pendingMessageSize(0),socketDelegate(delegate)
 {
     if(activeSocket == nullptr)
     {
@@ -47,7 +47,14 @@ SocketConnection::SocketConnection(QTcpSocket *socket, ISocketConnectionDelegate
 
     bool connected[3];
 
-    connected[0] = connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
+    if(mode != QIODevice::WriteOnly)
+    {
+        connected[0] = connect(activeSocket,SIGNAL(readyRead()),this,SLOT(DataReceived()));
+    }
+    else {
+        connected[0] = true;
+    }
+
     connected[1] = connect(activeSocket,SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
     connected[2] = connect(activeSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(SocketErrorOccured(QAbstractSocket::SocketError)));
 
@@ -109,7 +116,7 @@ void SocketConnection::extractEventFromBuffer()
 
     quint32 messageID;
     in >> messageID;
-    this->inputBuffer.remove(0,sizeof (quint32));
+
 
     int rawDataLength = int(pendingMessageSize) - int(sizeof (quint32));
 
@@ -122,12 +129,14 @@ void SocketConnection::extractEventFromBuffer()
     data.resize(rawDataLength);
 
     int bytesReadFromBuffer = in.readRawData(data.data(),rawDataLength);
-    this->inputBuffer.remove(0,rawDataLength);
 
     if(bytesReadFromBuffer != int(rawDataLength))
     {
         throw std::length_error("The lenght of raw data is not equal the read data!");
     }
+
+    this->inputBuffer.remove(0,sizeof (quint32));
+    this->inputBuffer.remove(0,rawDataLength);
 
     pendingMessageSize = 0;
 

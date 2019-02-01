@@ -35,7 +35,7 @@ public:
     QList<FinalResult> extractFinalResultsFromRawData();
     QList<Team> extractTeamsFromRawData();
 
-    void instertTeams(QList<Team> teams);
+    void insertTeams(QList<Team> teams);
     void insertQuint32(quint32 value);
     void insertBool(bool value);
     void insertSpeedRaceResults(QList<SpeedRaceResult> results);

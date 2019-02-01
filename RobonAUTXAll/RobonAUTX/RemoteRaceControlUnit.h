@@ -22,7 +22,7 @@ class RemoteRaceControlUnit: public IRaceControlUnit, public RemoteDevice {
 
 public:
 
-    explicit RemoteRaceControlUnit(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteRaceControlUnit(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
     virtual ~RemoteRaceControlUnit();
 
     RaceControlUnit *getLocalUnit() const;

@@ -11,7 +11,7 @@
  * RemoteVoteCounter implementation
  */
 
-RemoteVoteCounter::RemoteVoteCounter(CoreController *parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+RemoteVoteCounter::RemoteVoteCounter(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket,mode)
 {
 
 }

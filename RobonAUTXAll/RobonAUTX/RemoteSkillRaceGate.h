@@ -9,7 +9,7 @@ class RemoteSkillRaceGate: public ISkillRaceGate, public RemoteDevice
     Q_OBJECT
 
 public:
-    explicit RemoteSkillRaceGate(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteSkillRaceGate(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
 
     void EventReceived(Event& event);
 

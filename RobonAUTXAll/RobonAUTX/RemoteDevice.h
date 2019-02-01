@@ -29,7 +29,7 @@ protected:
     void sendEvent(Event& event);
 
 public:
-    explicit RemoteDevice(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteDevice(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode);
 
     virtual ~RemoteDevice();
 
@@ -37,7 +37,7 @@ public:
     void SocketError(QTcpSocket* socket);
     void SocketDisconnected(QTcpSocket* socket);
 
-    void AddConnection(QTcpSocket *socket);
+    void AddConnection(QTcpSocket *socket, QIODevice::OpenMode mode);
     void RemoveConnection(QTcpSocket *socket);
 
 };

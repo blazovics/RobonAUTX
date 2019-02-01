@@ -16,7 +16,7 @@ class RemoteVoteCounter: public IVoteCounter, public RemoteDevice {
     Q_OBJECT
 
 public:
-    explicit RemoteVoteCounter(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteVoteCounter(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
 
     void EventReceived(Event& event);
 

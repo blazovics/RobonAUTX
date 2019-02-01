@@ -40,6 +40,8 @@ DatabaseManager::DatabaseManager(QString path, QObject *parent):QObject (parent)
     defaultPath.append(QDir::separator()).append("robonaut.sqlite");
     defaultPath = QDir::toNativeSeparators(defaultPath);
 
+     db = QSqlDatabase::addDatabase("QSQLITE");
+
     if(path.length() != 0 && QFileInfo::exists(path) && path.contains(QRegExp("*.sqlite")))
     {
         db.setDatabaseName(path);

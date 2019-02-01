@@ -23,7 +23,7 @@ void RemoteCentralController::setLocalController(CentralController *value)
     localController = value;
 }
 
-RemoteCentralController::RemoteCentralController(CoreController* parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+RemoteCentralController::RemoteCentralController(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket,mode)
 {
 
 }

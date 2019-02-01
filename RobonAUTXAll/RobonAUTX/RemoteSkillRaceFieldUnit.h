@@ -16,7 +16,7 @@ class RemoteSkillRaceFieldUnit: public ISkillRaceFieldUnit, public RemoteDevice 
     Q_OBJECT
 
 public:
-    explicit RemoteSkillRaceFieldUnit(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteSkillRaceFieldUnit(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
     void EventReceived(Event& event);
 
 public slots:

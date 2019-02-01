@@ -53,7 +53,7 @@ void ControlUnitController::SocketConnected()
 {
     this->remoteCentralController = std::make_shared<RemoteCentralController>(this,&socket);
     connectDevice(this->remoteCentralController.get(),this->raceControlUnit.get());
-    this->proxiRaceControlUnit->AddConnection(&socket);
+    this->proxiRaceControlUnit->AddConnection(&socket,QIODevice::ReadOnly);
 
     emit this->raceControlUnit->getTeamList();
 }

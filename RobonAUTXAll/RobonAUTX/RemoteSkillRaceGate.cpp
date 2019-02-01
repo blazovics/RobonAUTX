@@ -1,7 +1,7 @@
 #include "RemoteSkillRaceGate.h"
 
 
-RemoteSkillRaceGate::RemoteSkillRaceGate(CoreController *parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+RemoteSkillRaceGate::RemoteSkillRaceGate(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket,mode)
 {
 
 }

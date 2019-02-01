@@ -76,7 +76,7 @@ QList<Team> Event::extractTeamsFromRawData()
     return teams;
 }
 
-void Event::instertTeams(QList<Team> teams)
+void Event::insertTeams(QList<Team> teams)
 {
     *outStream << teams;
 }

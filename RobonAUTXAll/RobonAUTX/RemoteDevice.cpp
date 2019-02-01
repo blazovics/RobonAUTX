@@ -14,7 +14,7 @@
  */
 
 
-RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket *socket):parentController(parentController)
+RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):parentController(parentController)
 {
 
     if(parentController == nullptr)
@@ -25,7 +25,7 @@ RemoteDevice::RemoteDevice(CoreController *parentController, QTcpSocket *socket)
 
     if(socket != nullptr)
     {
-        this->AddConnection(socket);
+        this->AddConnection(socket,mode);
     }
 }
 
@@ -44,9 +44,9 @@ void RemoteDevice::SocketDisconnected(QTcpSocket *socket)
     parentController->RemoteDeviceDisconnected(this,socket);
 }
 
-void RemoteDevice::AddConnection(QTcpSocket *socket)
+void RemoteDevice::AddConnection(QTcpSocket *socket, QIODevice::OpenMode mode)
 {
-    socketConnections.append(std::shared_ptr<SocketConnection>(new SocketConnection(socket, this)));
+    socketConnections.append(std::shared_ptr<SocketConnection>(new SocketConnection(socket, this,mode)));
 }
 
 void RemoteDevice::RemoveConnection(QTcpSocket *socket)

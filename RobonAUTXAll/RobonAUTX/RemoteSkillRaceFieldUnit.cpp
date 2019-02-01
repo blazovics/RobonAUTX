@@ -11,7 +11,7 @@
  * RemoteSkillRaceFieldUnit implementation
  */
 
-RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket, mode)
 {
 
 }

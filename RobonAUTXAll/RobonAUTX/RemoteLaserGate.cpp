@@ -11,7 +11,7 @@
  * RemoteLaserGate implementation
  */
 
-RemoteLaserGate::RemoteLaserGate(CoreController* parentController, QTcpSocket *socket):RemoteDevice (parentController,socket)
+RemoteLaserGate::RemoteLaserGate(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket,mode)
 {
 
 }

@@ -1,5 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>MainControlPage.qml</file>
+        <file>SkillRaceControlPage.qml</file>
+        <file>SkillRaceControlPageForm.ui.qml</file>
+        <file>RaceTimeContainer.ui.qml</file>
+        <file>CheckpointsContainer.qml</file>
+        <file>RaceActionsContainer.ui.qml</file>
+        <file>SkillRaceResultsContainer.ui.qml</file>
+        <file>CheckpointButton.qml</file>
     </qresource>
 </RCC>

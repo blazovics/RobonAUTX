@@ -16,7 +16,7 @@ class RemoteLaserGate: public ILaserGate, public RemoteDevice {
     Q_OBJECT
 
 public:
-    explicit RemoteLaserGate(CoreController* parentController, QTcpSocket *socket);
+    explicit RemoteLaserGate(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
     void EventReceived(Event& event);
 };
 
