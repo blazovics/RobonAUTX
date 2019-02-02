@@ -1,7 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "ControlUnitController.h"
-#include "Configuration.h"
 #include <QQuickStyle>
 
 int main(int argc, char *argv[])
@@ -12,22 +11,12 @@ int main(int argc, char *argv[])
 
     QQuickStyle::setStyle("Material");
 
-    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/MainSystem.ini";
-    //QString configFIlePath = "D:/Projects/RobonAUTxQt/MainSystem.ini";
-
-    if(argc > 1)
-    {
-        configFIlePath = argv[1];
-    }
-
-    Configuration::InitializeConfiguration(configFIlePath);
-
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    ControlUnitController controller;
+    ControlUnitController controller(QHostAddress("192.168.0.150"));
 
     controller.ConnectToServer();
 

@@ -3,7 +3,27 @@
 
 #include <QHostAddress>
 
-ControlUnitController::ControlUnitController()
+QHostAddress ControlUnitController::getServerAddress() const
+{
+    return serverAddress;
+}
+
+void ControlUnitController::setServerAddress(const QHostAddress &value)
+{
+    serverAddress = value;
+}
+
+quint16 ControlUnitController::getServerPort() const
+{
+    return serverPort;
+}
+
+void ControlUnitController::setServerPort(const quint16 &value)
+{
+    serverPort = value;
+}
+
+ControlUnitController::ControlUnitController(QHostAddress serverAddress, quint16 serverPort):serverAddress(serverAddress),serverPort(serverPort)
 {
     raceControlUnit = std::make_unique<RaceControlUnit>();
     proxiRaceControlUnit = std::make_unique<RemoteRaceControlUnit>(this,nullptr);
@@ -16,27 +36,8 @@ void ControlUnitController::ConnectToServer()
 {
     connect(&socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
 
-    Configuration& instance = Configuration::GetInstance();
+    socket.connectToHost(serverAddress,serverPort);
 
-    QHostAddress serverAddress;
-
-    if(instance.IsKeyAvailable("MainSystemSettings","ListenAddress"))
-    {
-        QString serverAddressString = QString::fromStdString(instance.GetStringValue("MainSystemSettings","ListenAddress"));
-        serverAddress.setAddress(serverAddressString);
-
-        if(instance.IsKeyAvailable("MainSystemSettings","RaceControlUnitPort"))
-        {
-            quint16 port =  quint16(instance.GetLongValue("MainSystemSettings","RaceControlUnitPort"));
-            socket.connectToHost(serverAddress,port);
-        }
-        else {
-            socket.connectToHost(serverAddress,35000);
-        }
-    }
-    else {
-        throw std::runtime_error("No valid server address");
-    }
 }
 
 void ControlUnitController::RemoteDeviceDisconnected(RemoteDevice *device, QTcpSocket *socket)

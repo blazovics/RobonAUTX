@@ -6,6 +6,8 @@
 #include "RaceControlUnit.h"
 #include "RemoteRaceControlUnit.h"
 
+#include <QHostAddress>
+
 class ControlUnitController : public CoreController
 {
     Q_OBJECT
@@ -17,12 +19,22 @@ class ControlUnitController : public CoreController
 
     QTcpSocket socket;
 
+    QHostAddress serverAddress;
+    quint16 serverPort;
+
 public:
-    explicit ControlUnitController();
+    explicit ControlUnitController(QHostAddress serverAddress, quint16 serverPort = 35000);
 
     void ConnectToServer();
+    void DisconnectFromServer();
 
     void RemoteDeviceDisconnected(RemoteDevice* device, QTcpSocket* socket);
+
+    QHostAddress getServerAddress() const;
+    void setServerAddress(const QHostAddress &value);
+
+    quint16 getServerPort() const;
+    void setServerPort(const quint16 &value);
 
 public slots:
     void SocketConnected();
