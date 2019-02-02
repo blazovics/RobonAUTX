@@ -75,7 +75,7 @@ SocketConnection::~SocketConnection()
 void SocketConnection::SendEvent(const Event &event) {
     QDataStream out(&this->outputBuffer,QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
-    out<<sizeof(quint32) + sizeof (quint32) + event.getRawDataSize();
+    out<< quint32(sizeof(quint32)) + quint32(sizeof (quint32)) + event.getRawDataSize();
     out<<event.getEventID();
     int bytesWrittenToBuffer = out.writeRawData(event.getRawData().data(), int(event.getRawDataSize()));
 
