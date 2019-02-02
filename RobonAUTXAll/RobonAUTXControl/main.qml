@@ -4,8 +4,8 @@ import QtQuick.Controls 2.3
 
 Window {
     visible: true
-    width: 600
-    height: 800
+    width: 768
+    height: 1024
     title: qsTr("Hello World")
     
     SwipeView {

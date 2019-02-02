@@ -53,7 +53,7 @@ void RemoteDevice::RemoveConnection(QTcpSocket *socket)
 {
     int index = -1;
 
-    for (int i=0; socketConnections.size(); i++) {
+    for (int i=0; i < socketConnections.size(); i++) {
         if(socketConnections[i]->GetActiveSocket() == socket)
         {
             index = i;

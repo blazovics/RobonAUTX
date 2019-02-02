@@ -4,12 +4,12 @@ import QtQuick.Layouts 1.3
 
 Item {
     id: element
-    width: 600
-    height: 800
+    width: 768
+    height: 1024
 
-    Rectangle {
+    Image {
         id: main_background
-        color: "#ffffff"
+        source: "images/controllerBackground.png"
         anchors.fill: parent
     }
 
@@ -21,7 +21,6 @@ Item {
         anchors.topMargin: 15
         x: 390
     }
-
 
     CheckpointsContainer {
         id: checkpoints_container
@@ -40,7 +39,7 @@ Item {
         x: 185
     }
 
-    SkillRaceResultsContainer{
+    SkillRaceResultsContainer {
         id: time_container
         anchors.top: parent.top
         anchors.topMargin: 15
@@ -50,8 +49,6 @@ Item {
         anchors.rightMargin: 15
     }
 }
-
-
 
 
 

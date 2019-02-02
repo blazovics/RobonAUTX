@@ -4,11 +4,13 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: race_time_container
-    width: 200
-    height: 200
-    color: "#c0dadf"
+    width: 220
+    height: 250
+    color: "#99ffffff"
     ColumnLayout {
         id: columnLayout
+        anchors.topMargin: 10
+        anchors.bottomMargin: 10
         anchors.fill: parent
 
         Switch {

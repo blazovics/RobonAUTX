@@ -6,7 +6,7 @@ Rectangle {
     id: actions_container
     width: 200
     height: 353
-    color: "#e2fdea"
+    color: "#99ffffff"
     ColumnLayout {
         id: actions_layout
         anchors.topMargin: 5
@@ -22,7 +22,8 @@ Rectangle {
         Switch {
             id: abort_race_toggle
             text: qsTr("Abort Race")
-            checked: false
+            checkable: true
+            checked: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
         
@@ -37,7 +38,7 @@ Rectangle {
         Switch {
             id: save_race_toggle
             text: qsTr("Save Race")
-            checked: false
+            checked: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
         

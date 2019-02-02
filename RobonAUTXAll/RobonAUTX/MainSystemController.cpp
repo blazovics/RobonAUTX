@@ -122,7 +122,7 @@ void MainSystemController::StartServers()
         skillRaceFieldUnitServer.listen(serverAddress,port);
     }
     else {
-        laserGateServer.listen(serverAddress,35003);
+        skillRaceFieldUnitServer.listen(serverAddress,35003);
         //TODO: Easylogging
     }
 
@@ -227,15 +227,12 @@ void MainSystemController::newSkillRaceGateConnection()
 void MainSystemController::newRaceControlUnitConnection()
 {
     QTcpSocket* newSocket = this->raceControlUnitServer.nextPendingConnection();
-    std::shared_ptr<RemoteRaceControlUnit> newRemoteRaceControlUnit = std::make_shared<RemoteRaceControlUnit>(this,newSocket);
 
-    new QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>(newRemoteRaceControlUnit,newSocket);
-
-    std::shared_ptr<QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>> pair = std::make_shared<QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>>( QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>(newRemoteRaceControlUnit,newSocket));
+    std::shared_ptr<QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>> pair = std::make_shared<QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>>( QPair<std::shared_ptr<RemoteRaceControlUnit>,QTcpSocket*>(std::make_shared<RemoteRaceControlUnit>(this,newSocket),newSocket));
 
     this->remoteRaceControlUnits.push_back(pair);
 
-    CoreController::connectDevice(this->centralController.get(),newRemoteRaceControlUnit.get());
+    CoreController::connectDevice(this->centralController.get(),pair->first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
 }
 

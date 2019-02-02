@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "ControlUnitController.h"
 #include "Configuration.h"
+#include <QQuickStyle>
 
 int main(int argc, char *argv[])
 {
@@ -9,8 +10,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    //QString configFIlePath = "D:/AUT-Projects/RobonAUTX/MainSystem.ini";
-    QString configFIlePath = "D:/Projects/RobonAUTxQt/MainSystem.ini";
+    QQuickStyle::setStyle("Material");
+
+    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/MainSystem.ini";
+    //QString configFIlePath = "D:/Projects/RobonAUTxQt/MainSystem.ini";
 
     if(argc > 1)
     {

@@ -9,5 +9,6 @@
         <file>RaceActionsContainer.ui.qml</file>
         <file>SkillRaceResultsContainer.ui.qml</file>
         <file>CheckpointButton.qml</file>
+        <file>images/controllerBackground.png</file>
     </qresource>
 </RCC>

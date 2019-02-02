@@ -1,4 +1,4 @@
-QT += quick network sql
+QT += quick network sql quickcontrols2
 CONFIG += c++14
 
 QMAKE_CFLAGS+="-gdwarf-2"

@@ -4,9 +4,9 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: checkpoints_container
-    width: 123
-    height: 680
-    color: "#c4d2d7"
+    width: 200
+    height: 800
+    color: "#99ffffff"
 
     //signal checkpointButtonPressed(int checkpointID, Boolean State);
 

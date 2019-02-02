@@ -4,14 +4,14 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     width: 200
-    height: 200
-    color: "#fee1e1"
+    height: 250
+    color: "#99ffffff"
     property alias skillRacePointLabel: skillRacePointLabel
     property alias elapsedTimeLabel: elapsedTimeLabel
     property alias remainingTimeLabel: remainingTimeLabel
 
     Column {
-        id: columnLayout1
+        id: column
         anchors.rightMargin: 5
         anchors.leftMargin: 5
         anchors.bottomMargin: 5
