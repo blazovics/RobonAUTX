@@ -33,6 +33,7 @@ void RTimer::StartTimer() {
         elapsedTimer.start();
         pauseOffset = 0;
         elapsed = 0;
+        timerState = Running;
     }
     else{
         throw std::runtime_error("Failed to Start Timer");
@@ -51,6 +52,7 @@ void RTimer::StopTimer() {
         {
             pauseTimer.invalidate();
         }
+        timerState = Stopped;
     }
     else{
         throw std::runtime_error("Failed to Stop timer");
@@ -61,6 +63,7 @@ void RTimer::PauseTimer() {
     if(timerState == Running)
     {
         pauseTimer.start();
+        timerState = Paused;
     }
     else{
         throw "Failed to Pause timer";
@@ -72,6 +75,7 @@ void RTimer::ResumeTimer() {
     {
         pauseOffset += pauseTimer.elapsed();
         pauseTimer.invalidate();
+        timerState = Running;
     }
     else{
         throw "Failed to Resume timer";

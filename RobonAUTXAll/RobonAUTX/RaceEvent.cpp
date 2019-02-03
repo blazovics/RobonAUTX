@@ -30,16 +30,19 @@ RaceEvent::~RaceEvent()
 void RaceEvent::StartRace()
 {
     startRaceTimer();
+    updateTimer->start(10);
 }
 
 void RaceEvent::AbortRace()
 {
     stopRaceTimer();
+    updateTimer->stop();
 }
 
 void RaceEvent::SaveRace()
 {
     stopRaceTimer();
+    updateTimer->stop();
 }
 
 void RaceEvent::PauseRaceTimer()

@@ -85,10 +85,20 @@ RaceEventType SkillRaceEvent::getType()
     return Skill;
 }
 
+quint32 SkillRaceEvent::GetActualPoints()
+{
+    return static_cast<SkillRace*>(this->actualRace)->GetRacePoint();
+}
+
+quint32 SkillRaceEvent::GetTimeCredit()
+{
+    return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
+}
+
 void SkillRaceEvent::UpdateTimerFired()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
-    throw "NI";
+    //throw "NI";
 }
 
 

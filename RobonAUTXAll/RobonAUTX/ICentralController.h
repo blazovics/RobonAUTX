@@ -31,6 +31,8 @@
 #define Event_ShowQualificationResults 21
 #define Event_ShowInterRaceScreen 22
 #define Event_SkillGateStarted 23
+#define Event_PauseRaceTimer 24
+#define Event_ResumeRaceTimer 25
 
 #define Device_ICentralController 100
 
@@ -60,7 +62,7 @@ signals:
     void RaceFinished(bool aborted);
     void TeamListUpdated(QList<Team> teams);
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
-    void SkillPointUpdated(quint32 skillPoint);
+    void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved);
     void SafetyCarFollowingConfirmed(bool achieved);
@@ -77,6 +79,9 @@ signals:
     void showInterRaceScreen();
 
     void StartSkillGate();
+
+    void RaceTimerPaused();
+    void RaceTimerResumed();
 
 
 public slots:
@@ -107,6 +112,9 @@ public slots:
     virtual void ShowInterRaceScreen() = 0;
 
     virtual void SkillGateStarted() = 0;
+
+    virtual void PauseRaceTimer() = 0;
+    virtual void ResumeRaceTimer() = 0;
 
 };
 

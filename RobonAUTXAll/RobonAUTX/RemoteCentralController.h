@@ -55,6 +55,9 @@ public slots:
     void ShowInterRaceScreen();
 
     void SkillGateStarted();
+
+    void PauseRaceTimer();
+    void ResumeRaceTimer();
 };
 
 #endif //_REMOTECENTRALCONTROLLER_H

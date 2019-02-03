@@ -78,7 +78,7 @@ void RemoteDisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 
 }
 
-void RemoteDisplayManager::SkillPointUpdated(quint32 skillPoint)
+void RemoteDisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 {
 
 }

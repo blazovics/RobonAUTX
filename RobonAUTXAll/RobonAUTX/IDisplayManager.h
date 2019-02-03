@@ -35,7 +35,7 @@ public slots:
     virtual void SetTimerValue(quint32 value) = 0;
     virtual void StopTimer() = 0;
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
-    virtual void SkillPointUpdated(quint32 skillPoint) = 0;
+    virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void TeamListUpdated(QList<Team> teams) = 0;
     virtual void TeamSelected(quint32 teamID) = 0;
 

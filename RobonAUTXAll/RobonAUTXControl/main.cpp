@@ -2,6 +2,9 @@
 #include <QQmlApplicationEngine>
 #include "ControlUnitController.h"
 #include <QQuickStyle>
+#include <QQmlContext>
+
+#include "MainViewController.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +20,15 @@ int main(int argc, char *argv[])
         return -1;
 
     ControlUnitController controller(QHostAddress("192.168.0.150"));
+
+    MainViewcontroller mainViewController;
+
+    RaceControlUnit* controlUnit = controller.getRaceControlUnit();
+
+    //mainViewController.setRootContext(engine.rootContext());
+
+    engine.rootContext()->setContextProperty("teamModel",controlUnit->getTeamModel());
+    engine.rootContext()->setContextProperty("controlUnit",controlUnit);
 
     controller.ConnectToServer();
 

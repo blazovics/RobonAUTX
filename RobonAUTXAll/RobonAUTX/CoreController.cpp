@@ -53,6 +53,8 @@ void CoreController::connectDevice(ICentralController *controller, IRaceControlU
     connect(device,SIGNAL(ShowQualificationResults(quint32)),controller,SLOT( ShowQualificationResults(quint32) ));
     connect(device,SIGNAL(ShowInterRaceScreen()),controller,SLOT( ShowInterRaceScreen() ));
     connect(device,SIGNAL(SkillGateManualStarted()),controller,SLOT(SkillGateStarted()));
+    connect(device,SIGNAL(PauseRaceTimer()),controller,SLOT(PauseRaceTimer()));
+    connect(device,SIGNAL(ResumeRaceTimer()),controller,SLOT(ResumeRaceTimer()));
 
     connect(controller,SIGNAL( TeamListUpdated(QList<Team>) ),device, SLOT(TeamListUpdated(QList<Team>)));
     connect(controller,SIGNAL( SkillRaceInitiated(quint32) ),device, SLOT(SkillRaceInitiated(quint32)));
@@ -65,10 +67,13 @@ void CoreController::connectDevice(ICentralController *controller, IRaceControlU
     connect(controller,SIGNAL( CheckpointStateUpdated(quint32, bool) ),device, SLOT(CheckpointStateUpdated(quint32, bool)));
     connect(controller,SIGNAL( VehicleStartConfirmed(bool) ),device, SLOT(VehicleStartConfirmed(bool)));
     connect(controller,SIGNAL( LaneChangeConfirmed(bool) ),device, SLOT(LaneChangeConfirmed(bool)));
-    connect(controller,SIGNAL( SkillPointUpdated(quint32) ),device, SLOT(SkillPointUpdated(quint32)));
+    connect(controller,SIGNAL( SkillPointUpdated(quint32,quint32) ),device, SLOT(SkillPointUpdated(quint32,quint32)));
     connect(controller,SIGNAL( SafetyCarFollowingConfirmed(bool) ),device, SLOT(SafetyCarFollowingConfirmed(bool)));
     connect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool) ),device, SLOT(SafetyCarOvertakeConfirmed(bool)));
     connect(controller,SIGNAL( TouchCountModified(quint32) ),device, SLOT(TouchCountModified(quint32)));
+    connect(controller,SIGNAL( RaceTimerPaused() ),device, SLOT(RaceTimerPaused()));
+    connect(controller,SIGNAL( RaceTimerResumed() ),device, SLOT(RaceTimerResumed()));
+
 }
 
 void CoreController::connectDevice(ICentralController *controller, ILaserGate *device)
@@ -108,7 +113,7 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(device,SIGNAL(FinishRace(bool)),controller,SLOT( FinishRace(bool) ));
     disconnect(device,SIGNAL(manualMeasure()),controller,SLOT( ManualMeasureReceived()));
     disconnect(device,SIGNAL(SelectTimeSourceForLap(TimeSourceType)),controller,SLOT( TimeSourceForLapSelected(TimeSourceType) ));
-    disconnect(device,SIGNAL(updateCheckpointState(quint32, bool)),controller,SLOT( UpdateCheckpointState() ));
+    disconnect(device,SIGNAL(updateCheckpointState(quint32, bool, bool)),controller,SLOT( UpdateCheckpointState(quint32, bool, bool) ));
     disconnect(device,SIGNAL(VehicleStarted(bool)),controller,SLOT( VechicleStartAchieved(bool) ));
     disconnect(device,SIGNAL(LaneChanged(bool)),controller,SLOT( LaneChangeAchieved(bool) ));
     disconnect(device,SIGNAL(SafetyCarFollowed(bool)),controller,SLOT( SafetyCarFollowed(bool) ));
@@ -122,6 +127,8 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(device,SIGNAL(ShowQualificationResults(quint32)),controller,SLOT( ShowQualificationResults(quint32) ));
     disconnect(device,SIGNAL(ShowInterRaceScreen()),controller,SLOT( ShowInterRaceScreen() ));
     disconnect(device,SIGNAL(SkillGateManualStarted()),controller,SLOT(SkillGateStarted()));
+    disconnect(device,SIGNAL(PauseRaceTimer()),controller,SLOT(PauseRaceTimer()));
+    disconnect(device,SIGNAL(ResumeRaceTimer()),controller,SLOT(ResumeRaceTimer()));
 
     disconnect(controller,SIGNAL( TeamListUpdated(QList<Team>) ),device, SLOT(TeamListUpdated(QList<Team>)));
     disconnect(controller,SIGNAL( SkillRaceInitiated(quint32) ),device, SLOT(SkillRaceInitiated(quint32)));
@@ -134,10 +141,12 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(controller,SIGNAL( CheckpointStateUpdated(quint32, bool) ),device, SLOT(CheckpointStateUpdated(quint32, bool)));
     disconnect(controller,SIGNAL( VehicleStartConfirmed(bool) ),device, SLOT(VehicleStartConfirmed(bool)));
     disconnect(controller,SIGNAL( LaneChangeConfirmed(bool) ),device, SLOT(LaneChangeConfirmed(bool)));
-    disconnect(controller,SIGNAL( SkillPointUpdated(quint32) ),device, SLOT(SkillPointUpdated(quint32)));
+    disconnect(controller,SIGNAL( SkillPointUpdated(quint32, quint32) ),device, SLOT(SkillPointUpdated(quint32, quint32)));
     disconnect(controller,SIGNAL( SafetyCarFollowingConfirmed(bool) ),device, SLOT(SafetyCarFollowingConfirmed(bool)));
     disconnect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool) ),device, SLOT(SafetyCarOvertakeConfirmed(bool)));
     disconnect(controller,SIGNAL( TouchCountModified(quint32) ),device, SLOT(TouchCountModified(quint32)));
+    disconnect(controller,SIGNAL( RaceTimerPaused() ),device, SLOT(RaceTimerPaused()));
+    disconnect(controller,SIGNAL( RaceTimerResumed() ),device, SLOT(RaceTimerResumed()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, ILaserGate *device)

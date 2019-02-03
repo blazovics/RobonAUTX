@@ -57,10 +57,18 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         localUnit->ManualLapTimeUpdated(event.extractQuint32FromRawData());
         break;
     case Device_RaceControlUnit + Event_SpeedLapCompleted :
-        localUnit->SpeedLapCompleted(event.extractQuint32FromRawData(),event.extractQuint32FromRawData());
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        quint32 second = event.extractQuint32FromRawData();
+        localUnit->SpeedLapCompleted(first,second);
+    }
         break;
     case Device_RaceControlUnit + Event_CheckpointStateUpdated :
-        localUnit->CheckpointStateUpdated(event.extractQuint32FromRawData(),event.extractBoolFromRawData());
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        bool second = event.extractBoolFromRawData();
+        localUnit->CheckpointStateUpdated(first,second);
+    }
         break;
     case Device_RaceControlUnit + Event_VehicleStartConfirmed :
         localUnit->VehicleStartConfirmed(event.extractBoolFromRawData());
@@ -69,7 +77,11 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         localUnit->LaneChangeConfirmed(event.extractBoolFromRawData());
         break;
     case Device_RaceControlUnit + Event_SkillPointUpdated :
-        localUnit->SkillPointUpdated(event.extractQuint32FromRawData());
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        quint32 second = event.extractQuint32FromRawData();
+        localUnit->SkillPointUpdated(first,second);
+    }
         break;
     case Device_RaceControlUnit + Event_SafetyCarFollowingConfirmed :
         localUnit->SafetyCarFollowingConfirmed(event.extractBoolFromRawData());
@@ -79,6 +91,12 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         break;
     case Device_RaceControlUnit + Event_TouchCountModified :
         localUnit->TouchCountModified(event.extractQuint32FromRawData());
+        break;
+    case Device_RaceControlUnit + Event_RaceTimerPaused :
+        localUnit->RaceTimerPaused();
+        break;
+    case Device_RaceControlUnit + Event_RaceTimerResumed :
+        localUnit->RaceTimerResumed();
         break;
     }
 }
@@ -161,10 +179,11 @@ void RemoteRaceControlUnit::LaneChangeConfirmed(bool achieved)
     sendEvent(event);
 }
 
-void RemoteRaceControlUnit::SkillPointUpdated(quint32 skillPoint)
+void RemoteRaceControlUnit::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 {
     Event event(Device_RaceControlUnit + Event_SkillPointUpdated);
     event.insertQuint32(skillPoint);
+    event.insertQuint32(timeCredit);
     sendEvent(event);
 }
 
@@ -186,5 +205,17 @@ void RemoteRaceControlUnit::TouchCountModified(quint32 numberOfTouches)
 {
     Event event(Device_RaceControlUnit + Event_TouchCountModified);
     event.insertQuint32(numberOfTouches);
+    sendEvent(event);
+}
+
+void RemoteRaceControlUnit::RaceTimerPaused()
+{
+    Event event(Device_RaceControlUnit + Event_RaceTimerPaused);
+    sendEvent(event);
+}
+
+void RemoteRaceControlUnit::RaceTimerResumed()
+{
+    Event event(Device_RaceControlUnit + Event_RaceTimerResumed);
     sendEvent(event);
 }

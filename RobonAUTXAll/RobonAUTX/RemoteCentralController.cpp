@@ -44,7 +44,11 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->InitSpeedRace(event.extractQuint32FromRawData());
         break;
     case Device_ICentralController + Event_UpdateVotesForTeam:
-        localController->UpdateVotesForTeam(event.extractQuint32FromRawData(),event.extractQuint32FromRawData());
+        {
+            quint32 first = event.extractQuint32FromRawData();
+            quint32 second = event.extractQuint32FromRawData();
+            localController->UpdateVotesForTeam(first,second);
+        }
         break;
     case Device_ICentralController + Event_ManualMeasureReceived:
         localController->ManualMeasureReceived();
@@ -56,7 +60,12 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->TimeSourceForLapSelected(TimeSourceType(event.extractQuint32FromRawData()));
         break;
     case Device_ICentralController + Event_UpdateCheckpointState:
-        localController->UpdateCheckpointState(event.extractQuint32FromRawData(),event.extractBoolFromRawData(),event.extractBoolFromRawData());
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        bool second = event.extractBoolFromRawData();
+        bool third = event.extractBoolFromRawData();
+        localController->UpdateCheckpointState(first,second,third);
+    }
         break;
     case Device_ICentralController + Event_StartRace:
         localController->StartRace();
@@ -84,16 +93,28 @@ void RemoteCentralController::EventReceived(Event &event)
         break;
 
     case Device_ICentralController + Event_ShowSpeedResults:
-        localController->ShowSpeedResults(event.extractBoolFromRawData(),event.extractQuint32FromRawData());
+    {
+        quint32 first = event.extractBoolFromRawData();
+        quint32 second = event.extractQuint32FromRawData();
+        localController->ShowSpeedResults(first,second);
+    }
         break;
     case Device_ICentralController + Event_ShowSkillResults:
         localController->ShowSkillResults(event.extractQuint32FromRawData());
         break;
     case Device_ICentralController + Event_ShowFinalResults:
-        localController->ShowFinalResults(event.extractBoolFromRawData(), event.extractQuint32FromRawData());
+    {
+        quint32 first = event.extractBoolFromRawData();
+        quint32 second = event.extractQuint32FromRawData();
+        localController->ShowFinalResults(first, second);
+    }
         break;
     case Device_ICentralController + Event_ShowFinalResultAtPosition:
-        localController->ShowFinalResultAtPosition(event.extractBoolFromRawData(), event.extractQuint32FromRawData());
+    {
+        quint32 first = event.extractBoolFromRawData();
+        quint32 second = event.extractQuint32FromRawData();
+        localController->ShowFinalResultAtPosition(first, second);
+    }
         break;
     case Device_ICentralController + Event_ShowVotesResults:
         localController->ShowVotesResults(event.extractQuint32FromRawData());
@@ -106,6 +127,12 @@ void RemoteCentralController::EventReceived(Event &event)
         break;
     case Device_ICentralController + Event_SkillGateStarted:
         localController->SkillGateStarted();
+        break;
+    case Device_ICentralController + Event_PauseRaceTimer:
+        localController->PauseRaceTimer();
+        break;
+    case Device_ICentralController + Event_ResumeRaceTimer:
+        localController->ResumeRaceTimer();
         break;
     }
 }
@@ -269,6 +296,18 @@ void RemoteCentralController::ShowInterRaceScreen()
 void RemoteCentralController::SkillGateStarted()
 {
     Event event(Device_ICentralController + Event_SkillGateStarted);
+    sendEvent(event);
+}
+
+void RemoteCentralController::PauseRaceTimer()
+{
+    Event event(Device_ICentralController + Event_PauseRaceTimer);
+    sendEvent(event);
+}
+
+void RemoteCentralController::ResumeRaceTimer()
+{
+    Event event(Device_ICentralController + Event_ResumeRaceTimer);
     sendEvent(event);
 }
 

@@ -45,6 +45,9 @@ public:
 
     RaceEventType getType();
 
+    quint32 GetActualPoints();
+    quint32 GetTimeCredit();
+
 public slots:
     void UpdateTimerFired();
 

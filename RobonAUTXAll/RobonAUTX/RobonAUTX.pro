@@ -39,12 +39,10 @@ SOURCES += \
     DisplayManager.cpp \
     FinalResult.cpp \
     Lap.cpp \
-    MainViewcontroller.cpp \
     QualificationResult.cpp \
     Race.cpp \
     RaceControlUnit.cpp \
     RaceEvent.cpp \
-    RaceViewController.cpp \
     RemoteCentralController.cpp \
     RemoteDevice.cpp \
     RemoteDisplayManager.cpp \
@@ -53,17 +51,14 @@ SOURCES += \
     RemoteSafetyCar.cpp \
     RemoteSkillRaceFieldUnit.cpp \
     RemoteVoteCounter.cpp \
-    ResultViewController.cpp \
     RTimer.cpp \
     SkillRace.cpp \
     SkillRaceEvent.cpp \
     SkillRaceResult.cpp \
-    SkillRaceViewController.cpp \
     SocketConnection.cpp \
     SpeedRace.cpp \
     SpeedRaceEvent.cpp \
     SpeedRaceResult.cpp \
-    SpeedRaceViewController.cpp \
     Team.cpp \
     VoteCounter.cpp \
     VoteResult.cpp \
@@ -72,7 +67,7 @@ SOURCES += \
     Simpleini/ConvertUTF.c \
     Configuration.cpp \
     RemoteSkillRaceGate.cpp \
-    ControlUnitController.cpp
+    TeamModel.cpp
 
 HEADERS += \
         robonautx.h \
@@ -92,12 +87,10 @@ HEADERS += \
     ISkillRaceFieldUnit.h \
     IVoteCounter.h \
     Lap.h \
-    MainViewcontroller.h \
     QualificationResult.h \
     Race.h \
     RaceControlUnit.h \
     RaceEvent.h \
-    RaceViewController.h \
     RemoteCentralController.h \
     RemoteDevice.h \
     RemoteDisplayManager.h \
@@ -106,18 +99,15 @@ HEADERS += \
     RemoteSafetyCar.h \
     RemoteSkillRaceFieldUnit.h \
     RemoteVoteCounter.h \
-    ResultViewController.h \
     ResultType.h \
     RTimer.h \
     SkillRace.h \
     SkillRaceEvent.h \
     SkillRaceResult.h \
-    SkillRaceViewController.h \
     SocketConnection.h \
     SpeedRace.h \
     SpeedRaceEvent.h \
     SpeedRaceResult.h \
-    SpeedRaceViewController.h \
     Team.h \
     TimeSourceType.h \
     VoteCounter.h \
@@ -131,7 +121,8 @@ HEADERS += \
     ISocketConnectionDelegate.h \
     RemoteSkillRaceGate.h \
     ISkillRaceGate.h \
-    ControlUnitController.h
+    ControlUnitController.h \
+    TeamModel.h
 
 unix {
     target.path = /usr/lib

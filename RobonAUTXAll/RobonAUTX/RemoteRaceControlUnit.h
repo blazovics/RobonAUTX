@@ -43,10 +43,13 @@ public slots:
     void CheckpointStateUpdated(quint32 checkpointID, bool checked);
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved);
-    void SkillPointUpdated(quint32 skillPoint);
+    void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(bool achieved);
     void TouchCountModified(quint32 numberOfTouches);
+
+    void RaceTimerPaused();
+    void RaceTimerResumed();
 };
 
 #endif //_REMOTERACECONTROLUNIT_H

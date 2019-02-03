@@ -15,9 +15,11 @@
 /**
  * @return QString
  */
+
+//FIXME: Make it more common!
 QString SpeedRaceResult::SpeedTimeToString(qint64 time) {
 
-    QTime qtime;
+    QTime qtime(0,0);
     qtime = qtime.addMSecs(int(time));
     return qtime.toString("mm:ss.zzz");
 

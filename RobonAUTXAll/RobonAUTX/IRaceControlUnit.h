@@ -23,6 +23,8 @@
 #define Event_SafetyCarFollowingConfirmed 13
 #define Event_SafetyCarOvertakeConfirmed 14
 #define Event_TouchCountModified 15
+#define Event_RaceTimerPaused 16
+#define Event_RaceTimerResumed 17
 
 #define Device_RaceControlUnit 200
 
@@ -60,6 +62,9 @@ signals:
     void ShowInterRaceScreen();
 
     void SkillGateManualStarted();
+
+    void PauseRaceTimer();
+    void ResumeRaceTimer();
     
 public slots:
 
@@ -74,10 +79,13 @@ public slots:
     virtual void CheckpointStateUpdated(quint32 checkpointID, bool checked) = 0;
     virtual void VehicleStartConfirmed(bool achieved) = 0;
     virtual void LaneChangeConfirmed(bool achieved) = 0;
-    virtual void SkillPointUpdated(quint32 skillPoint) = 0;
+    virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void SafetyCarFollowingConfirmed(bool achieved) = 0;
     virtual void SafetyCarOvertakeConfirmed(bool achieved) = 0;
     virtual void TouchCountModified(quint32 numberOfTouches) = 0;
+
+    virtual void RaceTimerPaused() = 0;
+    virtual void RaceTimerResumed() = 0;
 };
 
 #endif //_IRACECONTROLUNIT_H

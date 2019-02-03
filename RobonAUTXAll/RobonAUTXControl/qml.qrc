@@ -4,11 +4,15 @@
         <file>MainControlPage.qml</file>
         <file>SkillRaceControlPage.qml</file>
         <file>SkillRaceControlPageForm.ui.qml</file>
-        <file>RaceTimeContainer.ui.qml</file>
+        <file>RaceTimeContainerForm.ui.qml</file>
         <file>CheckpointsContainer.qml</file>
-        <file>RaceActionsContainer.ui.qml</file>
-        <file>SkillRaceResultsContainer.ui.qml</file>
+        <file>RaceActionsContainerForm.ui.qml</file>
+        <file>SkillRaceResultsContainerForm.ui.qml</file>
         <file>CheckpointButton.qml</file>
         <file>images/controllerBackground.png</file>
+        <file>CheckpointListModel.qml</file>
+        <file>RaceTimeContainer.qml</file>
+        <file>RaceActionsContainer.qml</file>
+        <file>SkillRaceResultsContainer.qml</file>
     </qresource>
 </RCC>

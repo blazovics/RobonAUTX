@@ -8,17 +8,38 @@ Rectangle {
     height: 800
     color: "#99ffffff"
 
-    //signal checkpointButtonPressed(int checkpointID, Boolean State);
+    signal checkpointButtonPressed(int checkpointID, bool state);
 
-    /*
+
     function updateCheckpoint(checkpointID,state)
     {
-        for(var i = 0; i < root.children.length; ++i)
-            if(root.children[i].type==="image"){
-                 //balabala
-            }
-    }*/
+        console.log(checkpointID)
+        console.log(state)
 
+        checkpointList.model.setProperty(checkpointID-1,"is_checked",state);
+    }
+
+    Component{
+        id: ckeckpointButtonDelegate
+        CheckpointButton {
+            checked: is_checked
+            checkpointID: checkpoint_ID
+
+            onReleased: {
+                checkpoints_container.checkpointButtonPressed(checkpointID,checked) ;
+                console.log("checked changed")
+            }
+        }
+    }
+
+    ListView{
+        id:checkpointList
+        anchors.fill: parent
+        model: CheckpointListModel {}
+        delegate: ckeckpointButtonDelegate
+
+    }
+/*
     ColumnLayout {
         id: checkpointsLayout
         clip: true
@@ -114,4 +135,5 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
     }
+    */
 }

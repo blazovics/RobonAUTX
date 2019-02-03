@@ -90,12 +90,13 @@ void SkillRace::SetLaneChangeSucceeded(bool value) {
 
 qint64 SkillRace::GetTimeCredit() const
 {
-    qint64 timeCredit = 20;
+    //TODO: Change this to be more robust
+    qint64 timeCredit = 20*1000;
     for(unsigned i = 1; i < checkpointStates.size(); i++)
     {
         if(checkpointStates[i] == true)
         {
-            timeCredit += 10;
+            timeCredit += 10*1000;
         }
     }
 

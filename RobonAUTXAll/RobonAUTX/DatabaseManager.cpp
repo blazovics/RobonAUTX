@@ -185,7 +185,7 @@ void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
     query.bindValue(":LaneChangeSucceeded",quint32(skillRace->GetLaneChangeSucceeded()));
     query.bindValue(":CheckpointState",skillRace->GetSerializedCheckpointStates());
     query.bindValue(":Time",skillRace->getRaceTime());
-    query.bindValue("Points", skillRace->GetRacePoint());
+    query.bindValue(":Points", skillRace->GetRacePoint());
     query.bindValue(":IsAborted", quint32(aborted));
 
     if(!query.exec())

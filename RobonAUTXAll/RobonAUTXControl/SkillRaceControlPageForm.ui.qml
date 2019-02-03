@@ -3,15 +3,12 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
 Item {
-    id: element
     width: 768
-    height: 1024
-
-    Image {
-        id: main_background
-        source: "images/controllerBackground.png"
-        anchors.fill: parent
-    }
+    height: 850
+    property alias time_container: time_container
+    property alias actions_container: actions_container
+    property alias race_time_container: race_time_container
+    property alias checkpoints_container: checkpoints_container
 
     RaceTimeContainer {
         id: race_time_container

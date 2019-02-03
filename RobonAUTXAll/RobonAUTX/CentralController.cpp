@@ -98,6 +98,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     {
         currentEvent->UpdateCheckpoint(checkpointID,checked,forced);
         emit CheckpointStateUpdated(checkpointID,checked);
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
         throw std::bad_cast();
@@ -141,6 +142,7 @@ void CentralController::VechicleStartAchieved(bool achieved)
     {
         currentEvent->SetStartSucceeded(achieved);
         emit VehicleStartConfirmed(achieved);
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
         throw std::bad_cast();
@@ -154,6 +156,7 @@ void CentralController::LaneChangeAchieved(bool achieved)
     {
         currentEvent->SetLanChangeSuccess(achieved);
         emit LaneChangeConfirmed(achieved);
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
         throw std::bad_cast();
@@ -238,7 +241,30 @@ void CentralController::SkillGateStarted()
 {
     if(this->raceEvent->getType() == Skill)
     {
+        SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr)
+        {
+            emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+        }
         this->raceEvent->StartRace();
         emit RaceStarted();
+    }
+}
+
+void CentralController::PauseRaceTimer()
+{
+    if(this->raceEvent->getType() == Skill)
+    {
+        this->raceEvent->PauseRaceTimer();
+        emit RaceTimerPaused();
+    }
+}
+
+void CentralController::ResumeRaceTimer()
+{
+    if(this->raceEvent->getType() == Skill)
+    {
+        this->raceEvent->ResumeRaceTimer();
+        emit RaceTimerResumed();
     }
 }
