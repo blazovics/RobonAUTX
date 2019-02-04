@@ -8,6 +8,28 @@
 #ifndef IDISPLAYMANAGER_H
 #define IDISPLAYMANAGER_H
 
+#define Event_showSpeedResults 1
+#define Event_showSkillResults 2
+#define Event_showFinalResults 3
+#define Event_showFinalResultAtPosition 4
+#define Event_showVotesResults 5
+#define Event_showQualificationResults 6
+#define Event_showInterRaceScreen 7
+#define Event_SkillRaceInitiated 8
+#define Event_SpeedRaceInitiated 9
+
+#define Event_LaneChangeAchieved 10
+#define Event_VehicleStartAchieved 11
+#define Event_SafetyCarFollowed 12
+#define Event_SafetyCarOvertaken 13
+#define Event_CheckpointStateUpdated 14
+
+#define Event_TeamListUpdated 15
+#define Event_SpeedLapCompleted 16
+#define Event_SkillPointUpdated 17
+
+#define Device_IDisplayManager 300
+
 #include <QObject>
 #include "Team.h"
 #include "SpeedRaceResult.h"
@@ -29,15 +51,18 @@ public slots:
     virtual void showVotesResults(QList<VoteResult> result, quint32 fromPos) = 0;
     virtual void showQualificationResults(QList<QualificationResult> result, quint32 fromPos) = 0;
     virtual void showInterRaceScreen() = 0;
-    virtual void SkillRaceInitiated() = 0;
-    virtual void SpeedRaceInitiated() = 0;  
-    virtual void StartTimer() = 0;
-    virtual void SetTimerValue(quint32 value) = 0;
-    virtual void StopTimer() = 0;
+    virtual void SkillRaceInitiated(quint32 teamID) = 0;
+    virtual void SpeedRaceInitiated(quint32 teamID) = 0;
+
+    virtual void LaneChangeAchieved(bool success) = 0;
+    virtual void VehicleStartAchieved(bool success) = 0;
+    virtual void SafetyCarFollowed(bool success) = 0;
+    virtual void SafetyCarOvertaken(bool success) = 0;
+    virtual void CheckpointStateUpdated(quint32 checkpointID, bool state) = 0;
+
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
     virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void TeamListUpdated(QList<Team> teams) = 0;
-    virtual void TeamSelected(quint32 teamID) = 0;
 
 };
 
