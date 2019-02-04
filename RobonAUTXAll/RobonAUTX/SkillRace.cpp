@@ -64,7 +64,7 @@ void SkillRace::SetCheckpoint(quint32 index, bool checked) {
  * @return bool
  */
 bool SkillRace::GetStartSucceeded() const {
-    return false;
+    return startSucceeded;
 }
 
 /**
@@ -78,7 +78,7 @@ void SkillRace::SetStartSucceeded(bool value) {
  * @return bool
  */
 bool SkillRace::GetLaneChangeSucceeded() const {
-    return false;
+    return laneChangeSucceeded;
 }
 
 /**
