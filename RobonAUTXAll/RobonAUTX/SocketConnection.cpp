@@ -75,6 +75,7 @@ SocketConnection::~SocketConnection()
 void SocketConnection::SendEvent(const Event &event) {
     QDataStream out(&this->outputBuffer,QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
+    out.setByteOrder(QDataStream::LittleEndian);
     out<< quint32(sizeof(quint32)) + quint32(sizeof (quint32)) + event.getRawDataSize();
     out<<event.getEventID();
     int bytesWrittenToBuffer = out.writeRawData(event.getRawData().data(), int(event.getRawDataSize()));
@@ -113,6 +114,7 @@ void SocketConnection::SocketErrorOccured(QAbstractSocket::SocketError socketErr
 void SocketConnection::extractEventFromBuffer()
 {
     QDataStream in(&this->inputBuffer,QIODevice::ReadOnly);
+    in.setByteOrder(QDataStream::LittleEndian);
 
     quint32 messageID;
     in >> messageID;
@@ -128,12 +130,16 @@ void SocketConnection::extractEventFromBuffer()
     QByteArray data;
     data.resize(rawDataLength);
 
+    //in >> data;
+
+
     int bytesReadFromBuffer = in.readRawData(data.data(),rawDataLength);
 
     if(bytesReadFromBuffer != int(rawDataLength))
     {
         throw std::length_error("The lenght of raw data is not equal the read data!");
     }
+
 
     this->inputBuffer.remove(0,sizeof (quint32));
     this->inputBuffer.remove(0,rawDataLength);
@@ -169,6 +175,7 @@ void SocketConnection::processInputBuffer()
         else
         {
             QDataStream in(&this->inputBuffer,QIODevice::ReadOnly);
+            in.setByteOrder(QDataStream::LittleEndian);
             in >> pendingMessageSize;
             pendingMessageSize -= sizeof (quint32);
             this->inputBuffer.remove(0,sizeof (quint32));
