@@ -37,7 +37,7 @@ RaceControlUnit::~RaceControlUnit()
 
 void RaceControlUnit::TeamListUpdated(QList<Team> teams)
 {
-    //teamModel.removeAll();
+    teamModel.removeAll();
 
     for (int i = 0; i < teams.size(); i++) {
         teamModel.addTeam(teams[i]);

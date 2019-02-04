@@ -29,8 +29,9 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("teamModel",controlUnit->getTeamModel());
     engine.rootContext()->setContextProperty("controlUnit",controlUnit);
+    engine.rootContext()->setContextProperty("controller",&controller);
 
-    controller.ConnectToServer();
+    //controller.ConnectToServer();
 
     return app.exec();
 }

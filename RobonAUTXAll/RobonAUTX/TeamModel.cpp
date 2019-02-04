@@ -14,10 +14,12 @@ void TeamModel::addTeam(const Team &team)
 
 void TeamModel::removeAll()
 {
-
-    beginRemoveRows(QModelIndex(),0,rowCount()-1);
-    m_teams.clear();
-    endRemoveRows();
+    if(rowCount() > 0)
+    {
+        beginRemoveRows(QModelIndex(),0,rowCount()-1);
+        m_teams.clear();
+        endRemoveRows();
+    }
 }
 
 int TeamModel::rowCount(const QModelIndex &parent) const

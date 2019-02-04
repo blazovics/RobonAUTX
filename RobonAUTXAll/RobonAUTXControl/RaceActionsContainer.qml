@@ -11,4 +11,10 @@ RaceActionsContainerForm {
     saveRaceButton.onClicked: {
         controlUnit.qmlFinishRace(false);
     }
+
+    function resetContainer()
+    {
+        abort_race_toggle.checked = false;
+        save_race_toggle.checked = false;
+    }
 }

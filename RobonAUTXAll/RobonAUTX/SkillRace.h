@@ -11,7 +11,7 @@
 #define SkillCheckpointCount 12
 #define SkillCheckpointPoint 2
 #define SkillStartPoint 2
-#define SkillLaneChangePoint 2
+#define SkillLaneChangePoint 4
 
 #include "Race.h"
 #include <vector>

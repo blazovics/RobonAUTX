@@ -40,6 +40,7 @@ ControlUnitController::ControlUnitController(QHostAddress serverAddress, quint16
 void ControlUnitController::ConnectToServer()
 {
     connect(&socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
+    connect(&socket, SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
 
     socket.connectToHost(serverAddress,serverPort);
 
@@ -62,14 +63,31 @@ void ControlUnitController::SocketConnected()
     this->proxiRaceControlUnit->AddConnection(&socket,QIODevice::ReadOnly);
 
     emit this->raceControlUnit->getTeamList();
+
+    emit connected();
 }
 
 void ControlUnitController::SocketDisconnected()
 {
-
+    emit disconnected();
 }
 
 void ControlUnitController::SocketError(QAbstractSocket::SocketError error)
 {
 
+}
+
+void ControlUnitController::qmlConnect(QString address)
+{
+    this->setServerAddress(QHostAddress(address));
+    this->ConnectToServer();
+}
+
+void ControlUnitController::qmlDisconnect()
+{
+    disconnectDevice(this->remoteCentralController.get(),raceControlUnit.get());
+    this->remoteCentralController.reset();
+    this->proxiRaceControlUnit->RemoveConnection(&socket);
+    disconnect(&this->socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
+    this->socket.close();
 }

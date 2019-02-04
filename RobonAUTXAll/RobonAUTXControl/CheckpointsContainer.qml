@@ -9,18 +9,41 @@ Rectangle {
     color: "#99ffffff"
 
     signal checkpointButtonPressed(int checkpointID, bool state);
+    signal startSucceededButtonPressed(bool state);
+    signal laneChangeSucceededButtonPressed(bool state);
 
+
+    function resetContainer(){
+        startSuccededButton.checked = false;
+        laneChangeSuccededButton.checked = false;
+
+        for(var i = 0; i< checkpointList.model.length; i++ )
+        {
+            checkpointList.model.setProperty(i,"is_checked",false);
+        }
+    }
 
     function updateCheckpoint(checkpointID,state)
     {
         console.log(checkpointID)
         console.log(state)
 
-        checkpointList.model.setProperty(checkpointID-1,"is_checked",state);
+        checkpointList.model.setProperty(checkpointID,"is_checked",state);
+    }
+
+    function updateLaneChangeSucceededButton(state)
+    {
+        laneChangeSuccededButton.checked = state;
+    }
+
+    function updateStartSucceededButton(state)
+    {
+        startSuccededButton.checked = state;
     }
 
     Component{
         id: ckeckpointButtonDelegate
+
         CheckpointButton {
             checked: is_checked
             checkpointID: checkpoint_ID
@@ -32,108 +55,44 @@ Rectangle {
         }
     }
 
-    ListView{
-        id:checkpointList
-        anchors.fill: parent
-        model: CheckpointListModel {}
-        delegate: ckeckpointButtonDelegate
-
-    }
-/*
-    ColumnLayout {
-        id: checkpointsLayout
-        clip: true
-        anchors.topMargin: 5
-        anchors.bottomMargin: 5
+    ColumnLayout{
+        anchors.bottomMargin: 15
+        anchors.topMargin: 15
+        spacing: 5
         anchors.fill: parent
 
-        DelayButton {
-            id: btn_checkpoint_start_succeeded
-            text: qsTr("Start Success")
+        Button {
+            text: "Star Succeeded"
+            id: startSuccededButton
+            checkable: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        CheckpointButton {
-            id: btn_checkpoint_0
-            checked: true
-            checkpointID: 1
-            onPressed: {
-                checkpointButtonPressed(checkpointID,checked);
+            onReleased: {
+                checkpoints_container.startSucceededButtonPressed(checked);
             }
         }
 
-        DelayButton {
-            id: btn_checkpoint_1
-            text: qsTr("Checkpoint 2")
+
+        ListView{
+            id:checkpointList
+            height: 600
+            contentHeight: 480
+            Layout.fillWidth: false
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillHeight: false
+            width: 200
+            model: CheckpointListModel {}
+            delegate: ckeckpointButtonDelegate
+
         }
 
-        DelayButton {
-            id: btn_checkpoint_2
-            text: qsTr("Checkpoint 3")
+        Button {
+            text: "Lane Change Succeeded"
+            id: laneChangeSuccededButton
+            checkable: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_3
-            text: qsTr("Checkpoint 4")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_4
-            text: qsTr("Checkpoint 5")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_5
-            text: qsTr("Checkpoint 6")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_6
-            text: qsTr("Checkpoint 7")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_7
-            text: qsTr("Checkpoint 8")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_8
-            text: qsTr("Checkpoint 9")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_9
-            text: qsTr("Checkpoint 10")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_10
-            text: qsTr("Checkpoint 11")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-        DelayButton {
-            id: btn_checkpoint_11
-            text: qsTr("Checkpoint 12")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        }
-
-
-        DelayButton {
-            id: btn_checkpoint_lane_change_succeeded
-            text: qsTr("Lane Change Success")
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            onReleased: {
+                checkpoints_container.laneChangeSucceededButtonPressed(checked);
+            }
         }
     }
-    */
 }

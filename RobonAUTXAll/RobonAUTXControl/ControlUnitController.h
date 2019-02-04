@@ -43,6 +43,14 @@ public slots:
     void SocketConnected();
     void SocketDisconnected();
     void SocketError(QAbstractSocket::SocketError error);
+
+    void qmlConnect(QString address);
+    void qmlDisconnect();
+
+signals:
+    void connected();
+    void disconnected();
+
 };
 
 #endif // CONTROLUNITCONTROLLER_H

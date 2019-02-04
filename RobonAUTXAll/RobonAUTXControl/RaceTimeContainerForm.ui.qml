@@ -7,6 +7,7 @@ Rectangle {
     width: 220
     height: 250
     color: "#99ffffff"
+    property alias manualTimerToggle: manualTimerToggle
     property alias resumeTimerButton: resumeTimerButton
     property alias pauseTimerButton: pauseTimerButton
     property alias manualStartButton: manualStartButton
@@ -17,7 +18,7 @@ Rectangle {
         anchors.fill: parent
 
         Switch {
-            id: manual_set_timer_toggle
+            id: manualTimerToggle
             text: qsTr("Manual Timer Functions")
             focusPolicy: Qt.WheelFocus
             checked: true
@@ -28,7 +29,7 @@ Rectangle {
             id: manualStartButton
             text: qsTr("Manual Start Timer")
             checkable: true
-            visible: manual_set_timer_toggle.checked
+            visible: manualTimerToggle.checked
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
 
@@ -37,7 +38,7 @@ Rectangle {
             text: qsTr("Pause Timer")
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             checkable: true
-            visible: manual_set_timer_toggle.checked
+            visible: manualTimerToggle.checked
         }
 
         Button {
@@ -45,7 +46,7 @@ Rectangle {
             text: qsTr("Resume Timer")
             enabled: true
             checkable: true
-            visible: manual_set_timer_toggle.checked
+            visible: manualTimerToggle.checked
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
     }

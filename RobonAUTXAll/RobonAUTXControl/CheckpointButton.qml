@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 Button {
     id: checkpoint_0_button
-    text: qsTr("Checkpoint " + checkpointID)
+    text: qsTr("Checkpoint " + (checkpointID + 1))
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
     checkable: true
 

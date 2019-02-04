@@ -7,8 +7,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/MainSystem.ini";
-    //QString configFIlePath = "D:/Projects/RobonAUTxQt/MainSystem.ini";
+    //QString configFIlePath = "D:/AUT-Projects/RobonAUTX/MainSystem.ini";
+    QString configFIlePath = "D:/Projects/RobonAUTxQt/MainSystem.ini";
 
     if(argc > 1)
     {

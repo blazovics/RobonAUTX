@@ -7,6 +7,8 @@ Rectangle {
     width: 220
     height: 353
     color: "#99ffffff"
+    property alias save_race_toggle: save_race_toggle
+    property alias abort_race_toggle: abort_race_toggle
     property alias saveRaceButton: saveRaceButton
     property alias abortRaceButton: abortRaceButton
     property alias startRaceButton: startRaceButton

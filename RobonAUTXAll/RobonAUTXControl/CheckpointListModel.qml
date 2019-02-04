@@ -4,6 +4,10 @@ import QtQuick.Layouts 1.3
 
 ListModel {
     ListElement {
+        checkpoint_ID: 0
+        is_checked: false
+    }
+    ListElement {
         checkpoint_ID: 1
         is_checked: false
     }
@@ -44,7 +48,7 @@ ListModel {
         is_checked: false
     }
     ListElement {
-        checkpoint_ID: 10
+        checkpoint_ID: 11
         is_checked: false
     }
 }
