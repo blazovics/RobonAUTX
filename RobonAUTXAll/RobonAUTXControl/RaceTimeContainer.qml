@@ -8,6 +8,9 @@ RaceTimeContainerForm {
             manualStartButton.enabled = true;
             pauseTimerButton.enabled = true;
         }
+        onUpdateRaceTime:{
+            manualStartButton.enabled = false;
+        }
     }
 
     manualStartButton.onClicked: {
@@ -30,6 +33,6 @@ RaceTimeContainerForm {
         manualStartButton.enabled = true;
         pauseTimerButton.enabled = false;
         resumeTimerButton.enabled = false;
-        manualTimerToggle.enabled = false;
+        manualTimerToggle.checked = false;
     }
 }

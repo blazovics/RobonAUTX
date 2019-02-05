@@ -46,13 +46,9 @@ public slots:
     void showInterRaceScreen();
     void SkillRaceInitiated(quint32 teamID);
     void SpeedRaceInitiated(quint32 teamID);
-    void StartTimer();
-    void SetTimerValue(quint32 value);
-    void StopTimer();
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void TeamListUpdated(QList<Team> teams);
-    void TeamSelected(quint32 teamID);
 
 };
 

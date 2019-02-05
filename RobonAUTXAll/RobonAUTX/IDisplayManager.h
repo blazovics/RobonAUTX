@@ -8,25 +8,25 @@
 #ifndef IDISPLAYMANAGER_H
 #define IDISPLAYMANAGER_H
 
-#define Event_showSpeedResults 1
-#define Event_showSkillResults 2
-#define Event_showFinalResults 3
-#define Event_showFinalResultAtPosition 4
-#define Event_showVotesResults 5
-#define Event_showQualificationResults 6
-#define Event_showInterRaceScreen 7
-#define Event_SkillRaceInitiated 8
-#define Event_SpeedRaceInitiated 9
+#define Event_Disp_showSpeedResults 1
+#define Event_Disp_showSkillResults 2
+#define Event_Disp_showFinalResults 3
+#define Event_Disp_showFinalResultAtPosition 4
+#define Event_Disp_showVotesResults 5
+#define Event_Disp_showQualificationResults 6
+#define Event_Disp_showInterRaceScreen 7
+#define Event_Disp_SkillRaceInitiated 8
+#define Event_Disp_SpeedRaceInitiated 9
 
-#define Event_LaneChangeAchieved 10
-#define Event_VehicleStartAchieved 11
-#define Event_SafetyCarFollowed 12
-#define Event_SafetyCarOvertaken 13
-#define Event_CheckpointStateUpdated 14
+#define Event_Disp_LaneChangeAchieved 10
+#define Event_Disp_VehicleStartAchieved 11
+#define Event_Disp_SafetyCarFollowed 12
+#define Event_Disp_SafetyCarOvertaken 13
+#define Event_Disp_CheckpointStateUpdated 14
 
-#define Event_TeamListUpdated 15
-#define Event_SpeedLapCompleted 16
-#define Event_SkillPointUpdated 17
+#define Event_Disp_TeamListUpdated 15
+#define Event_Disp_SpeedLapCompleted 16
+#define Event_Disp_SkillPointUpdated 17
 
 #define Device_IDisplayManager 300
 

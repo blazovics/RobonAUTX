@@ -36,7 +36,7 @@ void RemoteDisplayManager::setLocalManager(DisplayManager *value)
 void RemoteDisplayManager::EventReceived(Event &event)
 {
     switch (event.getEventID()) {
-    case Device_IDisplayManager + Event_showSpeedResults :
+    case Device_IDisplayManager + Event_Disp_showSpeedResults :
     {
         QList<SpeedRaceResult> result = event.extractSpeedRaceResultsFromRawData();
         bool isJunior = event.extractBoolFromRawData();
@@ -45,7 +45,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showSpeedResults(result,isJunior,fromPos);
     }
         break;
-    case Device_IDisplayManager + Event_showSkillResults :
+    case Device_IDisplayManager + Event_Disp_showSkillResults :
     {
         QList<SkillRaceResult> result = event.extractSkillRaceResultFromRawData();
         quint32 fromPos = event.extractQuint32FromRawData();
@@ -53,7 +53,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showSkillResults(result,fromPos);
     }
         break;
-    case Device_IDisplayManager + Event_showFinalResults :
+    case Device_IDisplayManager + Event_Disp_showFinalResults :
     {
         QList<FinalResult> result = event.extractFinalResultsFromRawData();
         bool isJunior = event.extractBoolFromRawData();
@@ -62,7 +62,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showFinalResults(result,isJunior,fromPos);
     }
         break;
-    case Device_IDisplayManager + Event_showFinalResultAtPosition :
+    case Device_IDisplayManager + Event_Disp_showFinalResultAtPosition :
     {
         QList<FinalResult> result = event.extractFinalResultsFromRawData();
         bool isJunior = event.extractBoolFromRawData();
@@ -71,7 +71,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showFinalResultAtPosition(result,isJunior,position);
     }
         break;
-    case Device_IDisplayManager + Event_showVotesResults :
+    case Device_IDisplayManager + Event_Disp_showVotesResults :
     {
         QList<VoteResult> result = event.extractVoteResultsFromRawData();
         quint32 fromPos = event.extractQuint32FromRawData();
@@ -79,7 +79,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showVotesResults(result,fromPos);
     }
         break;
-    case Device_IDisplayManager + Event_showQualificationResults :
+    case Device_IDisplayManager + Event_Disp_showQualificationResults :
     {
         QList<QualificationResult> result = event.extractQualificationResultsFromRawData();
         quint32 fromPos = event.extractQuint32FromRawData();
@@ -87,28 +87,28 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->showQualificationResults(result,fromPos);
     }
         break;
-    case Device_IDisplayManager + Event_showInterRaceScreen :
+    case Device_IDisplayManager + Event_Disp_showInterRaceScreen :
         localManager->showInterRaceScreen();
         break;
-    case Device_IDisplayManager + Event_SkillRaceInitiated :
+    case Device_IDisplayManager + Event_Disp_SkillRaceInitiated :
         localManager->SkillRaceInitiated(event.extractQuint32FromRawData());
         break;
-    case Device_IDisplayManager + Event_SpeedRaceInitiated :
+    case Device_IDisplayManager + Event_Disp_SpeedRaceInitiated :
         localManager->SpeedRaceInitiated(event.extractQuint32FromRawData());
         break;
-    case Device_IDisplayManager + Event_LaneChangeAchieved :
+    case Device_IDisplayManager + Event_Disp_LaneChangeAchieved :
         localManager->LaneChangeAchieved(event.extractBoolFromRawData());
         break;
-    case Device_IDisplayManager + Event_VehicleStartAchieved :
+    case Device_IDisplayManager + Event_Disp_VehicleStartAchieved :
         localManager->VehicleStartAchieved(event.extractBoolFromRawData());
         break;
-    case Device_IDisplayManager + Event_SafetyCarFollowed :
+    case Device_IDisplayManager + Event_Disp_SafetyCarFollowed :
         localManager->SafetyCarFollowed(event.extractBoolFromRawData());
         break;
-    case Device_IDisplayManager + Event_SafetyCarOvertaken :
+    case Device_IDisplayManager + Event_Disp_SafetyCarOvertaken :
         localManager->SafetyCarOvertaken(event.extractBoolFromRawData());
         break;
-    case Device_IDisplayManager + Event_CheckpointStateUpdated :
+    case Device_IDisplayManager + Event_Disp_CheckpointStateUpdated :
     {
        quint32 checkpointID = event.extractQuint32FromRawData();
        bool state = event.extractBoolFromRawData();
@@ -116,7 +116,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
        localManager->CheckpointStateUpdated(checkpointID,state);
     }
         break;
-    case Device_IDisplayManager + Event_SpeedLapCompleted :
+    case Device_IDisplayManager + Event_Disp_SpeedLapCompleted :
     {
         quint32 lapNumber = event.extractQuint32FromRawData();
         quint32 lapTime = event.extractQuint32FromRawData();
@@ -124,7 +124,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->SpeedLapCompleted(lapNumber,lapTime);
     }
         break;
-    case Device_IDisplayManager + Event_SkillPointUpdated :
+    case Device_IDisplayManager + Event_Disp_SkillPointUpdated :
     {
         quint32 skillPoint = event.extractQuint32FromRawData();
         quint32 timeCredit = event.extractQuint32FromRawData();
@@ -132,7 +132,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->SkillPointUpdated(skillPoint,timeCredit);
     }
         break;
-    case Device_IDisplayManager + Event_TeamListUpdated :
+    case Device_IDisplayManager + Event_Disp_TeamListUpdated :
     {
         localManager->TeamListUpdated(event.extractTeamsFromRawData());
     }
@@ -143,7 +143,7 @@ void RemoteDisplayManager::EventReceived(Event &event)
 
 void RemoteDisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos)
 {
-    Event event(Device_IDisplayManager + Event_showSpeedResults);
+    Event event(Device_IDisplayManager + Event_Disp_showSpeedResults);
     event.insertSpeedRaceResults(result);
     event.insertBool(isJunior);
     event.insertQuint32(fromPos);
@@ -152,7 +152,7 @@ void RemoteDisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool 
 
 void RemoteDisplayManager::showSkillResults(QList<SkillRaceResult> result, quint32 fromPos)
 {
-    Event event(Device_IDisplayManager +  Event_showSkillResults );
+    Event event(Device_IDisplayManager +  Event_Disp_showSkillResults );
     event.insertSkillRaceResults(result);
     event.insertQuint32(fromPos);
     sendEvent(event);
@@ -161,7 +161,7 @@ void RemoteDisplayManager::showSkillResults(QList<SkillRaceResult> result, quint
 
 void RemoteDisplayManager::showFinalResults(QList<FinalResult> result, bool isJunior, quint32 fromPos)
 {
-    Event event(Device_IDisplayManager +  Event_showFinalResults );
+    Event event(Device_IDisplayManager +  Event_Disp_showFinalResults );
     event.insertFinalResults(result);
     event.insertBool(isJunior);
     event.insertQuint32(fromPos);
@@ -171,7 +171,7 @@ void RemoteDisplayManager::showFinalResults(QList<FinalResult> result, bool isJu
 
 void RemoteDisplayManager::showFinalResultAtPosition(QList<FinalResult> result, bool isJunior, quint32 position)
 {
-    Event event(Device_IDisplayManager +  Event_showFinalResultAtPosition );
+    Event event(Device_IDisplayManager +  Event_Disp_showFinalResultAtPosition );
     event.insertFinalResults(result);
     event.insertBool(isJunior);
     event.insertQuint32(position);
@@ -181,7 +181,7 @@ void RemoteDisplayManager::showFinalResultAtPosition(QList<FinalResult> result, 
 
 void RemoteDisplayManager::showVotesResults(QList<VoteResult> result, quint32 fromPos)
 {
-    Event event(Device_IDisplayManager +  Event_showVotesResults );
+    Event event(Device_IDisplayManager +  Event_Disp_showVotesResults );
     event.insertVoteResults(result);
     event.insertQuint32(fromPos);
     sendEvent(event);
@@ -190,7 +190,7 @@ void RemoteDisplayManager::showVotesResults(QList<VoteResult> result, quint32 fr
 
 void RemoteDisplayManager::showQualificationResults(QList<QualificationResult> result, quint32 fromPos)
 {
-    Event event(Device_IDisplayManager +  Event_showQualificationResults );
+    Event event(Device_IDisplayManager +  Event_Disp_showQualificationResults );
     event.insertQualificationResuls(result);
     event.insertQuint32(fromPos);
     sendEvent(event);
@@ -199,7 +199,7 @@ void RemoteDisplayManager::showQualificationResults(QList<QualificationResult> r
 
 void RemoteDisplayManager::LaneChangeAchieved(bool success)
 {
-    Event event(Device_IDisplayManager +  Event_LaneChangeAchieved );
+    Event event(Device_IDisplayManager +  Event_Disp_LaneChangeAchieved );
     event.insertBool(success);
     sendEvent(event);
 
@@ -207,7 +207,7 @@ void RemoteDisplayManager::LaneChangeAchieved(bool success)
 
 void RemoteDisplayManager::VehicleStartAchieved(bool success)
 {
-    Event event(Device_IDisplayManager +  Event_VehicleStartAchieved );
+    Event event(Device_IDisplayManager +  Event_Disp_VehicleStartAchieved );
     event.insertBool(success);
     sendEvent(event);
 
@@ -215,7 +215,7 @@ void RemoteDisplayManager::VehicleStartAchieved(bool success)
 
 void RemoteDisplayManager::SafetyCarFollowed(bool success)
 {
-    Event event(Device_IDisplayManager +  Event_SafetyCarFollowed );
+    Event event(Device_IDisplayManager +  Event_Disp_SafetyCarFollowed );
     event.insertBool(success);
     sendEvent(event);
 
@@ -223,7 +223,7 @@ void RemoteDisplayManager::SafetyCarFollowed(bool success)
 
 void RemoteDisplayManager::SafetyCarOvertaken(bool success)
 {
-    Event event(Device_IDisplayManager +  Event_SafetyCarOvertaken );
+    Event event(Device_IDisplayManager +  Event_Disp_SafetyCarOvertaken );
     event.insertBool(success);
     sendEvent(event);
 
@@ -231,7 +231,7 @@ void RemoteDisplayManager::SafetyCarOvertaken(bool success)
 
 void RemoteDisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)
 {
-    Event event(Device_IDisplayManager +  Event_CheckpointStateUpdated );
+    Event event(Device_IDisplayManager +  Event_Disp_CheckpointStateUpdated );
     event.insertQuint32(checkpointID);
     event.insertBool(state);
     sendEvent(event);
@@ -240,14 +240,14 @@ void RemoteDisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool sta
 
 void RemoteDisplayManager::showInterRaceScreen()
 {
-    Event event(Device_IDisplayManager +  Event_showInterRaceScreen );
+    Event event(Device_IDisplayManager +  Event_Disp_showInterRaceScreen );
     sendEvent(event);
 
 }
 
 void RemoteDisplayManager::SkillRaceInitiated(quint32 teamID)
 {
-    Event event(Device_IDisplayManager +  Event_SkillRaceInitiated );
+    Event event(Device_IDisplayManager +  Event_Disp_SkillRaceInitiated );
     event.insertQuint32(teamID);
     sendEvent(event);
 
@@ -255,7 +255,7 @@ void RemoteDisplayManager::SkillRaceInitiated(quint32 teamID)
 
 void RemoteDisplayManager::SpeedRaceInitiated(quint32 teamID)
 {
-    Event event(Device_IDisplayManager +  Event_SpeedRaceInitiated );
+    Event event(Device_IDisplayManager +  Event_Disp_SpeedRaceInitiated );
     event.insertQuint32(teamID);
     sendEvent(event);
 
@@ -265,7 +265,7 @@ void RemoteDisplayManager::SpeedRaceInitiated(quint32 teamID)
 
 void RemoteDisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
-    Event event(Device_IDisplayManager +  Event_SpeedLapCompleted );
+    Event event(Device_IDisplayManager +  Event_Disp_SpeedLapCompleted );
     event.insertQuint32(lapNumber);
     event.insertQuint32(lapTime);
     sendEvent(event);
@@ -274,7 +274,7 @@ void RemoteDisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 
 void RemoteDisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 {
-    Event event(Device_IDisplayManager +  Event_SkillPointUpdated );
+    Event event(Device_IDisplayManager +  Event_Disp_SkillPointUpdated );
     event.insertQuint32(skillPoint);
     event.insertQuint32(timeCredit);
     sendEvent(event);
@@ -283,7 +283,7 @@ void RemoteDisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCre
 
 void RemoteDisplayManager::TeamListUpdated(QList<Team> teams)
 {
-    Event event(Device_IDisplayManager +  Event_TeamListUpdated );
+    Event event(Device_IDisplayManager +  Event_Disp_TeamListUpdated );
     event.insertTeams(teams);
     sendEvent(event);
 

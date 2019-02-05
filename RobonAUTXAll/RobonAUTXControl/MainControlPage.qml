@@ -97,6 +97,9 @@ Item {
                 text: qsTr("Start Speed Race")
                 visible: manualSpeedRaceSwitch.checked
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onClicked: {
+                    controlUnit.qmlInitSpeedRace(selectedTeamID);
+                }
             }
 
         }

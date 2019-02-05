@@ -8,6 +8,7 @@
 #include "RaceControlUnit.h"
 //FIXME: just for time formatting
 #include "SpeedRaceResult.h"
+#include <math.h>
 /**
  * RaceControlUnit implementation
  */
@@ -53,6 +54,7 @@ void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
 void RaceControlUnit::SpeedRaceInitiated(quint32 teamID)
 {
     eventType = Speed;
+    touchCount = 0;
     emit showSpeedRaceView(teamID);
 }
 
@@ -86,17 +88,17 @@ void RaceControlUnit::RaceFinished(bool aborted)
 
 void RaceControlUnit::LaserLapTimeUpdated(quint32 time)
 {
-
+    emit updateLaserLapTime(SpeedRaceResult::SpeedTimeToString(time));
 }
 
 void RaceControlUnit::ManualLapTimeUpdated(quint32 time)
 {
-
+    emit updateManualLapTime(SpeedRaceResult::SpeedTimeToString(time));
 }
 
 void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
-
+    emit updateCompletedSpeedLaps(lapNumber,lapTime);
 }
 
 void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
@@ -122,17 +124,17 @@ void RaceControlUnit::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 
 void RaceControlUnit::SafetyCarFollowingConfirmed(bool achieved)
 {
-
+    emit updateSafetyCarFollowingConfirmedButton(achieved);
 }
 
 void RaceControlUnit::SafetyCarOvertakeConfirmed(bool achieved)
 {
-
+    emit updateSafetyCarOvertakenConfirmedButton(achieved);
 }
 
 void RaceControlUnit::TouchCountModified(quint32 numberOfTouches)
 {
-
+    emit updateTouchCountModified(numberOfTouches);
 }
 
 void RaceControlUnit::RaceTimerPaused()
@@ -149,9 +151,20 @@ void RaceControlUnit::TimerFired()
 {
     if(eventType == Skill)
     {
+        qint64 realTimeCredit = timeCredit;
+        qint64 elapsedTime = raceTimer.Elapsed();
+
+        qint64 remainingTime = realTimeCredit-elapsedTime;
+
+        if(remainingTime > 0)
+        {
+             emit updateRemainingTime(SpeedRaceResult::SpeedTimeToString(quint32(remainingTime)));
+        }
+        else {
+            emit updateRemainingTime("-" + SpeedRaceResult::SpeedTimeToString(quint32(abs(remainingTime))));
+        }
 
 
-        emit updateRemainingTime(SpeedRaceResult::SpeedTimeToString(timeCredit - quint32(raceTimer.Elapsed())));
         emit updateRaceTime(SpeedRaceResult::SpeedTimeToString(raceTimer.Elapsed()));
     }
 }
@@ -180,9 +193,15 @@ void RaceControlUnit::qmlManualMeasure()
 {
     emit manualMeasure();
 }
-void RaceControlUnit::qmlSelectTimeSourceForLap(TimeSourceType timeSource)
+
+void RaceControlUnit::qmlManualTimeSelected()
 {
-    emit SelectTimeSourceForLap(timeSource);
+    emit SelectTimeSourceForLap(ManualTime);
+}
+
+void RaceControlUnit::qmlLaserTimeSelected()
+{
+    emit SelectTimeSourceForLap(LaserTime);
 }
 void RaceControlUnit::qmlUpdateCheckpointState(quint32 checkpointID, bool checked, bool forced)
 {
@@ -204,9 +223,23 @@ void RaceControlUnit::qmlSafetyCarOvertaken(bool achieved)
 {
     emit SafetyCarOvertaken(achieved);
 }
-void RaceControlUnit::qmlModifyTouchCount(quint32 numberOfTouches)
+
+void RaceControlUnit::qmlIncreaseTouchCount()
 {
-    emit ModifyTouchCount(numberOfTouches);
+    if(touchCount < 5)
+    {
+        touchCount++;
+    }
+    emit ModifyTouchCount(touchCount);
+}
+
+void RaceControlUnit::qmlDecreaseTouchCount()
+{
+    if(touchCount > 0)
+    {
+        touchCount--;
+    }
+    emit ModifyTouchCount(touchCount);
 }
 
 void RaceControlUnit::qmlPauseRaceTimer()

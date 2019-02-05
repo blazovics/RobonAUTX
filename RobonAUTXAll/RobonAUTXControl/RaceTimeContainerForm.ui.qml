@@ -21,7 +21,6 @@ Rectangle {
             id: manualTimerToggle
             text: qsTr("Manual Timer Functions")
             focusPolicy: Qt.WheelFocus
-            checked: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
 
