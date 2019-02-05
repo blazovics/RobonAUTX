@@ -58,14 +58,30 @@ void RaceControlUnit::SpeedRaceInitiated(quint32 teamID)
 
 void RaceControlUnit::raceStarted()
 {
-    raceTimer.StartTimer();
-    updateTimer.get()->start(10);
+    if(eventType == Skill)
+    {
+        raceTimer.StartTimer();
+    }
+    else if(eventType == Speed){
+        this->speedRaceTimer.start();
+    }
+    updateTimer->start(10);
 }
 
 void RaceControlUnit::RaceFinished(bool aborted)
 {
-    emit showMainView();
-    raceTimer.StopTimer();
+    if(eventType == Skill)
+    {
+        raceTimer.StopTimer();
+
+    }
+    if(eventType == Speed)
+    {
+        this->speedRaceTimer.invalidate();
+        emit showMainView();
+    }
+
+    updateTimer->stop();
 }
 
 void RaceControlUnit::LaserLapTimeUpdated(quint32 time)
