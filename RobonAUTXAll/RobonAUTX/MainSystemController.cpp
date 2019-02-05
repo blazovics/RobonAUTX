@@ -179,7 +179,7 @@ void MainSystemController::newLaserGateConnection()
 void MainSystemController::newSkillRaceFieldUnitConnection()
 {
     QTcpSocket* newSocket = this->skillRaceFieldUnitServer.nextPendingConnection();
-    std::shared_ptr<RemoteSkillRaceFieldUnit> newRemoteSkillRaceFieldUnit = std::make_shared<RemoteSkillRaceFieldUnit>(this,newSocket);
+    std::shared_ptr<RemoteSkillRaceFieldUnit> newRemoteSkillRaceFieldUnit = std::make_shared<RemoteSkillRaceFieldUnit>(this,newSocket, QIODevice::ReadOnly);
 
     if(this->remoteSkillRaceFieldUnit.second != nullptr)
     {
@@ -189,7 +189,7 @@ void MainSystemController::newSkillRaceFieldUnitConnection()
     this->remoteSkillRaceFieldUnit = QPair<std::shared_ptr<RemoteSkillRaceFieldUnit>,QTcpSocket*>(newRemoteSkillRaceFieldUnit,newSocket);
 
     CoreController::connectDevice(this->centralController.get(),remoteSkillRaceFieldUnit.first.get());
-    this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+    this->proxiCentralController->AddConnection(newSocket,QIODevice::WriteOnly);
 }
 
 void MainSystemController::newVoteCounterConnection()

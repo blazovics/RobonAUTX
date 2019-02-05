@@ -22,6 +22,8 @@ class ISkillRaceFieldUnit : public QObject {
 
     Q_OBJECT
 
+public:
+
 signals:
     void checkpointUpdated(quint32 checkpointID, bool state, bool forced);
     //Fixme: Iterative

@@ -24,7 +24,7 @@ SkillRaceControlPageForm {
     Connections{
         target: controlUnit
         onUpdateCheckpointButtons:{
-            checkpoints_container.updateCheckpoint(checkpointID,state);
+            checkpoints_container.updateCheckpoint(checkpointID,checked);
         }
         onUpdateStartSuccessButton:{
             checkpoints_container.updateStartSucceededButton(status);

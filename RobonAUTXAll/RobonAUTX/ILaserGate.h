@@ -17,6 +17,8 @@ class ILaserGate : public QObject {
 
     Q_OBJECT
 
+public:
+
 signals:
     void LaserMeasure(quint32 time);
 };

@@ -159,7 +159,7 @@ void RemoteRaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime
 
 void RemoteRaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
 {
-    Event event(Device_RaceControlUnit + Event_SpeedLapCompleted);
+    Event event(Device_RaceControlUnit + Event_CheckpointStateUpdated);
     event.insertQuint32(checkpointID);
     event.insertBool(checked);
     sendEvent(event);

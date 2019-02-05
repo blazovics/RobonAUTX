@@ -103,6 +103,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
+
         throw std::bad_cast();
     }
 }
@@ -122,6 +123,7 @@ void CentralController::StartRace()
 
 void CentralController::FinishRace(bool aborted)
 {
+    //FIXME check if not null
     if(aborted)
     {
         this->raceEvent->AbortRace();
