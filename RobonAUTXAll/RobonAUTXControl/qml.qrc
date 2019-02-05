@@ -14,5 +14,6 @@
         <file>RaceTimeContainer.qml</file>
         <file>RaceActionsContainer.qml</file>
         <file>SkillRaceResultsContainer.qml</file>
+        <file>SpeedRaceControlPage.qml</file>
     </qresource>
 </RCC>

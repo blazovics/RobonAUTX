@@ -28,6 +28,8 @@ class RaceControlUnit: public IRaceControlUnit {
     std::unique_ptr<QTimer> updateTimer;
 
     RaceEventType eventType;
+
+    quint32 touchCount;
     
 public:
     explicit RaceControlUnit();
@@ -67,13 +69,15 @@ public slots:
     void qmlStartRace();
     void qmlFinishRace(bool aborted);
     void qmlManualMeasure();
-    void qmlSelectTimeSourceForLap(TimeSourceType timeSource);
+    void qmlManualTimeSelected();
+    void qmlLaserTimeSelected();
     void qmlUpdateCheckpointState(quint32 checkpointID, bool checked, bool forced);
     void qmlVehicleStarted(bool achieved);
     void qmlLaneChanged(bool achieved);
     void qmlSafetyCarFollowed(bool achieved);
     void qmlSafetyCarOvertaken(bool achieved);
-    void qmlModifyTouchCount(quint32 numberOfTouches);
+    void qmlIncreaseTouchCount();
+    void qmlDecreaseTouchCount();
 
     void qmlShowSpeedResults(bool isJunior, quint32 fromPos);
     void qmlShowSkillResults(quint32 fromPos);
@@ -98,6 +102,13 @@ signals:
     void updateSkillPoint(quint32 point);
     void updateRaceTime(QString time);
     void updateRemainingTime(QString time);
+
+    void updateSafetyCarFollowingConfirmedButton(bool status);
+    void updateSafetyCarOvertakenConfirmedButton(bool status);
+    void updateTouchCountModified(quint32 numberOfTouches);
+    void updateLaserLapTime(QString time);
+    void updateManualLapTime(QString time);
+    void updateCompletedSpeedLaps(quint32 lapNumber, quint32 lapTime);
 
 };
 

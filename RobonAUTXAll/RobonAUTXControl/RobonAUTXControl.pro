@@ -21,12 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    ControlUnitController.cpp \
-    ResultViewController.cpp \
-    SkillRaceViewController.cpp \
-    SpeedRaceViewController.cpp \
-    RaceViewController.cpp \
-    MainViewController.cpp
+    ControlUnitController.cpp
 
 RESOURCES += qml.qrc
 
@@ -42,9 +37,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ControlUnitController.h \
-    ResultViewController.h \
-    SkillRaceViewController.h \
-    SpeedRaceViewController.h \
-    RaceViewController.h \
-    MainViewController.h
+    ControlUnitController.h

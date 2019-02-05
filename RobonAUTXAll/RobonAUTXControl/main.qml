@@ -33,6 +33,8 @@ Window {
         onShowSpeedRaceView:
         {
             //FIXME: do it!
+            view.currentIndex = 2
+            speedRaceControlPage.resetPage();
         }
 
     }
@@ -55,8 +57,8 @@ Window {
         SkillRaceControlPage {
             id: skillRaceControlPage
         }
-        Page {
-            title: qsTr("Discover")
+        SpeedRaceControlPage {
+            id: speedRaceControlPage
         }
         Page {
             title: qsTr("Activity")

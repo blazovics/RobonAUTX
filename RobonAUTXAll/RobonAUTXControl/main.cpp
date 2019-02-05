@@ -4,8 +4,6 @@
 #include <QQuickStyle>
 #include <QQmlContext>
 
-#include "MainViewController.h"
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -20,8 +18,6 @@ int main(int argc, char *argv[])
         return -1;
 
     ControlUnitController controller(QHostAddress("192.168.0.150"));
-
-    MainViewcontroller mainViewController;
 
     RaceControlUnit* controlUnit = controller.getRaceControlUnit();
 

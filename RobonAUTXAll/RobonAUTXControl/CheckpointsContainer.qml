@@ -17,7 +17,7 @@ Rectangle {
         startSuccededButton.checked = false;
         laneChangeSuccededButton.checked = false;
 
-        for(var i = 0; i< checkpointList.model.length; i++ )
+        for(var i = 0; i< checkpointList.model.rowCount(); i++ )
         {
             checkpointList.model.setProperty(i,"is_checked",false);
         }
