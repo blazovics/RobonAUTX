@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     RobonAUTX \
     RobonAUTXMaster \
-    RobonAUTXControl
+    RobonAUTXControl \
+    RobonAUTXDisplay
 
 RobonAUTXCentral.depends = RobonAUT

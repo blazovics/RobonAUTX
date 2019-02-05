@@ -8,6 +8,7 @@
 #include "CentralController.h"
 #include "SkillRaceEvent.h"
 #include "SpeedRaceEvent.h"
+#include <QDebug>
 
 /**
  * CentralController implementation
@@ -96,6 +97,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
+        qDebug()<<"Update Checkpoint state";
         currentEvent->UpdateCheckpoint(checkpointID,checked,forced);
         emit CheckpointStateUpdated(checkpointID,checked);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
@@ -110,6 +112,7 @@ void CentralController::StartRace()
     if(this->raceEvent->getType() == Skill)
     {
         emit StartSkillGate();
+        qDebug()<<"StartSkillGate";
     }
     else{
         this->raceEvent->StartRace();

@@ -120,16 +120,23 @@ Event::Event():eventID(0)
 {
     outStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::WriteOnly);
     inStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::ReadOnly);
+
+    outStream->setByteOrder(QDataStream::LittleEndian);
+    inStream->setByteOrder(QDataStream::LittleEndian);
 }
 
 Event::Event(quint32 eventID):eventID(eventID)
 {
     outStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::WriteOnly);
     inStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::ReadOnly);
+    outStream->setByteOrder(QDataStream::LittleEndian);
+    inStream->setByteOrder(QDataStream::LittleEndian);
 }
 
 Event::Event(quint32 eventID, const QByteArray &rawData):eventID(eventID),rawData(rawData)
 {
     outStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::WriteOnly);
     inStream = std::make_unique<QDataStream>(&this->rawData,QIODevice::ReadOnly);
+    outStream->setByteOrder(QDataStream::LittleEndian);
+    inStream->setByteOrder(QDataStream::LittleEndian);
 }
