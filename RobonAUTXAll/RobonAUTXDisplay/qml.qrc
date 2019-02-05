@@ -1,5 +1,29 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>resources/bg.png</file>
+        <file>resources/overtakinggreen.png</file>
+        <file>resources/overtakingred.png</file>
+        <file>resources/safetygreen.png</file>
+        <file>resources/safetyred.png</file>
+        <file>resources/sds.png</file>
+        <file>resources/icons/1.png</file>
+        <file>resources/icons/2.png</file>
+        <file>resources/icons/3.png</file>
+        <file>resources/icons/4.png</file>
+        <file>resources/icons/5.png</file>
+        <file>resources/icons/6.png</file>
+        <file>resources/icons/7.png</file>
+        <file>resources/icons/8.png</file>
+        <file>resources/icons/9.png</file>
+        <file>resources/icons/10.png</file>
+        <file>resources/RobonAUT_logo_black.png</file>
+        <file>resources/digital-7.ttf</file>
+        <file>resources/Roboto.ttf</file>
+        <file>SpeedRaceView.qml</file>
+        <file>Footer.qml</file>
+        <file>TopSpeeds.qml</file>
+        <file>SkillRaceView.qml</file>
+        <file>ResultsView.qml</file>
     </qresource>
 </RCC>
