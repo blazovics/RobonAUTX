@@ -66,6 +66,7 @@ void RaceControlUnit::raceStarted()
     }
     else if(eventType == Speed){
         this->speedRaceTimer.start();
+        speedTimeOffset = 0;
     }
     updateTimer->start(10);
 }
@@ -98,6 +99,7 @@ void RaceControlUnit::ManualLapTimeUpdated(quint32 time)
 
 void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
+    speedTimeOffset += lapTime;
     emit updateCompletedSpeedLaps(lapNumber,lapTime);
 }
 
@@ -166,6 +168,10 @@ void RaceControlUnit::TimerFired()
 
 
         emit updateRaceTime(SpeedRaceResult::SpeedTimeToString(raceTimer.Elapsed()));
+    }
+    else if(eventType == Speed)
+    {
+        emit updateRaceTime(SpeedRaceResult::SpeedTimeToString(speedRaceTimer.elapsed()-speedTimeOffset));
     }
 }
 

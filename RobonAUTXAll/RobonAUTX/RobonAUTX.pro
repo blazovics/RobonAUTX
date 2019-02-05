@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += qml quick network sql
+QT       += qml quick network sql websockets
 
 QT       -= gui
 
@@ -67,7 +67,13 @@ SOURCES += \
     Simpleini/ConvertUTF.c \
     Configuration.cpp \
     RemoteSkillRaceGate.cpp \
-    TeamModel.cpp
+    TeamModel.cpp \
+    BSSSocketManager.cpp \
+    VoteResultModel.cpp \
+    SpeedRaceResultModel.cpp \
+    SkillRaceResultModel.cpp \
+    QualificationResultModel.cpp \
+    FinalResultModel.cpp
 
 HEADERS += \
         robonautx.h \
@@ -122,7 +128,13 @@ HEADERS += \
     RemoteSkillRaceGate.h \
     ISkillRaceGate.h \
     ControlUnitController.h \
-    TeamModel.h
+    TeamModel.h \
+    BSSSocketManager.h \
+    VoteResultModel.h \
+    SpeedRaceResultModel.h \
+    SkillRaceResultModel.h \
+    QualificationResultModel.h \
+    FinalResultModel.h
 
 unix {
     target.path = /usr/lib

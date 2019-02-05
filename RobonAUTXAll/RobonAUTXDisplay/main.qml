@@ -33,7 +33,10 @@ Window {
         }
         SkillRaceView{
             id: skillRaceView
-            visible: true
+            visible: false
+        }
+        SingleResultView{
+
         }
     }
 

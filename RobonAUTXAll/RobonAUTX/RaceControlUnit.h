@@ -28,6 +28,7 @@ class RaceControlUnit: public IRaceControlUnit {
     std::unique_ptr<QTimer> updateTimer;
 
     QElapsedTimer speedRaceTimer;
+    quint32 speedTimeOffset;
 
     RaceEventType eventType;
 
