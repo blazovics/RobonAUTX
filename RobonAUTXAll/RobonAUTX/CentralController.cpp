@@ -85,7 +85,7 @@ void CentralController::TimeSourceForLapSelected(TimeSourceType timeSource)
         quint32 lapTime = currentEvent->FinishLap(timeSource);
         quint32 finishedLapIndex = currentEvent->GetFinishedLapCount();
 
-        emit SpeedLapCompleted(lapTime,finishedLapIndex);
+        emit SpeedLapCompleted(finishedLapIndex,lapTime);
     }
     else {
         throw std::bad_cast();

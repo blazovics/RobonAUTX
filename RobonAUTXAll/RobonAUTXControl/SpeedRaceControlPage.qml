@@ -8,7 +8,7 @@ Item {
     width: 768
     height: 850
 
-    function reset(){
+    function resetPage(){
         safetyCarFollowedButton.checked = false;
         safetyCarOvertakenButton.checked = false;
         touchCountLabel.text = "0";
@@ -21,7 +21,7 @@ Item {
         target: controlUnit
 
         onUpdateSafetyCarFollowingConfirmedButton:{
-        //            (bool status);
+            //            (bool status);
             safetyCarFollowedButton.checked = status;
         }
         onUpdateSafetyCarOvertakenConfirmedButton:{
@@ -43,6 +43,9 @@ Item {
         onUpdateCompletedSpeedLaps:{
             //(quint32 lapNumber, quint32 lapTime);
             //FIXME: do it
+        }
+        onUpdateRaceTime:{
+            lapTimeLabel.text = time;
         }
     }
 
@@ -121,6 +124,9 @@ Item {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.columnSpan: 2
                 Layout.rowSpan: 1
+                onClicked: {
+                    controlUnit.qmlManualMeasure();
+                }
             }
 
 
@@ -206,6 +212,40 @@ Item {
         anchors.rightMargin: 30
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 30
+    }
+
+    Rectangle {
+        id: rectangle
+        x: 30
+        y: 121
+        width: 300
+        height: 200
+        color: "#99ffffff"
+
+        ColumnLayout {
+            id: columnLayout
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            anchors.bottomMargin: 10
+            anchors.topMargin: 10
+            anchors.fill: parent
+
+            Label {
+                id: label
+                text: qsTr("Time:")
+                font.pointSize: 27
+                verticalAlignment: Text.AlignBottom
+                Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+            }
+
+            Label {
+                id: lapTimeLabel
+                text: qsTr("00:00.000")
+                font.pointSize: 50
+                verticalAlignment: Text.AlignBottom
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            }
+        }
     }
 }
 

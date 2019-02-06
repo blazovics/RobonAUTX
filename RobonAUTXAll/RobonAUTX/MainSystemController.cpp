@@ -162,7 +162,7 @@ void MainSystemController::StopServers()
 void MainSystemController::newLaserGateConnection()
 {
     QTcpSocket* newSocket = this->laserGateServer.nextPendingConnection();
-    std::shared_ptr<RemoteLaserGate> newRemoteLaserGate = std::make_shared<RemoteLaserGate>(this,newSocket);
+    std::shared_ptr<RemoteLaserGate> newRemoteLaserGate = std::make_shared<RemoteLaserGate>(this,newSocket,QIODevice::ReadOnly);
 
     if(this->remoteLaserGate.second != nullptr)
     {
