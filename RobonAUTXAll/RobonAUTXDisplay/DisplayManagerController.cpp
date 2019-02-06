@@ -71,11 +71,14 @@ void DisplayManagerController::SocketDisconnected()
 void DisplayManagerController::SocketError(QAbstractSocket::SocketError error)
 {
     this->ConnectToServer();
+    emit disconnected();
 }
 
 void DisplayManagerController::qmlConnect(QString address)
 {
-    this->setServerAddress(QHostAddress(address));
+    if(address.length()>0){
+        this->setServerAddress(QHostAddress(address));
+    }
     this->ConnectToServer();
 }
 

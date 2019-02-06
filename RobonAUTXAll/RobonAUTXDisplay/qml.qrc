@@ -28,5 +28,11 @@
         <file>SingleResultView.qml</file>
         <file>SingleTableContainer.qml</file>
         <file>DoubleTableContainer.qml</file>
+        <file>SkillRaceResultView.qml</file>
+        <file>SpeedRaceResultView.qml</file>
+        <file>QualificationResultView.qml</file>
+        <file>VoteResultView.qml</file>
+        <file>FinalResultView.qml</file>
+        <file>FinalSingleResultView.qml</file>
     </qresource>
 </RCC>

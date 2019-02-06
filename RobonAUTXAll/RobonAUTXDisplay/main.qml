@@ -18,8 +18,40 @@ Window {
 
     Footer {
         id: footer
+
+        MouseArea {
+            id: mouseArea
+            x: 0
+            y: 9
+            width: 96
+            height: 77
+            onClicked:
+            {
+                controller.qmlConnect("");
+            }
+        }
+
+        Rectangle {
+            id: connectionIndicator
+            x: 22
+            y: 18
+            width: 10
+            height: 10
+            color: "#ffffff"
+            radius: 5
+            border.width: 0
+        }
     }
 
+    Connections{
+        target:controller
+        onDisconnected:{
+            connectionIndicator.visible = true;
+        }
+        onConnected:{
+            connectionIndicator.visible = false;
+        }
+    }
 
     Rectangle{
         id:container
@@ -29,7 +61,7 @@ Window {
 
         SpeedRaceView {
             id: speedRaceView
-            visible: true
+            visible: false
         }
         SkillRaceView{
             id: skillRaceView
@@ -39,7 +71,12 @@ Window {
             visible: false
 
         }
+        FinalSingleResultView{
+
+
+        }
     }
+
 
 
 
