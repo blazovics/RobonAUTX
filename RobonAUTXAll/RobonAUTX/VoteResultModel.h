@@ -12,7 +12,8 @@ public:
         PositionRole = Qt::UserRole +1,
         TeamIDRole,
         VoteCountRole,
-        VotePointRole
+        VotePointRole,
+        NameRole
     };
 
     VoteResultModel(QObject* parent = nullptr);

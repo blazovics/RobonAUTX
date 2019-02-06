@@ -15,7 +15,8 @@ public:
         SpeedPointRole,
         QualificationPointRole,
         VotePointRole,
-        FinalPointRole
+        FinalPointRole,
+        NameRole
     };
 
     FinalResultModel(QObject* parent = nullptr);

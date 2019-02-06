@@ -14,6 +14,7 @@
 
 QDataStream &operator<<(QDataStream &out, const VoteResult &res)
 {
+    out<<res.teamName;
     out<<res.teamID;
     out<<res.position;
     out<<res.voteCount;
@@ -25,6 +26,7 @@ QDataStream &operator<<(QDataStream &out, const VoteResult &res)
 
 QDataStream &operator>>(QDataStream &in, VoteResult &res)
 {
+    in>>res.teamName;
     in >> res.teamID;
     in >> res.position;
     in >> res.voteCount;

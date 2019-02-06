@@ -44,16 +44,19 @@ QVariant SpeedRaceResultModel::data(const QModelIndex &index, int role) const
            return result.speedPoint;
        else if (role == SpeedTimeRole)
            return result.speedTime;
+       else if (role == NameRole)
+           return result.teamName;
        return QVariant();
 }
 
 QHash<int, QByteArray> SpeedRaceResultModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-        roles[PositionRole] = "name";
+        roles[PositionRole] = "position";
         roles[TeamIDRole] = "teamID";
         roles[JuniorRole] = "isJunior";
         roles[SpeedPointRole] = "speedPoint";
         roles[SpeedTimeRole] = "speedTime";
+        roles[NameRole] = "name";
         return roles;
 }

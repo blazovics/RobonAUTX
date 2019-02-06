@@ -42,15 +42,18 @@ QVariant VoteResultModel::data(const QModelIndex &index, int role) const
            return result.voteCount;
        else if (role == VotePointRole)
            return result.votePoint;
+       else if (role == NameRole)
+           return result.teamName;
        return QVariant();
 }
 
 QHash<int, QByteArray> VoteResultModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-        roles[PositionRole] = "name";
+        roles[PositionRole] = "position";
         roles[TeamIDRole] = "teamID";
         roles[VoteCountRole] = "voteCount";
         roles[VotePointRole] = "votePoint";
+        roles[NameRole] = "name";
         return roles;
 }

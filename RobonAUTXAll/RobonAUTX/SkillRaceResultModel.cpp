@@ -40,14 +40,17 @@ QVariant SkillRaceResultModel::data(const QModelIndex &index, int role) const
            return result.teamID;
        else if (role == SkillPointRole)
            return result.skillPoint;
+       else if (role == NameRole)
+           return result.teamName;
        return QVariant();
 }
 
 QHash<int, QByteArray> SkillRaceResultModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-        roles[PositionRole] = "name";
+        roles[PositionRole] = "position";
         roles[TeamIDRole] = "teamID";
         roles[SkillPointRole] = "skillPoint";
+        roles[NameRole] = "name";
         return roles;
 }

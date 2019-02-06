@@ -40,15 +40,18 @@ QVariant QualificationResultModel::data(const QModelIndex &index, int role) cons
            return result.teamID;
        else if (role == QualificationPointRole)
            return result.qualificationPoint;
+       else if (role == NameRole)
+           return result.teamName;
        return QVariant();
 }
 
 QHash<int, QByteArray> QualificationResultModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-        roles[PositionRole] = "name";
+        roles[PositionRole] = "position";
         roles[TeamIDRole] = "teamID";
         roles[QualificationPointRole] = "qualificationPoint";
+        roles[NameRole] = "name";
         return roles;
 }
 

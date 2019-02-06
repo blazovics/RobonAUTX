@@ -26,6 +26,7 @@ QString SpeedRaceResult::SpeedTimeToString(qint64 time) {
 }
 QDataStream &operator<<(QDataStream &out, const SpeedRaceResult &res)
 {
+    out<<res.teamName;
     out<<res.teamID;
     out<<res.position;
     out<<res.isJunior;
@@ -36,6 +37,7 @@ QDataStream &operator<<(QDataStream &out, const SpeedRaceResult &res)
 
 QDataStream &operator>>(QDataStream &in, SpeedRaceResult &res)
 {
+    in>>res.teamName;
     in>>res.teamID;
     in>>res.position;
     in>>res.isJunior;

@@ -72,7 +72,21 @@ Window {
 
         }
         FinalSingleResultView{
-
+            visible: false
+        }
+        FinalResultView{
+            visible: false
+        }
+        SpeedRaceResultView{
+            visible: false
+        }
+        SkillRaceResultView{
+            visible: false
+        }
+        VoteResultView{
+            visible: false
+        }
+        QualificationResultView{
 
         }
     }

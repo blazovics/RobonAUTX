@@ -4,8 +4,6 @@ import QtQuick.Controls 2.3
 
 Rectangle{
     id: singleResultView
-    width: 1024
-    height: 680
     color: "#00000000"
     anchors.fill: parent
 
@@ -40,19 +38,5 @@ Rectangle{
             anchors.fill: parent
             font.family: roboto.name
         }
-    }
-
-    SingleTableContainer {
-        id: headerContainer
-        x: 0
-        y: 130
-        height: 31
-    }
-
-    DoubleTableContainer {
-        id: headerContainer2
-        x: 0
-        y: 230
-        height: 31
     }
 }

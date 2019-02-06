@@ -11,7 +11,8 @@ public:
     enum SkillRaceRoles {
         PositionRole = Qt::UserRole +1,
         TeamIDRole,
-        SkillPointRole
+        SkillPointRole,
+        NameRole
     };
 
     SkillRaceResultModel(QObject* parent = nullptr);

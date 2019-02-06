@@ -145,6 +145,19 @@ Team DatabaseManager::getTeam(int id) {
     return returnTeam;
 }
 
+QString DatabaseManager::getTeamName(int id) {
+    QString returnName;
+
+    QSqlQuery query(QString("SELECT Name FROM Team WHERE TeamID=%1").arg(id));
+
+    int namePos = query.record().indexOf("Name");
+
+    while(query.next()) {
+        returnName = query.value(namePos).toString();
+    }
+    return returnName;
+}
+
 /**
  * @param teamID
  * @param voteCount
@@ -317,6 +330,7 @@ QList<VoteResult> DatabaseManager::GetVoteResults() {
     while (query.next()) {
         VoteResult result;
         result.teamID = query.value(0).toUInt();
+        result.teamName = getTeamName(query.value(0).toInt());
         result.voteCount = query.value(1).toUInt();
         returnResult.push_back(result);
     }
@@ -348,6 +362,7 @@ QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
     while (query.next()) {
         SkillRaceResult result;
         result.teamID = query.value(0).toUInt();
+        result.teamName = getTeamName(query.value(0).toInt());
         result.skillPoint = query.value(1).toUInt();
     }
 
@@ -378,6 +393,7 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
     while (query.next()) {
         SpeedRaceResult result;
         result.teamID = query.value(0).toUInt();
+        result.teamName = getTeamName(query.value(0).toInt());
         result.speedTime = query.value(2).toUInt();
         result.speedPoint = query.value(1).toUInt();
     }
@@ -409,6 +425,7 @@ QList<QualificationResult> DatabaseManager::GetQualificationResults() {
     while (query.next()) {
         QualificationResult result;
         result.teamID = query.value(0).toUInt();
+        result.teamName = getTeamName(query.value(0).toInt());
         result.qualificationPoint = query.value(1).toUInt();
     }
 
@@ -448,6 +465,7 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
         FinalResult result;
         result.isJunior = teams[i].getIsJunior();
         result.teamID = teams[i].getTeamID();
+        result.teamName = teams[i].getName();
         result.qualificationPoint = teams[i].getQualificationPoint();
         result.votePoint = teams[i].getAudienceVoteCount();
         returnResult.push_back(result);

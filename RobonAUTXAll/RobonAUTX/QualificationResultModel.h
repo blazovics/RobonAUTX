@@ -11,7 +11,8 @@ public:
     enum QualificationRoles {
         PositionRole = Qt::UserRole +1,
         TeamIDRole,
-        QualificationPointRole
+        QualificationPointRole,
+        NameRole
     };
 
     QualificationResultModel(QObject* parent = nullptr);

@@ -13,7 +13,8 @@ public:
         TeamIDRole,
         JuniorRole,
         SpeedPointRole,
-        SpeedTimeRole
+        SpeedTimeRole,
+        NameRole
     };
 
     SpeedRaceResultModel(QObject* parent = nullptr);

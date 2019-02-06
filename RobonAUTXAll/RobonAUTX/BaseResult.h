@@ -14,6 +14,7 @@ class BaseResult {
 public: 
     quint32 teamID;
     quint32 position;
+    QString teamName;
 };
 
 #endif //_BASERESULT_H

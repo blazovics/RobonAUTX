@@ -13,6 +13,7 @@
 
 QDataStream &operator<<(QDataStream &out, const FinalResult &res)
 {
+    out<<res.teamName;
     out<<res.teamID;
     out<<res.position;
     out<<res.isJunior;
@@ -28,6 +29,7 @@ QDataStream &operator<<(QDataStream &out, const FinalResult &res)
 
 QDataStream &operator>>(QDataStream &in, FinalResult &res)
 {
+    in>>res.teamName;
     in >> res.teamID;
     in >> res.position;
     in >> res.isJunior;

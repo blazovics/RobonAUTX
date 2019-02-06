@@ -10,6 +10,7 @@
 
 QDataStream &operator<<(QDataStream &out, const QualificationResult &res)
 {
+    out<<res.teamName;
     out<<res.teamID;
     out<<res.position;
     out<<res.qualificationPoint;
@@ -20,6 +21,7 @@ QDataStream &operator<<(QDataStream &out, const QualificationResult &res)
 
 QDataStream &operator>>(QDataStream &in, QualificationResult &res)
 {
+    in>>res.teamName;
     in >> res.teamID;
     in >> res.position;
     in >> res.qualificationPoint;
