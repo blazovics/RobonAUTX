@@ -29,13 +29,14 @@ Window {
 
         SpeedRaceView {
             id: speedRaceView
-            visible: false
+            visible: true
         }
         SkillRaceView{
             id: skillRaceView
             visible: false
         }
         SingleResultView{
+            visible: false
 
         }
     }
@@ -51,8 +52,12 @@ Window {
 
 
 
+
+
+
+
 /*##^## Designer {
-    D{i:1;anchors_height:200;anchors_width:200}D{i:5;anchors_x:24;anchors_y:-284}D{i:4;anchors_height:200;anchors_width:200}
-D{i:6;anchors_width:130}
+    D{i:1;anchors_height:200;anchors_width:200}D{i:4;anchors_height:200;anchors_width:200}
+D{i:5;anchors_x:24;anchors_y:"-284"}D{i:6;anchors_width:130}
 }
  ##^##*/

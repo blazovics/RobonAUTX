@@ -30,13 +30,14 @@ DisplayManagerController::DisplayManagerController(QHostAddress serverAddress, q
     displayManager = std::make_unique<DisplayManager>();
     proxiDisplayManager = std::make_unique<RemoteDisplayManager>(this,nullptr);
     proxiDisplayManager->setLocalManager(displayManager.get());
+
+    connect(&socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
+    connect(&socket, SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
+    connect(&socket, SIGNAL(SocketError(QAbstractSocket::SocketError)), this, SLOT(SocketError(QAbstractSocket::SocketError)));
 }
 
 void DisplayManagerController::ConnectToServer()
 {
-    connect(&socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
-    connect(&socket, SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
-    connect(&socket, SIGNAL(SocketError(QAbstractSocket::SocketError)), this, SLOT(SocketError(QAbstractSocket::SocketError)));
 
     socket.connectToHost(serverAddress,serverPort);
 
@@ -47,9 +48,8 @@ void DisplayManagerController::RemoteDeviceDisconnected(RemoteDevice *device, QT
     disconnectDevice(this->remoteCentralController.get(),displayManager.get());
     this->remoteCentralController.reset();
     this->proxiDisplayManager->RemoveConnection(socket);
-    disconnect(&this->socket, SIGNAL(connected()),this,SLOT(SocketConnected()));
-    disconnect(&this->socket, SIGNAL(disconnected()),this,SLOT(SocketDisconnected()));
-    disconnect(&this->socket, SIGNAL(SocketError(QAbstractSocket::SocketError)), this, SLOT(SocketError(QAbstractSocket::SocketError)));
+
+    this->ConnectToServer();
 
 }
 

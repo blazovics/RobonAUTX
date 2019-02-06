@@ -137,6 +137,17 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->TeamListUpdated(event.extractTeamsFromRawData());
     }
         break;
+
+    case Device_IDisplayManager + Event_Disp_RaceStarted :
+    {
+        localManager->RaceStarted();
+    }
+        break;
+case Device_IDisplayManager + Event_Disp_RaceFinished :
+    {
+        localManager->RaceFinished(event.extractBoolFromRawData());
+    }
+        break;
     }
 }
 
@@ -287,4 +298,17 @@ void RemoteDisplayManager::TeamListUpdated(QList<Team> teams)
     event.insertTeams(teams);
     sendEvent(event);
 
+}
+
+void RemoteDisplayManager::RaceStarted()
+{
+    Event event(Device_IDisplayManager +  Event_Disp_RaceStarted );
+    sendEvent(event);
+}
+
+void RemoteDisplayManager::RaceFinished(bool aborted)
+{
+    Event event(Device_IDisplayManager +  Event_Disp_RaceFinished );
+    event.insertBool(aborted);
+    sendEvent(event);
 }

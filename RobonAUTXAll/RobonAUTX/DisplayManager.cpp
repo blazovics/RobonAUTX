@@ -11,9 +11,38 @@
  * DisplayManager implementation
  */
 
+
+
+QualificationResultModel* DisplayManager::getQualificationResult()
+{
+    return &qualificationResult;
+}
+
+SkillRaceResultModel* DisplayManager::getSkillRaceResult()
+{
+    return &skillRaceResult;
+}
+
+SpeedRaceResultModel* DisplayManager::getSpeedRaceResult()
+{
+    return &speedRaceResult;
+}
+
+VoteResultModel *DisplayManager::getVoteResult()
+{
+    return &voteResult;
+}
+
+FinalResultModel* DisplayManager::getFinalResult()
+{
+    return &finalResult;
+}
+
 DisplayManager::DisplayManager()
 {
-
+    m_teamID = 0;
+    updateTimer = std::make_unique<QTimer>();
+    connect(updateTimer.get(),SIGNAL(timeout()),this,SLOT(TimerFired()));
 }
 
 DisplayManager::~DisplayManager()
@@ -23,32 +52,84 @@ DisplayManager::~DisplayManager()
 
 void DisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos)
 {
+    speedRaceResult.removeAll();
 
+    if(int(fromPos) < result.size())
+    {
+        int ifromPos = int(fromPos);
+        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+            speedRaceResult.addSpeedRaceResult(result[ifromPos]);
+        }
+    }
+    emit presentSpeedResults();
 }
 
 void DisplayManager::showSkillResults(QList<SkillRaceResult> result, quint32 fromPos)
 {
+    skillRaceResult.removeAll();
 
+    if(int(fromPos) < result.size())
+    {
+        int ifromPos = int(fromPos);
+        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+            skillRaceResult.addSkillRaceResult(result[ifromPos]);
+        }
+    }
+    emit presentSkillResults();
 }
 
 void DisplayManager::showFinalResults(QList<FinalResult> result, bool isJunior, quint32 fromPos)
 {
+    finalResult.removeAll();
 
+    if(int(fromPos) < result.size())
+    {
+        int ifromPos = int(fromPos);
+        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+            finalResult.addFinalResult(result[ifromPos]);
+        }
+    }
+    emit presentFinalResults();
 }
 
 void DisplayManager::showFinalResultAtPosition(QList<FinalResult> result, bool isJunior, quint32 position)
 {
+    finalResult.removeAll();
 
+    if(int(position) < result.size())
+    {
+       //FIXME: Do something!!
+    }
+    emit presentFinalResultAtPosition();
 }
 
 void DisplayManager::showVotesResults(QList<VoteResult> result, quint32 fromPos)
 {
+    voteResult.removeAll();
 
+    if(int(fromPos) < result.size())
+    {
+        int ifromPos = int(fromPos);
+        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+            voteResult.addVoteResult(result[ifromPos]);
+        }
+    }
+    emit presentVotesResults();
 }
 
 void DisplayManager::showQualificationResults(QList<QualificationResult> result, quint32 fromPos)
 {
+    qualificationResult.removeAll();
 
+    if(int(fromPos) < result.size())
+    {
+        int ifromPos = int(fromPos);
+        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+            qualificationResult.addQualificationResult(result[ifromPos]);
+        }
+    }
+
+    emit presentQualificationResults();
 }
 
 void DisplayManager::showInterRaceScreen()
@@ -58,51 +139,110 @@ void DisplayManager::showInterRaceScreen()
 
 void DisplayManager::SkillRaceInitiated(quint32 teamID)
 {
-
+    eventType = Skill;
+    this->m_teamID = teamID;
+    timeCredit = 0;
+    emit presentSkillRace();
 }
 
 void DisplayManager::SpeedRaceInitiated(quint32 teamID)
 {
-
+    eventType = Speed;
+    this->m_teamID = teamID;
+    speedTimeOffset = 0;
+    emit presentSpeedRace();
 }
 
 void DisplayManager::LaneChangeAchieved(bool success)
 {
-
+    emit sendLaneChangeAchieved(success);
 }
 
 void DisplayManager::VehicleStartAchieved(bool success)
 {
-
+    emit sendVehicleStartAchieved(success);
 }
 
 void DisplayManager::SafetyCarFollowed(bool success)
 {
-
+    emit sendSafetyCarFollowed(success);
 }
 
 void DisplayManager::SafetyCarOvertaken(bool success)
 {
-
+    emit sendSafetyCarOvertaken(success);
 }
 
 void DisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)
 {
-
+    emit sendCheckpointStateUpdated(checkpointID,state);
 }
 
 void DisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
-
+    speedTimeOffset += lapTime;
+    emit sendSpeedLapCompleted(lapNumber,lapTime);
 }
 
 void DisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 {
-
+    this->timeCredit = timeCredit;
+    emit sendSkillPointUpdated(skillPoint);
 }
 
 void DisplayManager::TeamListUpdated(QList<Team> teams)
 {
+    //?
+}
 
+void DisplayManager::RaceStarted()
+{
+    if(eventType == Skill)
+    {
+        raceTimer.StartTimer();
+    }
+    else if(eventType == Speed){
+        this->speedRaceTimer.start();
+        speedTimeOffset = 0;
+    }
+    updateTimer->start(10);
+}
+
+void DisplayManager::RaceFinished(bool aborted)
+{
+    if(eventType == Skill)
+    {
+        raceTimer.StopTimer();
+
+    }
+    if(eventType == Speed)
+    {
+        this->speedRaceTimer.invalidate();
+    }
+
+    updateTimer->stop();
+}
+
+void DisplayManager::TimerFired()
+{
+    if(eventType == Skill)
+    {
+        qint64 realTimeCredit = timeCredit;
+        qint64 elapsedTime = raceTimer.Elapsed();
+
+        qint64 remainingTime = realTimeCredit-elapsedTime;
+
+        if(remainingTime > 0)
+        {
+             emit sendRemainingTime(SpeedRaceResult::SpeedTimeToString(quint32(remainingTime)));
+        }
+        else {
+            emit sendRemainingTime("-" + SpeedRaceResult::SpeedTimeToString(quint32(abs(remainingTime))));
+        }
+    }
+    else if(eventType == Speed)
+    {
+        emit sendSkillRaceTime(SpeedRaceResult::SpeedTimeToString(speedRaceTimer.elapsed()-speedTimeOffset));
+    }
 }
 

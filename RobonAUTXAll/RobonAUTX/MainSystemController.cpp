@@ -238,5 +238,12 @@ void MainSystemController::newRaceControlUnitConnection()
 
 void MainSystemController::newDisplayManagerConnection()
 {
-    //FIXME: Implement
+    QTcpSocket* newSocket = this->displayManagerServer.nextPendingConnection();
+
+    std::shared_ptr<QPair<std::shared_ptr<RemoteDisplayManager>,QTcpSocket*>> pair = std::make_shared<QPair<std::shared_ptr<RemoteDisplayManager>,QTcpSocket*>>( QPair<std::shared_ptr<RemoteDisplayManager>,QTcpSocket*>(std::make_shared<RemoteDisplayManager>(this,newSocket),newSocket));
+
+    this->remoteDisplayManagers.push_back(pair);
+
+    CoreController::connectDevice(this->centralController.get(),pair->first.get());
+    this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
 }

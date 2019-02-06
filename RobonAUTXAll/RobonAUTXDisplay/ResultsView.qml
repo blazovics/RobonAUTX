@@ -16,4 +16,5 @@ Rectangle{
         id: roboto;
         source: "qrc:/resources/Roboto.ttf"
     }
+
 }

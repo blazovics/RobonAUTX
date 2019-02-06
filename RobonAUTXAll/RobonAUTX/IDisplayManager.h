@@ -28,6 +28,9 @@
 #define Event_Disp_SpeedLapCompleted 16
 #define Event_Disp_SkillPointUpdated 17
 
+#define Event_Disp_RaceStarted 18
+#define Event_Disp_RaceFinished 19
+
 #define Device_IDisplayManager 300
 
 #include <QObject>
@@ -63,6 +66,9 @@ public slots:
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
     virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void TeamListUpdated(QList<Team> teams) = 0;
+
+    virtual void RaceStarted() = 0;
+    virtual void RaceFinished(bool aborted) = 0;
 
 };
 

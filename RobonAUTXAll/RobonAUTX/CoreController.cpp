@@ -45,6 +45,9 @@ void CoreController::connectDevice(ICentralController *controller, IDisplayManag
     connect(controller,SIGNAL( SpeedLapCompleted(quint32, quint32)), device, SLOT(SpeedLapCompleted(quint32, quint32)));
     connect(controller,SIGNAL( SkillPointUpdated(quint32, quint32)), device, SLOT(SkillPointUpdated(quint32, quint32)));
     connect(controller,SIGNAL( TeamListUpdated(QList<Team>) ), device, SLOT(TeamListUpdated(QList<Team>)));
+
+    connect(controller,SIGNAL( RaceStarted()), device, SLOT(RaceStarted()));
+    connect(controller,SIGNAL( RaceFinished(bool)), device, SLOT(RaceFinished(bool)));
 }
 
 void CoreController::connectDevice(ICentralController *controller, IRaceControlUnit *device)

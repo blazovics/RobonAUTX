@@ -50,6 +50,9 @@ public slots:
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void TeamListUpdated(QList<Team> teams);
 
+    void RaceStarted();
+    void RaceFinished(bool aborted);
+
 };
 
 #endif //_REMOTEDISPLAYMANAGER_H
