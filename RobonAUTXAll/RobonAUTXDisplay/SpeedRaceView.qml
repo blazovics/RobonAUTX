@@ -7,6 +7,10 @@ Rectangle{
     width: 1024
     height: 680
     color: "#00000000"
+    property alias teamImage: teamImage
+    property alias image1: image1
+    property alias image: image
+    property alias label: label
     anchors.fill: parent
 
     FontLoader {
@@ -39,7 +43,7 @@ Rectangle{
             anchors.rightMargin: 0
 
             Label {
-                id: label1
+                id: lap1Label
                 width: 390
                 height: 150
                 color: "#ffffff"
@@ -52,7 +56,7 @@ Rectangle{
             }
 
             Label {
-                id: label2
+                id: lap2Label
                 width: 390
                 height: 150
                 color: "#ffffff"
@@ -283,6 +287,8 @@ Rectangle{
 
 
 }
+
+
 
 
 
