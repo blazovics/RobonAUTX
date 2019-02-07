@@ -11,7 +11,7 @@
 #include <QObject>
 
 //FIXME put it somewhere else to be more robust
-#define Event_LaserTimeReceived 20
+#define Event_LaserTimeReceived 1
 
 class ILaserGate : public QObject {
 
