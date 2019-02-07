@@ -112,7 +112,7 @@ QList<quint32> SpeedRace::GetLapTimes() const{
 quint32 SpeedRace::GetLapTime(int lapIndex) const{
     if(lapIndex >= completedLaps.size())
     {
-        throw std::out_of_range("required lap not exists");
+        //throw std::out_of_range("required lap not exists");
     }
 
     Lap actualLap = this->completedLaps[lapIndex];

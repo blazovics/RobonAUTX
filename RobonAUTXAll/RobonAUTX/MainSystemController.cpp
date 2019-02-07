@@ -15,7 +15,7 @@ void MainSystemController::RemoteDeviceDisconnected(RemoteDevice *device, QTcpSo
     if(socket == nullptr)
     {
         //TODO: Easylogging
-        throw std::runtime_error("trying to free a nullptr socket");
+        //throw std::runtime_error("trying to free a nullptr socket");
     }
 
     if(socket == remoteLaserGate.second)

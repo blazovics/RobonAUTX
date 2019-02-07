@@ -61,7 +61,7 @@ void DisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool isJuni
             speedRaceResult.addSpeedRaceResult(result[ifromPos]);
         }
     }
-    emit presentSpeedResults();
+    emit presentSpeedResults(isJunior);
 }
 
 void DisplayManager::showSkillResults(QList<SkillRaceResult> result, quint32 fromPos)
@@ -89,18 +89,18 @@ void DisplayManager::showFinalResults(QList<FinalResult> result, bool isJunior, 
             finalResult.addFinalResult(result[ifromPos]);
         }
     }
-    emit presentFinalResults();
+    emit presentFinalResults(isJunior);
 }
 
 void DisplayManager::showFinalResultAtPosition(QList<FinalResult> result, bool isJunior, quint32 position)
 {
-    finalResult.removeAll();
+    if(position < quint32(result.size())){
+        FinalResult res = result[int(position)];
 
-    if(int(position) < result.size())
-    {
-       //FIXME: Do something!!
+        emit presentFinalResultAtPosition(res.teamID, res.skillPoint,res.speedPoint,res.votePoint,res.qualificationPoint,res.finalPoint,res.position,res.teamName);
+
     }
-    emit presentFinalResultAtPosition();
+
 }
 
 void DisplayManager::showVotesResults(QList<VoteResult> result, quint32 fromPos)

@@ -55,7 +55,7 @@ DatabaseManager::DatabaseManager(QString path, QObject *parent):QObject (parent)
         db.setDatabaseName(defaultPath);
     }
     else {
-        throw std::runtime_error("Unable to load Database file is missing!");
+        //throw std::runtime_error("Unable to load Database file is missing!");
     }
 }
 
@@ -510,7 +510,7 @@ void DatabaseManager::openDatabse()
 {
     if(!db.open())
     {
-        throw std::runtime_error("Unable to open Database!");
+        //throw std::runtime_error("Unable to open Database!");
     }
 }
 

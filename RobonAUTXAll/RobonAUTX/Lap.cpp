@@ -26,16 +26,17 @@ quint32 Lap::GetChoosenLapTime()
         case TimeSourceType::LaserTime:
         if(laserTime == 0)
         {
-            throw std::domain_error("Choosen Laser Time not valid");
+            //throw std::domain_error("Choosen Laser Time not valid");
         }
         return laserTime;
     case TimeSourceType::ManualTime:
         if(manualTime == 0)
         {
-            throw std::domain_error("Choosen Manual Time not valid");
+            //throw std::domain_error("Choosen Manual Time not valid");
         }
         return  manualTime;
     case TimeSourceType::Undefined:
-        throw std::domain_error("No existing choosen laptime");
+        //throw std::domain_error("No existing choosen laptime");
+        break;
     }
 }

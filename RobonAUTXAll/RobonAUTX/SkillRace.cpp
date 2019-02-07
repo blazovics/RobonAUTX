@@ -48,7 +48,7 @@ bool SkillRace::GetCheckpointState(quint32 index) const
     }
     else
     {
-        throw std::out_of_range("Bad checkpoint index");
+        //throw std::out_of_range("Bad checkpoint index");
     }
 }
 

@@ -36,7 +36,7 @@ void RTimer::StartTimer() {
         timerState = Running;
     }
     else{
-        throw std::runtime_error("Failed to Start Timer");
+        //throw std::runtime_error("Failed to Start Timer");
     }
 
 }
@@ -55,7 +55,7 @@ void RTimer::StopTimer() {
         timerState = Stopped;
     }
     else{
-        throw std::runtime_error("Failed to Stop timer");
+        //throw std::runtime_error("Failed to Stop timer");
     }
 }
 
@@ -66,7 +66,7 @@ void RTimer::PauseTimer() {
         timerState = Paused;
     }
     else{
-        throw "Failed to Pause timer";
+        //throw "Failed to Pause timer";
     }
 }
 
@@ -78,7 +78,7 @@ void RTimer::ResumeTimer() {
         timerState = Running;
     }
     else{
-        throw "Failed to Resume timer";
+        //throw "Failed to Resume timer";
     }
 }
 

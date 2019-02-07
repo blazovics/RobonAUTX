@@ -124,7 +124,7 @@ void SocketConnection::extractEventFromBuffer()
 
     if(rawDataLength < 0)
     {
-        throw std::length_error("The lenght of raw data is negative!");
+        //throw std::length_error("The lenght of raw data is negative!");
     }
 
     QByteArray data;
@@ -137,7 +137,7 @@ void SocketConnection::extractEventFromBuffer()
 
     if(bytesReadFromBuffer != int(rawDataLength))
     {
-        throw std::length_error("The lenght of raw data is not equal the read data!");
+        //throw std::length_error("The lenght of raw data is not equal the read data!");
     }
 
 

@@ -33,7 +33,7 @@ void SkillRaceEvent::InitRace(quint32 teamID) {
  * @param index
  * @param checked
  */
-void SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced) {
+bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced) {
 
     if(remainingTime < 0 || forced == true)
     {
@@ -44,6 +44,7 @@ void SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
             if(status != newState)
             {
                 static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState);
+                return true;
             }
         }
         catch(std::out_of_range e)
@@ -51,6 +52,7 @@ void SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
             qDebug()<<"Out of range exception when setting checkpoint";
         }
     }
+    return  false;
 }
 
 void SkillRaceEvent::SetStartSucceeded(bool value)
@@ -98,7 +100,7 @@ quint32 SkillRaceEvent::GetTimeCredit()
 void SkillRaceEvent::UpdateTimerFired()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
-    //throw "NI";
+    ////throw "NI";
 }
 
 

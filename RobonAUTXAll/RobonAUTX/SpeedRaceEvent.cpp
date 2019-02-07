@@ -111,7 +111,7 @@ RaceEventType SpeedRaceEvent::getType()
 
 void SpeedRaceEvent::UpdateTimerFired()
 {
-    //throw "NI";
+    ////throw "NI";
 }
 
 void SpeedRaceEvent::resetActualLap()

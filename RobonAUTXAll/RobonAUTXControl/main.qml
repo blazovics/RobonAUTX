@@ -26,17 +26,14 @@ Window {
         }
         onShowSkillRaceView:
         {
-            //FIXME: handle TeamID
             view.currentIndex = 2
             skillRaceControlPage.resetPage();
         }
         onShowSpeedRaceView:
         {
-            //FIXME: do it!
             view.currentIndex = 3
             speedRaceControlPage.resetPage();
         }
-
     }
 
     SwipeView {

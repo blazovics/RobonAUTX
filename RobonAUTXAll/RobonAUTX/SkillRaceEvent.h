@@ -31,7 +31,7 @@ public:
  * @param checked
  * @param forced - Enables to alternate the status after the race is over.
  */
-    void UpdateCheckpoint(quint32 index, bool newState, bool forced);
+    bool UpdateCheckpoint(quint32 index, bool newState, bool forced);
 
     void SetStartSucceeded(bool value);
 

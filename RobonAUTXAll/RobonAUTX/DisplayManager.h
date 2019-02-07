@@ -74,10 +74,10 @@ signals:
     void sendSkillRaceTime(QString time);
     void sendRemainingTime(QString itme);
 
-    void presentSpeedResults();
+    void presentSpeedResults(bool isJunior);
     void presentSkillResults();
-    void presentFinalResults();
-    void presentFinalResultAtPosition();
+    void presentFinalResults(bool isJunior);
+    void presentFinalResultAtPosition(quint32 teamID, quint32 skillPoint, quint32 speedPoint, quint32 votePoint, quint32 qualificationPoint, quint32 finalPoint, quint32 position, QString teamName);
     void presentVotesResults();
     void presentQualificationResults();
 

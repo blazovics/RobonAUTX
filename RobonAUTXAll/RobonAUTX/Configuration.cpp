@@ -38,7 +38,7 @@ Configuration::Configuration(const std::string& fileName)
             break;
         }
 
-        throw std::runtime_error(std::string("Configuration File was unable to parse with the following error: ") + errorMessage + std::string(" file name:") + fileName);
+        //throw std::runtime_error(std::string("Configuration File was unable to parse with the following error: ") + errorMessage + std::string(" file name:") + fileName);
     }
 }
 
@@ -63,7 +63,7 @@ bool Configuration::GetBoolValue(const std::string& section, const std::string& 
 {
     if(!this->IsKeyAvailable(section.c_str(),key.c_str()))
     {
-        throw std::runtime_error(std::string("Project File - Unable to find bool value for key: ") + key + std::string(" in section:") + section);
+        //throw std::runtime_error(std::string("Project File - Unable to find bool value for key: ") + key + std::string(" in section:") + section);
     }
     else
     {
@@ -75,7 +75,7 @@ long Configuration::GetLongValue(const std::string& section, const std::string& 
 {
     if(!this->IsKeyAvailable(section.c_str(),key.c_str()))
     {
-        throw std::runtime_error(std::string("Project File - Unable to find int value for key: ") + key + std::string(" in section:") + section);
+        //throw std::runtime_error(std::string("Project File - Unable to find int value for key: ") + key + std::string(" in section:") + section);
     }
     else
     {
@@ -87,7 +87,7 @@ double Configuration::GetDoubleValue(const std::string& section, const std::stri
 {
     if(!this->IsKeyAvailable(section.c_str(),key.c_str()))
     {
-        throw std::runtime_error(std::string("Project File - Unable to find float value for key: ") + key + std::string(" in section:") + section);
+        //throw std::runtime_error(std::string("Project File - Unable to find float value for key: ") + key + std::string(" in section:") + section);
     }
     else
     {
@@ -99,7 +99,7 @@ std::string Configuration::GetStringValue(const std::string& section, const std:
 {
     if(!this->IsKeyAvailable(section.c_str(),key.c_str()))
     {
-        throw std::runtime_error(std::string("Project File - Unable to find string value for key: ") + key + std::string(" in section:") + section);
+        //throw std::runtime_error(std::string("Project File - Unable to find string value for key: ") + key + std::string(" in section:") + section);
     }
     else
     {

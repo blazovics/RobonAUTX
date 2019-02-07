@@ -60,7 +60,7 @@ void CentralController::ManualMeasureReceived()
         emit ManualLapTimeUpdated(time);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -73,7 +73,7 @@ void CentralController::LaserMeasureReceived(quint32 time)
         emit LaserLapTimeUpdated(time);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -88,7 +88,7 @@ void CentralController::TimeSourceForLapSelected(TimeSourceType timeSource)
         emit SpeedLapCompleted(finishedLapIndex,lapTime);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -98,13 +98,15 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     if(currentEvent != nullptr)
     {
         qDebug()<<"Update Checkpoint state";
-        currentEvent->UpdateCheckpoint(checkpointID,checked,forced);
-        emit CheckpointStateUpdated(checkpointID,checked);
+        if(currentEvent->UpdateCheckpoint(checkpointID,checked,forced))
+        {
+            emit CheckpointStateUpdated(checkpointID,checked);
+        }
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
 
-        throw std::bad_cast();
+        ////throw std::bad_cast();
     }
 }
 
@@ -150,7 +152,7 @@ void CentralController::VechicleStartAchieved(bool achieved)
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -164,7 +166,7 @@ void CentralController::LaneChangeAchieved(bool achieved)
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -177,7 +179,7 @@ void CentralController::SafetyCarFollowed(bool achieved)
         emit SafetyCarFollowingConfirmed(achieved);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -190,7 +192,7 @@ void CentralController::SafetyCarOvertaken(bool achieved)
         emit SafetyCarOvertakeConfirmed(achieved);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 
@@ -203,7 +205,7 @@ void CentralController::ModifyTouchCount(quint32 touchCount)
         emit TouchCountModified(updatedTouchCount);
     }
     else {
-        throw std::bad_cast();
+        //throw std::bad_cast();
     }
 }
 

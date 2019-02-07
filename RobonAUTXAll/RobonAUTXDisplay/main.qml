@@ -9,6 +9,18 @@ Window {
     height: 768
     title: qsTr("RobonAUT 2019")
 
+    function hideAll(){
+        speedRaceView.visible = false;
+        skillRaceView.visible = false;
+        speedRaceResultView.visible = false;
+        skillRaceResultView.visible = false;
+        voteResultView.visible = false;
+        qualificationResultView.visible = false;
+        finalResultView.visible = false;
+        juniorFinalResultView.visible = false;
+        finalSingleResultView.visible = false;
+    }
+
     Image {
         id: backgroundImgae
         anchors.fill: parent
@@ -50,6 +62,90 @@ Window {
         }
         onConnected:{
             connectionIndicator.visible = false;
+        }
+        onTeamIDChanged:{
+            //(const quint32 newTeamID);
+        }
+        onSendLaneChangeAchieved:{
+            //(bool success);
+        }
+        onSendVehicleStartAchieved:{
+            //(bool success);
+        }
+        onSendSafetyCarFollowed:{
+            //(bool success);
+        }
+        onSendSafetyCarOvertaken:{
+            //(bool success);
+        }
+        onSendCheckpointStateUpdated:{
+            //(quint32 checkpointID, bool state);
+        }
+        onSendSpeedLapCompleted:{
+            //(quint32 lapNumber, quint32 lapTime);
+        }
+        onSendSkillPointUpdated:{
+            //(quint32 skillPoint);
+        }
+        onSendSkillRaceTime:{
+            //(QString time);
+        }
+        onSendRemainingTime:{
+             //(QString itme);
+        }
+        onPresentSpeedResults:{
+            hideAll();
+            speedRaceResultView.visible = true;
+
+        }
+        onPresentSkillResults:{
+            hideAll();
+            skillRaceResultView.visible = true;
+
+        }
+        onPresentFinalResults:{
+            hideAll();
+            if(isJunior){
+                juniorFinalResultView.visible = true
+            }
+            else{
+                finalResultView.visible = true;
+            }
+        }
+        onPresentFinalResultAtPosition:{
+            //(quint32 skillPoint, quint32 speedPoint, quint32 votePoint, quint32 qualificationPoint, quint32 finalPoint, quint32 position);
+            hideAll();
+
+            finalSingleResultView.sumPointLabel.text = finalPoint;
+            finalSingleResultView.teamImage= "resources/icons/" + teamID + ".png";
+            finalSingleResultView.positionLabel.text= position + ".";
+            finalSingleResultView.votePointLabel.text= votePoint + "p";
+            finalSingleResultView.speedRacePointLabel.text= speedPoint + "p";
+            finalSingleResultView.skillRacePointLabel.text= skillPoint + "p";
+            finalSingleResultView.qualificationPointLabel.text= qualificationPoint + "p";
+            finalSingleResultView.teamNameLabel.text= teamName;
+
+            finalSingleResultView.visible = true;
+
+        }
+        onPresentVotesResults:{
+            hideAll();
+            voteResultView.visible = true;
+
+        }
+        onPresentQualificationResults:{
+            hideAll();
+            qualificationResultView.visible = true;
+
+        }
+        onPresentSkillRace:{
+            hideAll();
+            skillRaceView.visible = true;
+
+        }
+        onPresentSpeedRace:{
+            hideAll();
+            speedRaceView.visible = true;
         }
     }
 
