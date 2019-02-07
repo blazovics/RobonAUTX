@@ -22,18 +22,18 @@ Window {
         target: controlUnit
         onShowMainView:
         {
-            view.currentIndex = 0
+            view.currentIndex = 1
         }
         onShowSkillRaceView:
         {
             //FIXME: handle TeamID
-            view.currentIndex = 1
+            view.currentIndex = 2
             skillRaceControlPage.resetPage();
         }
         onShowSpeedRaceView:
         {
             //FIXME: do it!
-            view.currentIndex = 2
+            view.currentIndex = 3
             speedRaceControlPage.resetPage();
         }
 
@@ -48,6 +48,9 @@ Window {
         anchors.left: parent.left
         anchors.top: parent.top
 
+        ResultsControlPage{
+            id: resultsControlPage
+        }
         MainControlPage {
             id: mainControlPage
             onTeamSelected: {
@@ -59,9 +62,6 @@ Window {
         }
         SpeedRaceControlPage {
             id: speedRaceControlPage
-        }
-        Page {
-            title: qsTr("Activity")
         }
 
     }

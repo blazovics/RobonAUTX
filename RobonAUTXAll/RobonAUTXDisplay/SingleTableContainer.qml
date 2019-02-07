@@ -13,6 +13,15 @@ Rectangle{
     property alias teamNameLabel: teamNameLabel
     property alias positionLabel: positionLabel
 
+    FontLoader {
+        id: digital7;
+        source: "qrc:/resources/digital-7.ttf"
+    }
+
+    FontLoader {
+        id: roboto;
+        source: "qrc:/resources/Roboto.ttf"
+    }
 
     Rectangle {
         id: rectangle1

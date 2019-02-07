@@ -9,7 +9,7 @@ Rectangle{
     height: 60
     color: "#00000000"
 
-    property alias positionLAbel: positionLAbel
+    property alias positionLabel: positionLabel
     property alias teamNameLabel: teamNameLabel
     property alias value2Label: value2Label
     property alias value1Label: value1Label
@@ -99,7 +99,7 @@ Rectangle{
         anchors.leftMargin: 20
 
         Label {
-            id: positionLAbel
+            id: positionLabel
             color: "#ffffff"
             text: qsTr("#")
             anchors.fill: parent

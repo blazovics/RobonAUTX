@@ -67,27 +67,35 @@ Window {
             id: skillRaceView
             visible: false
         }
-        SingleResultView{
-            visible: false
-
-        }
-        FinalSingleResultView{
-            visible: false
-        }
-        FinalResultView{
-            visible: false
-        }
         SpeedRaceResultView{
+            id: speedRaceResultView
             visible: false
         }
         SkillRaceResultView{
+            id: skillRaceResultView
             visible: false
         }
         VoteResultView{
+            id: voteResultView
             visible: false
         }
         QualificationResultView{
-
+            id: qualificationResultView
+            visible: false
+        }
+        FinalResultView{
+            id: finalResultView
+            mainTitle:  qsTr("Összesített Rangsor")
+            visible: false
+        }
+        FinalResultView{
+            id: juniorFinalResultView
+            mainTitle: qsTr("Junior Rangsor")
+            visible: false
+        }
+        FinalSingleResultView{
+            id: finalSingleResultView
+            visible: false
         }
     }
 

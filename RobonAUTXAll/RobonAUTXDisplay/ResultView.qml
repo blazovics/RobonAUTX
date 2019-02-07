@@ -5,6 +5,8 @@ import QtQuick.Controls 2.3
 Rectangle{
     id: singleResultView
     color: "#00000000"
+    property alias titleRect: titleRect
+    property alias titleLabel: titleLabel
     anchors.fill: parent
 
     FontLoader {
@@ -29,9 +31,14 @@ Rectangle{
         anchors.leftMargin: 20
 
         Label {
-            id: label
+            id: titleLabel
             color: "#ffffff"
             text: qsTr("Label")
+            anchors.rightMargin: 5
+            anchors.leftMargin: 5
+            anchors.bottomMargin: 5
+            anchors.topMargin: 5
+            fontSizeMode: Text.Fit
             font.pointSize: 70
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
@@ -40,3 +47,8 @@ Rectangle{
         }
     }
 }
+
+/*##^## Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+ ##^##*/

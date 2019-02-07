@@ -24,8 +24,7 @@
         <file>Footer.qml</file>
         <file>TopSpeeds.qml</file>
         <file>SkillRaceView.qml</file>
-        <file>ResultsView.qml</file>
-        <file>SingleResultView.qml</file>
+        <file>ResultView.qml</file>
         <file>SingleTableContainer.qml</file>
         <file>DoubleTableContainer.qml</file>
         <file>SkillRaceResultView.qml</file>
