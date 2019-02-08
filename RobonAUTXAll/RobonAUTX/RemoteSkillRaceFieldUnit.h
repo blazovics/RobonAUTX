@@ -26,6 +26,8 @@ public slots:
     void ResetCheckpoints();
     void SendHeartBeat();
     void SendClearAllGates();
+    void StartSafetyCar();
+    void StopSafetyCar();
 
 private:
     void sendReset(quint32 checkpointID);

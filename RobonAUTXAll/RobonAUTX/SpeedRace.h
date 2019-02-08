@@ -33,7 +33,7 @@ public:
     
     quint32 GetPenaltyPoint() const;
 
-    quint32 GetAdditionalPoint() const;
+    qint32 GetAdditionalPoint() const;
     
     quint32 GetBestLapTime() const;
 

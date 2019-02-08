@@ -17,6 +17,8 @@ public:
     bool isJunior;
     quint32 speedPoint;
     qint64 speedTime;
+
+    int penalty;
     
     static QString SpeedTimeToString(qint64 time);
     static QString SkillTimeToString(qint64 time);

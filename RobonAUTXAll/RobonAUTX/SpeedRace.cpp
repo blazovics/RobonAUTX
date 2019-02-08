@@ -49,9 +49,9 @@ quint32 SpeedRace::GetPenaltyPoint() const {
     return touchCount * 2;
 }
 
-quint32 SpeedRace::GetAdditionalPoint() const
+qint32 SpeedRace::GetAdditionalPoint() const
 {
-    quint32 additionalPoint = 0;
+    qint32 additionalPoint = 0;
     if(this->safetyCarFollowed)
     {
         additionalPoint += 5;

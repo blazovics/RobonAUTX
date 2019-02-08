@@ -85,6 +85,11 @@ signals:
 
     void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
 
+    void StartSafetyCar();
+    void StopSafetyCar();
+    void ClearSkillGates();
+    void ResetSkillGates();
+
 
 public slots:
 

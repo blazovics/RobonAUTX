@@ -32,6 +32,8 @@ public:
 
     quint32 GetFinishedLapCount() const;
 
+    quint32 getPenaltyPoints() const;
+
     void SetSafetyCarFollowed(bool value);
 
     void SetSafetyCarOvertaken(bool value);

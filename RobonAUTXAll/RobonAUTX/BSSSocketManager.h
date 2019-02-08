@@ -2,8 +2,10 @@
 #define BSSSOCKETMANAGER_H
 
 #include <QObject>
-#include <QWebSocket>
+#include <QtWebSockets/QWebSocket>
 #include <vector>
+
+#include <QTimer>
 
 #include "QualificationResult.h"
 #include "SpeedRaceResult.h"
@@ -20,6 +22,8 @@ class BSSSocketManager : public QObject
     QWebSocket webSocket;
     QUrl serverUrl;
 
+    std::unique_ptr<QTimer> connectionTimer;
+
 public:
     explicit BSSSocketManager(QObject *parent = nullptr);
 
@@ -32,7 +36,7 @@ public slots:
 
     void sendSkillTimerStarted();
     void sendSkillTimerStopped();
-    void sendSkillResultChanged(quint32 teamID, quint32 remainingTime, quint32 timeCredit, quint32 point, quint32 checkpointPoint);
+    void sendSkillResultChanged(quint32 teamID, qint32 remainingTime, quint32 timeCredit, quint32 point, qint32 checkpointPoint);
     void sendSkillRaceFinished(quint32 teamID, quint32 point);
     void sendSpeedPointChanged(quint32 teamID, quint32 checkpointPoint, quint32 penaltyPoints);
 
@@ -73,6 +77,8 @@ private slots:
     void stateChanged(QAbstractSocket::SocketState state);
     void textFrameReceived(const QString &frame, bool isLastFrame);
     void textMessageReceived(const QString &message);
+
+    void TimerFired();
 };
 
 #endif // BSSSOCKETMANAGER_H

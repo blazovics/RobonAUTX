@@ -87,6 +87,20 @@ void RemoteSkillRaceFieldUnit::SendClearAllGates()
     sendEvent(event);
 }
 
+void RemoteSkillRaceFieldUnit::StartSafetyCar()
+{
+    Event event(Event_StartSafetyCar);
+    event.insertQuint32(0);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::StopSafetyCar()
+{
+    Event event(Event_StopSafetyCar);
+    event.insertQuint32(0);
+    sendEvent(event);
+}
+
 void RemoteSkillRaceFieldUnit::sendReset(quint32 checkpointID)
 {
     Event event(Event_ResetGate);

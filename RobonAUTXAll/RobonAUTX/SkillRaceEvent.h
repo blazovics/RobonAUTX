@@ -48,6 +48,8 @@ public:
     quint32 GetActualPoints();
     quint32 GetTimeCredit();
 
+    qint64 getRemainingTime() const;
+
 public slots:
     void UpdateTimerFired();
 

@@ -45,6 +45,11 @@ void RaceEvent::SaveRace()
     updateTimer->stop();
 }
 
+quint32 RaceEvent::GetTeamID() const
+{
+    return this->actualRace->getTeamID();
+}
+
 void RaceEvent::PauseRaceTimer()
 {
     raceTimer.PauseTimer();

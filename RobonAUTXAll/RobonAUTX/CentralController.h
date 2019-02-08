@@ -13,13 +13,19 @@
 #include "RaceEvent.h"
 #include "DatabaseManager.h"
 
+#include "BSSSocketManager.h"
+
 class CentralController: public ICentralController {
 
     Q_OBJECT
 
-public: 
     std::unique_ptr<RaceEvent> raceEvent;
     std::shared_ptr<DatabaseManager> databaseManager;
+
+    BSSSocketManager bssManager;
+
+public: 
+
     
    CentralController();
 

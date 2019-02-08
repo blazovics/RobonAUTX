@@ -18,6 +18,11 @@
 /**
  * @param teamID
  */
+qint64 SkillRaceEvent::getRemainingTime() const
+{
+    return remainingTime;
+}
+
 SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent):RaceEvent (dbManager, parent)
 {
 

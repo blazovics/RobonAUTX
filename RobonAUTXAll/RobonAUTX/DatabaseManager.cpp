@@ -396,7 +396,7 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.speedTime = query.value(2).toUInt();
-        result.speedPoint = query.value(1).toUInt();
+        result.penalty = query.value(1).toUInt();
         returnResult.push_back(result);
     }
 
@@ -408,7 +408,17 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
             pos++;
         }
         returnResult[i].position = quint32(pos);
-        returnResult[i].speedPoint += this->calculcateSpeedPointForPosition(returnResult[i].position);
+
+        qint32 positionPoint = qint32(this->calculcateSpeedPointForPosition(returnResult[i].position));
+
+        if(positionPoint-returnResult[i].penalty < 0)
+        {
+            returnResult[i].speedPoint = 0;
+        }
+        else{
+            returnResult[i].speedPoint = quint32(positionPoint-returnResult[i].penalty);
+        }
+
     }
 
     db.close();

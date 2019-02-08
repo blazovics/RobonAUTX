@@ -10,6 +10,8 @@
 #include "SpeedRaceEvent.h"
 #include <QDebug>
 
+#include "Configuration.h"
+
 /**
  * CentralController implementation
  */
@@ -19,6 +21,14 @@ CentralController::CentralController() {
     //FIXME Consider change to unique
     databaseManager = std::make_shared<DatabaseManager>();
 
+    QString bssUrlString = "";
+
+    const Configuration& config = Configuration::GetInstance();
+
+    if(config.IsKeyAvailable("MainSystemSettings","BSSServerAddress")){
+        bssUrlString = QString::fromStdString(config.GetStringValue("MainSystemSettings","BSSServerAddress"));
+    }
+    bssManager.connectToServer(QUrl(bssUrlString));
 }
 
 CentralController::~CentralController()
@@ -32,6 +42,7 @@ void CentralController::InitSkillRace(quint32 teamID)
     this->raceEvent = std::make_unique<SkillRaceEvent>(databaseManager);
     this->raceEvent->InitRace(teamID);
 
+    emit ResetSkillGates();
     emit SkillRaceInitiated(teamID);
 }
 
@@ -89,6 +100,9 @@ void CentralController::TimeSourceForLapSelected(TimeSourceType timeSource)
         quint32 finishedLapIndex = currentEvent->GetFinishedLapCount();
 
         emit SpeedLapCompleted(finishedLapIndex,lapTime);
+
+        bssManager.sendSpeedLapFinished(currentEvent->GetTeamID(),finishedLapIndex,lapTime);
+        bssManager.sendStartTimer();
     }
     else {
         //throw std::bad_cast();
@@ -106,6 +120,14 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
             emit CheckpointStateUpdated(checkpointID,checked);
         }
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        int checkpointPoint = 2;
+        if(checked == false)
+        {
+            checkpointPoint = -2;
+        }
+
+        bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),checkpointPoint);
     }
     else {
 
@@ -119,16 +141,23 @@ void CentralController::StartRace()
     {
         emit StartSkillGate();
         qDebug()<<"StartSkillGate";
+        bssManager.sendSkillTimerStarted();
     }
     else{
         this->raceEvent->StartRace();
         emit RaceStarted();
+        emit StartSafetyCar();
+        bssManager.sendStartTimer();
     }
 }
 
 void CentralController::FinishRace(bool aborted)
 {
-    //FIXME check if not null
+    if(this->raceEvent == nullptr)
+        return;
+
+    emit RaceFinished(aborted);
+
     if(aborted)
     {
         this->raceEvent->AbortRace();
@@ -136,7 +165,26 @@ void CentralController::FinishRace(bool aborted)
     else {
         this->raceEvent->SaveRace();
     }
-    emit RaceFinished(aborted);
+
+    if(this->raceEvent->getType() == Skill)
+    {
+        emit ClearSkillGates();
+        SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr && aborted == false)
+        {
+            this->InitSpeedRace(currentEvent->GetTeamID());
+        }
+
+        bssManager.sendSkillTimerStopped();
+    }
+    else{
+        emit StartSafetyCar();
+        bssManager.sendStopTimer();
+    }
+
+    bssManager.sendQualificationPoints(databaseManager->GetQualificationResults());
+    bssManager.sendSpeedResults(databaseManager->GetSpeedRaceResults(true),true);
+    bssManager.sendSpeedResults(databaseManager->GetSpeedRaceResults(false),false);
 }
 
 void CentralController::TeamListRequested()
@@ -153,6 +201,8 @@ void CentralController::VechicleStartAchieved(bool achieved)
         currentEvent->SetStartSucceeded(achieved);
         emit VehicleStartConfirmed(achieved);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),0);
     }
     else {
         //throw std::bad_cast();
@@ -167,6 +217,9 @@ void CentralController::LaneChangeAchieved(bool achieved)
         currentEvent->SetLanChangeSuccess(achieved);
         emit LaneChangeConfirmed(achieved);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),0);
+
     }
     else {
         //throw std::bad_cast();
@@ -180,6 +233,9 @@ void CentralController::SafetyCarFollowed(bool achieved)
     {
         currentEvent->SetSafetyCarFollowed(achieved);
         emit SafetyCarFollowingConfirmed(achieved);
+
+
+        //bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->get)
     }
     else {
         //throw std::bad_cast();

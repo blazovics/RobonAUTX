@@ -114,6 +114,11 @@ void CoreController::connectDevice(ICentralController *controller, ISkillRaceFie
 {
     connect(device,SIGNAL(checkpointUpdated(quint32, bool, bool)),controller,SLOT(UpdateCheckpointState(quint32, bool, bool)));
     connect(controller,SIGNAL(CheckpointStateUpdated(quint32, bool)),device,SLOT(UpdateCheckpointState(quint32, bool)));
+
+    connect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
+    connect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
+    connect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
+    connect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, IVoteCounter *device)
@@ -210,6 +215,10 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
 {
     disconnect(device,SIGNAL(checkpointUpdated(quint32, bool, bool)),controller,SLOT(UpdateCheckpointState(quint32, bool, bool)));
     disconnect(controller,SIGNAL(CheckpointStateUpdated(quint32, bool)),device,SLOT(UpdateCheckpointState(quint32, bool)));
+    disconnect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
+    disconnect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
+    disconnect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
+    disconnect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
 }
 
 

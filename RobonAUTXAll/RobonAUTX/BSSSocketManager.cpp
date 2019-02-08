@@ -28,6 +28,13 @@ void BSSSocketManager::connectToServer(QUrl newServerURL)
 
     this->serverUrl = newServerURL;
     webSocket.open(this->serverUrl);
+
+    connectionTimer = std::make_unique<QTimer>();
+    connectionTimer->start(1000);
+
+    connect(connectionTimer.get(),SIGNAL(timeout()),this,SLOT(TimerFired()));
+
+
 }
 
 void BSSSocketManager::sendSkillTimerStarted()
@@ -48,7 +55,7 @@ void BSSSocketManager::sendSkillTimerStopped()
     webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
-void BSSSocketManager::sendSkillResultChanged(quint32 teamID, quint32 remainingTime, quint32 timeCredit, quint32 point, quint32 checkpointPoint)
+void BSSSocketManager::sendSkillResultChanged(quint32 teamID, qint32 remainingTime, quint32 timeCredit, quint32 point, qint32 checkpointPoint)
 {
     QJsonObject obj;
 
@@ -497,10 +504,18 @@ void  BSSSocketManager::bytesWritten(qint64 bytes){
 
 }
 void  BSSSocketManager::connected(){
+
+    QJsonObject obj;
+
+    obj["type"] = "login";
+    obj["client"] = "data";
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
+
     emit connectionActive(true);
 }
 void  BSSSocketManager::disconnected(){
     emit connectionActive(false);
+
 }
 void  BSSSocketManager::error(QAbstractSocket::SocketError error){
     this->webSocket.abort();
@@ -526,4 +541,14 @@ void  BSSSocketManager::textFrameReceived(const QString &frame, bool isLastFrame
 }
 void  BSSSocketManager::textMessageReceived(const QString &message){
     qDebug()<<message;
+}
+
+void BSSSocketManager::TimerFired()
+{
+    if(webSocket.state() != (QAbstractSocket::ConnectedState | QAbstractSocket::ConnectingState)){
+        if(serverUrl.url().size() > 0)
+        {
+            this->webSocket.open(serverUrl);
+        }
+    }
 }

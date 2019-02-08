@@ -76,7 +76,10 @@ void RaceControlUnit::RaceFinished(bool aborted)
     if(eventType == Skill)
     {
         raceTimer.StopTimer();
-
+        if(aborted)
+        {
+            emit showMainView();
+        }
     }
     if(eventType == Speed)
     {
