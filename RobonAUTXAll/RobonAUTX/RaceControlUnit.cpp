@@ -261,6 +261,11 @@ void RaceControlUnit::qmlResumeRaceTimer()
     emit ResumeRaceTimer();
 }
 
+void RaceControlUnit::qmlUpdateBSS()
+{
+    emit UpdateBSS();
+}
+
 void RaceControlUnit::qmlShowSpeedResults(bool isJunior, quint32 fromPos)
 {
     emit ShowSpeedResults(isJunior,fromPos);

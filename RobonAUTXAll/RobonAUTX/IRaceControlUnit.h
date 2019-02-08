@@ -65,7 +65,9 @@ signals:
 
     void PauseRaceTimer();
     void ResumeRaceTimer();
-    
+
+    void UpdateBSS();
+
 public slots:
 
     virtual void TeamListUpdated(QList<Team> teams) = 0;

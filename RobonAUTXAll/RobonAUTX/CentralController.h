@@ -63,6 +63,8 @@ public slots:
    void PauseRaceTimer();
    void ResumeRaceTimer();
 
+   void UpdateBSS();
+
 private slots:
    void bssConnected(bool alive);
 };

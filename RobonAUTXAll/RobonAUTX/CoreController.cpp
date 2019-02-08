@@ -78,6 +78,7 @@ void CoreController::connectDevice(ICentralController *controller, IRaceControlU
     connect(device,SIGNAL(SkillGateManualStarted()),controller,SLOT(SkillGateStarted()));
     connect(device,SIGNAL(PauseRaceTimer()),controller,SLOT(PauseRaceTimer()));
     connect(device,SIGNAL(ResumeRaceTimer()),controller,SLOT(ResumeRaceTimer()));
+    connect(device,SIGNAL(UpdateBSS()),controller,SLOT(UpdateBSS()));
 
     connect(controller,SIGNAL( TeamListUpdated(QList<Team>) ),device, SLOT(TeamListUpdated(QList<Team>)));
     connect(controller,SIGNAL( SkillRaceInitiated(quint32) ),device, SLOT(SkillRaceInitiated(quint32)));
@@ -180,6 +181,7 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(device,SIGNAL(SkillGateManualStarted()),controller,SLOT(SkillGateStarted()));
     disconnect(device,SIGNAL(PauseRaceTimer()),controller,SLOT(PauseRaceTimer()));
     disconnect(device,SIGNAL(ResumeRaceTimer()),controller,SLOT(ResumeRaceTimer()));
+    disconnect(device,SIGNAL(UpdateBSS()),controller,SLOT(UpdateBSS()));
 
     disconnect(controller,SIGNAL( TeamListUpdated(QList<Team>) ),device, SLOT(TeamListUpdated(QList<Team>)));
     disconnect(controller,SIGNAL( SkillRaceInitiated(quint32) ),device, SLOT(SkillRaceInitiated(quint32)));

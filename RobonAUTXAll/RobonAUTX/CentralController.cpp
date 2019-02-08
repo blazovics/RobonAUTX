@@ -333,6 +333,13 @@ void CentralController::ResumeRaceTimer()
     }
 }
 
+void CentralController::UpdateBSS()
+{
+    bssManager.sendVotePoints(databaseManager->GetVoteResults());
+    bssManager.sendJuniorFinalResults(databaseManager->GetFinalResults(true));
+    bssManager.sendFinalResults(databaseManager->GetFinalResults(false));
+}
+
 void CentralController::bssConnected(bool alive)
 {
     if(alive)

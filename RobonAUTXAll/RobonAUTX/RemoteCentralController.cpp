@@ -134,6 +134,8 @@ void RemoteCentralController::EventReceived(Event &event)
     case Device_ICentralController + Event_ResumeRaceTimer:
         localController->ResumeRaceTimer();
         break;
+    case Device_ICentralController + Event_UpdateBSS:
+        localController->UpdateBSS();
     }
 }
 
@@ -308,6 +310,12 @@ void RemoteCentralController::PauseRaceTimer()
 void RemoteCentralController::ResumeRaceTimer()
 {
     Event event(Device_ICentralController + Event_ResumeRaceTimer);
+    sendEvent(event);
+}
+
+void RemoteCentralController::UpdateBSS()
+{
+    Event event(Device_ICentralController + Event_UpdateBSS);
     sendEvent(event);
 }
 

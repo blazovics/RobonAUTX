@@ -58,6 +58,8 @@ public slots:
 
     void PauseRaceTimer();
     void ResumeRaceTimer();
+
+    void UpdateBSS();
 };
 
 #endif //_REMOTECENTRALCONTROLLER_H

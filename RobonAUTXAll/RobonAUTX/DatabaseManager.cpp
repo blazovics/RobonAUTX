@@ -480,7 +480,7 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
         result.teamID = teams[i].getTeamID();
         result.teamName = teams[i].getName();
         result.qualificationPoint = teams[i].getQualificationPoint();
-        result.votePoint = teams[i].getAudienceVoteCount();
+        result.votePoint = teams[i].getQualificationPoint();
         result.skillPoint = 0;
         result.speedPoint = 0;
         returnResult.push_back(result);

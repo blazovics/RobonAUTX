@@ -95,6 +95,8 @@ public slots:
     void qmlPauseRaceTimer();
     void qmlResumeRaceTimer();
 
+    void qmlUpdateBSS();
+
 signals:
     void showMainView();
     void showSkillRaceView(quint32 teamID);

@@ -62,8 +62,8 @@ void DisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool isJuni
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            speedRaceResult.addSpeedRaceResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            speedRaceResult.addSpeedRaceResult(result[i]);
         }
     }
     emit presentSpeedResults(isJunior);
@@ -76,8 +76,8 @@ void DisplayManager::showSkillResults(QList<SkillRaceResult> result, quint32 fro
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            skillRaceResult.addSkillRaceResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            skillRaceResult.addSkillRaceResult(result[i]);
         }
     }
     emit presentSkillResults();
@@ -90,8 +90,8 @@ void DisplayManager::showFinalResults(QList<FinalResult> result, bool isJunior, 
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            finalResult.addFinalResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            finalResult.addFinalResult(result[i]);
         }
     }
     emit presentFinalResults(isJunior);
@@ -115,8 +115,8 @@ void DisplayManager::showVotesResults(QList<VoteResult> result, quint32 fromPos)
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            voteResult.addVoteResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            voteResult.addVoteResult(result[i]);
         }
     }
     emit presentVotesResults();
@@ -129,8 +129,8 @@ void DisplayManager::showQualificationResults(QList<QualificationResult> result,
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            qualificationResult.addQualificationResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            qualificationResult.addQualificationResult(result[i]);
         }
     }
 

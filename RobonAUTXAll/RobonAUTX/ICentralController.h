@@ -33,6 +33,7 @@
 #define Event_SkillGateStarted 23
 #define Event_PauseRaceTimer 24
 #define Event_ResumeRaceTimer 25
+#define Event_UpdateBSS 26
 
 #define Device_ICentralController 100
 
@@ -122,6 +123,8 @@ public slots:
 
     virtual void PauseRaceTimer() = 0;
     virtual void ResumeRaceTimer() = 0;
+
+    virtual void UpdateBSS() = 0;
 
 };
 
