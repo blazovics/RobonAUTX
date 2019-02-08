@@ -57,51 +57,29 @@ Window {
 
     Connections{
         target:controller
-        onDisconnected:{
+
+        onDisconnected:
+        {
             connectionIndicator.visible = true;
         }
-        onConnected:{
+        onConnected:
+        {
             connectionIndicator.visible = false;
+            hideAll();
         }
-        onTeamIDChanged:{
-            //(const quint32 newTeamID);
-        }
-        onSendLaneChangeAchieved:{
-            //(bool success);
-        }
-        onSendVehicleStartAchieved:{
-            //(bool success);
-        }
-        onSendSafetyCarFollowed:{
-            //(bool success);
-        }
-        onSendSafetyCarOvertaken:{
-            //(bool success);
-        }
-        onSendCheckpointStateUpdated:{
-            //(quint32 checkpointID, bool state);
-        }
-        onSendSpeedLapCompleted:{
-            //(quint32 lapNumber, quint32 lapTime);
-        }
-        onSendSkillPointUpdated:{
-            //(quint32 skillPoint);
-        }
-        onSendSkillRaceTime:{
-            //(QString time);
-        }
-        onSendRemainingTime:{
-             //(QString itme);
-        }
-        onPresentSpeedResults:{
+    }
+
+    Connections{
+        target:manager
+        onPresentSpeedResults:
+        {
             hideAll();
             speedRaceResultView.visible = true;
-
         }
-        onPresentSkillResults:{
+        onPresentSkillResults:
+        {
             hideAll();
             skillRaceResultView.visible = true;
-
         }
         onPresentFinalResults:{
             hideAll();
@@ -112,12 +90,13 @@ Window {
                 finalResultView.visible = true;
             }
         }
-        onPresentFinalResultAtPosition:{
+        onPresentFinalResultAtPosition:
+        {
             //(quint32 skillPoint, quint32 speedPoint, quint32 votePoint, quint32 qualificationPoint, quint32 finalPoint, quint32 position);
             hideAll();
 
             finalSingleResultView.sumPointLabel.text = finalPoint;
-            finalSingleResultView.teamImage= "resources/icons/" + teamID + ".png";
+            finalSingleResultView.teamImage.source = "resources/icons/" + teamID + ".png";
             finalSingleResultView.positionLabel.text= position + ".";
             finalSingleResultView.votePointLabel.text= votePoint + "p";
             finalSingleResultView.speedRacePointLabel.text= speedPoint + "p";
@@ -126,25 +105,28 @@ Window {
             finalSingleResultView.teamNameLabel.text= teamName;
 
             finalSingleResultView.visible = true;
-
         }
-        onPresentVotesResults:{
+        onPresentVotesResults:
+        {
             hideAll();
             voteResultView.visible = true;
-
         }
-        onPresentQualificationResults:{
+        onPresentQualificationResults:
+        {
             hideAll();
             qualificationResultView.visible = true;
-
         }
-        onPresentSkillRace:{
+        onPresentSkillRace:
+        {
             hideAll();
+            skillRaceView.resetView();
             skillRaceView.visible = true;
-
+            console.log("SKILL" + skillRaceView.visible);
         }
-        onPresentSpeedRace:{
+        onPresentSpeedRace:
+        {
             hideAll();
+            speedRaceView.resetView();
             speedRaceView.visible = true;
         }
     }
@@ -157,41 +139,32 @@ Window {
 
         SpeedRaceView {
             id: speedRaceView
-            visible: false
         }
         SkillRaceView{
             id: skillRaceView
-            visible: false
         }
         SpeedRaceResultView{
             id: speedRaceResultView
-            visible: false
         }
         SkillRaceResultView{
             id: skillRaceResultView
-            visible: false
         }
         VoteResultView{
             id: voteResultView
-            visible: false
         }
         QualificationResultView{
             id: qualificationResultView
-            visible: false
         }
         FinalResultView{
             id: finalResultView
             mainTitle:  qsTr("Összesített Rangsor")
-            visible: false
         }
         FinalResultView{
             id: juniorFinalResultView
             mainTitle: qsTr("Junior Rangsor")
-            visible: false
         }
         FinalSingleResultView{
             id: finalSingleResultView
-            visible: false
         }
     }
 
@@ -200,6 +173,8 @@ Window {
 
 
 }
+
+
 
 
 

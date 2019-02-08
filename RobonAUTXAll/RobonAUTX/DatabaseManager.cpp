@@ -482,7 +482,7 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
         for (int j=0; j < speedRaceResult.size(); j++) {
             if(returnResult[i].teamID == speedRaceResult[j].teamID)
             {
-                returnResult[i].skillPoint = speedRaceResult[j].speedPoint;
+                returnResult[i].speedPoint = speedRaceResult[j].speedPoint;
             }
         }
     }

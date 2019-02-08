@@ -15,7 +15,8 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    QString configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
+    //QString configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
+    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/WinHomeMainSystem.ini";
 
     if(argc > 1)
     {
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("speedRaceModel",manager->getSpeedRaceResult());
     engine.rootContext()->setContextProperty("skillRaceModel",manager->getSkillRaceResult());
     engine.rootContext()->setContextProperty("finalModel",manager->getFinalResult());
+    engine.rootContext()->setContextProperty("inRaceSpeedModel",manager->getInRaceSpeedResult());
 
     engine.rootContext()->setContextProperty("manager",manager);
     engine.rootContext()->setContextProperty("controller",&controller);

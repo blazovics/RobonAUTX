@@ -15,6 +15,7 @@ Rectangle{
     property alias skillRacePointLabel: skillRacePointLabel
     property alias qualificationPointLabel: qualificationPointLabel
     property alias teamNameLabel: teamNameLabel
+
     anchors.fill: parent
 
     Rectangle {
@@ -23,8 +24,6 @@ Rectangle{
         color: "#99000000"
         anchors.right: parent.right
         anchors.rightMargin: 20
-        anchors.bottom: rectangle3.bottom
-        anchors.bottomMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.top: parent.top

@@ -38,6 +38,11 @@ FinalResultModel* DisplayManager::getFinalResult()
     return &finalResult;
 }
 
+SpeedRaceResultModel *DisplayManager::getInRaceSpeedResult()
+{
+    return &inRaceSpeedResult;
+}
+
 DisplayManager::DisplayManager()
 {
     m_teamID = 0;
@@ -142,6 +147,7 @@ void DisplayManager::SkillRaceInitiated(quint32 teamID)
     eventType = Skill;
     this->m_teamID = teamID;
     timeCredit = 0;
+
     emit presentSkillRace();
 }
 
@@ -150,6 +156,7 @@ void DisplayManager::SpeedRaceInitiated(quint32 teamID)
     eventType = Speed;
     this->m_teamID = teamID;
     speedTimeOffset = 0;
+
     emit presentSpeedRace();
 }
 
@@ -223,6 +230,15 @@ void DisplayManager::RaceFinished(bool aborted)
     updateTimer->stop();
 }
 
+void DisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
+{
+    inRaceSpeedResult.removeAll();
+
+    for (int ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+        inRaceSpeedResult.addSpeedRaceResult(result[ifromPos]);
+    }
+}
+
 void DisplayManager::TimerFired()
 {
     if(eventType == Skill)
@@ -234,15 +250,15 @@ void DisplayManager::TimerFired()
 
         if(remainingTime > 0)
         {
-             emit sendRemainingTime(SpeedRaceResult::SpeedTimeToString(quint32(remainingTime)));
+             emit sendRemainingTime(SpeedRaceResult::SkillTimeToString(quint32(remainingTime)));
         }
         else {
-            emit sendRemainingTime("-" + SpeedRaceResult::SpeedTimeToString(quint32(abs(remainingTime))));
+            emit sendRemainingTime("-" + SpeedRaceResult::SkillTimeToString(quint32(abs(remainingTime))));
         }
     }
     else if(eventType == Speed)
     {
-        emit sendSkillRaceTime(SpeedRaceResult::SpeedTimeToString(speedRaceTimer.elapsed()-speedTimeOffset));
+        emit sendSpeedRaceTime(SpeedRaceResult::SpeedTimeToString(speedRaceTimer.elapsed()-speedTimeOffset));
     }
 }
 

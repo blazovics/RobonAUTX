@@ -19,6 +19,78 @@ Rectangle{
         source: "qrc:/resources/Roboto.ttf"
     }
 
+    function resetView(){
+        for(var i = 0; i<12; i++)
+        {
+            setCheckpointVisibility(i,false);
+        }
+        skillPointLabel.text = "0p"
+        skillTimeLabel.text = "00:00"
+    }
+
+    Connections{
+        target:manager
+
+        onSendCheckpointStateUpdated:{
+            //(quint32 checkpointID, bool state);
+            setCheckpointVisibility(checkpointID,state);
+        }
+        onSendSkillPointUpdated:{
+            //(quint32 skillPoint);
+            skillPointLabel.text = skillPoint + "p"
+        }
+        onSendRemainingTime:{
+            //(QString time);
+            skillTimeLabel.text = time
+        }
+        onTeamIDChanged:{
+            //(const quint32 newTeamID);
+            teamImage.source = "resources/icons/" + newTeamID + ".png"
+        }
+    }
+
+
+    function setCheckpointVisibility(index,value){
+        switch (index) {
+        case 0:
+            checkpoint0.visible = value;
+            break;
+        case 1:
+            checkpoint1.visible = value;
+            break;
+        case 2:
+            checkpoint2.visible = value;
+            break;
+        case 3:
+            checkpoint3.visible = value;
+            break;
+        case 4:
+            checkpoint4.visible = value;
+            break;
+        case 5:
+            checkpoint5.visible = value;
+            break;
+        case 6:
+            checkpoint6.visible = value;
+            break;
+        case 7:
+            checkpoint7.visible = value;
+            break;
+        case 8:
+            checkpoint8.visible = value;
+            break;
+        case 9:
+            checkpoint9.visible = value;
+            break;
+        case 10:
+            checkpoint10.visible = value;
+            break;
+        case 11:
+            checkpoint11.visible = value;
+            break;
+        }
+    }
+
     Rectangle {
         id: rectangle3
         width: 130
@@ -48,7 +120,7 @@ Rectangle{
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit
-            source: "resources/icons/10.png"
+            source: "resources/icons/" + controller.teamID + ".png"
         }
 
     }
@@ -62,7 +134,7 @@ Rectangle{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         Label {
-            id: label
+            id: skillTimeLabel
             color: "#ffffff"
             text: "88:88"
             anchors.fill: parent
@@ -87,7 +159,7 @@ Rectangle{
         anchors.rightMargin: 20
         anchors.top: parent.top
         Label {
-            id: label1
+            id: skillPointLabel
             color: "#ffffff"
             text: "88p"
             anchors.fill: parent
@@ -115,10 +187,94 @@ Rectangle{
         anchors.leftMargin: 20
 
         Image {
-            id: image
+            id: background
             anchors.fill: parent
             fillMode: Image.PreserveAspectFit
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            source: "resources/track/palyaterv_red.png"
+        }
+
+        Image {
+            id: checkpoint0
+            source: "resources/track/1.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint1
+            source: "resources/track/2.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint2
+            source: "resources/track/3.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint3
+            source: "resources/track/4.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint4
+            source: "resources/track/5.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint5
+            source: "resources/track/6.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint6
+            source: "resources/track/7.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint7
+            source: "resources/track/8.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint8
+            source: "resources/track/9.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint9
+            source: "resources/track/10.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint10
+            source: "resources/track/11.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+
+        Image {
+            id: checkpoint11
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
         }
     }
 }

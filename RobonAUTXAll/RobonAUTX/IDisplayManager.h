@@ -30,6 +30,7 @@
 
 #define Event_Disp_RaceStarted 18
 #define Event_Disp_RaceFinished 19
+#define Event_Disp_updateInRaceSpeedResults 20
 
 #define Device_IDisplayManager 300
 
@@ -69,6 +70,8 @@ public slots:
 
     virtual void RaceStarted() = 0;
     virtual void RaceFinished(bool aborted) = 0;
+
+    virtual void updateInRaceSpeedResults(QList<SpeedRaceResult> result) = 0;
 
 };
 

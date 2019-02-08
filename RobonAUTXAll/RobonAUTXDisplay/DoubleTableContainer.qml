@@ -14,6 +14,16 @@ Rectangle{
     property alias value2Label: value2Label
     property alias value1Label: value1Label
 
+    FontLoader {
+        id: digital7;
+        source: "qrc:/resources/digital-7.ttf"
+    }
+
+    FontLoader {
+        id: roboto;
+        source: "qrc:/resources/Roboto.ttf"
+    }
+
     Rectangle {
         id: rectangle1
         width: 125

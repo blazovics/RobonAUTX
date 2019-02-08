@@ -110,10 +110,10 @@ void RemoteDisplayManager::EventReceived(Event &event)
         break;
     case Device_IDisplayManager + Event_Disp_CheckpointStateUpdated :
     {
-       quint32 checkpointID = event.extractQuint32FromRawData();
-       bool state = event.extractBoolFromRawData();
+        quint32 checkpointID = event.extractQuint32FromRawData();
+        bool state = event.extractBoolFromRawData();
 
-       localManager->CheckpointStateUpdated(checkpointID,state);
+        localManager->CheckpointStateUpdated(checkpointID,state);
     }
         break;
     case Device_IDisplayManager + Event_Disp_SpeedLapCompleted :
@@ -143,9 +143,15 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->RaceStarted();
     }
         break;
-case Device_IDisplayManager + Event_Disp_RaceFinished :
+    case Device_IDisplayManager + Event_Disp_RaceFinished :
     {
         localManager->RaceFinished(event.extractBoolFromRawData());
+    }
+        break;
+    case Device_IDisplayManager + Event_Disp_updateInRaceSpeedResults :
+    {
+        QList<SpeedRaceResult> result = event.extractSpeedRaceResultsFromRawData();
+        localManager->updateInRaceSpeedResults(result);
     }
         break;
     }
@@ -310,5 +316,12 @@ void RemoteDisplayManager::RaceFinished(bool aborted)
 {
     Event event(Device_IDisplayManager +  Event_Disp_RaceFinished );
     event.insertBool(aborted);
+    sendEvent(event);
+}
+
+void RemoteDisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
+{
+    Event event(Device_IDisplayManager + Event_Disp_showSpeedResults);
+    event.insertSpeedRaceResults(result);
     sendEvent(event);
 }

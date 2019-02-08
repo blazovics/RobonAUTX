@@ -21,9 +21,17 @@ QString SpeedRaceResult::SpeedTimeToString(qint64 time) {
 
     QTime qtime(0,0);
     qtime = qtime.addMSecs(int(time));
-    return qtime.toString("mm:ss.zzz");
+    return qtime.toString("mm:ss.zz");
 
 }
+
+QString SpeedRaceResult::SkillTimeToString(qint64 time)
+{
+    QTime qtime(0,0);
+    qtime = qtime.addMSecs(int(time));
+    return qtime.toString("mm:ss");
+}
+
 QDataStream &operator<<(QDataStream &out, const SpeedRaceResult &res)
 {
     out<<res.teamName;

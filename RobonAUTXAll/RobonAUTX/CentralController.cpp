@@ -41,6 +41,9 @@ void CentralController::InitSpeedRace(quint32 teamID)
     this->raceEvent = std::make_unique<SpeedRaceEvent>(databaseManager);
     this->raceEvent->InitRace(teamID);
 
+    QList<SpeedRaceResult> result = databaseManager->GetSpeedRaceResults(false);
+    emit updateInRaceSpeedResults(result);
+
     emit SpeedRaceInitiated(teamID);
 }
 

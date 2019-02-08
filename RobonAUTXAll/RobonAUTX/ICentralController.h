@@ -83,6 +83,8 @@ signals:
     void RaceTimerPaused();
     void RaceTimerResumed();
 
+    void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
+
 
 public slots:
 

@@ -43,6 +43,8 @@ class DisplayManager: public IDisplayManager {
     VoteResultModel voteResult;
     FinalResultModel finalResult;
 
+    SpeedRaceResultModel inRaceSpeedResult;
+
 public:
     DisplayManager();
 
@@ -58,6 +60,8 @@ public:
 
     FinalResultModel *getFinalResult();
 
+    SpeedRaceResultModel *getInRaceSpeedResult();
+
 signals:
     void teamIDChanged(const quint32 newTeamID);
 
@@ -71,8 +75,8 @@ signals:
     void sendSkillPointUpdated(quint32 skillPoint);
     void sendTeamListUpdated(QList<Team> teams);
 
-    void sendSkillRaceTime(QString time);
-    void sendRemainingTime(QString itme);
+    void sendSpeedRaceTime(QString time);
+    void sendRemainingTime(QString time);
 
     void presentSpeedResults(bool isJunior);
     void presentSkillResults();
@@ -108,6 +112,8 @@ public slots:
 
     void RaceStarted();
     void RaceFinished(bool aborted);
+
+    void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
 
     void TimerFired();
 };

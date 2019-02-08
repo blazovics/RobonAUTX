@@ -7,11 +7,21 @@ Rectangle{
     width: 1024
     height: 680
     color: "#00000000"
+    property alias speedTimeLabel: speedTimeLabel
     property alias teamImage: teamImage
-    property alias image1: image1
-    property alias image: image
-    property alias label: label
+
     anchors.fill: parent
+
+    function resetView(){
+        lap1Label.visible = false;
+        lap1TitleLabel.visible = false;
+
+        lap2Label.visible = false;
+        lap2TitleLabel.visible = false;
+
+        lap3Label.visible = false;
+        lap3TitleLabel.visible = false;
+    }
 
     FontLoader {
         id: digital7;
@@ -21,6 +31,47 @@ Rectangle{
     FontLoader {
         id: roboto;
         source: "qrc:/resources/Roboto.ttf"
+    }
+
+    Connections{
+        target:manager
+
+        onSendSpeedRaceTime:{
+            //(QString time);
+            speedTimeLabel.text = time;
+        }
+        onTeamIDChanged:{
+            //(const quint32 newTeamID);
+            teamImage = "resources/icons/" + controller.teamID + ".png"
+        }
+        onSendSafetyCarFollowed:{
+            //(bool success);
+            safetyCarImage.visible = success;
+        }
+        onSendSafetyCarOvertaken:{
+            //(bool success);
+            overtakingImage.visible = success;
+        }
+        onSendSpeedLapCompleted:{
+            //(quint32 lapNumber, quint32 lapTime);
+            switch (lapNumber){
+            case 1:
+                lap1Label.visible = true;
+                lap1TitleLabel.visible = true;
+                lap1TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                break;
+            case 2:
+                lap2Label.visible = true;
+                lap2TitleLabel.visible = true;
+                lap2TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                break;
+            case 3:
+                lap3Label.visible = true;
+                lap3TitleLabel.visible = true;
+                lap3TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                break;
+            }
+        }
     }
 
     Rectangle {
@@ -69,7 +120,7 @@ Rectangle{
             }
 
             Label {
-                id: label3
+                id: lap3Label
                 width: 390
                 height: 150
                 color: "#ffffff"
@@ -92,7 +143,7 @@ Rectangle{
             anchors.leftMargin: 0
 
             Label {
-                id: label4
+                id: lap1TitleLabel
                 width: parent.width
                 height: 150
                 color: "#ffffff"
@@ -104,7 +155,7 @@ Rectangle{
             }
 
             Label {
-                id: label5
+                id: lap2TitleLabel
                 width: parent.width
                 height: 150
                 color: "#ffffff"
@@ -116,7 +167,7 @@ Rectangle{
             }
 
             Label {
-                id: label6
+                id: lap3TitleLablel
                 width: parent.width
                 height: 150
                 color: "#ffffff"
@@ -162,7 +213,9 @@ Rectangle{
             y: 104
             width: 348
             height: 403
-            model: ListModel {
+            model:inRaceSpeedModel
+            /*
+            ListModel {
                 ListElement {
                     time:  qsTr("8:88.88")
                     teamID: 1
@@ -182,7 +235,7 @@ Rectangle{
                     time:  qsTr("8:88.88")
                     teamID: 4
                 }
-            }
+            }*/
             delegate: TopSpeeds {
             }
         }
@@ -235,7 +288,7 @@ Rectangle{
         anchors.topMargin: 20
 
         Label {
-            id: label
+            id: speedTimeLabel
             color: "#ffffff"
             text: qsTr("8:88.88")
             lineHeight: 1.2
@@ -260,7 +313,20 @@ Rectangle{
         anchors.rightMargin: 20
 
         Image {
-            id: image
+            id: image2
+            x: -625
+            y: 270
+            width: 150
+            height: 100
+            anchors.leftMargin: 15
+            source: "resources/safetyred.png"
+            anchors.left: parent.left
+            fillMode: Image.PreserveAspectFit
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Image {
+            id: safetyCarImage
             width: 150
             height: 100
             anchors.left: parent.left
@@ -283,7 +349,23 @@ Rectangle{
             fillMode: Image.PreserveAspectFit
             source: "resources/overtakingred.png"
         }
+
+        Image {
+            id: overtakingImage
+            x: 233
+            y: 10
+            width: 150
+            height: 100
+            source: "resources/overtakinggreen.png"
+            anchors.rightMargin: 15
+            anchors.verticalCenterOffset: 0
+            anchors.right: parent.right
+            fillMode: Image.PreserveAspectFit
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
     }
+
 
 
 }

@@ -53,6 +53,8 @@ public slots:
     void RaceStarted();
     void RaceFinished(bool aborted);
 
+    void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
+
 };
 
 #endif //_REMOTEDISPLAYMANAGER_H

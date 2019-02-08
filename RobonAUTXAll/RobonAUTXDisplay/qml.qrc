@@ -33,5 +33,18 @@
         <file>VoteResultView.qml</file>
         <file>FinalResultView.qml</file>
         <file>FinalSingleResultView.qml</file>
+        <file>resources/track/1.png</file>
+        <file>resources/track/10.png</file>
+        <file>resources/track/11.png</file>
+        <file>resources/track/12.png</file>
+        <file>resources/track/2.png</file>
+        <file>resources/track/3.png</file>
+        <file>resources/track/4.png</file>
+        <file>resources/track/5.png</file>
+        <file>resources/track/6.png</file>
+        <file>resources/track/7.png</file>
+        <file>resources/track/8.png</file>
+        <file>resources/track/9.png</file>
+        <file>resources/track/palyaterv_red.png</file>
     </qresource>
 </RCC>
