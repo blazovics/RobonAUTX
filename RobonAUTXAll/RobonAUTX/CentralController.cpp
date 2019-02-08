@@ -29,6 +29,7 @@ CentralController::CentralController() {
         bssUrlString = QString::fromStdString(config.GetStringValue("MainSystemSettings","BSSServerAddress"));
     }
     bssManager.connectToServer(QUrl(bssUrlString));
+    connect(&bssManager, SIGNAL(connectionActive(bool)), this,SLOT(bssConnected(bool)));
 }
 
 CentralController::~CentralController()
@@ -141,7 +142,6 @@ void CentralController::StartRace()
     {
         emit StartSkillGate();
         qDebug()<<"StartSkillGate";
-        bssManager.sendSkillTimerStarted();
     }
     else{
         this->raceEvent->StartRace();
@@ -181,9 +181,6 @@ void CentralController::FinishRace(bool aborted)
         emit StartSafetyCar();
         bssManager.sendStopTimer();
     }
-
-    bssManager.sendQualificationPoints(databaseManager->GetQualificationResults());
-    bssManager.sendSpeedResults(databaseManager->GetSpeedRaceResults(true),true);
     bssManager.sendSpeedResults(databaseManager->GetSpeedRaceResults(false),false);
 }
 
@@ -310,6 +307,7 @@ void CentralController::SkillGateStarted()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
+            bssManager.sendSkillTimerStarted();
             emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
         }
         this->raceEvent->StartRace();
@@ -332,5 +330,13 @@ void CentralController::ResumeRaceTimer()
     {
         this->raceEvent->ResumeRaceTimer();
         emit RaceTimerResumed();
+    }
+}
+
+void CentralController::bssConnected(bool alive)
+{
+    if(alive)
+    {
+        bssManager.sendQualificationPoints(databaseManager->GetQualificationResults());
     }
 }

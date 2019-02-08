@@ -34,10 +34,10 @@ Rectangle{
             id: titleLabel
             color: "#ffffff"
             text: qsTr("Label")
-            anchors.rightMargin: 5
-            anchors.leftMargin: 5
-            anchors.bottomMargin: 5
-            anchors.topMargin: 5
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            anchors.bottomMargin: 10
+            anchors.topMargin: 10
             fontSizeMode: Text.Fit
             font.pointSize: 70
             verticalAlignment: Text.AlignVCenter
@@ -47,6 +47,8 @@ Rectangle{
         }
     }
 }
+
+
 
 /*##^## Designer {
     D{i:0;autoSize:true;height:480;width:640}

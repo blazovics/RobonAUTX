@@ -38,7 +38,9 @@ quint32 SpeedRace::GetTouchCount() const
 }
 
 SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
-
+    this->touchCount = 0;
+    this->safetyCarFollowed = false;
+    this->safetyCarOvertaken = false;
 }
 
 /**

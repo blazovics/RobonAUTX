@@ -41,6 +41,8 @@ Rectangle{
         }
         onSendRemainingTime:{
             //(QString time);
+
+
             skillTimeLabel.text = time
         }
         onTeamIDChanged:{
@@ -137,6 +139,7 @@ Rectangle{
             id: skillTimeLabel
             color: "#ffffff"
             text: "88:88"
+            fontSizeMode: Text.HorizontalFit
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter

@@ -6,6 +6,8 @@ ResultView{
     height: 680
     titleLabel.text: qsTr("Ügyességi rangsor");
 
+
+
     SingleTableContainer{
         id: header
         height: 80
@@ -20,7 +22,7 @@ ResultView{
     ListView {
         id: listView
 
-        spacing: 10
+        spacing: 7
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         anchors.top: header.bottom
@@ -32,10 +34,18 @@ ResultView{
         anchors.right: parent.right
         anchors.rightMargin: 0
         delegate: SingleTableContainer{
-            height: 60
+            height: 40
             positionLabel.text: position + "."
             teamNameLabel.text: name
             valueLabel.text: skillPoint + "p"
+            color: {
+                if(teamID == manager.teamID){
+                    "33ffffff"
+                }
+                else{
+                    "#00000000"
+                }
+            }
         }
 
         model: skillRaceModel

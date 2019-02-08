@@ -142,7 +142,7 @@ void BSSSocketManager::sendSpeedLapFinished(quint32 teamID, quint32 lap, quint32
 {
     QJsonObject obj;
 
-    obj["type"] = "speedScore";
+    obj["type"] = "speedTime";
     obj["year"] = 2019;
     obj["teamId"] = qint32(teamID);
     obj["lap"] = qint32(lap);

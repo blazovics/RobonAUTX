@@ -40,7 +40,7 @@ void SkillRaceEvent::InitRace(quint32 teamID) {
  */
 bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced) {
 
-    if(remainingTime < 0 || forced == true)
+    if(remainingTime > 0 || forced == true)
     {
         try{
 

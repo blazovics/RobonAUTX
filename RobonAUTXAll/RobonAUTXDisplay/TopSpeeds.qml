@@ -40,6 +40,7 @@ Item {
             var timeString = new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zzz");
             timeString.substring(0,timeString.length-1);
         }
+        fontSizeMode: Text.Fit
         font.pointSize: 50
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignLeft

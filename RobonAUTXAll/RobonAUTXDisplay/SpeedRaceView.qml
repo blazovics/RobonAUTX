@@ -109,10 +109,14 @@ Rectangle{
 
             Label {
                 id: lap1Label
-                width: 390
                 height: 150
                 color: "#ffffff"
                 text: qsTr("8:88.88")
+                fontSizeMode: Text.Fit
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
                 horizontalAlignment: Text.AlignHCenter
                 font.family: digital7.name
                 lineHeight: 1.2
@@ -122,10 +126,14 @@ Rectangle{
 
             Label {
                 id: lap2Label
-                width: 390
                 height: 150
                 color: "#ffffff"
                 text: qsTr("8:88.88")
+                fontSizeMode: Text.Fit
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
                 horizontalAlignment: Text.AlignHCenter
                 font.family: digital7.name
                 lineHeight: 1.2
@@ -135,10 +143,14 @@ Rectangle{
 
             Label {
                 id: lap3Label
-                width: 390
                 height: 150
                 color: "#ffffff"
                 text: qsTr("8:88.88")
+                fontSizeMode: Text.Fit
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
                 horizontalAlignment: Text.AlignHCenter
                 font.family: digital7.name
                 lineHeight: 1.2
@@ -305,6 +317,10 @@ Rectangle{
             id: speedTimeLabel
             color: "#ffffff"
             text: qsTr("8:88.88")
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            anchors.bottomMargin: 10
+            anchors.topMargin: 10
             lineHeight: 1.2
             font.pointSize: 90
             font.family: digital7.name
@@ -398,7 +414,9 @@ Rectangle{
 
 
 
+
+
 /*##^## Designer {
-    D{i:4;anchors_height:400}D{i:8;anchors_width:200}
+    D{i:6;anchors_width:390}D{i:7;anchors_width:390}D{i:8;anchors_width:390}D{i:4;anchors_height:400}
 }
  ##^##*/

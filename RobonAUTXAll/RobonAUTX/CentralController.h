@@ -62,6 +62,9 @@ public slots:
 
    void PauseRaceTimer();
    void ResumeRaceTimer();
+
+private slots:
+   void bssConnected(bool alive);
 };
 
 #endif //_CENTRALCONTROLLER_H

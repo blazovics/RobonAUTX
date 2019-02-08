@@ -21,7 +21,7 @@ ResultView{
     ListView {
         id: listView
 
-        spacing: 10
+        spacing: 7
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         anchors.top: header.bottom
@@ -33,7 +33,7 @@ ResultView{
         anchors.right: parent.right
         anchors.rightMargin: 0
         delegate: DoubleTableContainer{
-            height: 60
+            height: 40
             positionLabel.text: position + "."
             teamNameLabel.text: name
             value1Label.text: voteCount

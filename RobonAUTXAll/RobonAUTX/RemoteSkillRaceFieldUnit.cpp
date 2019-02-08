@@ -7,6 +7,7 @@
 
 
 #include "RemoteSkillRaceFieldUnit.h"
+#include <QThread>
 
 /**
  * RemoteSkillRaceFieldUnit implementation
@@ -23,12 +24,13 @@ const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[12] = {
     std::pair<quint32,quint32>(7,8),
     std::pair<quint32,quint32>(8,9),
     std::pair<quint32,quint32>(9,10),
-    std::pair<quint32,quint32>(10,11),
+    std::pair<quint32,quint32>(10,15),
     std::pair<quint32,quint32>(11,12)};
 
 RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket, mode)
 {
-
+    delayTimer = std::make_unique<QTimer>();
+    connect(delayTimer.get(),SIGNAL(timeout()),this,SLOT(delayTimerFired()));
 }
 
 void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
@@ -71,8 +73,8 @@ void RemoteSkillRaceFieldUnit::UpdateCheckpointState(quint32 checkpointID, bool 
 
 void RemoteSkillRaceFieldUnit::ResetCheckpoints()
 {
-    Event event(Event_ResetAllGates);
-    sendEvent(event);
+    msgCount = 0;
+    delayTimer->start(1000);
 }
 
 void RemoteSkillRaceFieldUnit::SendHeartBeat()
@@ -99,6 +101,18 @@ void RemoteSkillRaceFieldUnit::StopSafetyCar()
     Event event(Event_StopSafetyCar);
     event.insertQuint32(0);
     sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::delayTimerFired()
+{
+    if(msgCount >= 12)
+    {
+        delayTimer->stop();
+    }
+    else{
+        this->sendReset(gateIDForCheckpointID(msgCount));
+        msgCount++;
+    }
 }
 
 void RemoteSkillRaceFieldUnit::sendReset(quint32 checkpointID)
