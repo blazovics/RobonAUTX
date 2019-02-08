@@ -39,7 +39,7 @@ public slots:
     void sendStartTimer();
     void sendStopTimer();
     void sendSpeedLapFinished(quint32 teamID, quint32 lap, quint32 time);
-    void sendSpeedResults(QList<SpeedRaceResult> results);
+    void sendSpeedResults(QList<SpeedRaceResult> results, bool isJunior);
     void sendQualificationPoints(QList<QualificationResult> results);
     void sendVotePoints(QList<VoteResult> results);
     void sendFinalResults(QList<FinalResult> results);

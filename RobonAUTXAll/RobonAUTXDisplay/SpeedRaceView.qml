@@ -10,6 +10,8 @@ Rectangle{
     property alias speedTimeLabel: speedTimeLabel
     property alias teamImage: teamImage
 
+    property int finishedLapCount: -1
+
     anchors.fill: parent
 
     function resetView(){
@@ -21,6 +23,12 @@ Rectangle{
 
         lap3Label.visible = false;
         lap3TitleLabel.visible = false;
+
+        overtakingImage.visible = false;
+        safetyCarImage.visible = false;
+        speedTimeLabel.text = "00:00.00"
+
+        finishedLapCount = -1;
     }
 
     FontLoader {
@@ -38,11 +46,14 @@ Rectangle{
 
         onSendSpeedRaceTime:{
             //(QString time);
-            speedTimeLabel.text = time;
+            if(finishedLapCount > -1 && finishedLapCount < 3)
+            {
+                speedTimeLabel.text = time;
+            }
         }
         onTeamIDChanged:{
             //(const quint32 newTeamID);
-            teamImage = "resources/icons/" + controller.teamID + ".png"
+            //teamImage = "resources/icons/" + manager.teamID + ".png"
         }
         onSendSafetyCarFollowed:{
             //(bool success);
@@ -54,21 +65,24 @@ Rectangle{
         }
         onSendSpeedLapCompleted:{
             //(quint32 lapNumber, quint32 lapTime);
+
+            finishedLapCount = lapNumber;
+
             switch (lapNumber){
             case 1:
                 lap1Label.visible = true;
                 lap1TitleLabel.visible = true;
-                lap1TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                lap1Label.text = lapTime;
                 break;
             case 2:
                 lap2Label.visible = true;
                 lap2TitleLabel.visible = true;
-                lap2TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                lap2Label.text = lapTime;
                 break;
             case 3:
                 lap3Label.visible = true;
                 lap3TitleLabel.visible = true;
-                lap3TitleLabel.text = new Date(lapTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+                lap3Label.text = lapTime;
                 break;
             }
         }
@@ -167,7 +181,7 @@ Rectangle{
             }
 
             Label {
-                id: lap3TitleLablel
+                id: lap3TitleLabel
                 width: parent.width
                 height: 150
                 color: "#ffffff"
@@ -271,7 +285,7 @@ Rectangle{
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit
-            source: "resources/icons/10.png"
+            source: "resources/icons/" + manager.teamID + ".png"
         }
 
     }

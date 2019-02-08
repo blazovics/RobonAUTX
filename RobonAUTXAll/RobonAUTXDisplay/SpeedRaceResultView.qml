@@ -36,7 +36,10 @@ ResultView{
             height: 60
             positionLabel.text: position + "."
             teamNameLabel.text: name
-            valueLabel.text: new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+            valueLabel.text: {
+                var timeString = new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zzz");
+                timeString.substring(0,timeString.length-1);
+            }
         }
 
         model: speedRaceModel

@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    //QString configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
-    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/WinHomeMainSystem.ini";
+    QString configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
+    //QString configFIlePath = "D:/AUT-Projects/RobonAUTX/WinHomeMainSystem.ini";
 
     if(argc > 1)
     {

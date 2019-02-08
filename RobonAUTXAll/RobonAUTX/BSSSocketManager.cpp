@@ -32,27 +32,61 @@ void BSSSocketManager::connectToServer(QUrl newServerURL)
 
 void BSSSocketManager::sendSkillTimerStarted()
 {
+    QJsonObject obj;
 
+    obj["type"] = "technicalTimerStart";
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendSkillTimerStopped()
 {
+    QJsonObject obj;
 
+    obj["type"] = "technicalTimerStop";
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendSkillResultChanged(quint32 teamID, quint32 remainingTime, quint32 timeCredit, quint32 point, quint32 checkpointPoint)
 {
+    QJsonObject obj;
 
+    obj["type"] = "technical";
+    obj["year"] = 2019;
+    obj["teamId"] = int(teamID);
+    obj["bonusTime"] = int(timeCredit);
+    obj["timeLeft"] = int(remainingTime);
+    obj["score"] = int(checkpointPoint);
+    obj["actualTechnicalScore"] = int(point);
+
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendSkillRaceFinished(quint32 teamID, quint32 point)
 {
+    QJsonObject obj;
 
+    obj["type"] = "technicalResult";
+    obj["year"] = 2019;
+    obj["teamId"] = int(teamID);
+    obj["score"] = int(point);
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendSpeedPointChanged(quint32 teamID, quint32 checkpointPoint, quint32 penaltyPoints)
 {
+    QJsonObject obj;
 
+    obj["type"] = "speedScore";
+    obj["year"] = 2019;
+    obj["teamId"] = int(teamID);
+    obj["point"] = int(checkpointPoint);
+    obj["actualSpeedPoint"] = int(penaltyPoints);
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 /*
@@ -83,7 +117,7 @@ void  BSSSocketManager::sendStartTimer()
 {
     QJsonObject obj;
 
-    obj["type"] = "timerStart";
+    obj["type"] = "speedTimerStart";
 
     webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
@@ -92,39 +126,164 @@ void  BSSSocketManager::sendStopTimer()
 {
     QJsonObject obj;
 
-    obj["type"] = "timerStop";
+    obj["type"] = "speedTimerStop";
 
     webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendSpeedLapFinished(quint32 teamID, quint32 lap, quint32 time)
 {
+    QJsonObject obj;
 
+    obj["type"] = "speedScore";
+    obj["year"] = 2019;
+    obj["teamId"] = qint32(teamID);
+    obj["lap"] = qint32(lap);
+    obj["time"] = qint32(time);
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
-void BSSSocketManager::sendSpeedResults(QList<SpeedRaceResult> results)
+void BSSSocketManager::sendSpeedResults(QList<SpeedRaceResult> results, bool isJunior)
 {
+    QJsonObject obj;
+    obj["type"] = "speedTimeBonus";
 
+    if(isJunior){
+        obj["board"] = "junior";
+    }
+    else {
+        obj["board"] = "combined";
+    }
+    obj["year"] = 2019;
+
+    QJsonArray array;
+
+    for(int i=0; i<results.size(); i++)
+    {
+        QJsonObject tObj;
+
+        tObj["teamId"] = qint32(results[i].teamID);
+        tObj["rank"] = qint32(results[i].position);
+       tObj[ "score"] = qint32(results[i].speedPoint);
+        tObj["fastestLap"] = qint32(results[i].speedTime);
+
+        array.append(tObj);
+    }
+
+    obj["result"] = array;
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendQualificationPoints(QList<QualificationResult> results)
 {
+    QJsonObject obj;
+    obj["type"] = "qualification";
+    obj["year"] = 2019;
 
+    QJsonArray array;
+
+    for(int i=0; i<results.size(); i++)
+    {
+        QJsonObject tObj;
+
+        tObj["teamId"] = qint32(results[i].teamID);
+        tObj["score"] = qint32(results[i].qualificationPoint);
+
+        array.append(tObj);
+    }
+
+    obj["result"] = array;
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendVotePoints(QList<VoteResult> results)
 {
+    QJsonObject obj;
+    obj["type"] = "votes";
+    obj["year"] = 2019;
 
+    QJsonArray array;
+
+    for(int i=0; i<results.size(); i++)
+    {
+        QJsonObject tObj;
+
+        tObj["teamId"] = qint32(results[i].teamID);
+        tObj["rank"] = qint32(results[i].position);
+        tObj["votes"] = qint32(results[i].voteCount);
+        tObj["extraScore"] = qint32(results[i].votePoint);
+
+        array.append(tObj);
+    }
+
+    obj["result"] = array;
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendFinalResults(QList<FinalResult> results)
 {
+    QJsonObject obj;
+    obj["type"] = "finalScores";
+    obj["board"] = "combined";
+    obj["year"] = 2019;
 
+    QJsonArray array;
+
+    for(int i=0; i<results.size(); i++)
+    {
+        QJsonObject tObj;
+
+        tObj["teamId"] = qint32(results[i].teamID);
+        tObj["rank"] = qint32(results[i].position);
+
+        tObj["technicalScore"]  = qint32(results[i].skillPoint);
+       tObj[ "speedScore"] = qint32(results[i].speedPoint);
+        tObj["speedBonusScore"] = qint32(results[i].speedPoint);
+       tObj[ "qualificationScore"] = qint32(results[i].qualificationPoint);
+        tObj["extraScore"] = qint32(results[i].votePoint);
+        //tObj["fastedLap"] = qint32(results[i].);
+
+        array.append(tObj);
+    }
+
+    obj["result"] = array;
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 
 void BSSSocketManager::sendJuniorFinalResults(QList<FinalResult> results)
 {
+    QJsonObject obj;
+    obj["type"] = "finalScores";
+    obj["board"] = "junior";
+    obj["year"] = 2019;
 
+    QJsonArray array;
+
+    for(int i=0; i<results.size(); i++)
+    {
+        QJsonObject tObj;
+
+        tObj["teamId"] = qint32(results[i].teamID);
+        tObj["rank"] = qint32(results[i].position);
+
+        tObj["technicalScore"]  = qint32(results[i].skillPoint);
+       tObj[ "speedScore"] = qint32(results[i].speedPoint);
+        tObj["speedBonusScore"] = qint32(results[i].speedPoint);
+       tObj[ "qualificationScore"] = qint32(results[i].qualificationPoint);
+        tObj["extraScore"] = qint32(results[i].votePoint);
+        //tObj["fastedLap"] = qint32(results[i].);
+
+        array.append(tObj);
+    }
+
+    obj["result"] = array;
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
 /*
 void BSSSocketManager::sendSpeedResult(int teamID, int result, int lapID)

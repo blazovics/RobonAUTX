@@ -321,7 +321,7 @@ void RemoteDisplayManager::RaceFinished(bool aborted)
 
 void RemoteDisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
 {
-    Event event(Device_IDisplayManager + Event_Disp_showSpeedResults);
+    Event event(Device_IDisplayManager + Event_Disp_updateInRaceSpeedResults);
     event.insertSpeedRaceResults(result);
     sendEvent(event);
 }

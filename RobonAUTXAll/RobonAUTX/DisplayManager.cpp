@@ -146,6 +146,7 @@ void DisplayManager::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
     this->m_teamID = teamID;
+    emit teamIDChanged(teamID);
     timeCredit = 0;
 
     emit presentSkillRace();
@@ -155,6 +156,8 @@ void DisplayManager::SpeedRaceInitiated(quint32 teamID)
 {
     eventType = Speed;
     this->m_teamID = teamID;
+    this->setProperty("teamID",QVariant(teamID));
+    emit teamIDChanged(teamID);
     speedTimeOffset = 0;
 
     emit presentSpeedRace();
@@ -188,7 +191,7 @@ void DisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)
 void DisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
     speedTimeOffset += lapTime;
-    emit sendSpeedLapCompleted(lapNumber,lapTime);
+    emit sendSpeedLapCompleted(lapNumber,SpeedRaceResult::SpeedTimeToString(lapTime));
 }
 
 void DisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
@@ -234,7 +237,7 @@ void DisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
 {
     inRaceSpeedResult.removeAll();
 
-    for (int ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+    for (int ifromPos = 0; ifromPos < result.size() && ifromPos < 4; ifromPos++) {
         inRaceSpeedResult.addSpeedRaceResult(result[ifromPos]);
     }
 }

@@ -71,7 +71,7 @@ signals:
     void sendSafetyCarOvertaken(bool success);
     void sendCheckpointStateUpdated(quint32 checkpointID, bool state);
 
-    void sendSpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
+    void sendSpeedLapCompleted(quint32 lapNumber, QString lapTime);
     void sendSkillPointUpdated(quint32 skillPoint);
     void sendTeamListUpdated(QList<Team> teams);
 

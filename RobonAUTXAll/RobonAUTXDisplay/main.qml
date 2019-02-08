@@ -128,6 +128,7 @@ Window {
             hideAll();
             speedRaceView.resetView();
             speedRaceView.visible = true;
+            console.log("SPEED" + skillRaceView.visible);
         }
     }
 

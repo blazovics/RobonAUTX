@@ -43,6 +43,8 @@ Item {
         onUpdateCompletedSpeedLaps:{
             //(quint32 lapNumber, quint32 lapTime);
             //FIXME: do it
+            manualTimeLabel.text = 0;
+            laserTimeLabel.text = 0;
         }
         onUpdateRaceTime:{
             lapTimeLabel.text = time;
