@@ -8,6 +8,7 @@ Window {
     width: 1024
     height: 768
     title: qsTr("RobonAUT 2019")
+    flags: Qt.Window | Qt.WindowFullscreenButtonHint
 
     function hideAll(){
         speedRaceView.visible = false;

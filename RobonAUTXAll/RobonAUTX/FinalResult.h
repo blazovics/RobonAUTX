@@ -20,6 +20,8 @@ public:
     quint32 votePoint;
     quint32 finalPoint;
 
+    qint64 speedTime;
+
     quint32 CalculateFinalPoint();
     bool operator < (const FinalResult& otherResult) const;
 };

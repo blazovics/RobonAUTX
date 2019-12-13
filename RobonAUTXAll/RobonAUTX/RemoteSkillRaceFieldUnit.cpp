@@ -14,18 +14,18 @@
  */
 
 const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[12] = {
-    std::pair<quint32,quint32>(0,1),
-    std::pair<quint32,quint32>(1,2),
-    std::pair<quint32,quint32>(2,3),
-    std::pair<quint32,quint32>(3,4),
-    std::pair<quint32,quint32>(4,5),
-    std::pair<quint32,quint32>(5,6),
-    std::pair<quint32,quint32>(6,7),
-    std::pair<quint32,quint32>(7,8),
-    std::pair<quint32,quint32>(8,9),
-    std::pair<quint32,quint32>(9,10),
-    std::pair<quint32,quint32>(10,15),
-    std::pair<quint32,quint32>(11,12)};
+    std::pair<quint32,quint32>(0,14),
+    std::pair<quint32,quint32>(1,1),
+    std::pair<quint32,quint32>(2,2),
+    std::pair<quint32,quint32>(3,3),
+    std::pair<quint32,quint32>(4,4),
+    std::pair<quint32,quint32>(5,5),
+    std::pair<quint32,quint32>(6,6),
+    std::pair<quint32,quint32>(7,7),
+    std::pair<quint32,quint32>(8,8),
+    std::pair<quint32,quint32>(9,9),
+    std::pair<quint32,quint32>(10,10),
+    std::pair<quint32,quint32>(11,15)};
 
 RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket, mode)
 {
@@ -86,7 +86,7 @@ void RemoteSkillRaceFieldUnit::SendHeartBeat()
 void RemoteSkillRaceFieldUnit::SendClearAllGates()
 {
     Event event(Event_ClearAllGates);
-    sendEvent(event);
+    //sendEvent(event);
 }
 
 void RemoteSkillRaceFieldUnit::StartSafetyCar()

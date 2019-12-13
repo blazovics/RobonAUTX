@@ -11,6 +11,7 @@
 #include <QDebug>
 
 #include "Configuration.h"
+#include <QDir>
 
 /**
  * CentralController implementation
@@ -338,6 +339,65 @@ void CentralController::UpdateBSS()
     bssManager.sendVotePoints(databaseManager->GetVoteResults());
     bssManager.sendJuniorFinalResults(databaseManager->GetFinalResults(true));
     bssManager.sendFinalResults(databaseManager->GetFinalResults(false));
+
+    saveResultsToFile();
+}
+
+void CentralController::saveResultsToFile()
+{
+    QString path = QDir::home().filePath("results.csv");
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+            qDebug()<<file.errorString();
+            return;
+    }
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+
+    out<<QString::fromUtf8("Helyezés")<<"\t"<<QString::fromUtf8("Csapatnév")<<"\t"<<QString::fromUtf8("Összpontszám")<<"\t"<<QString::fromUtf8("Ügyességi")<<"\t"<<QString::fromUtf8("Gyorsasági")<<"\t"<<QString::fromUtf8("Gyorsasági Idő")<<"\t"<<QString::fromUtf8("Közönség")<<"\t"<<QString::fromUtf8("Kvalifikáció")<<"\n";
+
+    QList<FinalResult> teamResults = databaseManager->GetFinalResults(true);
+
+    QTime time = QTime(0,0);
+    QTime t;
+
+    for(int i=0; i < teamResults.size(); i++)
+    {
+        FinalResult res = teamResults.at(i);
+
+        t = time.addMSecs(int(res.speedTime));
+
+        out<<res.position<<"\t";
+        out<<res.teamName<<"\t";
+        out<<res.finalPoint<<"\t";
+        out<<res.skillPoint<<"\t";
+        out<<res.speedPoint<<"\t";
+        out<<t.toString("mm:ss.zzz")<<"\t";
+        out<<res.votePoint<<"\t";
+        out<<res.qualificationPoint<<"\n";
+    }
+
+    out<<"\n";
+
+    QList<FinalResult> teamResults2 = databaseManager->GetFinalResults(false);
+
+    for(int i=0; i < teamResults2.size(); i++)
+    {
+        FinalResult res = teamResults2.at(i);
+
+        t = time.addMSecs(int(res.speedTime));
+
+        out<<res.position<<"\t";
+        out<<res.teamName<<"\t";
+        out<<res.finalPoint<<"\t";
+        out<<res.skillPoint<<"\t";
+        out<<res.speedPoint<<"\t";
+        out<<t.toString("mm:ss.zzz")<<"\t";
+        out<<res.votePoint<<"\t";
+        out<<res.qualificationPoint<<"\n";
+    }
 }
 
 void CentralController::bssConnected(bool alive)

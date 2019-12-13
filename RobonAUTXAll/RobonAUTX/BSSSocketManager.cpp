@@ -252,7 +252,7 @@ void BSSSocketManager::sendFinalResults(QList<FinalResult> results)
         tObj["speedBonusScore"] = qint32(results[i].speedPoint);
        tObj[ "qualificationScore"] = qint32(results[i].qualificationPoint);
         tObj["extraScore"] = qint32(results[i].votePoint);
-        //tObj["fastedLap"] = qint32(results[i].);
+        tObj["fastedLap"] = qint32(results[i].speedTime);
 
         array.append(tObj);
     }

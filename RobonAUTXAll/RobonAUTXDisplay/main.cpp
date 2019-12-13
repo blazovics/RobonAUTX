@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     }
     else {
         serverAddress = QHostAddress("192.168.5.100");
+        //serverAddress = QHostAddress("152.66.170.191");
     }
     DisplayManagerController controller(serverAddress, quint16(serverPort));
 

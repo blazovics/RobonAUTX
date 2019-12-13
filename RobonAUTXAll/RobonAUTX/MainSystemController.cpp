@@ -174,6 +174,8 @@ void MainSystemController::newLaserGateConnection()
 
     CoreController::connectDevice(this->centralController.get(),remoteLaserGate.first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+
+    qDebug()<<"LaserGate connected";
 }
 
 void MainSystemController::newSkillRaceFieldUnitConnection()
@@ -190,6 +192,8 @@ void MainSystemController::newSkillRaceFieldUnitConnection()
 
     CoreController::connectDevice(this->centralController.get(),remoteSkillRaceFieldUnit.first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::WriteOnly);
+
+    qDebug()<<"Skill Gates connected";
 }
 
 void MainSystemController::newVoteCounterConnection()
@@ -206,6 +210,8 @@ void MainSystemController::newVoteCounterConnection()
 
     CoreController::connectDevice(this->centralController.get(),remoteVoteCounter.first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+
+    qDebug()<<"Vote counter connected";
 }
 
 void MainSystemController::newSkillRaceGateConnection()
@@ -222,6 +228,8 @@ void MainSystemController::newSkillRaceGateConnection()
 
     CoreController::connectDevice(this->centralController.get(),remoteSkillRaceGate.first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+
+    qDebug()<<"Silabs Gate connected";
 }
 
 void MainSystemController::newRaceControlUnitConnection()
@@ -234,6 +242,8 @@ void MainSystemController::newRaceControlUnitConnection()
 
     CoreController::connectDevice(this->centralController.get(),pair->first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+
+    qDebug()<<"RCU connected";
 }
 
 void MainSystemController::newDisplayManagerConnection()
@@ -246,4 +256,6 @@ void MainSystemController::newDisplayManagerConnection()
 
     CoreController::connectDevice(this->centralController.get(),pair->first.get());
     this->proxiCentralController->AddConnection(newSocket,QIODevice::ReadOnly);
+
+    qDebug()<<"Display connected";
 }

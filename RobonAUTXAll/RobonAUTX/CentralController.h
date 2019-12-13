@@ -65,6 +65,8 @@ public slots:
 
    void UpdateBSS();
 
+   void saveResultsToFile();
+
 private slots:
    void bssConnected(bool alive);
 };

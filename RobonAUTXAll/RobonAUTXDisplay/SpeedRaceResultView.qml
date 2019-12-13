@@ -44,7 +44,7 @@ ResultView{
             }
             color: {
                 if(teamID == manager.teamID){
-                    "#33ffffff"
+                    "#ccffffff"
                 }
                 else{
                     "#00000000"

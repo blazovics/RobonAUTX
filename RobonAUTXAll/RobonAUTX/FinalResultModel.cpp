@@ -50,6 +50,8 @@ QVariant FinalResultModel::data(const QModelIndex &index, int role) const
            return result.finalPoint;
        else if (role == NameRole)
            return result.teamName;
+       else if (role == SpeedTimeRole)
+           return result.speedTime;
        return QVariant();
 }
 
@@ -64,6 +66,7 @@ QHash<int, QByteArray> FinalResultModel::roleNames() const
         roles[VotePointRole] = "votePoint";
         roles[FinalPointRole] = "finalPoint";
         roles[NameRole] = "name";
+        roles[SpeedTimeRole] = "speedTime";
         return roles;
 }
 
