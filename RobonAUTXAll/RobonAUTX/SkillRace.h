@@ -8,9 +8,9 @@
 #ifndef SKILLRACE_H
 #define SKILLRACE_H
 
-#define SkillCheckpointCount 12
+#define SkillCheckpointCount 18
 #define SkillCheckpointPoint 2
-#define SkillStartPoint 2
+#define SkillStartPoint 0
 #define SkillLaneChangePoint 4
 
 #include "Race.h"

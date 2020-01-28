@@ -408,22 +408,6 @@ Rectangle{
             anchors.verticalCenter: parent.verticalCenter
         }
 
-        Image {
-            id: overtakingImage_
-            x: 237
-            y: 14
-            width: 150
-            height: 100
-            source: "resources/overtakinggreen.png"
-            anchors.rightMargin: 15
-            anchors.verticalCenterOffset: 0
-            anchors.right: parent.right
-            fillMode: Image.PreserveAspectFit
-            anchors.verticalCenter: parent.verticalCenter
-
-
-        }
-
         Label {
             id: overtakingMultiplierLabel
             x: 303

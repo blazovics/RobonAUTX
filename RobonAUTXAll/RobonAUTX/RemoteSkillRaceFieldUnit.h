@@ -39,7 +39,7 @@ private:
     void sendReset(quint32 checkpointID);
     void sendSet(quint32 checkpointID);
 
-    static const std::pair<quint32,quint32> gateIDs[12];
+    static const std::pair<quint32,quint32> gateIDs[18];
 
     quint32 checkpointIDForGateID(quint32 id);
     quint32 gateIDForCheckpointID(quint32 id);

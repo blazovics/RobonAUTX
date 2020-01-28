@@ -60,7 +60,7 @@ void BSSSocketManager::sendSkillResultChanged(quint32 teamID, qint32 remainingTi
     QJsonObject obj;
 
     obj["type"] = "technical";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
     obj["teamId"] = int(teamID);
     obj["bonusTime"] = int(timeCredit);
     obj["timeLeft"] = int(remainingTime);
@@ -76,7 +76,7 @@ void BSSSocketManager::sendSkillRaceFinished(quint32 teamID, quint32 point)
     QJsonObject obj;
 
     obj["type"] = "technicalResult";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
     obj["teamId"] = int(teamID);
     obj["score"] = int(point);
 
@@ -88,7 +88,7 @@ void BSSSocketManager::sendSpeedPointChanged(quint32 teamID, quint32 checkpointP
     QJsonObject obj;
 
     obj["type"] = "speedScore";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
     obj["teamId"] = int(teamID);
     obj["point"] = int(checkpointPoint);
     obj["actualSpeedPoint"] = int(penaltyPoints);
@@ -143,7 +143,7 @@ void BSSSocketManager::sendSpeedLapFinished(quint32 teamID, quint32 lap, quint32
     QJsonObject obj;
 
     obj["type"] = "speedTime";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
     obj["teamId"] = qint32(teamID);
     obj["lap"] = qint32(lap);
     obj["time"] = qint32(time);
@@ -162,7 +162,7 @@ void BSSSocketManager::sendSpeedResults(QList<SpeedRaceResult> results, bool isJ
     else {
         obj["board"] = "combined";
     }
-    obj["year"] = 2019;
+    obj["year"] = 2020;
 
     QJsonArray array;
 
@@ -187,7 +187,7 @@ void BSSSocketManager::sendQualificationPoints(QList<QualificationResult> result
 {
     QJsonObject obj;
     obj["type"] = "qualification";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
 
     QJsonArray array;
 
@@ -210,7 +210,7 @@ void BSSSocketManager::sendVotePoints(QList<VoteResult> results)
 {
     QJsonObject obj;
     obj["type"] = "votes";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
 
     QJsonArray array;
 
@@ -236,7 +236,7 @@ void BSSSocketManager::sendFinalResults(QList<FinalResult> results)
     QJsonObject obj;
     obj["type"] = "finalScores";
     obj["board"] = "combined";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
 
     QJsonArray array;
 
@@ -267,7 +267,7 @@ void BSSSocketManager::sendJuniorFinalResults(QList<FinalResult> results)
     QJsonObject obj;
     obj["type"] = "finalScores";
     obj["board"] = "junior";
-    obj["year"] = 2019;
+    obj["year"] = 2020;
 
     QJsonArray array;
 

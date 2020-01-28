@@ -20,7 +20,7 @@ Rectangle{
     }
 
     function resetView(){
-        for(var i = 0; i<12; i++)
+        for(var i = 0; i<17; i++)
         {
             setCheckpointVisibility(i,false);
         }
@@ -89,6 +89,24 @@ Rectangle{
             break;
         case 11:
             checkpoint11.visible = value;
+            break;
+        case 12:
+            checkpoint12.visible = value;
+            break;
+        case 13:
+            checkpoint13.visible = value;
+            break;
+        case 14:
+            checkpoint14.visible = value;
+            break;
+        case 15:
+            checkpoint15.visible = value;
+            break;
+        case 16:
+            checkpoint16.visible = value;
+            break;
+        case 17:
+            checkpoint17.visible = value;
             break;
         }
     }
@@ -275,6 +293,42 @@ Rectangle{
 
         Image {
             id: checkpoint11
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint12
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint13
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint14
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint15
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint16
+            source: "resources/track/12.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+        }
+        Image {
+            id: checkpoint17
             source: "resources/track/12.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent

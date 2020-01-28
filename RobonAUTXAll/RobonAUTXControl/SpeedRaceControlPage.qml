@@ -45,7 +45,7 @@ Item {
                  safetyCarOvertakeDecreaseButton.enabled = true;
             }
 
-            if(overtakeCount >= 1)
+            if(overtakeCount >= 2)
             {
                 safetyCarOvertakeIncreaseButton.enabled = false;
             }

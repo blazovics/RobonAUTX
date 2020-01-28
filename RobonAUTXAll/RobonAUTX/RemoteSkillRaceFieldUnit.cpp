@@ -13,7 +13,7 @@
  * RemoteSkillRaceFieldUnit implementation
  */
 
-const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[12] = {
+const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[18] = {
     std::pair<quint32,quint32>(0,14),
     std::pair<quint32,quint32>(1,1),
     std::pair<quint32,quint32>(2,2),
@@ -25,7 +25,13 @@ const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[12] = {
     std::pair<quint32,quint32>(8,8),
     std::pair<quint32,quint32>(9,9),
     std::pair<quint32,quint32>(10,10),
-    std::pair<quint32,quint32>(11,15)};
+    std::pair<quint32,quint32>(11,15),
+    std::pair<quint32,quint32>(12,12),
+    std::pair<quint32,quint32>(13,13),
+    std::pair<quint32,quint32>(14,144),
+    std::pair<quint32,quint32>(15,155),
+    std::pair<quint32,quint32>(16,16),
+    std::pair<quint32,quint32>(17,17)};
 
 RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket, mode)
 {
@@ -73,8 +79,9 @@ void RemoteSkillRaceFieldUnit::UpdateCheckpointState(quint32 checkpointID, bool 
 
 void RemoteSkillRaceFieldUnit::ResetCheckpoints()
 {
-    msgCount = 0;
-    delayTimer->start(1000);
+    //msgCount = 0;
+    //delayTimer->start(1000);
+    this->SendClearAllGates();
 }
 
 void RemoteSkillRaceFieldUnit::SendHeartBeat()
@@ -86,7 +93,7 @@ void RemoteSkillRaceFieldUnit::SendHeartBeat()
 void RemoteSkillRaceFieldUnit::SendClearAllGates()
 {
     Event event(Event_ClearAllGates);
-    //sendEvent(event);
+    sendEvent(event);
 }
 
 void RemoteSkillRaceFieldUnit::StartSafetyCar()
@@ -105,7 +112,7 @@ void RemoteSkillRaceFieldUnit::StopSafetyCar()
 
 void RemoteSkillRaceFieldUnit::delayTimerFired()
 {
-    if(msgCount >= 12)
+    if(msgCount >= 18)
     {
         delayTimer->stop();
     }
@@ -132,7 +139,7 @@ void RemoteSkillRaceFieldUnit::sendSet(quint32 checkpointID)
 
 quint32 RemoteSkillRaceFieldUnit::checkpointIDForGateID(quint32 id)
 {
-    for (quint32 i=0; i < 12; i++) {
+    for (quint32 i=0; i < 18; i++) {
         std::pair<quint32,quint32> tmp = gateIDs[i];
         if(tmp.second == id)
         {
