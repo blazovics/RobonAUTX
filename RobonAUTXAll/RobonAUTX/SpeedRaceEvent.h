@@ -36,7 +36,7 @@ public:
 
     void SetSafetyCarFollowed(bool value);
 
-    void SetSafetyCarOvertaken(bool value);
+    void SetSafetyCarOvertaken(quint32 value);
     
     void StartRace();
     

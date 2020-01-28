@@ -25,6 +25,7 @@ Rectangle{
         lap3TitleLabel.visible = false;
 
         overtakingImage.visible = false;
+        overtakingMultiplierLabel.visible = false;
         safetyCarImage.visible = false;
         speedTimeLabel.text = "00:00.00"
 
@@ -60,8 +61,21 @@ Rectangle{
             safetyCarImage.visible = success;
         }
         onSendSafetyCarOvertaken:{
-            //(bool success);
-            overtakingImage.visible = success;
+            if(value == 0)
+            {
+                overtakingImage.visible = false;
+                overtakingMultiplierLabel.visible = false;
+            }
+            else if(value == 1)
+            {
+                overtakingImage.visible = true;
+                overtakingMultiplierLabel.visible = false;
+            }
+            else if(value == 2)
+            {
+                overtakingImage.visible = true;
+                overtakingMultiplierLabel.visible = true;
+            }
         }
         onSendSpeedLapCompleted:{
             //(quint32 lapNumber, quint32 lapTime);
@@ -394,11 +408,41 @@ Rectangle{
             anchors.verticalCenter: parent.verticalCenter
         }
 
+        Image {
+            id: overtakingImage_
+            x: 237
+            y: 14
+            width: 150
+            height: 100
+            source: "resources/overtakinggreen.png"
+            anchors.rightMargin: 15
+            anchors.verticalCenterOffset: 0
+            anchors.right: parent.right
+            fillMode: Image.PreserveAspectFit
+            anchors.verticalCenter: parent.verticalCenter
+
+
+        }
+
+        Label {
+            id: overtakingMultiplierLabel
+            x: 303
+            y: 70
+            color: "#32ff32"
+            text: qsTr("x2")
+            font.bold: true
+            font.family: roboto.name
+            font.pointSize: 32
+            verticalAlignment: Text.AlignVCenter
+        }
+
     }
 
 
 
 }
+
+
 
 
 

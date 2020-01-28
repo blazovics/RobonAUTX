@@ -19,7 +19,7 @@ private:
     Lap warmUpLap;
     QList<Lap> completedLaps;
     bool safetyCarFollowed;
-    bool safetyCarOvertaken;
+    quint32 safetyCarOvertaken;
     quint32 touchCount;
 
     static const quint32 maximumProhibitedTouchCount;
@@ -51,9 +51,9 @@ public:
     
     void SetSafetyCarFollowed(bool value);
     
-    bool GetSafetyCarOvertaken() const;
+    quint32 GetSafetyCarOvertaken() const;
     
-    void SetSafetyCarOvertaken(bool value);
+    void SetSafetyCarOvertaken(quint32 value);
     
     void AddCompletedLap(const Lap &newLap);
 

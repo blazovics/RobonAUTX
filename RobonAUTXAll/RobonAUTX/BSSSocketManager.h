@@ -13,6 +13,8 @@
 #include "FinalResult.h"
 #include "VoteResult.h"
 
+#include <memory>
+
 using namespace std;
 
 class BSSSocketManager : public QObject

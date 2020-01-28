@@ -39,7 +39,7 @@ void CoreController::connectDevice(ICentralController *controller, IDisplayManag
     connect(controller,SIGNAL( LaneChangeConfirmed(bool)), device, SLOT(LaneChangeAchieved(bool)));
     connect(controller,SIGNAL( VehicleStartConfirmed(bool)), device, SLOT(VehicleStartAchieved(bool)));
     connect(controller,SIGNAL(  SafetyCarFollowingConfirmed(bool)), device, SLOT(SafetyCarFollowed(bool)));
-    connect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool)), device, SLOT(SafetyCarOvertaken(bool)));
+    connect(controller,SIGNAL( SafetyCarOvertakeConfirmed(quint32)), device, SLOT(SafetyCarOvertaken(quint32)));
     connect(controller,SIGNAL( CheckpointStateUpdated(quint32, bool)), device, SLOT(CheckpointStateUpdated(quint32, bool)));
 
     connect(controller,SIGNAL( SpeedLapCompleted(quint32, quint32)), device, SLOT(SpeedLapCompleted(quint32, quint32)));
@@ -66,7 +66,7 @@ void CoreController::connectDevice(ICentralController *controller, IRaceControlU
     connect(device,SIGNAL(VehicleStarted(bool)),controller,SLOT( VechicleStartAchieved(bool) ));
     connect(device,SIGNAL(LaneChanged(bool)),controller,SLOT( LaneChangeAchieved(bool) ));
     connect(device,SIGNAL(SafetyCarFollowed(bool)),controller,SLOT( SafetyCarFollowed(bool) ));
-    connect(device,SIGNAL(SafetyCarOvertaken(bool)),controller,SLOT( SafetyCarOvertaken(bool) ));
+    connect(device,SIGNAL(SafetyCarOvertaken(quint32)),controller,SLOT( SafetyCarOvertaken(quint32) ));
     connect(device,SIGNAL(ModifyTouchCount(quint32)),controller,SLOT( ModifyTouchCount(quint32) ));
     connect(device,SIGNAL(ShowSpeedResults(bool, quint32)),controller,SLOT( ShowSpeedResults(bool, quint32) ));
     connect(device,SIGNAL(ShowSkillResults(quint32)),controller,SLOT( ShowSkillResults(quint32) ));
@@ -93,7 +93,7 @@ void CoreController::connectDevice(ICentralController *controller, IRaceControlU
     connect(controller,SIGNAL( LaneChangeConfirmed(bool) ),device, SLOT(LaneChangeConfirmed(bool)));
     connect(controller,SIGNAL( SkillPointUpdated(quint32,quint32) ),device, SLOT(SkillPointUpdated(quint32,quint32)));
     connect(controller,SIGNAL( SafetyCarFollowingConfirmed(bool) ),device, SLOT(SafetyCarFollowingConfirmed(bool)));
-    connect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool) ),device, SLOT(SafetyCarOvertakeConfirmed(bool)));
+    connect(controller,SIGNAL( SafetyCarOvertakeConfirmed(quint32) ),device, SLOT(SafetyCarOvertakeConfirmed(quint32)));
     connect(controller,SIGNAL( TouchCountModified(quint32) ),device, SLOT(TouchCountModified(quint32)));
     connect(controller,SIGNAL( RaceTimerPaused() ),device, SLOT(RaceTimerPaused()));
     connect(controller,SIGNAL( RaceTimerResumed() ),device, SLOT(RaceTimerResumed()));
@@ -143,7 +143,7 @@ void CoreController::disconnectDevice(ICentralController *controller, IDisplayMa
     disconnect(controller,SIGNAL( LaneChangeConfirmed(bool)), device, SLOT(LaneChangeAchieved(bool)));
     disconnect(controller,SIGNAL( VehicleStartConfirmed(bool)), device, SLOT(VehicleStartAchieved(bool)));
     disconnect(controller,SIGNAL(  SafetyCarFollowingConfirmed(bool)), device, SLOT(SafetyCarFollowed(bool)));
-    disconnect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool)), device, SLOT(SafetyCarOvertaken(bool)));
+    disconnect(controller,SIGNAL( SafetyCarOvertakeConfirmed(quint32)), device, SLOT(SafetyCarOvertaken(quint32)));
     disconnect(controller,SIGNAL( CheckpointStateUpdated(quint32, bool)), device, SLOT(CheckpointStateUpdated(quint32, bool)));
 
     disconnect(controller,SIGNAL( SpeedLapCompleted(quint32, quint32)), device, SLOT(SpeedLapCompleted(quint32, quint32)));
@@ -169,7 +169,7 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(device,SIGNAL(VehicleStarted(bool)),controller,SLOT( VechicleStartAchieved(bool) ));
     disconnect(device,SIGNAL(LaneChanged(bool)),controller,SLOT( LaneChangeAchieved(bool) ));
     disconnect(device,SIGNAL(SafetyCarFollowed(bool)),controller,SLOT( SafetyCarFollowed(bool) ));
-    disconnect(device,SIGNAL(SafetyCarOvertaken(bool)),controller,SLOT( SafetyCarOvertaken(bool) ));
+    disconnect(device,SIGNAL(SafetyCarOvertaken(quint32)),controller,SLOT( SafetyCarOvertaken(quint32) ));
     disconnect(device,SIGNAL(ModifyTouchCount(quint32)),controller,SLOT( ModifyTouchCount(quint32) ));
     disconnect(device,SIGNAL(ShowSpeedResults(bool, quint32)),controller,SLOT( ShowSpeedResults(bool, quint32) ));
     disconnect(device,SIGNAL(ShowSkillResults(quint32)),controller,SLOT( ShowSkillResults(quint32) ));
@@ -196,7 +196,7 @@ void CoreController::disconnectDevice(ICentralController *controller, IRaceContr
     disconnect(controller,SIGNAL( LaneChangeConfirmed(bool) ),device, SLOT(LaneChangeConfirmed(bool)));
     disconnect(controller,SIGNAL( SkillPointUpdated(quint32, quint32) ),device, SLOT(SkillPointUpdated(quint32, quint32)));
     disconnect(controller,SIGNAL( SafetyCarFollowingConfirmed(bool) ),device, SLOT(SafetyCarFollowingConfirmed(bool)));
-    disconnect(controller,SIGNAL( SafetyCarOvertakeConfirmed(bool) ),device, SLOT(SafetyCarOvertakeConfirmed(bool)));
+    disconnect(controller,SIGNAL( SafetyCarOvertakeConfirmed(quint32) ),device, SLOT(SafetyCarOvertakeConfirmed(quint32)));
     disconnect(controller,SIGNAL( TouchCountModified(quint32) ),device, SLOT(TouchCountModified(quint32)));
     disconnect(controller,SIGNAL( RaceTimerPaused() ),device, SLOT(RaceTimerPaused()));
     disconnect(controller,SIGNAL( RaceTimerResumed() ),device, SLOT(RaceTimerResumed()));

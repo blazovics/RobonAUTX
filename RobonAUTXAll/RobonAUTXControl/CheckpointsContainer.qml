@@ -72,9 +72,14 @@ Rectangle {
         }
 
 
-        ListView{
+        //ListView{
+        GridView{
             id:checkpointList
             height: 600
+            flow: GridView.FlowTopToBottom
+            cellWidth: 100
+            cellHeight: 65
+            cacheBuffer: 300
             contentHeight: 480
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

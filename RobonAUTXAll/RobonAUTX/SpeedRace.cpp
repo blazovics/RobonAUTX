@@ -40,7 +40,7 @@ quint32 SpeedRace::GetTouchCount() const
 SpeedRace::SpeedRace(quint32 teamID):Race(teamID) {
     this->touchCount = 0;
     this->safetyCarFollowed = false;
-    this->safetyCarOvertaken = false;
+    this->safetyCarOvertaken = 0;
 }
 
 /**
@@ -58,9 +58,13 @@ qint32 SpeedRace::GetAdditionalPoint() const
     {
         additionalPoint += 5;
     }
-    if(this->safetyCarOvertaken)
+
+    switch (this->safetyCarOvertaken) {
+
+    }
+    if(this->safetyCarOvertaken == 1)
     {
-        additionalPoint += 10;
+        additionalPoint += 5;
     }
 
     additionalPoint -= touchCount * 2;
@@ -153,11 +157,11 @@ void SpeedRace::SetSafetyCarFollowed(bool value) {
     this->safetyCarFollowed = value;
 }
 
-bool SpeedRace::GetSafetyCarOvertaken() const{
+quint32 SpeedRace::GetSafetyCarOvertaken() const{
     return this->safetyCarOvertaken;
 }
 
-void SpeedRace::SetSafetyCarOvertaken(bool value) {
+void SpeedRace::SetSafetyCarOvertaken(quint32 value) {
     this->safetyCarOvertaken = value;
 }
 
