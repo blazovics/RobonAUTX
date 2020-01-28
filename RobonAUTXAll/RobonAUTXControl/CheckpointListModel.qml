@@ -51,4 +51,28 @@ ListModel {
         checkpoint_ID: 11
         is_checked: false
     }
+    ListElement {
+        checkpoint_ID: 12
+        is_checked: false
+    }
+    ListElement {
+        checkpoint_ID: 13
+        is_checked: false
+    }
+    ListElement {
+        checkpoint_ID: 14
+        is_checked: false
+    }
+    ListElement {
+        checkpoint_ID: 15
+        is_checked: false
+    }
+    ListElement {
+        checkpoint_ID: 16
+        is_checked: false
+    }
+    ListElement {
+        checkpoint_ID: 17
+        is_checked: false
+    }
 }

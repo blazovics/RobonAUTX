@@ -56,7 +56,7 @@ public slots:
     void LaneChangeConfirmed(bool achieved);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void SafetyCarFollowingConfirmed(bool achieved);
-    void SafetyCarOvertakeConfirmed(bool achieved);
+    void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 numberOfTouches);
     void RaceTimerPaused();
     void RaceTimerResumed();
@@ -78,7 +78,7 @@ public slots:
     void qmlVehicleStarted(bool achieved);
     void qmlLaneChanged(bool achieved);
     void qmlSafetyCarFollowed(bool achieved);
-    void qmlSafetyCarOvertaken(bool achieved);
+    void qmlSafetyCarOvertaken(quint32 value);
     void qmlIncreaseTouchCount();
     void qmlDecreaseTouchCount();
 
@@ -109,7 +109,7 @@ signals:
     void updateRemainingTime(QString time);
 
     void updateSafetyCarFollowingConfirmedButton(bool status);
-    void updateSafetyCarOvertakenConfirmedButton(bool status);
+    void updateSafetyCarOvertakenConfirmedButton(quint32 value);
     void updateTouchCountModified(quint32 numberOfTouches);
     void updateLaserLapTime(QString time);
     void updateManualLapTime(QString time);

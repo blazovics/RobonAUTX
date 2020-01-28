@@ -89,7 +89,7 @@ void SpeedRaceEvent::SetSafetyCarFollowed(bool value)
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarFollowed(value);
 }
 
-void SpeedRaceEvent::SetSafetyCarOvertaken(bool value)
+void SpeedRaceEvent::SetSafetyCarOvertaken(quint32 value)
 {
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarOvertaken(value);
 }

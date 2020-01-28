@@ -46,5 +46,6 @@
         <file>resources/track/8.png</file>
         <file>resources/track/9.png</file>
         <file>resources/track/palyaterv_red.png</file>
+        <file>resources/icons/11.png</file>
     </qresource>
 </RCC>

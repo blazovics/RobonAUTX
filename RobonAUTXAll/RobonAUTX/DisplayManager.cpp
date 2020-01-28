@@ -178,9 +178,9 @@ void DisplayManager::SafetyCarFollowed(bool success)
     emit sendSafetyCarFollowed(success);
 }
 
-void DisplayManager::SafetyCarOvertaken(bool success)
+void DisplayManager::SafetyCarOvertaken(quint32 value)
 {
-    emit sendSafetyCarOvertaken(success);
+    emit sendSafetyCarOvertaken(value);
 }
 
 void DisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)

@@ -61,7 +61,7 @@ public slots:
     virtual void LaneChangeAchieved(bool success) = 0;
     virtual void VehicleStartAchieved(bool success) = 0;
     virtual void SafetyCarFollowed(bool success) = 0;
-    virtual void SafetyCarOvertaken(bool success) = 0;
+    virtual void SafetyCarOvertaken(quint32 value) = 0;
     virtual void CheckpointStateUpdated(quint32 checkpointID, bool state) = 0;
 
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;

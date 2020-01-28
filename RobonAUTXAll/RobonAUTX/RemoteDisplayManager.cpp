@@ -106,7 +106,10 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->SafetyCarFollowed(event.extractBoolFromRawData());
         break;
     case Device_IDisplayManager + Event_Disp_SafetyCarOvertaken :
-        localManager->SafetyCarOvertaken(event.extractBoolFromRawData());
+    {
+        quint32 value = event.extractQuint32FromRawData();
+        localManager->SafetyCarOvertaken(value);
+    }
         break;
     case Device_IDisplayManager + Event_Disp_CheckpointStateUpdated :
     {
@@ -238,10 +241,10 @@ void RemoteDisplayManager::SafetyCarFollowed(bool success)
 
 }
 
-void RemoteDisplayManager::SafetyCarOvertaken(bool success)
+void RemoteDisplayManager::SafetyCarOvertaken(quint32 value)
 {
     Event event(Device_IDisplayManager +  Event_Disp_SafetyCarOvertaken );
-    event.insertBool(success);
+    event.insertQuint32(value);
     sendEvent(event);
 
 }

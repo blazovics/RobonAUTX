@@ -50,7 +50,7 @@ signals:
     void VehicleStarted(bool achieved);
     void LaneChanged(bool achieved);
     void SafetyCarFollowed(bool achieved);
-    void SafetyCarOvertaken(bool achieved);
+    void SafetyCarOvertaken(quint32 value);
     void ModifyTouchCount(quint32 numberOfTouches);
 
     void ShowSpeedResults(bool isJunior, quint32 fromPos);
@@ -83,7 +83,7 @@ public slots:
     virtual void LaneChangeConfirmed(bool achieved) = 0;
     virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void SafetyCarFollowingConfirmed(bool achieved) = 0;
-    virtual void SafetyCarOvertakeConfirmed(bool achieved) = 0;
+    virtual void SafetyCarOvertakeConfirmed(quint32 value) = 0;
     virtual void TouchCountModified(quint32 numberOfTouches) = 0;
 
     virtual void RaceTimerPaused() = 0;

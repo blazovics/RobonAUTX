@@ -240,13 +240,13 @@ void CentralController::SafetyCarFollowed(bool achieved)
     }
 }
 
-void CentralController::SafetyCarOvertaken(bool achieved)
+void CentralController::SafetyCarOvertaken(quint32 value)
 {
     SpeedRaceEvent* currentEvent = dynamic_cast<SpeedRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
-        currentEvent->SetSafetyCarOvertaken(achieved);
-        emit SafetyCarOvertakeConfirmed(achieved);
+        currentEvent->SetSafetyCarOvertaken(value);
+        emit SafetyCarOvertakeConfirmed(value);
     }
     else {
         //throw std::bad_cast();

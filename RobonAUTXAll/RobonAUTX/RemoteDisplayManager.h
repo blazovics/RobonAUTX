@@ -40,7 +40,7 @@ public slots:
     void LaneChangeAchieved(bool success);
     void VehicleStartAchieved(bool success);
     void SafetyCarFollowed(bool success);
-    void SafetyCarOvertaken(bool success);
+    void SafetyCarOvertaken(quint32 value);
     void CheckpointStateUpdated(quint32 checkpointID, bool state);
 
     void showInterRaceScreen();
