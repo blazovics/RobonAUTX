@@ -55,6 +55,8 @@ public slots:
 
     void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
 
+    void SkillRacePaused();
+    void SkillRaceResumed();
 };
 
 #endif //_REMOTEDISPLAYMANAGER_H

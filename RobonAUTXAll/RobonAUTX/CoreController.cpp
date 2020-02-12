@@ -50,6 +50,9 @@ void CoreController::connectDevice(ICentralController *controller, IDisplayManag
     connect(controller,SIGNAL( RaceFinished(bool)), device, SLOT(RaceFinished(bool)));
 
     connect(controller,SIGNAL( updateInRaceSpeedResults(QList<SpeedRaceResult>)), device, SLOT(updateInRaceSpeedResults(QList<SpeedRaceResult>)));
+
+    connect(controller,SIGNAL( RaceTimerPaused()), device, SLOT(SkillRacePaused()));
+    connect(controller,SIGNAL( RaceTimerResumed()), device, SLOT(SkillRaceResumed()));
 }
 
 void CoreController::connectDevice(ICentralController *controller, IRaceControlUnit *device)
@@ -154,6 +157,9 @@ void CoreController::disconnectDevice(ICentralController *controller, IDisplayMa
     disconnect(controller,SIGNAL( RaceFinished(bool)), device, SLOT(RaceFinished(bool)));
 
     disconnect(controller,SIGNAL( updateInRaceSpeedResults(QList<SpeedRaceResult>)), device, SLOT(updateInRaceSpeedResults(QList<SpeedRaceResult>)));
+
+    disconnect(controller,SIGNAL( RaceTimerPaused()), device, SLOT(SkillRacePaused()));
+    disconnect(controller,SIGNAL( RaceTimerResumed()), device, SLOT(SkillRaceResumed()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, IRaceControlUnit *device)

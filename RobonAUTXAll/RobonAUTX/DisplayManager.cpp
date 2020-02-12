@@ -205,6 +205,22 @@ void DisplayManager::TeamListUpdated(QList<Team> teams)
     //?
 }
 
+void DisplayManager::SkillRacePaused()
+{
+    if(eventType == Skill)
+    {
+        raceTimer.PauseTimer();
+    }
+}
+
+void DisplayManager::SkillRaceResumed()
+{
+    if(eventType == Skill)
+    {
+        raceTimer.ResumeTimer();
+    }
+}
+
 void DisplayManager::RaceStarted()
 {
     if(eventType == Skill)

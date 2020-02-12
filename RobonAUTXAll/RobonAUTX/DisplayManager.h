@@ -115,6 +115,9 @@ public slots:
 
     void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
 
+    void SkillRacePaused();
+    void SkillRaceResumed();
+
     void TimerFired();
 };
 
