@@ -48,11 +48,13 @@ public:
     quint32 GetActualPoints();
     quint32 GetTimeCredit();
 
-    qint64 getRemainingTime() const;
+    qint64 getRemainingTime();
 
 public slots:
     void UpdateTimerFired();
 
+protected:
+    void updateRemainingTime();
 };
 
 #endif //_SKILLRACEEVENT_H

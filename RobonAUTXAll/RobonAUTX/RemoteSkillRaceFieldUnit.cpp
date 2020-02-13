@@ -92,7 +92,7 @@ void RemoteSkillRaceFieldUnit::SendHeartBeat()
 
 void RemoteSkillRaceFieldUnit::SendClearAllGates()
 {
-    Event event(Event_ClearAllGates);
+    Event event(Event_ResetAllGates);
     sendEvent(event);
 }
 

@@ -18,8 +18,9 @@
 /**
  * @param teamID
  */
-qint64 SkillRaceEvent::getRemainingTime() const
+qint64 SkillRaceEvent::getRemainingTime()
 {
+    this->updateRemainingTime();
     return remainingTime;
 }
 
@@ -102,10 +103,14 @@ quint32 SkillRaceEvent::GetTimeCredit()
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
 }
 
-void SkillRaceEvent::UpdateTimerFired()
+void SkillRaceEvent::updateRemainingTime()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
-    ////throw "NI";
+}
+
+void SkillRaceEvent::UpdateTimerFired()
+{
+    updateRemainingTime();
 }
 
 

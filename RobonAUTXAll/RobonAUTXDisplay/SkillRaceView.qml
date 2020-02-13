@@ -20,7 +20,7 @@ Rectangle{
     }
 
     function resetView(){
-        for(var i = 0; i<17; i++)
+        for(var i = 0; i<18; i++)
         {
             setCheckpointVisibility(i,false);
         }
@@ -299,37 +299,37 @@ Rectangle{
         }
         Image {
             id: checkpoint12
-            source: "resources/track/12.png"
+            source: "resources/track/13.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
         Image {
             id: checkpoint13
-            source: "resources/track/12.png"
+            source: "resources/track/14.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
         Image {
             id: checkpoint14
-            source: "resources/track/12.png"
+            source: "resources/track/15.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
         Image {
             id: checkpoint15
-            source: "resources/track/12.png"
+            source: "resources/track/16.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
         Image {
             id: checkpoint16
-            source: "resources/track/12.png"
+            source: "resources/track/17.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
         Image {
             id: checkpoint17
-            source: "resources/track/12.png"
+            source: "resources/track/18.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }

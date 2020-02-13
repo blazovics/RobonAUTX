@@ -47,5 +47,11 @@
         <file>resources/track/9.png</file>
         <file>resources/track/palyaterv_red.png</file>
         <file>resources/icons/11.png</file>
+        <file>resources/track/13.png</file>
+        <file>resources/track/14.png</file>
+        <file>resources/track/15.png</file>
+        <file>resources/track/16.png</file>
+        <file>resources/track/17.png</file>
+        <file>resources/track/18.png</file>
     </qresource>
 </RCC>

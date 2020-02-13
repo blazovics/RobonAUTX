@@ -116,7 +116,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
-        qDebug()<<"Update Checkpoint state";
+        qDebug()<<"Update Checkpoint state for #" << checkpointID <<"to "<< checked;
         if(currentEvent->UpdateCheckpoint(checkpointID,checked,forced))
         {
             emit CheckpointStateUpdated(checkpointID,checked);
@@ -320,6 +320,11 @@ void CentralController::PauseRaceTimer()
 {
     if(this->raceEvent->getType() == Skill)
     {
+        SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr)
+        {
+            bssManager.sendSkillTimerPaused(qint32(currentEvent->getRemainingTime()));
+        }
         this->raceEvent->PauseRaceTimer();
         emit RaceTimerPaused();
     }
@@ -329,6 +334,11 @@ void CentralController::ResumeRaceTimer()
 {
     if(this->raceEvent->getType() == Skill)
     {
+        SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr)
+        {
+            bssManager.sendSkillTimerResumed(qint32(currentEvent->getRemainingTime()));
+        }
         this->raceEvent->ResumeRaceTimer();
         emit RaceTimerResumed();
     }

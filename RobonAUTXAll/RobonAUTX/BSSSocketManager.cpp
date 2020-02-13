@@ -292,6 +292,26 @@ void BSSSocketManager::sendJuniorFinalResults(QList<FinalResult> results)
 
     webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
 }
+
+void BSSSocketManager::sendSkillTimerPaused(quint32 remainingTime)
+{
+    QJsonObject obj;
+
+    obj["type"] = "pauseTimer";
+    obj["remaining"] = int(remainingTime);
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
+}
+
+void BSSSocketManager::sendSkillTimerResumed(quint32 remainingTime)
+{
+    QJsonObject obj;
+
+    obj["type"] = "resumeTimer";
+    obj["remaining"] = int(remainingTime);
+
+    webSocket.sendTextMessage(QString((QJsonDocument(obj).toJson(QJsonDocument::Compact))));
+}
 /*
 void BSSSocketManager::sendSpeedResult(int teamID, int result, int lapID)
 {

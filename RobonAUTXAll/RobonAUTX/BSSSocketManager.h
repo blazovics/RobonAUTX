@@ -51,6 +51,9 @@ public slots:
     void sendFinalResults(QList<FinalResult> results);
     void sendJuniorFinalResults(QList<FinalResult> results);
 
+    void sendSkillTimerPaused(quint32 remainingTime);
+    void sendSkillTimerResumed(quint32 remainingTime);
+
     /*
     void sendTechResults(QList<SkillRaceResult> results);
     void sendSkillResult(int teamID, int points);
