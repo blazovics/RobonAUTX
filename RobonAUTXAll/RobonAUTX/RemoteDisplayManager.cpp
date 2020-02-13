@@ -328,3 +328,15 @@ void RemoteDisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> resul
     event.insertSpeedRaceResults(result);
     sendEvent(event);
 }
+
+void RemoteDisplayManager::SkillRacePaused()
+{
+    Event event(Device_IDisplayManager + Event_Disp_SkillRacePaused);
+    sendEvent(event);
+}
+
+void RemoteDisplayManager::SkillRaceResumed()
+{
+    Event event(Device_IDisplayManager + Event_Disp_SkillRaceResumed);
+    sendEvent(event);
+}
