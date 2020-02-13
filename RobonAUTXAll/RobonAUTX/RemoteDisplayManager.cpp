@@ -157,6 +157,16 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->updateInRaceSpeedResults(result);
     }
         break;
+    case Device_IDisplayManager + Event_Disp_SkillRacePaused :
+    {
+        localManager->SkillRacePaused();
+    }
+        break;
+    case Device_IDisplayManager + Event_Disp_SkillRaceResumed :
+    {
+        localManager->SkillRaceResumed();
+    }
+        break;
     }
 }
 

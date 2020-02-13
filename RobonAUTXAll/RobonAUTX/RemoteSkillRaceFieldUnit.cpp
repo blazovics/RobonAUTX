@@ -8,6 +8,7 @@
 
 #include "RemoteSkillRaceFieldUnit.h"
 #include <QThread>
+#include "Configuration.h"
 
 /**
  * RemoteSkillRaceFieldUnit implementation
@@ -139,18 +140,32 @@ void RemoteSkillRaceFieldUnit::sendSet(quint32 checkpointID)
 
 quint32 RemoteSkillRaceFieldUnit::checkpointIDForGateID(quint32 id)
 {
+    /*
     for (quint32 i=0; i < 18; i++) {
-        std::pair<quint32,quint32> tmp = gateIDs[i];
+
+        std::pair<quint32,quint32> tmp =  gateIDs[i];
         if(tmp.second == id)
         {
             return tmp.first;
         }
     }
-    return 0;
+    return 0;*/
+
+     Configuration& instance = Configuration::GetInstance();
+
+     std::string str_indexID =  "Gate_" + std::to_string(id);
+
+     if(instance.IsKeyAvailable("GateSettings",str_indexID)){
+         return instance.GetLongValue("GateSettings",str_indexID);
+     }
+     else{
+         return 0;
+     }
 }
 
 quint32 RemoteSkillRaceFieldUnit::gateIDForCheckpointID(quint32 id)
 {
+    /*
     for (quint32 i=0; i < 12; i++) {
         std::pair<quint32,quint32> tmp = gateIDs[i];
         if(tmp.first == id)
@@ -159,5 +174,17 @@ quint32 RemoteSkillRaceFieldUnit::gateIDForCheckpointID(quint32 id)
         }
     }
     return 0;
+    */
+
+    Configuration& instance = Configuration::GetInstance();
+
+    std::string str_indexID =  "Checkpoint_" + std::to_string(id);
+
+    if(instance.IsKeyAvailable("CheckpointSettings",str_indexID)){
+        return instance.GetLongValue("CheckpointSettings",str_indexID);
+    }
+    else{
+        return 0;
+    }
 }
 
