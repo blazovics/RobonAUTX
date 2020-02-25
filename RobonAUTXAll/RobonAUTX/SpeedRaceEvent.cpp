@@ -84,6 +84,11 @@ quint32 SpeedRaceEvent::getPenaltyPoints() const
     return static_cast<SpeedRace*>(this->actualRace)->GetPenaltyPoint();
 }
 
+quint32 SpeedRaceEvent::getAdditionalPoints() const
+{
+    return static_cast<SpeedRace*>(this->actualRace)->GetAdditionalPoint();
+}
+
 void SpeedRaceEvent::SetSafetyCarFollowed(bool value)
 {
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarFollowed(value);
