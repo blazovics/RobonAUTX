@@ -58,13 +58,9 @@ qint32 SpeedRace::GetAdditionalPoint() const
     {
         additionalPoint += 5;
     }
-
-    switch (this->safetyCarOvertaken) {
-
-    }
-    if(this->safetyCarOvertaken == 1)
+    if(this->safetyCarOvertaken > 0)
     {
-        additionalPoint += 5;
+        additionalPoint += 5 * this->safetyCarOvertaken;
     }
 
     additionalPoint -= touchCount * 2;

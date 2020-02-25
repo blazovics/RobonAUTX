@@ -80,9 +80,9 @@ void RemoteSkillRaceFieldUnit::UpdateCheckpointState(quint32 checkpointID, bool 
 
 void RemoteSkillRaceFieldUnit::ResetCheckpoints()
 {
-    //msgCount = 0;
-    //delayTimer->start(1000);
-    this->SendClearAllGates();
+    msgCount = 0;
+    delayTimer->start(1100);
+    //this->SendClearAllGates();
 }
 
 void RemoteSkillRaceFieldUnit::SendHeartBeat()

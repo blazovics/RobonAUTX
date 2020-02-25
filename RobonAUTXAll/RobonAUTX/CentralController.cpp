@@ -233,7 +233,7 @@ void CentralController::SafetyCarFollowed(bool achieved)
         emit SafetyCarFollowingConfirmed(achieved);
 
 
-        //bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->get)
+        bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->getAdditionalPoints(),currentEvent->getAdditionalPoints());
     }
     else {
         //throw std::bad_cast();
@@ -247,6 +247,8 @@ void CentralController::SafetyCarOvertaken(quint32 value)
     {
         currentEvent->SetSafetyCarOvertaken(value);
         emit SafetyCarOvertakeConfirmed(value);
+
+        bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->getAdditionalPoints(),currentEvent->getAdditionalPoints());
     }
     else {
         //throw std::bad_cast();
@@ -260,6 +262,8 @@ void CentralController::ModifyTouchCount(quint32 touchCount)
     {
         quint32 updatedTouchCount = currentEvent->ModifyTouchCount(touchCount);
         emit TouchCountModified(updatedTouchCount);
+
+        bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->getAdditionalPoints(),currentEvent->getAdditionalPoints());
     }
     else {
         //throw std::bad_cast();
