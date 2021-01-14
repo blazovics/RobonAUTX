@@ -13,13 +13,19 @@
 #include "RaceEvent.h"
 #include "DatabaseManager.h"
 
+#include "BSSSocketManager.h"
+
 class CentralController: public ICentralController {
 
     Q_OBJECT
 
-public: 
     std::unique_ptr<RaceEvent> raceEvent;
     std::shared_ptr<DatabaseManager> databaseManager;
+
+    BSSSocketManager bssManager;
+
+public: 
+
     
    CentralController();
 
@@ -41,7 +47,7 @@ public slots:
    void VechicleStartAchieved(bool achieved);
    void LaneChangeAchieved(bool achieved);
    void SafetyCarFollowed(bool achieved);
-   void SafetyCarOvertaken(bool achieved);
+   void SafetyCarOvertaken(quint32 value);
    void ModifyTouchCount(quint32 touchCount);
 
    void ShowSpeedResults(bool isJunior, quint32 fromPos);
@@ -56,6 +62,13 @@ public slots:
 
    void PauseRaceTimer();
    void ResumeRaceTimer();
+
+   void UpdateBSS();
+
+   void saveResultsToFile();
+
+private slots:
+   void bssConnected(bool alive);
 };
 
 #endif //_CENTRALCONTROLLER_H

@@ -106,7 +106,10 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->SafetyCarFollowed(event.extractBoolFromRawData());
         break;
     case Device_IDisplayManager + Event_Disp_SafetyCarOvertaken :
-        localManager->SafetyCarOvertaken(event.extractBoolFromRawData());
+    {
+        quint32 value = event.extractQuint32FromRawData();
+        localManager->SafetyCarOvertaken(value);
+    }
         break;
     case Device_IDisplayManager + Event_Disp_CheckpointStateUpdated :
     {
@@ -152,6 +155,16 @@ void RemoteDisplayManager::EventReceived(Event &event)
     {
         QList<SpeedRaceResult> result = event.extractSpeedRaceResultsFromRawData();
         localManager->updateInRaceSpeedResults(result);
+    }
+        break;
+    case Device_IDisplayManager + Event_Disp_SkillRacePaused :
+    {
+        localManager->SkillRacePaused();
+    }
+        break;
+    case Device_IDisplayManager + Event_Disp_SkillRaceResumed :
+    {
+        localManager->SkillRaceResumed();
     }
         break;
     }
@@ -238,10 +251,10 @@ void RemoteDisplayManager::SafetyCarFollowed(bool success)
 
 }
 
-void RemoteDisplayManager::SafetyCarOvertaken(bool success)
+void RemoteDisplayManager::SafetyCarOvertaken(quint32 value)
 {
     Event event(Device_IDisplayManager +  Event_Disp_SafetyCarOvertaken );
-    event.insertBool(success);
+    event.insertQuint32(value);
     sendEvent(event);
 
 }
@@ -321,7 +334,19 @@ void RemoteDisplayManager::RaceFinished(bool aborted)
 
 void RemoteDisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
 {
-    Event event(Device_IDisplayManager + Event_Disp_showSpeedResults);
+    Event event(Device_IDisplayManager + Event_Disp_updateInRaceSpeedResults);
     event.insertSpeedRaceResults(result);
+    sendEvent(event);
+}
+
+void RemoteDisplayManager::SkillRacePaused()
+{
+    Event event(Device_IDisplayManager + Event_Disp_SkillRacePaused);
+    sendEvent(event);
+}
+
+void RemoteDisplayManager::SkillRaceResumed()
+{
+    Event event(Device_IDisplayManager + Event_Disp_SkillRaceResumed);
     sendEvent(event);
 }

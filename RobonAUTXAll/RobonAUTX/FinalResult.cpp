@@ -22,6 +22,7 @@ QDataStream &operator<<(QDataStream &out, const FinalResult &res)
     out<<res.qualificationPoint;
     out<<res.votePoint;
     out<<res.finalPoint;
+    out<<res.speedTime;
 
     return out;
 }
@@ -38,6 +39,7 @@ QDataStream &operator>>(QDataStream &in, FinalResult &res)
     in >> res.qualificationPoint;
     in >> res.votePoint;
     in >> res.finalPoint;
+    in >> res.speedTime;
 
     return in;
 }

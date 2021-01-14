@@ -86,7 +86,10 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->SafetyCarFollowed(event.extractBoolFromRawData());
         break;
     case Device_ICentralController + Event_SafetyCarOvertaken:
-        localController->SafetyCarOvertaken(event.extractBoolFromRawData());
+    {
+        quint32 value = event.extractQuint32FromRawData();
+        localController->SafetyCarOvertaken(value);
+    }
         break;
     case Device_ICentralController + Event_ModifyTouchCount:
         localController->ModifyTouchCount(event.extractQuint32FromRawData());
@@ -134,6 +137,8 @@ void RemoteCentralController::EventReceived(Event &event)
     case Device_ICentralController + Event_ResumeRaceTimer:
         localController->ResumeRaceTimer();
         break;
+    case Device_ICentralController + Event_UpdateBSS:
+        localController->UpdateBSS();
     }
 }
 
@@ -228,10 +233,10 @@ void RemoteCentralController:: SafetyCarFollowed(bool achieved)
     sendEvent(event);
 }
 
-void RemoteCentralController:: SafetyCarOvertaken(bool achieved)
+void RemoteCentralController:: SafetyCarOvertaken(quint32 value)
 {
     Event event(Device_ICentralController + Event_SafetyCarOvertaken);
-    event.insertBool(achieved);
+    event.insertQuint32(value);
     sendEvent(event);
 }
 
@@ -308,6 +313,12 @@ void RemoteCentralController::PauseRaceTimer()
 void RemoteCentralController::ResumeRaceTimer()
 {
     Event event(Device_ICentralController + Event_ResumeRaceTimer);
+    sendEvent(event);
+}
+
+void RemoteCentralController::UpdateBSS()
+{
+    Event event(Device_ICentralController + Event_UpdateBSS);
     sendEvent(event);
 }
 

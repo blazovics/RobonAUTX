@@ -5,8 +5,6 @@ RaceTimeContainerForm {
     Connections{
         target: controlUnit
         onShowSkillRaceView:{
-            manualStartButton.enabled = true;
-            pauseTimerButton.enabled = true;
         }
         onUpdateRaceTime:{
             manualStartButton.enabled = false;
@@ -31,7 +29,7 @@ RaceTimeContainerForm {
 
     function resetContainer(){
         manualStartButton.enabled = true;
-        pauseTimerButton.enabled = false;
+        pauseTimerButton.enabled = true;
         resumeTimerButton.enabled = false;
         manualTimerToggle.checked = false;
     }

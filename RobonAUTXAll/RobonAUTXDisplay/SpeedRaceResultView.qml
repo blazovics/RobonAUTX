@@ -7,6 +7,8 @@ ResultView{
     height: 680
     titleLabel.text: qsTr("Gyorsasági rangsor");
 
+
+
     SingleTableContainer{
         id: header
         height: 80
@@ -21,7 +23,7 @@ ResultView{
     ListView {
         id: listView
 
-        spacing: 10
+        spacing: 7
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         anchors.top: header.bottom
@@ -33,10 +35,21 @@ ResultView{
         anchors.right: parent.right
         anchors.rightMargin: 0
         delegate: SingleTableContainer{
-            height: 60
+            height: 40
             positionLabel.text: position + "."
             teamNameLabel.text: name
-            valueLabel.text: new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zz")
+            valueLabel.text: {
+                var timeString = new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zzz");
+                timeString.substring(0,timeString.length-1);
+            }
+            color: {
+                if(teamID == manager.teamID){
+                    "#ccffffff"
+                }
+                else{
+                    "#00000000"
+                }
+            }
         }
 
         model: speedRaceModel

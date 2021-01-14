@@ -364,6 +364,7 @@ QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.skillPoint = query.value(1).toUInt();
+        returnResult.push_back(result);
     }
 
 
@@ -395,7 +396,8 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.speedTime = query.value(2).toUInt();
-        result.speedPoint = query.value(1).toUInt();
+        result.penalty = query.value(1).toUInt();
+        returnResult.push_back(result);
     }
 
 
@@ -406,7 +408,17 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
             pos++;
         }
         returnResult[i].position = quint32(pos);
-        returnResult[i].speedPoint += this->calculcateSpeedPointForPosition(returnResult[i].position);
+
+        qint32 positionPoint = qint32(this->calculcateSpeedPointForPosition(returnResult[i].position));
+
+        if(positionPoint-returnResult[i].penalty < 0)
+        {
+            returnResult[i].speedPoint = 0;
+        }
+        else{
+            returnResult[i].speedPoint = quint32(positionPoint + returnResult[i].penalty);
+        }
+
     }
 
     db.close();
@@ -427,6 +439,7 @@ QList<QualificationResult> DatabaseManager::GetQualificationResults() {
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.qualificationPoint = query.value(1).toUInt();
+        returnResult.push_back(result);
     }
 
 
@@ -452,6 +465,7 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
 
     QList<SkillRaceResult> skillRaceResult = this->GetSkillRaceResults();
     QList<SpeedRaceResult> speedRaceResult = this->GetSpeedRaceResults(isJunior);
+    QList<VoteResult> voteResults = this->GetVoteResults();
 
     QList<Team> teams = this->getTeamList();
 
@@ -467,7 +481,10 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
         result.teamID = teams[i].getTeamID();
         result.teamName = teams[i].getName();
         result.qualificationPoint = teams[i].getQualificationPoint();
-        result.votePoint = teams[i].getAudienceVoteCount();
+        result.votePoint = 0;
+        result.skillPoint = 0;
+        result.speedPoint = 0;
+        result.speedTime = 0;
         returnResult.push_back(result);
     }
 
@@ -479,10 +496,17 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
                 returnResult[i].skillPoint = skillRaceResult[j].skillPoint;
             }
         }
+        for (int j=0; j < voteResults.size(); j++) {
+                    if(returnResult[i].teamID == voteResults[j].teamID)
+                    {
+                        returnResult[i].votePoint = voteResults[j].votePoint;
+                    }
+                }
         for (int j=0; j < speedRaceResult.size(); j++) {
             if(returnResult[i].teamID == speedRaceResult[j].teamID)
             {
                 returnResult[i].speedPoint = speedRaceResult[j].speedPoint;
+                returnResult[i].speedTime = speedRaceResult[j].speedTime;
             }
         }
     }

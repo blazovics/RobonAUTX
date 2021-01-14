@@ -39,6 +39,10 @@ Rectangle{
             id: value1Label
             color: "#ffffff"
             text: qsTr("Label")
+            anchors.rightMargin: 3
+            anchors.leftMargin: 3
+            anchors.bottomMargin: 3
+            anchors.topMargin: 3
             anchors.fill: parent
             font.pointSize: 35
             verticalAlignment: Text.AlignVCenter
@@ -63,6 +67,10 @@ Rectangle{
             id: value2Label
             color: "#ffffff"
             text: qsTr("Label")
+            anchors.rightMargin: 3
+            anchors.leftMargin: 3
+            anchors.bottomMargin: 3
+            anchors.topMargin: 3
             anchors.fill: parent
             font.pointSize: 35
             verticalAlignment: Text.AlignVCenter
@@ -88,6 +96,10 @@ Rectangle{
             id: teamNameLabel
             color: "#ffffff"
             text: qsTr("Unemployed and Single")
+            anchors.rightMargin: 3
+            anchors.leftMargin: 3
+            anchors.bottomMargin: 3
+            anchors.topMargin: 3
             anchors.fill: parent
             font.pointSize: 35
             verticalAlignment: Text.AlignVCenter
@@ -112,6 +124,10 @@ Rectangle{
             id: positionLabel
             color: "#ffffff"
             text: qsTr("#")
+            anchors.rightMargin: 3
+            anchors.leftMargin: 3
+            anchors.bottomMargin: 3
+            anchors.topMargin: 3
             anchors.fill: parent
             font.pointSize: 35
             verticalAlignment: Text.AlignVCenter

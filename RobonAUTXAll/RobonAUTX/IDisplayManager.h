@@ -31,6 +31,8 @@
 #define Event_Disp_RaceStarted 18
 #define Event_Disp_RaceFinished 19
 #define Event_Disp_updateInRaceSpeedResults 20
+#define Event_Disp_SkillRacePaused 21
+#define Event_Disp_SkillRaceResumed 22
 
 #define Device_IDisplayManager 300
 
@@ -61,7 +63,7 @@ public slots:
     virtual void LaneChangeAchieved(bool success) = 0;
     virtual void VehicleStartAchieved(bool success) = 0;
     virtual void SafetyCarFollowed(bool success) = 0;
-    virtual void SafetyCarOvertaken(bool success) = 0;
+    virtual void SafetyCarOvertaken(quint32 value) = 0;
     virtual void CheckpointStateUpdated(quint32 checkpointID, bool state) = 0;
 
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
@@ -72,6 +74,9 @@ public slots:
     virtual void RaceFinished(bool aborted) = 0;
 
     virtual void updateInRaceSpeedResults(QList<SpeedRaceResult> result) = 0;
+
+    virtual void SkillRacePaused() = 0;
+    virtual void SkillRaceResumed() = 0;
 
 };
 

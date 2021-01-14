@@ -8,7 +8,7 @@ Item {
     width: 768
     height: 850
 
-    property int fromPos: 0
+    property int fromPos: 1
 
     Rectangle {
         id: column
@@ -17,12 +17,13 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 100
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 200
+        anchors.bottomMargin: 100
         anchors.left: parent.left
         anchors.leftMargin: 50
 
         Column {
             id: column1
+            height: 590
             spacing: 10
             anchors.fill: parent
             anchors.margins: 20
@@ -33,7 +34,7 @@ Item {
                 text: qsTr("Ügyességi eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowSkillResults(fromPos);
+                    controlUnit.qmlShowSkillResults(fromPos-1);
                 }
             }
 
@@ -43,7 +44,7 @@ Item {
                 text: qsTr("Gyorsasági eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowSpeedResults(false,fromPos);
+                    controlUnit.qmlShowSpeedResults(false,fromPos-1);
                 }
             }
 
@@ -53,7 +54,7 @@ Item {
                 text: qsTr("Kvalifikációs eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowQualificationResults(fromPos);
+                    controlUnit.qmlShowQualificationResults(fromPos-1);
                 }
             }
 
@@ -63,7 +64,7 @@ Item {
                 text: qsTr("Közönségdíj eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowVotesResults(fromPos);
+                    controlUnit.qmlShowVotesResults(fromPos-1);
                 }
             }
 
@@ -73,7 +74,7 @@ Item {
                 checked: true
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowFinalResults(false,fromPos);
+                    controlUnit.qmlShowFinalResults(false,fromPos-1);
                 }
             }
 
@@ -84,7 +85,7 @@ Item {
                 visible: resultSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowFinalResults(true,fromPos);
+                    controlUnit.qmlShowFinalResults(true,fromPos-1);
                 }
             }
 
@@ -95,7 +96,7 @@ Item {
                 visible: resultSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowFinalResults(false,fromPos);
+                    controlUnit.qmlShowFinalResults(false,fromPos-1);
                 }
             }
 
@@ -109,20 +110,20 @@ Item {
                 id: button6
                 width: 250
                 text: qsTr("Egyéni Végeredmény")
-                opacity: singleFinalSwitch.checked
+                visible: singleFinalSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowFinalResultAtPosition(false,fromPos);
+                    controlUnit.qmlShowFinalResultAtPosition(false,fromPos-1);
                 }
             }
             Button {
                 id: button7
                 width: 250
                 text: qsTr("Egyéni Junior Végeredmény")
-                opacity: singleFinalSwitch.checked
+                visible: singleFinalSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlShowFinalResultAtPosition(true,fromPos);
+                    controlUnit.qmlShowFinalResultAtPosition(true,fromPos-1);
                 }
             }
         }
@@ -169,7 +170,7 @@ Item {
                 font.pointSize: 20
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 onClicked: {
-                    if (fromPos > 0)
+                    if (fromPos > 1)
                     {
                         fromPos = fromPos - 1;
                     }
@@ -188,6 +189,38 @@ Item {
                     }
                 }
 
+            }
+        }
+    }
+
+    Rectangle {
+        id: rectangle1
+        y: 550
+        height: 200
+        color: "#99ffffff"
+        anchors.left: rectangle.left
+        anchors.leftMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 100
+        anchors.right: parent.right
+        anchors.rightMargin: 50
+
+        ColumnLayout {
+            id: columnLayout
+            anchors.rightMargin: 20
+            anchors.leftMargin: 20
+            anchors.bottomMargin: 20
+            anchors.topMargin: 20
+            anchors.fill: parent
+
+            Button {
+                id: button8
+                width: 250
+                text: qsTr("BSS adatközlés")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS();
+                }
             }
         }
     }

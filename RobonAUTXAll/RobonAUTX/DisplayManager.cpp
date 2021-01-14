@@ -62,8 +62,8 @@ void DisplayManager::showSpeedResults(QList<SpeedRaceResult> result, bool isJuni
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            speedRaceResult.addSpeedRaceResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            speedRaceResult.addSpeedRaceResult(result[i]);
         }
     }
     emit presentSpeedResults(isJunior);
@@ -76,8 +76,8 @@ void DisplayManager::showSkillResults(QList<SkillRaceResult> result, quint32 fro
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            skillRaceResult.addSkillRaceResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            skillRaceResult.addSkillRaceResult(result[i]);
         }
     }
     emit presentSkillResults();
@@ -90,8 +90,8 @@ void DisplayManager::showFinalResults(QList<FinalResult> result, bool isJunior, 
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            finalResult.addFinalResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            finalResult.addFinalResult(result[i]);
         }
     }
     emit presentFinalResults(isJunior);
@@ -115,8 +115,8 @@ void DisplayManager::showVotesResults(QList<VoteResult> result, quint32 fromPos)
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            voteResult.addVoteResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            voteResult.addVoteResult(result[i]);
         }
     }
     emit presentVotesResults();
@@ -129,8 +129,8 @@ void DisplayManager::showQualificationResults(QList<QualificationResult> result,
     if(int(fromPos) < result.size())
     {
         int ifromPos = int(fromPos);
-        for (ifromPos = 0; ifromPos < result.size(); ifromPos++) {
-            qualificationResult.addQualificationResult(result[ifromPos]);
+        for (int i = ifromPos; i < result.size(); i++) {
+            qualificationResult.addQualificationResult(result[i]);
         }
     }
 
@@ -146,6 +146,7 @@ void DisplayManager::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
     this->m_teamID = teamID;
+    emit teamIDChanged(teamID);
     timeCredit = 0;
 
     emit presentSkillRace();
@@ -155,6 +156,8 @@ void DisplayManager::SpeedRaceInitiated(quint32 teamID)
 {
     eventType = Speed;
     this->m_teamID = teamID;
+    this->setProperty("teamID",QVariant(teamID));
+    emit teamIDChanged(teamID);
     speedTimeOffset = 0;
 
     emit presentSpeedRace();
@@ -175,9 +178,9 @@ void DisplayManager::SafetyCarFollowed(bool success)
     emit sendSafetyCarFollowed(success);
 }
 
-void DisplayManager::SafetyCarOvertaken(bool success)
+void DisplayManager::SafetyCarOvertaken(quint32 value)
 {
-    emit sendSafetyCarOvertaken(success);
+    emit sendSafetyCarOvertaken(value);
 }
 
 void DisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)
@@ -188,7 +191,7 @@ void DisplayManager::CheckpointStateUpdated(quint32 checkpointID, bool state)
 void DisplayManager::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 {
     speedTimeOffset += lapTime;
-    emit sendSpeedLapCompleted(lapNumber,lapTime);
+    emit sendSpeedLapCompleted(lapNumber,SpeedRaceResult::SpeedTimeToString(lapTime));
 }
 
 void DisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
@@ -200,6 +203,22 @@ void DisplayManager::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)
 void DisplayManager::TeamListUpdated(QList<Team> teams)
 {
     //?
+}
+
+void DisplayManager::SkillRacePaused()
+{
+    if(eventType == Skill)
+    {
+        raceTimer.PauseTimer();
+    }
+}
+
+void DisplayManager::SkillRaceResumed()
+{
+    if(eventType == Skill)
+    {
+        raceTimer.ResumeTimer();
+    }
 }
 
 void DisplayManager::RaceStarted()
@@ -234,7 +253,7 @@ void DisplayManager::updateInRaceSpeedResults(QList<SpeedRaceResult> result)
 {
     inRaceSpeedResult.removeAll();
 
-    for (int ifromPos = 0; ifromPos < result.size(); ifromPos++) {
+    for (int ifromPos = 0; ifromPos < result.size() && ifromPos < 4; ifromPos++) {
         inRaceSpeedResult.addSpeedRaceResult(result[ifromPos]);
     }
 }

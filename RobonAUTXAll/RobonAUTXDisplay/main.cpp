@@ -4,6 +4,8 @@
 #include <QQmlContext>
 #include "Configuration.h"
 
+#include <QOperatingSystemVersion>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -15,8 +17,16 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    //QString configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
-    QString configFIlePath = "D:/AUT-Projects/RobonAUTX/WinHomeMainSystem.ini";
+    auto osInfo = QOperatingSystemVersion::current();
+
+    QString configFIlePath ="";
+
+    if(osInfo.type() == QOperatingSystemVersion::Windows){
+        configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
+    }
+    else if (osInfo.type() == QOperatingSystemVersion::MacOS){
+        configFIlePath = "/Users/blazovics/Projects/RobonAUTX/MainSystem.ini";
+    }
 
     if(argc > 1)
     {
@@ -39,6 +49,7 @@ int main(int argc, char *argv[])
     }
     else {
         serverAddress = QHostAddress("192.168.5.100");
+        //serverAddress = QHostAddress("152.66.170.191");
     }
     DisplayManagerController controller(serverAddress, quint16(serverPort));
 

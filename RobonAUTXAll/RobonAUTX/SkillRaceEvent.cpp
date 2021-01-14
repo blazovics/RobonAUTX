@@ -18,6 +18,12 @@
 /**
  * @param teamID
  */
+qint64 SkillRaceEvent::getRemainingTime()
+{
+    this->updateRemainingTime();
+    return remainingTime;
+}
+
 SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent):RaceEvent (dbManager, parent)
 {
 
@@ -35,7 +41,7 @@ void SkillRaceEvent::InitRace(quint32 teamID) {
  */
 bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced) {
 
-    if(remainingTime < 0 || forced == true)
+    if(remainingTime > 0 || forced == true)
     {
         try{
 
@@ -97,10 +103,14 @@ quint32 SkillRaceEvent::GetTimeCredit()
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
 }
 
-void SkillRaceEvent::UpdateTimerFired()
+void SkillRaceEvent::updateRemainingTime()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
-    ////throw "NI";
+}
+
+void SkillRaceEvent::UpdateTimerFired()
+{
+    updateRemainingTime();
 }
 
 

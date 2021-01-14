@@ -235,9 +235,10 @@ Rectangle{
             id: rectangle11
             x: 124
             y: 315
-            width: 300
-            height: 300
-            color: "#ffffff"
+            width: 400
+            height: 400
+            color: "#2effffff"
+            radius: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
@@ -245,6 +246,7 @@ Rectangle{
             Image {
                 id: teamImage
                 anchors.fill: parent
+                anchors.margins: 25
                 fillMode: Image.PreserveAspectFit
                 source: "resources/icons/5.png"
             }
@@ -280,10 +282,11 @@ Rectangle{
 
 }
 
-/*##^## Designer {
+/*##^##
+Designer {
     D{i:1;anchors_width:460}D{i:7;anchors_height:100}D{i:9;anchors_height:100}D{i:11;anchors_height:100}
 D{i:13;anchors_height:100}D{i:15;anchors_height:100}D{i:17;anchors_height:100}D{i:19;anchors_height:100}
 D{i:21;anchors_height:100}D{i:23;anchors_height:100}D{i:25;anchors_height:100;anchors_width:100;anchors_x:92;anchors_y:90}
-D{i:27;anchors_height:100}D{i:26;anchors_height:80;anchors_width:374;anchors_x:7;anchors_y:-1}
+D{i:27;anchors_height:100}D{i:26;anchors_height:80;anchors_width:374;anchors_x:7;anchors_y:"-1"}
 }
- ##^##*/
+##^##*/

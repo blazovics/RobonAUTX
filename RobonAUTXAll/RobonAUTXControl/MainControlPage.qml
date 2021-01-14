@@ -29,6 +29,7 @@ Item {
         anchors.leftMargin: 15
         delegate: Pane {
 
+            property int teamId: teamID
             Material.background:  Material.Grey
             Material.elevation: 3
             x: 5
@@ -45,7 +46,8 @@ Item {
                 anchors.fill: parent
                 onClicked:{
                     listView.currentIndex = index
-                    selectedTeamID = index + 1;
+                    selectedTeamID = listView.currentItem.teamId
+                    //selectedTeamID = index + 1;
                 }
             }
 

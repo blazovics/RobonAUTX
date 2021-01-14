@@ -33,6 +33,7 @@
 #define Event_SkillGateStarted 23
 #define Event_PauseRaceTimer 24
 #define Event_ResumeRaceTimer 25
+#define Event_UpdateBSS 26
 
 #define Device_ICentralController 100
 
@@ -66,7 +67,7 @@ signals:
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved);
     void SafetyCarFollowingConfirmed(bool achieved);
-    void SafetyCarOvertakeConfirmed(bool achieved);
+    void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 touchCount);
     void VotesUpdated(quint32 teamID, quint32 voteCount);
 
@@ -85,6 +86,11 @@ signals:
 
     void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
 
+    void StartSafetyCar();
+    void StopSafetyCar();
+    void ClearSkillGates();
+    void ResetSkillGates();
+
 
 public slots:
 
@@ -102,7 +108,7 @@ public slots:
     virtual void VechicleStartAchieved(bool achieved) = 0;
     virtual void LaneChangeAchieved(bool achieved) = 0;
     virtual void SafetyCarFollowed(bool achieved) = 0;
-    virtual void SafetyCarOvertaken(bool achieved) = 0;
+    virtual void SafetyCarOvertaken(quint32 value) = 0;
     virtual void ModifyTouchCount(quint32 touchCount) = 0;
 
     virtual void ShowSpeedResults(bool isJunior, quint32 fromPos) = 0;
@@ -117,6 +123,8 @@ public slots:
 
     virtual void PauseRaceTimer() = 0;
     virtual void ResumeRaceTimer() = 0;
+
+    virtual void UpdateBSS() = 0;
 
 };
 

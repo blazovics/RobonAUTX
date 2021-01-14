@@ -21,7 +21,9 @@ QString SpeedRaceResult::SpeedTimeToString(qint64 time) {
 
     QTime qtime(0,0);
     qtime = qtime.addMSecs(int(time));
-    return qtime.toString("mm:ss.zz");
+    QString timeString = qtime.toString("mm:ss.zzz");
+    timeString.chop(1);
+    return timeString;
 
 }
 

@@ -42,8 +42,9 @@ target_wrapper.*
 # QtCreator CMake
 CMakeLists.txt.user*
 
-RobonAUTXAll/RobonAUTXControl/debug/
+Q1_kvalifikacio_koridok_pontszamok.xlsx
+RobonAUTXAll/RobonAUTXControl/debug/*
+RobonAUTXAll/RobonAUTXDisplay/debug/*
+RobonAUTXAll/RobonAUTXMaster/debug/*
 
-RobonAUTXAll/RobonAUTXDisplay/debug/
-
-RobonAUTXAll/RobonAUTXMaster/debug/
+RobonAUTXAll/RobonAUTX/.qmake.stash

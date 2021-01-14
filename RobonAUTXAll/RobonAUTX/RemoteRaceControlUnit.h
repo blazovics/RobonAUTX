@@ -45,7 +45,7 @@ public slots:
     void LaneChangeConfirmed(bool achieved);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void SafetyCarFollowingConfirmed(bool achieved);
-    void SafetyCarOvertakeConfirmed(bool achieved);
+    void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 numberOfTouches);
 
     void RaceTimerPaused();

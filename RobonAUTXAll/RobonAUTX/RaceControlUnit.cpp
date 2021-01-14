@@ -76,7 +76,10 @@ void RaceControlUnit::RaceFinished(bool aborted)
     if(eventType == Skill)
     {
         raceTimer.StopTimer();
-
+        if(aborted)
+        {
+            emit showMainView();
+        }
     }
     if(eventType == Speed)
     {
@@ -129,9 +132,9 @@ void RaceControlUnit::SafetyCarFollowingConfirmed(bool achieved)
     emit updateSafetyCarFollowingConfirmedButton(achieved);
 }
 
-void RaceControlUnit::SafetyCarOvertakeConfirmed(bool achieved)
+void RaceControlUnit::SafetyCarOvertakeConfirmed(quint32 value)
 {
-    emit updateSafetyCarOvertakenConfirmedButton(achieved);
+    emit updateSafetyCarOvertakenConfirmedButton(value);
 }
 
 void RaceControlUnit::TouchCountModified(quint32 numberOfTouches)
@@ -225,9 +228,9 @@ void RaceControlUnit::qmlSafetyCarFollowed(bool achieved)
 {
     emit SafetyCarFollowed(achieved);
 }
-void RaceControlUnit::qmlSafetyCarOvertaken(bool achieved)
+void RaceControlUnit::qmlSafetyCarOvertaken(quint32 value)
 {
-    emit SafetyCarOvertaken(achieved);
+    emit SafetyCarOvertaken(value);
 }
 
 void RaceControlUnit::qmlIncreaseTouchCount()
@@ -256,6 +259,11 @@ void RaceControlUnit::qmlPauseRaceTimer()
 void RaceControlUnit::qmlResumeRaceTimer()
 {
     emit ResumeRaceTimer();
+}
+
+void RaceControlUnit::qmlUpdateBSS()
+{
+    emit UpdateBSS();
 }
 
 void RaceControlUnit::qmlShowSpeedResults(bool isJunior, quint32 fromPos)

@@ -43,7 +43,7 @@ public slots:
     void VechicleStartAchieved(bool achieved);
     void LaneChangeAchieved(bool achieved);
     void SafetyCarFollowed(bool achieved);
-    void SafetyCarOvertaken(bool achieved);
+    void SafetyCarOvertaken(quint32 value);
     void ModifyTouchCount(quint32 touchCount);
 
     void ShowSpeedResults(bool isJunior, quint32 fromPos);
@@ -58,6 +58,8 @@ public slots:
 
     void PauseRaceTimer();
     void ResumeRaceTimer();
+
+    void UpdateBSS();
 };
 
 #endif //_REMOTECENTRALCONTROLLER_H

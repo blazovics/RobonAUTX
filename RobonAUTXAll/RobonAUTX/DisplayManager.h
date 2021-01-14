@@ -68,10 +68,10 @@ signals:
     void sendLaneChangeAchieved(bool success);
     void sendVehicleStartAchieved(bool success);
     void sendSafetyCarFollowed(bool success);
-    void sendSafetyCarOvertaken(bool success);
+    void sendSafetyCarOvertaken(quint32 value);
     void sendCheckpointStateUpdated(quint32 checkpointID, bool state);
 
-    void sendSpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
+    void sendSpeedLapCompleted(quint32 lapNumber, QString lapTime);
     void sendSkillPointUpdated(quint32 skillPoint);
     void sendTeamListUpdated(QList<Team> teams);
 
@@ -103,7 +103,7 @@ public slots:
     void LaneChangeAchieved(bool success);
     void VehicleStartAchieved(bool success);
     void SafetyCarFollowed(bool success);
-    void SafetyCarOvertaken(bool success);
+    void SafetyCarOvertaken(quint32 value);
     void CheckpointStateUpdated(quint32 checkpointID, bool state);
 
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
@@ -114,6 +114,9 @@ public slots:
     void RaceFinished(bool aborted);
 
     void updateInRaceSpeedResults(QList<SpeedRaceResult> result);
+
+    void SkillRacePaused();
+    void SkillRaceResumed();
 
     void TimerFired();
 };

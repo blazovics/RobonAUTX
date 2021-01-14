@@ -87,7 +87,10 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         localUnit->SafetyCarFollowingConfirmed(event.extractBoolFromRawData());
         break;
     case Device_RaceControlUnit + Event_SafetyCarOvertakeConfirmed :
-        localUnit->SafetyCarOvertakeConfirmed(event.extractBoolFromRawData());
+    {
+        quint32 value = event.extractQuint32FromRawData();
+        localUnit->SafetyCarOvertakeConfirmed(value);
+    }
         break;
     case Device_RaceControlUnit + Event_TouchCountModified :
         localUnit->TouchCountModified(event.extractQuint32FromRawData());
@@ -194,10 +197,10 @@ void RemoteRaceControlUnit::SafetyCarFollowingConfirmed(bool achieved)
     sendEvent(event);
 }
 
-void RemoteRaceControlUnit::SafetyCarOvertakeConfirmed(bool achieved)
+void RemoteRaceControlUnit::SafetyCarOvertakeConfirmed(quint32 value)
 {
     Event event(Device_RaceControlUnit + Event_SafetyCarOvertakeConfirmed);
-    event.insertBool(achieved);
+    event.insertQuint32(value);
     sendEvent(event);
 }
 

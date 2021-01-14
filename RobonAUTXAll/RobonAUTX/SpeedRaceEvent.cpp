@@ -79,12 +79,22 @@ quint32 SpeedRaceEvent::GetFinishedLapCount() const
     return static_cast<SpeedRace*>(this->actualRace)->GetCompletedLapCount();
 }
 
+quint32 SpeedRaceEvent::getPenaltyPoints() const
+{
+    return static_cast<SpeedRace*>(this->actualRace)->GetPenaltyPoint();
+}
+
+quint32 SpeedRaceEvent::getAdditionalPoints() const
+{
+    return static_cast<SpeedRace*>(this->actualRace)->GetAdditionalPoint();
+}
+
 void SpeedRaceEvent::SetSafetyCarFollowed(bool value)
 {
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarFollowed(value);
 }
 
-void SpeedRaceEvent::SetSafetyCarOvertaken(bool value)
+void SpeedRaceEvent::SetSafetyCarOvertaken(quint32 value)
 {
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarOvertaken(value);
 }

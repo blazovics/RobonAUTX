@@ -8,13 +8,19 @@ Item {
     width: 768
     height: 850
 
+    property int overtakeCount: 0;
+
     function resetPage(){
         safetyCarFollowedButton.checked = false;
-        safetyCarOvertakenButton.checked = false;
         touchCountLabel.text = "0";
+        overtakeCountLabel.text = "0";
         laserTimeLabel.text = "0";
         manualTimeLabel.text = "0";
+        overtakeCount = 0;
         skillRaceActions.resetContainer();
+
+        safetyCarOvertakeDecreaseButton.enabled = false;
+        safetyCarOvertakeIncreaseButton.enabled = true;
     }
 
     Connections{
@@ -26,7 +32,26 @@ Item {
         }
         onUpdateSafetyCarOvertakenConfirmedButton:{
             //(bool status);
-            safetyCarOvertakenButton.checked = status;
+
+            overtakeCount = value;
+
+            overtakeCountLabel.text = overtakeCount;
+
+            if(overtakeCount <= 0)
+            {
+                safetyCarOvertakeDecreaseButton.enabled = false;
+            }
+            else {
+                 safetyCarOvertakeDecreaseButton.enabled = true;
+            }
+
+            if(overtakeCount >= 2)
+            {
+                safetyCarOvertakeIncreaseButton.enabled = false;
+            }
+            else {
+                safetyCarOvertakeIncreaseButton.enabled = true;
+            }
         }
         onUpdateTouchCountModified:{
             //(quint32 numberOfTouches);
@@ -43,6 +68,8 @@ Item {
         onUpdateCompletedSpeedLaps:{
             //(quint32 lapNumber, quint32 lapTime);
             //FIXME: do it
+            manualTimeLabel.text = 0;
+            laserTimeLabel.text = 0;
         }
         onUpdateRaceTime:{
             lapTimeLabel.text = time;
@@ -162,15 +189,42 @@ Item {
             }
 
             Button {
-                id: safetyCarOvertakenButton
-                text: qsTr("Safety Car Overtaken")
-                Layout.columnSpan: 2
+                id: safetyCarOvertakeIncreaseButton
+                text: qsTr("Overtaken +")
+                Layout.columnSpan: 1
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                checkable: true
+                checkable: false
                 onReleased: {
-                    controlUnit.qmlSafetyCarOvertaken(checked);
+                    controlUnit.qmlSafetyCarOvertaken(overtakeCount + 1);
                 }
             }
+
+            Label {
+                id: overtakeCountLabel
+                width: 100
+                text: qsTr(" 0")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                Layout.minimumWidth: 100
+                fontSizeMode: Text.FixedSize
+                font.pointSize: 30
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.rowSpan: 2
+            }
+
+
+            Button {
+                id: safetyCarOvertakeDecreaseButton
+                text: qsTr("Overtaken -")
+                Layout.columnSpan: 1
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkable: false
+                onReleased: {
+                    controlUnit.qmlSafetyCarOvertaken(overtakeCount - 1);
+                }
+            }
+
+
 
             Button {
                 id: increaseTouchButton
@@ -248,6 +302,8 @@ Item {
         }
     }
 }
+
+
 
 /*##^## Designer {
     D{i:1;anchors_x:36}D{i:10;anchors_width:300;anchors_x:43;anchors_y:32}

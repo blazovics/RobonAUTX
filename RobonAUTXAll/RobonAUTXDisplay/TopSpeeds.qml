@@ -7,6 +7,11 @@ Item {
     width: 340
     height: 100
 
+    FontLoader {
+        id: digital7;
+        source: "qrc:/resources/digital-7.ttf"
+    }
+
     Rectangle{
         id: imageContainer
         x: 15
@@ -27,11 +32,15 @@ Item {
         }
     }
 
-    Text {
+    Label {
         y: 43
         height: 90
         color: "#ffffff"
-        text: time
+        text: {
+            var timeString = new Date(speedTime).toLocaleTimeString(Qt.locale(),"mm:ss.zzz");
+            timeString.substring(0,timeString.length-1);
+        }
+        fontSizeMode: Text.Fit
         font.pointSize: 50
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignLeft

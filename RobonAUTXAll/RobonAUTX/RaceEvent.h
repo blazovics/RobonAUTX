@@ -52,6 +52,8 @@ public:
     
     virtual void SaveRace();
 
+    quint32 GetTeamID()const;
+
     void PauseRaceTimer();
 
     void ResumeRaceTimer();
