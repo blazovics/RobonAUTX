@@ -60,7 +60,7 @@ public slots:
     virtual void SkillRaceInitiated(quint32 teamID) = 0;
     virtual void SpeedRaceInitiated(quint32 teamID) = 0;
 
-    virtual void LaneChangeAchieved(bool success) = 0;
+    virtual void LaneChangeAchieved(bool success, quint64 laneChangeTime) = 0;
     virtual void VehicleStartAchieved(bool success) = 0;
     virtual void SafetyCarFollowed(bool success) = 0;
     virtual void SafetyCarOvertaken(quint32 value) = 0;

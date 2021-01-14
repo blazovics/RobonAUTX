@@ -53,7 +53,7 @@ public slots:
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
     void CheckpointStateUpdated(quint32 checkpointID, bool checked);
     void VehicleStartConfirmed(bool achieved);
-    void LaneChangeConfirmed(bool achieved);
+    void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);

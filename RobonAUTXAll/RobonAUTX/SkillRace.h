@@ -8,7 +8,7 @@
 #ifndef SKILLRACE_H
 #define SKILLRACE_H
 
-#define SkillCheckpointCount 18
+#define SkillCheckpointCount 15
 #define SkillCheckpointPoint 2
 #define SkillStartPoint 0
 #define SkillLaneChangePoint 4
@@ -24,6 +24,9 @@ private:
     vector<bool> checkpointStates;
     bool startSucceeded;
     bool laneChangeSucceeded;
+
+    quint64 laneChangeTime;
+
     qint64 raceTime;
 
 public: 
@@ -50,16 +53,17 @@ public:
     
     bool GetLaneChangeSucceeded() const;
     
-    void SetLaneChangeSucceeded(bool value);
+    void SetLaneChangeSucceeded(bool value, qint64 laneChangeTime);
 
     qint64 GetTimeCredit() const;
 
-    static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded);
+    static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
 
     quint32 GetSerializedCheckpointStates() const;
 
     qint64 getRaceTime() const;
     void setRaceTime(const qint64 &value);
+    quint32 getLaneChangeTime() const;
 };
 
 

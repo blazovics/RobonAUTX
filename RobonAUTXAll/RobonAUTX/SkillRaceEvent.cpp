@@ -68,7 +68,7 @@ void SkillRaceEvent::SetStartSucceeded(bool value)
 
 void SkillRaceEvent::SetLanChangeSuccess(bool value)
 {
-    static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value);
+    static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value, remainingTime);
 }
 
 void SkillRaceEvent::StartRace() {
@@ -101,6 +101,11 @@ quint32 SkillRaceEvent::GetActualPoints()
 quint32 SkillRaceEvent::GetTimeCredit()
 {
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
+}
+
+quint64 SkillRaceEvent::GetLaneChangeTime()
+{
+    return quint64(static_cast<SkillRace*>(this->actualRace)->getLaneChangeTime());
 }
 
 void SkillRaceEvent::updateRemainingTime()

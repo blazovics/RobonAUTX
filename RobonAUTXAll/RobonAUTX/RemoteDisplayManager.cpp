@@ -97,7 +97,14 @@ void RemoteDisplayManager::EventReceived(Event &event)
         localManager->SpeedRaceInitiated(event.extractQuint32FromRawData());
         break;
     case Device_IDisplayManager + Event_Disp_LaneChangeAchieved :
-        localManager->LaneChangeAchieved(event.extractBoolFromRawData());
+    {
+
+        bool first = event.extractBoolFromRawData();
+        quint64 second = event.extractQuint64FromRawData();
+
+        localManager->LaneChangeAchieved(first, second);
+    }
+
         break;
     case Device_IDisplayManager + Event_Disp_VehicleStartAchieved :
         localManager->VehicleStartAchieved(event.extractBoolFromRawData());
@@ -227,10 +234,11 @@ void RemoteDisplayManager::showQualificationResults(QList<QualificationResult> r
 
 }
 
-void RemoteDisplayManager::LaneChangeAchieved(bool success)
+void RemoteDisplayManager::LaneChangeAchieved(bool success, quint64 laneChangeTime)
 {
     Event event(Device_IDisplayManager +  Event_Disp_LaneChangeAchieved );
     event.insertBool(success);
+    event.insertQuint64(laneChangeTime);
     sendEvent(event);
 
 }

@@ -80,7 +80,7 @@ public slots:
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
     virtual void CheckpointStateUpdated(quint32 checkpointID, bool checked) = 0;
     virtual void VehicleStartConfirmed(bool achieved) = 0;
-    virtual void LaneChangeConfirmed(bool achieved) = 0;
+    virtual void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime) = 0;
     virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;
     virtual void SafetyCarFollowingConfirmed(bool achieved) = 0;
     virtual void SafetyCarOvertakeConfirmed(quint32 value) = 0;

@@ -27,6 +27,7 @@ public:
     QByteArray getRawData() const;
 
     quint32 extractQuint32FromRawData();
+    quint64 extractQuint64FromRawData();
     bool extractBoolFromRawData();
     QList<SpeedRaceResult> extractSpeedRaceResultsFromRawData();
     QList<SkillRaceResult> extractSkillRaceResultFromRawData();
@@ -37,12 +38,15 @@ public:
 
     void insertTeams(QList<Team> teams);
     void insertQuint32(quint32 value);
+    void insertQuint64(quint64 value);
     void insertBool(bool value);
     void insertSpeedRaceResults(QList<SpeedRaceResult> results);
     void insertVoteResults(QList<VoteResult> results);
     void insertSkillRaceResults(QList<SkillRaceResult> results);
     void insertQualificationResuls(QList<QualificationResult> results);
     void insertFinalResults(QList<FinalResult> results);
+
+
 
 };
 

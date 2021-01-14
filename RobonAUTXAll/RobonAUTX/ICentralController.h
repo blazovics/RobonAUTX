@@ -65,7 +65,7 @@ signals:
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void VehicleStartConfirmed(bool achieved);
-    void LaneChangeConfirmed(bool achieved);
+    void LaneChangeConfirmed(bool achieved, quint32 remainingTime);
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 touchCount);

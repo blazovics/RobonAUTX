@@ -26,6 +26,11 @@ void SkillRace::setRaceTime(const qint64 &value)
     raceTime = value;
 }
 
+quint32 SkillRace::getLaneChangeTime() const
+{
+    return laneChangeTime;
+}
+
 SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     
     for(unsigned i = 0; i<checkpointCount; i++)
@@ -34,10 +39,11 @@ SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     }
     startSucceeded = false;
     laneChangeSucceeded = false;
+    laneChangeTime = 0;
 }
 
 quint32 SkillRace::GetRacePoint() const {
-    return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded);
+    return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded, this->laneChangeTime);
 }
 
 bool SkillRace::GetCheckpointState(quint32 index) const
@@ -84,8 +90,9 @@ bool SkillRace::GetLaneChangeSucceeded() const {
 /**
  * @param value
  */
-void SkillRace::SetLaneChangeSucceeded(bool value) {
+void SkillRace::SetLaneChangeSucceeded(bool value, qint64 laneChangeTime) {
     this->laneChangeSucceeded = value;
+    this->laneChangeTime = laneChangeTime > 0 ? laneChangeTime: 0;
 }
 
 qint64 SkillRace::GetTimeCredit() const
@@ -103,7 +110,7 @@ qint64 SkillRace::GetTimeCredit() const
     return  timeCredit;
 }
 
-quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded)
+quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime)
 {
     quint32 resultPoint = 0;
     for(unsigned i = 0; i < checkpointStates.size(); i++)
@@ -119,7 +126,9 @@ quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool 
     }
     if(laneChangeSucceeded == true)
     {
-        resultPoint += laneChangePoint;
+        quint32 unlimitedPoint = laneChangeTime / 5;
+
+        resultPoint += unlimitedPoint > laneChangePoint ? laneChangePoint : unlimitedPoint;
     }
     return resultPoint;
 }

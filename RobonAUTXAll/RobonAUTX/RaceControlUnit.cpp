@@ -116,9 +116,10 @@ void RaceControlUnit::VehicleStartConfirmed(bool achieved)
     emit updateStartSuccessButton(achieved);
 }
 
-void RaceControlUnit::LaneChangeConfirmed(bool achieved)
+void RaceControlUnit::LaneChangeConfirmed(bool achieved, quint64 laneChangeTime)
 {
     emit updateLaneChangeConfirmedButton(achieved);
+    //TODO: Do something
 }
 
 void RaceControlUnit::SkillPointUpdated(quint32 skillPoint, quint32 timeCredit)

@@ -48,6 +48,8 @@ public:
     quint32 GetActualPoints();
     quint32 GetTimeCredit();
 
+    quint64 GetLaneChangeTime();
+
     qint64 getRemainingTime();
 
 public slots:

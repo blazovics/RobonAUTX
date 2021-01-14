@@ -27,6 +27,13 @@ quint32 Event::extractQuint32FromRawData()
     return value;
 }
 
+quint64 Event::extractQuint64FromRawData()
+{
+    quint64 value;
+    *inStream >> value;
+    return value;
+}
+
 bool Event::extractBoolFromRawData()
 {
     bool value;
@@ -82,6 +89,11 @@ void Event::insertTeams(QList<Team> teams)
 }
 
 void Event::insertQuint32(quint32 value)
+{
+    *outStream << value;
+}
+
+void Event::insertQuint64(quint64 value)
 {
     *outStream << value;
 }

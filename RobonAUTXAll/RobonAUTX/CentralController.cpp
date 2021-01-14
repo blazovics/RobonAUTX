@@ -213,7 +213,9 @@ void CentralController::LaneChangeAchieved(bool achieved)
     if(currentEvent != nullptr)
     {
         currentEvent->SetLanChangeSuccess(achieved);
-        emit LaneChangeConfirmed(achieved);
+        ;
+
+        emit LaneChangeConfirmed(achieved,currentEvent->GetLaneChangeTime());
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
         bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),0);

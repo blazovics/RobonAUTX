@@ -163,7 +163,7 @@ void DisplayManager::SpeedRaceInitiated(quint32 teamID)
     emit presentSpeedRace();
 }
 
-void DisplayManager::LaneChangeAchieved(bool success)
+void DisplayManager::LaneChangeAchieved(bool success, quint64 laneChangeTime)
 {
     emit sendLaneChangeAchieved(success);
 }

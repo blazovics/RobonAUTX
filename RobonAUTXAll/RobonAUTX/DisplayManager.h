@@ -100,7 +100,7 @@ public slots:
     void SkillRaceInitiated(quint32 teamID);
     void SpeedRaceInitiated(quint32 teamID);
 
-    void LaneChangeAchieved(bool success);
+    void LaneChangeAchieved(bool success, quint64 laneChangeTime);
     void VehicleStartAchieved(bool success);
     void SafetyCarFollowed(bool success);
     void SafetyCarOvertaken(quint32 value);

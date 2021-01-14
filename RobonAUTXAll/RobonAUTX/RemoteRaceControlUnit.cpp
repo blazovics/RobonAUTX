@@ -74,7 +74,11 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         localUnit->VehicleStartConfirmed(event.extractBoolFromRawData());
         break;
     case Device_RaceControlUnit + Event_LaneChangeConfirmed :
-        localUnit->LaneChangeConfirmed(event.extractBoolFromRawData());
+    {
+        bool first = event.extractBoolFromRawData();
+        quint64 second = event.extractQuint64FromRawData();
+        localUnit->LaneChangeConfirmed(first,second);
+    }
         break;
     case Device_RaceControlUnit + Event_SkillPointUpdated :
     {
@@ -175,10 +179,11 @@ void RemoteRaceControlUnit::VehicleStartConfirmed(bool achieved)
     sendEvent(event);
 }
 
-void RemoteRaceControlUnit::LaneChangeConfirmed(bool achieved)
+void RemoteRaceControlUnit::LaneChangeConfirmed(bool achieved, quint64 laneChangeTime)
 {
     Event event(Device_RaceControlUnit + Event_LaneChangeConfirmed);
     event.insertBool(achieved);
+    event.insertQuint64(laneChangeTime);
     sendEvent(event);
 }
 

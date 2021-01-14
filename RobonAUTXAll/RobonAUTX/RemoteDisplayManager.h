@@ -37,7 +37,7 @@ public slots:
     void showVotesResults(QList<VoteResult> result, quint32 fromPos);
     void showQualificationResults(QList<QualificationResult> result, quint32 fromPos);
 
-    void LaneChangeAchieved(bool success);
+    void LaneChangeAchieved(bool success, quint64 laneChangeTime);
     void VehicleStartAchieved(bool success);
     void SafetyCarFollowed(bool success);
     void SafetyCarOvertaken(quint32 value);
