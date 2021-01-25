@@ -137,6 +137,16 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     }
 }
 
+void CentralController::UpdateTargetCheckpoint(quint32 checkpointID)
+{
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        currentEvent->UpdateTargetCheckpoint(checkpointID));
+        emit TargetCheckpointUpdated(checkpointID);
+    }
+}
+
 void CentralController::StartRace()
 {
     if(this->raceEvent->getType() == Skill)

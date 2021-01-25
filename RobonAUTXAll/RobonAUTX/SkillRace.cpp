@@ -66,6 +66,18 @@ void SkillRace::SetCheckpoint(quint32 index, bool checked) {
     this->checkpointStates[index] = checked;
 }
 
+void SkillRace::SetTargetCheckpoint(quint32 index)
+{
+    for(unsigned i = 0; i<index; i++)
+    {
+        checkpointStates[i] = true;
+    }
+    for(unsigned i = index; i<checkpointCount; i++)
+    {
+        checkpointStates[i] = false;
+    }
+}
+
 /**
  * @return bool
  */

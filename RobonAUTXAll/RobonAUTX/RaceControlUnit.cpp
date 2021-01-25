@@ -126,6 +126,11 @@ void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
     emit updateCheckpointButtons(checkpointID,checked);
 }
 
+void RaceControlUnit::TargetCheckpointUpdated(quint32 checkpointID)
+{
+
+}
+
 void RaceControlUnit::VehicleStartConfirmed(bool achieved)
 {
     emit updateStartSuccessButton(achieved);

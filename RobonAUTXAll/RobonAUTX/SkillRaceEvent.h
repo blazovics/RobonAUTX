@@ -33,6 +33,8 @@ public:
  */
     bool UpdateCheckpoint(quint32 index, bool newState, bool forced);
 
+    bool UpdateTargetCheckpoint(quint32);
+
     void SetStartSucceeded(bool value);
 
     void SetLaneChangeSuccess(bool value);

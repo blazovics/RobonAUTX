@@ -46,6 +46,8 @@ public:
     bool GetCheckpointState(quint32 index) const;
 
     void SetCheckpoint(quint32 index, bool checked);
+
+    void SetTargetCheckpoint(quint32 index);
     
     bool GetStartSucceeded() const;
     
