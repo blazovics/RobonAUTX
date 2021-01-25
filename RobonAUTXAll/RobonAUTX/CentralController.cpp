@@ -116,11 +116,16 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
+        //TODO: checkpoint update logic!!
+
+
         qDebug()<<"Update Checkpoint state for #" << checkpointID <<"to "<< checked;
         if(currentEvent->UpdateCheckpoint(checkpointID,checked,forced))
         {
             emit CheckpointStateUpdated(checkpointID,checked);
         }
+
+
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
         int checkpointPoint = 2;

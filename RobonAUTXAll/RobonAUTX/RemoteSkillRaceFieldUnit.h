@@ -29,6 +29,7 @@ public slots:
     void StartSafetyCar();
     void StopSafetyCar();
     void StartSkillRaceGate();
+    void TimeIsUp();
 
 private:
     void sendSet(quint32 checkpointID);
