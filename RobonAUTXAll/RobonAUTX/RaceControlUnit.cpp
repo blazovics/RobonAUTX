@@ -27,11 +27,11 @@ TeamModel *RaceControlUnit::getTeamModel()
 
 void RaceControlUnit::calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState)
 {
-    if(newState == true && checkpointIndex > approvedCheckpointIndex)
+    if(newState == true && (qint32)checkpointIndex > approvedCheckpointIndex)
     {
        approvedCheckpointIndex = checkpointIndex;
     }
-    else if (newState == false && checkpointIndex <= approvedCheckpointIndex)
+    else if (newState == false && (qint32)checkpointIndex <= approvedCheckpointIndex)
     {
         approvedCheckpointIndex = checkpointIndex;
     }
@@ -61,7 +61,7 @@ void RaceControlUnit::TeamListUpdated(QList<Team> teams)
 void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
-    approvedCheckpointIndex = 0;
+    approvedCheckpointIndex = -1;
     emit showSkillRaceView(teamID);
 }
 
