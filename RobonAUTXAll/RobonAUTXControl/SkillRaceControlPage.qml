@@ -21,6 +21,14 @@ SkillRaceControlPageForm {
         controlUnit.qmlLaneChanged(state);
     }
 
+    checkpoints_container.onDecreaseActiveCheckpoint: {
+        controlUnit.qmlDecreaseCheckpoint();
+    }
+
+    checkpoints_container.onIncreaseActiveCheckpoint: {
+        controlUnit.qmlIncreaseCheckpoint();
+    }
+
     Connections{
         target: controlUnit
         onUpdateCheckpointButtons:{

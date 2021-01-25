@@ -11,6 +11,8 @@ Rectangle {
     signal checkpointButtonPressed(int checkpointID, bool state);
     signal startSucceededButtonPressed(bool state);
     signal laneChangeSucceededButtonPressed(bool state);
+    signal decreaseActiveCheckpoint();
+    signal increaseActiveCheckpoint();
 
 
     function resetContainer(){
@@ -44,22 +46,62 @@ Rectangle {
     Component{
         id: ckeckpointButtonDelegate
 
-        CheckpointButton {
+        CheckpointStateIndicator {
             checked: is_checked
             checkpointID: checkpoint_ID
-
-            onReleased: {
-                checkpoints_container.checkpointButtonPressed(checkpointID,checked) ;
-                console.log("checked changed")
-            }
         }
     }
 
     ColumnLayout{
         anchors.bottomMargin: 15
         anchors.topMargin: 15
+        anchors.leftMargin: 5
+        anchors.rightMargin: 5
         spacing: 5
         anchors.fill: parent
+
+
+
+        //ListView{
+
+
+        RowLayout{
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Button {
+                text: "Prev"
+                id: decreaseAchievedCheckpointButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.decreaseActiveCheckpoint();
+                }
+            }
+            Button {
+                text: "Next"
+                id: increaseAchievedCheckpointButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.increaseActiveCheckpoint();
+                }
+            }
+        }
+
+        GridView{
+            id:checkpointList
+            height: 520
+            flow: GridView.FlowTopToBottom
+            cellWidth: 100
+            cellHeight: 65
+            cacheBuffer: 300
+            contentHeight: 520
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillHeight: false
+            width: 200
+            model: CheckpointListModel {}
+            delegate: ckeckpointButtonDelegate
+
+        }
 
         Button {
             text: "Star Succeeded"
@@ -71,25 +113,6 @@ Rectangle {
             }
         }
 
-
-        //ListView{
-        GridView{
-            id:checkpointList
-            height: 600
-            flow: GridView.FlowTopToBottom
-            cellWidth: 100
-            cellHeight: 65
-            cacheBuffer: 300
-            contentHeight: 480
-            Layout.fillWidth: false
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillHeight: false
-            width: 200
-            model: CheckpointListModel {}
-            delegate: ckeckpointButtonDelegate
-
-        }
-
         Button {
             text: "Lane Change Succeeded"
             id: laneChangeSuccededButton
@@ -99,5 +122,7 @@ Rectangle {
                 checkpoints_container.laneChangeSucceededButtonPressed(checked);
             }
         }
+
     }
+
 }

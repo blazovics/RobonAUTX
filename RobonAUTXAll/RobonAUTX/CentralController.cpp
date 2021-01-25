@@ -212,8 +212,7 @@ void CentralController::LaneChangeAchieved(bool achieved)
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
-        currentEvent->SetLanChangeSuccess(achieved);
-        ;
+        currentEvent->SetLaneChangeSuccess(achieved);
 
         emit LaneChangeConfirmed(achieved,currentEvent->GetLaneChangeTime());
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());

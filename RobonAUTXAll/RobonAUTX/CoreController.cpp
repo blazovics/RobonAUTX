@@ -117,12 +117,14 @@ void CoreController::connectDevice(ICentralController *controller, ISkillRaceGat
 void CoreController::connectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
 {
     connect(device,SIGNAL(checkpointUpdated(quint32, bool, bool)),controller,SLOT(UpdateCheckpointState(quint32, bool, bool)));
-    connect(controller,SIGNAL(CheckpointStateUpdated(quint32, bool)),device,SLOT(UpdateCheckpointState(quint32, bool)));
+    connect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
 
+    connect(controller,SIGNAL(CheckpointStateUpdated(quint32, bool)),device,SLOT(UpdateCheckpointState(quint32, bool)));
     connect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     connect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
     connect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
     connect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
+    connect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, IVoteCounter *device)
@@ -222,11 +224,13 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
 void CoreController::disconnectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
 {
     disconnect(device,SIGNAL(checkpointUpdated(quint32, bool, bool)),controller,SLOT(UpdateCheckpointState(quint32, bool, bool)));
+    disconnect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
     disconnect(controller,SIGNAL(CheckpointStateUpdated(quint32, bool)),device,SLOT(UpdateCheckpointState(quint32, bool)));
     disconnect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     disconnect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
     disconnect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
-    disconnect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
+    disconnect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints())); 
+    disconnect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
 }
 
 

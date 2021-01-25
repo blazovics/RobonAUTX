@@ -35,7 +35,7 @@ public:
 
     void SetStartSucceeded(bool value);
 
-    void SetLanChangeSuccess(bool value);
+    void SetLaneChangeSuccess(bool value);
     
     void StartRace();
     

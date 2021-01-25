@@ -36,25 +36,15 @@ const std::pair<quint32,quint32> RemoteSkillRaceFieldUnit::gateIDs[18] = {
 
 RemoteSkillRaceFieldUnit::RemoteSkillRaceFieldUnit(CoreController *parentController, QTcpSocket *socket, QIODevice::OpenMode mode):RemoteDevice (parentController,socket, mode)
 {
-    delayTimer = std::make_unique<QTimer>();
-    connect(delayTimer.get(),SIGNAL(timeout()),this,SLOT(delayTimerFired()));
+
 }
 
 void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
 {
 
    switch (event.getEventID()) {
-    case Event_AISetGate:
-        emit checkpointUpdated(checkpointIDForGateID(event.extractQuint32FromRawData()),true,false);
-        break;
-    case Event_AIResetGate:
-        emit checkpointUpdated(checkpointIDForGateID(event.extractQuint32FromRawData()),false,true);
-        break;
     case Event_SetGate:
-        emit checkpointUpdated(checkpointIDForGateID(event.extractQuint32FromRawData()),true,true);
-        break;
-    case Event_ResetGate:
-        emit checkpointUpdated(checkpointIDForGateID(event.extractQuint32FromRawData()),false,true);
+        emit checkpointUpdated(event.extractQuint32FromRawData(),true,false);
         break;
     case Event_ResetAllGates:
         emit checkpointsReseted();
@@ -62,6 +52,9 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
     case Event_HeartBeat:
         //FIXME TODO Heartbeat!
         break;
+    case Event_StartSkillRaceGate:
+       emit SkillRaceGateStarted();
+       break;
     }
 }
 
@@ -69,20 +62,13 @@ void RemoteSkillRaceFieldUnit::UpdateCheckpointState(quint32 checkpointID, bool 
 {
    if(state)
    {
-       this->sendSet(gateIDForCheckpointID(checkpointID));
+   this->sendSet(checkpointID);
    }
-   else
-   {
-       this->sendReset(gateIDForCheckpointID(checkpointID));
-   }
-
 }
 
 void RemoteSkillRaceFieldUnit::ResetCheckpoints()
 {
-    msgCount = 0;
-    delayTimer->start(1100);
-    //this->SendClearAllGates();
+    this->SendClearAllGates();
 }
 
 void RemoteSkillRaceFieldUnit::SendHeartBeat()
@@ -111,24 +97,10 @@ void RemoteSkillRaceFieldUnit::StopSafetyCar()
     sendEvent(event);
 }
 
-void RemoteSkillRaceFieldUnit::delayTimerFired()
+void RemoteSkillRaceFieldUnit::StartSkillRaceGate()
 {
-    if(msgCount >= 18)
-    {
-        delayTimer->stop();
-    }
-    else{
-        this->sendReset(gateIDForCheckpointID(msgCount));
-        msgCount++;
-    }
-}
-
-void RemoteSkillRaceFieldUnit::sendReset(quint32 checkpointID)
-{
-    Event event(Event_ResetGate);
-    event.insertQuint32(checkpointID);
+    Event event(Event_StartSkillRaceGate);
     sendEvent(event);
-
 }
 
 void RemoteSkillRaceFieldUnit::sendSet(quint32 checkpointID)

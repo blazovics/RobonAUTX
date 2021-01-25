@@ -25,6 +25,19 @@ TeamModel *RaceControlUnit::getTeamModel()
     return &teamModel;
 }
 
+void RaceControlUnit::calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState)
+{
+    if(newState == true && checkpointIndex > approvedCheckpointIndex)
+    {
+       approvedCheckpointIndex = checkpointIndex;
+    }
+    else if (newState == false && checkpointIndex <= approvedCheckpointIndex)
+    {
+        approvedCheckpointIndex = checkpointIndex;
+    }
+
+}
+
 RaceControlUnit::RaceControlUnit()
 {
     updateTimer = std::make_unique<QTimer>();
@@ -48,6 +61,7 @@ void RaceControlUnit::TeamListUpdated(QList<Team> teams)
 void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
+    approvedCheckpointIndex = 0;
     emit showSkillRaceView(teamID);
 }
 
@@ -108,6 +122,7 @@ void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 
 void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
 {
+    calculateApprovedCheckpointIndex(checkpointID,checked);
     emit updateCheckpointButtons(checkpointID,checked);
 }
 
@@ -250,6 +265,16 @@ void RaceControlUnit::qmlDecreaseTouchCount()
         touchCount--;
     }
     emit ModifyTouchCount(touchCount);
+}
+
+void RaceControlUnit::qmlIncreaseCheckpoint()
+{
+    emit updateCheckpointState(approvedCheckpointIndex+1,true, true);
+}
+
+void RaceControlUnit::qmlDecreaseCheckpoint()
+{
+   emit updateCheckpointState(approvedCheckpointIndex,false, true);
 }
 
 void RaceControlUnit::qmlPauseRaceTimer()

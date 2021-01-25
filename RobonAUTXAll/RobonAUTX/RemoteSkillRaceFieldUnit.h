@@ -17,9 +17,6 @@ class RemoteSkillRaceFieldUnit: public ISkillRaceFieldUnit, public RemoteDevice 
 
     Q_OBJECT
 
-    std::unique_ptr<QTimer> delayTimer;
-    quint32 msgCount;
-
 public:
     explicit RemoteSkillRaceFieldUnit(CoreController* parentController, QTcpSocket *socket, QIODevice::OpenMode mode = QIODevice::WriteOnly);
     void EventReceived(Event& event);
@@ -31,14 +28,12 @@ public slots:
     void SendClearAllGates();
     void StartSafetyCar();
     void StopSafetyCar();
-
-private slots:
-    void delayTimerFired();
+    void StartSkillRaceGate();
 
 private:
-    void sendReset(quint32 checkpointID);
     void sendSet(quint32 checkpointID);
 
+    //Deprecated
     static const std::pair<quint32,quint32> gateIDs[18];
 
     quint32 checkpointIDForGateID(quint32 id);

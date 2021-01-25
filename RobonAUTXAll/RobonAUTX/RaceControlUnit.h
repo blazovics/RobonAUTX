@@ -33,6 +33,8 @@ class RaceControlUnit: public IRaceControlUnit {
     RaceEventType eventType;
 
     quint32 touchCount;
+
+    quint32 approvedCheckpointIndex;
     
 public:
     explicit RaceControlUnit();
@@ -40,6 +42,10 @@ public:
     virtual ~RaceControlUnit();
 
     TeamModel* getTeamModel();
+
+
+private:
+    void calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState);
 
 public slots:
 
@@ -82,6 +88,9 @@ public slots:
     void qmlIncreaseTouchCount();
     void qmlDecreaseTouchCount();
 
+    void qmlIncreaseCheckpoint();
+    void qmlDecreaseCheckpoint();
+
     void qmlShowSpeedResults(bool isJunior, quint32 fromPos);
     void qmlShowSkillResults(quint32 fromPos);
     void qmlShowFinalResults(bool isJunior, quint32 fromPos);
@@ -114,6 +123,7 @@ signals:
     void updateLaserLapTime(QString time);
     void updateManualLapTime(QString time);
     void updateCompletedSpeedLaps(quint32 lapNumber, quint32 lapTime);
+
 
 };
 

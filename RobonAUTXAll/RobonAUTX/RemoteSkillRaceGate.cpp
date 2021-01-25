@@ -8,15 +8,18 @@ RemoteSkillRaceGate::RemoteSkillRaceGate(CoreController *parentController, QTcpS
 
 void RemoteSkillRaceGate::EventReceived(Event &event)
 {
+    /*
     switch (event.getEventID()) {
     case Event_StartSkillRaceGate:
         emit SkillRaceGateStarted();
         break;
-    }
+    }*/
 }
 
 void RemoteSkillRaceGate::StartSkillRaceGate()
 {
+    /*
     Event event(Event_StartSkillRaceGate);
     sendEvent(event);
+    */
 }

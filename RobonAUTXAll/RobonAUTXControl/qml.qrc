@@ -8,7 +8,7 @@
         <file>CheckpointsContainer.qml</file>
         <file>RaceActionsContainerForm.ui.qml</file>
         <file>SkillRaceResultsContainerForm.ui.qml</file>
-        <file>CheckpointButton.qml</file>
+        <file>CheckpointStateIndicator.qml</file>
         <file>images/controllerBackground.png</file>
         <file>CheckpointListModel.qml</file>
         <file>RaceTimeContainer.qml</file>

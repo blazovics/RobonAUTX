@@ -66,7 +66,7 @@ void SkillRaceEvent::SetStartSucceeded(bool value)
     static_cast<SkillRace*>(this->actualRace)->SetStartSucceeded(value);
 }
 
-void SkillRaceEvent::SetLanChangeSuccess(bool value)
+void SkillRaceEvent::SetLaneChangeSuccess(bool value)
 {
     static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value, remainingTime);
 }
