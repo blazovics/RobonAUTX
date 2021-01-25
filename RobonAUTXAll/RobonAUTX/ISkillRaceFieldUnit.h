@@ -42,6 +42,7 @@ public slots:
     virtual void StartSafetyCar() = 0;
     virtual void StopSafetyCar() = 0;
     virtual void StartSkillRaceGate() = 0;
+    virtual void TimeIsUp() = 0;
 
 };
 

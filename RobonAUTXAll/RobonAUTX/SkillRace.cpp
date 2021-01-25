@@ -63,7 +63,20 @@ bool SkillRace::GetCheckpointState(quint32 index) const
  * @param checked
  */
 void SkillRace::SetCheckpoint(quint32 index, bool checked) {
-    this->checkpointStates[index] = checked;
+    if(checked)
+    {
+        for(unsigned i = 0; i<=index; i++)
+        {
+            this->checkpointStates[i] = true;
+        }
+        for(unsigned i = index+1; i< checkpointCount; i++)
+        {
+            this->checkpointStates[i] = false;
+        }
+    }
+    else{
+        this->checkpointStates[index] = checked;
+    }
 }
 
 void SkillRace::SetTargetCheckpoint(quint32 index)

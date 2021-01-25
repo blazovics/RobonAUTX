@@ -93,6 +93,7 @@ signals:
     void ClearSkillGates();
     void ResetSkillGates();
 
+    void SkillRaceTimeIsUp();
 
 public slots:
 

@@ -34,7 +34,7 @@ class RaceControlUnit: public IRaceControlUnit {
 
     quint32 touchCount;
 
-    quint32 approvedCheckpointIndex;
+    qint32 approvedCheckpointIndex;
     
 public:
     explicit RaceControlUnit();

@@ -130,6 +130,7 @@ void CoreController::connectDevice(ICentralController *controller, ISkillRaceFie
     connect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
     connect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
     connect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
+    connect(controller,SIGNAL(SkillRaceTimeIsUp()),device,SLOT(TimeIsUp()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, IVoteCounter *device)
@@ -239,6 +240,7 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
     disconnect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
     disconnect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints())); 
     disconnect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
+    disconnect(controller,SIGNAL(SkillRaceTimeIsUp()),device,SLOT(TimeIsUp()));
 }
 
 
