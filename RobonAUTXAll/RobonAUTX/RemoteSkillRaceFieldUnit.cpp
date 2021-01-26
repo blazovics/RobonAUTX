@@ -24,7 +24,11 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
 
    switch (event.getEventID()) {
     case Event_SetGate:
-        emit TargetCheckpointUpdated(event.extractQuint32FromRawData());
+   {
+       quint32 index = event.extractQuint32FromRawData();
+       emit CheckpointStateUpdated(index,true,true);
+        emit TargetCheckpointUpdated(index + 1);
+   }
         break;
     case Event_ResetAllGates:
         emit checkpointsReseted();
@@ -82,7 +86,13 @@ void RemoteSkillRaceFieldUnit::StartSkillRaceGate()
 
 void RemoteSkillRaceFieldUnit::TimeIsUp()
 {
-    Event event(Event_TimeIsUp);
+    Event event(Event_Timeout);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::SetExitGate()
+{
+    Event event(Event_GateStopSending);
     sendEvent(event);
 }
 

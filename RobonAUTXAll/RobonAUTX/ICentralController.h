@@ -94,6 +94,7 @@ signals:
     void ResetSkillGates();
 
     void SkillRaceTimeIsUp();
+    void SkillRaceLastCheckpointReached();
 
 public slots:
 

@@ -61,7 +61,12 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
     return  false;
 }
 
-bool SkillRaceEvent::UpdateTargetCheckpoint(quint32)
+bool SkillRaceEvent::IsLastCheckpointReached()
+{
+    return static_cast<SkillRace*>(this->actualRace)->IsLastCheckpointReached();
+}
+
+bool SkillRaceEvent::UpdateTargetCheckpoint(quint32 index)
 {
     static_cast<SkillRace*>(this->actualRace)->SetTargetCheckpoint(index);
 }

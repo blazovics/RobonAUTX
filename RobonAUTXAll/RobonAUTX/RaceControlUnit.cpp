@@ -25,17 +25,9 @@ TeamModel *RaceControlUnit::getTeamModel()
     return &teamModel;
 }
 
-void RaceControlUnit::calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState)
+void RaceControlUnit::calculateApprovedCheckpointIndex(unsigned checkpointIndex)
 {
-    if(newState == true && (qint32)checkpointIndex > approvedCheckpointIndex)
-    {
-       approvedCheckpointIndex = checkpointIndex;
-    }
-    else if (newState == false && (qint32)checkpointIndex <= approvedCheckpointIndex)
-    {
-        approvedCheckpointIndex = checkpointIndex;
-    }
-
+    approvedCheckpointIndex = checkpointIndex;
 }
 
 RaceControlUnit::RaceControlUnit()
@@ -61,7 +53,7 @@ void RaceControlUnit::TeamListUpdated(QList<Team> teams)
 void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
-    approvedCheckpointIndex = -1;
+    approvedCheckpointIndex = 0;
     emit showSkillRaceView(teamID);
 }
 
@@ -122,12 +114,12 @@ void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 
 void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
 {
-    calculateApprovedCheckpointIndex(checkpointID,checked);
-    emit updateCheckpointButtons(checkpointID,checked);
+    emit updateCheckpointButtons(checkpointID, checked);
 }
 
 void RaceControlUnit::TargetCheckpointUpdated(quint32 checkpointID)
 {
+    calculateApprovedCheckpointIndex(checkpointID);
 
 }
 
@@ -274,12 +266,17 @@ void RaceControlUnit::qmlDecreaseTouchCount()
 
 void RaceControlUnit::qmlIncreaseCheckpoint()
 {
-    emit updateCheckpointState(approvedCheckpointIndex+1,true, true);
+    emit updateCheckpointState(approvedCheckpointIndex,true,true);
+    emit UpdateTargetCheckpoint(approvedCheckpointIndex+1);
 }
 
 void RaceControlUnit::qmlDecreaseCheckpoint()
 {
-   emit updateCheckpointState(approvedCheckpointIndex,false, true);
+   if(approvedCheckpointIndex > 0)
+   {
+       emit updateCheckpointState(approvedCheckpointIndex-1,false,true);
+       emit UpdateTargetCheckpoint(approvedCheckpointIndex-1);
+   }
 }
 
 void RaceControlUnit::qmlPauseRaceTimer()

@@ -28,6 +28,7 @@ public:
 
 signals:
     void TargetCheckpointUpdated(quint32 checkpointID);
+    void CheckpointStateUpdated(quint32 checkpointID,bool state, bool forced);
     void checkpointsReseted();
     void ConnectionStatusUpdated(quint32 status);
     void SkillRaceGateStarted();
@@ -43,6 +44,7 @@ public slots:
     virtual void StopSafetyCar() = 0;
     virtual void StartSkillRaceGate() = 0;
     virtual void TimeIsUp() = 0;
+    virtual void SetExitGate() = 0;
 
 };
 

@@ -63,20 +63,8 @@ bool SkillRace::GetCheckpointState(quint32 index) const
  * @param checked
  */
 void SkillRace::SetCheckpoint(quint32 index, bool checked) {
-    if(checked)
-    {
-        for(unsigned i = 0; i<=index; i++)
-        {
-            this->checkpointStates[i] = true;
-        }
-        for(unsigned i = index+1; i< checkpointCount; i++)
-        {
-            this->checkpointStates[i] = false;
-        }
-    }
-    else{
-        this->checkpointStates[index] = checked;
-    }
+
+    this->checkpointStates[index] = checked;
 }
 
 void SkillRace::SetTargetCheckpoint(quint32 index)
@@ -118,6 +106,11 @@ bool SkillRace::GetLaneChangeSucceeded() const {
 void SkillRace::SetLaneChangeSucceeded(bool value, qint64 laneChangeTime) {
     this->laneChangeSucceeded = value;
     this->laneChangeTime = laneChangeTime > 0 ? laneChangeTime: 0;
+}
+
+bool SkillRace::IsLastCheckpointReached()
+{
+    return checkpointStates[checkpointStates.size()-1];
 }
 
 qint64 SkillRace::GetTimeCredit() const

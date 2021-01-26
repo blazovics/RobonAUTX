@@ -122,15 +122,17 @@ void CoreController::connectDevice(ICentralController *controller, ISkillRaceGat
 void CoreController::connectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
 {
     connect(device,SIGNAL(TargetCheckpointUpdated(quint32)),controller,SLOT(UpdateTargetCheckpoint(quint32)));
+    connect(device,SIGNAL(CheckpointStateUpdated(quint32,bool,bool)),controller,SLOT(UpdateCheckpointState(quint32,bool,bool)));
     connect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
 
-    disconnect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
+    connect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
     connect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     connect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
     connect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
     connect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints()));
     connect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
     connect(controller,SIGNAL(SkillRaceTimeIsUp()),device,SLOT(TimeIsUp()));
+    connect(controller,SIGNAL(SkillRaceLastCheckpointReached()),device,SLOT(SetExitGate()));
 }
 
 void CoreController::disconnectDevice(ICentralController *controller, IVoteCounter *device)
@@ -233,6 +235,7 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
 {
     disconnect(device,SIGNAL(TargetCheckpointUpdated(quint32)),controller,SLOT(UpdateTargetCheckpoint(quint32)));
     disconnect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
+    disconnect(device,SIGNAL(CheckpointStateUpdated(quint32,bool,bool)),controller,SLOT(UpdateCheckpointState(quint32,bool,bool)));
 
     disconnect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
     disconnect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
@@ -241,6 +244,7 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
     disconnect(controller,SIGNAL( ResetSkillGates()),device, SLOT(ResetCheckpoints())); 
     disconnect(controller,SIGNAL(StartSkillGate()),device,SLOT(StartSkillRaceGate()));
     disconnect(controller,SIGNAL(SkillRaceTimeIsUp()),device,SLOT(TimeIsUp()));
+    disconnect(controller,SIGNAL(SkillRaceLastCheckpointReached()),device,SLOT(SetExitGate()));
 }
 
 

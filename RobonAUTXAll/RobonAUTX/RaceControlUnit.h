@@ -34,7 +34,7 @@ class RaceControlUnit: public IRaceControlUnit {
 
     quint32 touchCount;
 
-    qint32 approvedCheckpointIndex;
+    quint32 approvedCheckpointIndex;
     
 public:
     explicit RaceControlUnit();
@@ -45,7 +45,7 @@ public:
 
 
 private:
-    void calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState);
+    void calculateApprovedCheckpointIndex(unsigned checkpointIndex);
 
 public slots:
 

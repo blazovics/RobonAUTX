@@ -57,6 +57,8 @@ public:
     
     void SetLaneChangeSucceeded(bool value, qint64 laneChangeTime);
 
+    bool IsLastCheckpointReached();
+
     qint64 GetTimeCredit() const;
 
     static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
