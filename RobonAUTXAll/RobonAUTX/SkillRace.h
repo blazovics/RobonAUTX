@@ -11,7 +11,7 @@
 #define SkillCheckpointCount 15
 #define SkillCheckpointPoint 2
 #define SkillStartPoint 0
-#define SkillLaneChangePoint 4
+#define SkillLaneChangePoint 10
 
 #include "Race.h"
 #include <vector>
@@ -68,6 +68,8 @@ public:
     qint64 getRaceTime() const;
     void setRaceTime(const qint64 &value);
     quint32 getLaneChangeTime() const;
+
+    quint32 GetLaneChangePoint() const;
 };
 
 

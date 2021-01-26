@@ -36,6 +36,8 @@ public:
 
     quint32 getAdditionalPoints() const;
 
+    QList<quint32> getFinishedLapTimes() const;
+
     void SetSafetyCarFollowed(bool value);
 
     void SetSafetyCarOvertaken(quint32 value);
@@ -45,6 +47,8 @@ public:
     void SaveRace();
     
     void AbortRace();
+
+    quint32 GetCurrentTimeWithOffset();
 
     RaceEventType getType();
 

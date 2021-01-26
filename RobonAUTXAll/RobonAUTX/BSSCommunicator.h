@@ -3,31 +3,37 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QNetworkRequest>
 
 class BSSCommunicator : public QObject
 {
     Q_OBJECT
 
-    QNetworkAccessManager networkManager;
+    QNetworkAccessManager *networkManager;
+
+    QList<QNetworkRequest*> ongoingRequests;
+
+    const QString serverUrlString;
 
 public:
-    explicit BSSCommunicator(QObject *parent = nullptr);
+    explicit BSSCommunicator(QString serverUrlString, QObject *parent = nullptr);
+    ~BSSCommunicator();
 
-    void SendStartSkillTimer(quint32 offset);
-    void SendStopSkillTimer(quint32 offset);
-    void SendSkillScoreUpdated(quint32 teamID,quint32 bonusTime, quint32 timeLeft, quint32 newScore, quint32 totalScore);
-    void SendSkillRaceFinished(quint32 teamID, quint32 totalScore);
+    void SendStartSkillTimer(int offset);
+    void SendStopSkillTimer(int offset);
+    void SendSkillScoreUpdated(int teamID,int bonusTime, int timeLeft, int newScore, int totalScore);
+    void SendSkillRaceFinished(int teamID, int totalScore);
 
-    void SendStartSpeedTimer(quint32 offset);
-    void SendStopSpeedimer(quint32 offset);
-    void SendSafetyCarFollowed(quint32 teamID,  bool followed);
-    void SendSafetyCarOvertaken(quint32 teamID, quint32 occurence);
-    void SendSpeedLapAchieved(quint32 teamID, QList<quint32> laps);
-    void SendSpeedRaceFinished(quint32 teamID, quint32 totalScore, QList<quint32> laps);
+    void SendStartSpeedTimer(int offset);
+    void SendStopSpeedimer(int offset);
+    void SendSafetyCarFollowed(int teamID,  bool followed);
+    void SendSafetyCarOvertaken(int teamID, int occurence);
+    void SendSpeedLapAchieved(int teamID, QList<quint32> laps);
+    void SendSpeedRaceFinished(int teamID, int totalScore, QList<int> laps);
 
-    void SendQualificationResult(quint32 teamID, quint32 qualificationPoint);
-    void SendAudienceResult(quint32 teamID, quint32 voteCount, quint32 audiencePoint);
-    void SendFinalResult(quint32 teamID, quint32 totalScore, quint32 rank, quint32 juniorRank);
+    void SendQualificationResult(int teamID, int qualificationPoint);
+    void SendAudienceResult(int teamID, int voteCount, int audiencePoint);
+    void SendFinalResult(int teamID, int totalScore, int rank, int juniorRank);
 
 signals:
 
@@ -35,6 +41,9 @@ public slots:
     void encrypted(QNetworkReply *reply);
     void finished(QNetworkReply *reply);
     void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
+
+private:
+    void PostRequest(QJsonObject& object, QString uri);
 };
 
 #endif // BSSCOMMUNICATOR_H

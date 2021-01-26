@@ -14,6 +14,7 @@
 #include "DatabaseManager.h"
 
 #include "BSSSocketManager.h"
+#include "BSSCommunicator.h"
 
 class CentralController: public ICentralController {
 
@@ -23,6 +24,7 @@ class CentralController: public ICentralController {
     std::shared_ptr<DatabaseManager> databaseManager;
 
     BSSSocketManager bssManager;
+    BSSCommunicator *bssCommunicator;
 
 public: 
 

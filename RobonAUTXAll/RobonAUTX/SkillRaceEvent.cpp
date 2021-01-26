@@ -118,6 +118,11 @@ quint64 SkillRaceEvent::GetLaneChangeTime()
     return quint64(static_cast<SkillRace*>(this->actualRace)->getLaneChangeTime());
 }
 
+quint32 SkillRaceEvent::GetLaneChangePoint()
+{
+    return quint64(static_cast<SkillRace*>(this->actualRace)->GetLaneChangePoint());
+}
+
 void SkillRaceEvent::updateRemainingTime()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();

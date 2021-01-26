@@ -89,6 +89,11 @@ quint32 SpeedRaceEvent::getAdditionalPoints() const
     return static_cast<SpeedRace*>(this->actualRace)->GetAdditionalPoint();
 }
 
+QList<quint32> SpeedRaceEvent::getFinishedLapTimes() const
+{
+    return static_cast<SpeedRace*>(this->actualRace)->GetLapTimes();
+}
+
 void SpeedRaceEvent::SetSafetyCarFollowed(bool value)
 {
     static_cast<SpeedRace*>(this->actualRace)->SetSafetyCarFollowed(value);
@@ -112,6 +117,12 @@ void SpeedRaceEvent::AbortRace() {
     this->dbManager->SaveSpeedRace(static_cast<SpeedRace*>(this->actualRace),true);
     RaceEvent::AbortRace();
 
+}
+
+quint32 SpeedRaceEvent::GetCurrentTimeWithOffset()
+{
+    quint32 time = quint32(this->raceTimer.Elapsed()-raceTimerOffset);
+    return  time;
 }
 
 RaceEventType SpeedRaceEvent::getType()

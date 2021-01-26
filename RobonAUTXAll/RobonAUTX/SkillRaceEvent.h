@@ -53,6 +53,7 @@ public:
     quint32 GetTimeCredit();
 
     quint64 GetLaneChangeTime();
+    quint32 GetLaneChangePoint();
 
     qint64 getRemainingTime();
 

@@ -128,6 +128,12 @@ qint64 SkillRace::GetTimeCredit() const
     return  timeCredit;
 }
 
+quint32 SkillRace::GetLaneChangePoint() const
+{
+    quint32 unlimitedPoint = laneChangeTime / 5;
+    return unlimitedPoint > laneChangePoint ? laneChangePoint : unlimitedPoint;
+}
+
 quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime)
 {
     quint32 resultPoint = 0;
@@ -145,7 +151,6 @@ quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool 
     if(laneChangeSucceeded == true)
     {
         quint32 unlimitedPoint = laneChangeTime / 5;
-
         resultPoint += unlimitedPoint > laneChangePoint ? laneChangePoint : unlimitedPoint;
     }
     return resultPoint;

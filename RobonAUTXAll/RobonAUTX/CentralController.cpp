@@ -30,12 +30,15 @@ CentralController::CentralController() {
         bssUrlString = QString::fromStdString(config.GetStringValue("MainSystemSettings","BSSServerAddress"));
     }
     bssManager.connectToServer(QUrl(bssUrlString));
+
+    bssCommunicator = new BSSCommunicator(bssUrlString);
+
     connect(&bssManager, SIGNAL(connectionActive(bool)), this,SLOT(bssConnected(bool)));
 }
 
 CentralController::~CentralController()
 {
-
+    delete  bssCommunicator;
 }
 
 void CentralController::InitSkillRace(quint32 teamID)
@@ -103,8 +106,12 @@ void CentralController::TimeSourceForLapSelected(TimeSourceType timeSource)
 
         emit SpeedLapCompleted(finishedLapIndex,lapTime);
 
+        //Deprecated
         bssManager.sendSpeedLapFinished(currentEvent->GetTeamID(),finishedLapIndex,lapTime);
         bssManager.sendStartTimer();
+
+        bssCommunicator->SendSpeedLapAchieved(currentEvent->GetTeamID(), currentEvent->getFinishedLapTimes());
+        bssCommunicator->SendStartSpeedTimer(currentEvent->GetCurrentTimeWithOffset());
     }
     else {
         //throw std::bad_cast();
@@ -138,7 +145,10 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
             checkpointPoint = -2;
         }
 
+        //Deprecated
         bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),checkpointPoint);
+
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),checkpointPoint,currentEvent->GetActualPoints());
     }
     else {
 
@@ -168,6 +178,8 @@ void CentralController::StartRace()
         this->raceEvent->StartRace();
         emit RaceStarted();
         emit StartSafetyCar();
+
+        //deprecated
         bssManager.sendStartTimer();
     }
 }
@@ -196,13 +208,23 @@ void CentralController::FinishRace(bool aborted)
             this->InitSpeedRace(currentEvent->GetTeamID());
         }
 
+        //Deprecated
         bssManager.sendSkillTimerStopped();
+
+        bssCommunicator->SendStopSkillTimer(0);
     }
     else{
         emit StartSafetyCar();
+
+        //Deprecated
         bssManager.sendStopTimer();
+
+        bssCommunicator->SendStopSpeedimer(0);
     }
+
+    //Deprecated
     bssManager.sendSpeedResults(databaseManager->GetSpeedRaceResults(false),false);
+    //TODO BSS
 }
 
 void CentralController::TeamListRequested()
@@ -221,7 +243,11 @@ void CentralController::VechicleStartAchieved(bool achieved)
         emit VehicleStartConfirmed(achieved);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
+        //Deprecated
         bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),0);
+
+        //TODO BSS
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),0,currentEvent->GetActualPoints());
     }
     else {
         //throw std::bad_cast();
@@ -243,7 +269,10 @@ void CentralController::LaneChangeAchieved(bool achieved)
         emit LaneChangeConfirmed(achieved,currentEvent->GetLaneChangeTime());
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
+        //deprecated
         bssManager.sendSkillResultChanged(currentEvent->GetTeamID(),qint32(currentEvent->getRemainingTime()),currentEvent->GetTimeCredit(),currentEvent->GetActualPoints(),0);
+
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),currentEvent->GetLaneChangePoint(),currentEvent->GetActualPoints());
 
     }
     else {
@@ -260,7 +289,10 @@ void CentralController::SafetyCarFollowed(bool achieved)
         emit SafetyCarFollowingConfirmed(achieved);
 
 
+        //deprecated
         bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->getAdditionalPoints(),currentEvent->getAdditionalPoints());
+
+        bssCommunicator->SendSafetyCarFollowed(currentEvent->GetTeamID(),achieved);
     }
     else {
         //throw std::bad_cast();
@@ -275,7 +307,10 @@ void CentralController::SafetyCarOvertaken(quint32 value)
         currentEvent->SetSafetyCarOvertaken(value);
         emit SafetyCarOvertakeConfirmed(value);
 
+        //deprecated
         bssManager.sendSpeedPointChanged(currentEvent->GetTeamID(),currentEvent->getAdditionalPoints(),currentEvent->getAdditionalPoints());
+
+        bssCommunicator->SendSafetyCarOvertaken(currentEvent->GetTeamID(),value);
     }
     else {
         //throw std::bad_cast();
@@ -339,7 +374,11 @@ void CentralController::SkillGateStarted()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
+            //deprecated
             bssManager.sendSkillTimerStarted();
+
+            bssCommunicator->SendStartSkillTimer(0);
+
             emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
         }
         this->raceEvent->StartRace();
@@ -354,6 +393,7 @@ void CentralController::PauseRaceTimer()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
+            //deprecated
             bssManager.sendSkillTimerPaused(qint32(currentEvent->getRemainingTime()));
         }
         this->raceEvent->PauseRaceTimer();
@@ -368,6 +408,7 @@ void CentralController::ResumeRaceTimer()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
+            //deprecated
             bssManager.sendSkillTimerResumed(qint32(currentEvent->getRemainingTime()));
         }
         this->raceEvent->ResumeRaceTimer();
@@ -377,6 +418,8 @@ void CentralController::ResumeRaceTimer()
 
 void CentralController::UpdateBSS()
 {
+    //Deprecated
+    //TODO BSS
     bssManager.sendVotePoints(databaseManager->GetVoteResults());
     bssManager.sendJuniorFinalResults(databaseManager->GetFinalResults(true));
     bssManager.sendFinalResults(databaseManager->GetFinalResults(false));
