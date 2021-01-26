@@ -25,6 +25,7 @@
 #define Event_TouchCountModified 15
 #define Event_RaceTimerPaused 16
 #define Event_RaceTimerResumed 17
+#define Event_TargetCheckpointUpdated 18
 
 #define Device_RaceControlUnit 200
 
@@ -47,6 +48,7 @@ signals:
     void manualMeasure();
     void SelectTimeSourceForLap(TimeSourceType timeSource);
     void updateCheckpointState(quint32 checkpointID, bool checked, bool forced);
+    void UpdateTargetCheckpoint(quint32 checkpointID);
     void VehicleStarted(bool achieved);
     void LaneChanged(bool achieved);
     void SafetyCarFollowed(bool achieved);
@@ -79,6 +81,7 @@ public slots:
     virtual void ManualLapTimeUpdated(quint32 time) = 0;
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
     virtual void CheckpointStateUpdated(quint32 checkpointID, bool checked) = 0;
+    virtual void TargetCheckpointUpdated(quint32 checkpointID) = 0;
     virtual void VehicleStartConfirmed(bool achieved) = 0;
     virtual void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime) = 0;
     virtual void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit) = 0;

@@ -67,6 +67,12 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->UpdateCheckpointState(first,second,third);
     }
         break;
+    case Device_ICentralController + Event_UpdateTargetCheckpoint:
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        localController->UpdateTargetCheckpoint(first);
+    }
+        break;
     case Device_ICentralController + Event_StartRace:
         localController->StartRace();
         break;
@@ -190,6 +196,13 @@ void RemoteCentralController:: UpdateCheckpointState(quint32 checkpointID, bool 
     event.insertQuint32(checkpointID);
     event.insertBool(checked);
     event.insertBool(forced);
+    sendEvent(event);
+}
+
+void RemoteCentralController::UpdateTargetCheckpoint(quint32 checkpointID)
+{
+    Event event(Device_ICentralController + Event_UpdateTargetCheckpoint);
+    event.insertQuint32(checkpointID);
     sendEvent(event);
 }
 

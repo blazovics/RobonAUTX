@@ -125,6 +125,10 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
             emit CheckpointStateUpdated(checkpointID,checked);
         }
 
+        if(currentEvent->IsLastCheckpointReached())
+        {
+            emit SkillRaceLastCheckpointReached();
+        }
 
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
@@ -139,6 +143,17 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     else {
 
         ////throw std::bad_cast();
+    }
+}
+
+void CentralController::UpdateTargetCheckpoint(quint32 checkpointID)
+{
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        currentEvent->UpdateTargetCheckpoint(checkpointID);
+
+        emit TargetCheckpointUpdated(checkpointID);
     }
 }
 
@@ -202,6 +217,7 @@ void CentralController::VechicleStartAchieved(bool achieved)
     if(currentEvent != nullptr)
     {
         currentEvent->SetStartSucceeded(achieved);
+        emit TargetCheckpointUpdated(0);
         emit VehicleStartConfirmed(achieved);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
@@ -218,6 +234,11 @@ void CentralController::LaneChangeAchieved(bool achieved)
     if(currentEvent != nullptr)
     {
         currentEvent->SetLaneChangeSuccess(achieved);
+
+        if(achieved)
+        {
+            emit SkillRaceTimeIsUp();
+        }
 
         emit LaneChangeConfirmed(achieved,currentEvent->GetLaneChangeTime());
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());

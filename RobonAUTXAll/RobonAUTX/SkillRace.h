@@ -46,6 +46,8 @@ public:
     bool GetCheckpointState(quint32 index) const;
 
     void SetCheckpoint(quint32 index, bool checked);
+
+    void SetTargetCheckpoint(quint32 index);
     
     bool GetStartSucceeded() const;
     
@@ -54,6 +56,8 @@ public:
     bool GetLaneChangeSucceeded() const;
     
     void SetLaneChangeSucceeded(bool value, qint64 laneChangeTime);
+
+    bool IsLastCheckpointReached();
 
     qint64 GetTimeCredit() const;
 

@@ -22,7 +22,7 @@ public:
     void EventReceived(Event& event);
 
 public slots:
-    void UpdateCheckpointState(quint32 checkpointID, bool state);
+    void UpdateTargetCheckpoint(quint32 checkpointID);
     void ResetCheckpoints();
     void SendHeartBeat();
     void SendClearAllGates();
@@ -30,16 +30,11 @@ public slots:
     void StopSafetyCar();
     void StartSkillRaceGate();
     void TimeIsUp();
+    void SetExitGate();
 
 private:
     void sendSet(quint32 checkpointID);
-
-    //Deprecated
-    static const std::pair<quint32,quint32> gateIDs[18];
-
-    quint32 checkpointIDForGateID(quint32 id);
-    quint32 gateIDForCheckpointID(quint32 id);
-
+    void sendTimeout();
 };
 
 

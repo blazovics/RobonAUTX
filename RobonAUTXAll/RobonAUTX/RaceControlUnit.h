@@ -34,7 +34,7 @@ class RaceControlUnit: public IRaceControlUnit {
 
     quint32 touchCount;
 
-    qint32 approvedCheckpointIndex;
+    quint32 approvedCheckpointIndex;
     
 public:
     explicit RaceControlUnit();
@@ -45,7 +45,7 @@ public:
 
 
 private:
-    void calculateApprovedCheckpointIndex(unsigned checkpointIndex, bool newState);
+    void calculateApprovedCheckpointIndex(unsigned checkpointIndex);
 
 public slots:
 
@@ -58,6 +58,7 @@ public slots:
     void ManualLapTimeUpdated(quint32 time);
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
     void CheckpointStateUpdated(quint32 checkpointID, bool checked);
+    void TargetCheckpointUpdated(quint32 checkpointID);
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
