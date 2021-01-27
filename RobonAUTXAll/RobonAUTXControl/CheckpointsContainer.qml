@@ -16,7 +16,7 @@ Rectangle {
 
 
     function resetContainer(){
-        startSuccededButton.checked = false;
+        //startSuccededButton.checked = false;
         laneChangeSuccededButton.checked = false;
 
         for(var i = 0; i< checkpointList.model.rowCount(); i++ )
@@ -102,7 +102,7 @@ Rectangle {
             delegate: ckeckpointButtonDelegate
 
         }
-
+/*
         Button {
             text: "Star Succeeded"
             id: startSuccededButton
@@ -111,7 +111,7 @@ Rectangle {
             onReleased: {
                 checkpoints_container.startSucceededButtonPressed(checked);
             }
-        }
+        }*/
 
         Button {
             text: "Lane Change Succeeded"

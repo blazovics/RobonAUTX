@@ -135,11 +135,6 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
             emit CheckpointStateUpdated(checkpointID,checked);
         }
 
-        if(currentEvent->IsLastCheckpointReached())
-        {
-            emit SkillRaceLastCheckpointReached();
-        }
-
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
         int checkpointPoint = 2;
@@ -164,9 +159,15 @@ void CentralController::UpdateTargetCheckpoint(quint32 checkpointID)
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
-        currentEvent->UpdateTargetCheckpoint(checkpointID);
 
         emit TargetCheckpointUpdated(checkpointID);
+
+        currentEvent->UpdateTargetCheckpoint(checkpointID);
+
+        if(currentEvent->IsLastCheckpointReached())
+        {
+            emit SkillRaceLastCheckpointReached();
+        }
     }
 }
 
@@ -242,7 +243,7 @@ void CentralController::VechicleStartAchieved(bool achieved)
     if(currentEvent != nullptr)
     {
         currentEvent->SetStartSucceeded(achieved);
-        emit TargetCheckpointUpdated(0);
+
         emit VehicleStartConfirmed(achieved);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
@@ -377,12 +378,15 @@ void CentralController::SkillGateStarted()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
+
             //deprecated
             bssManager.sendSkillTimerStarted();
 
             bssCommunicator->SendStartSkillTimer(0);
 
             emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+            emit TargetCheckpointUpdated(0);
         }
         this->raceEvent->StartRace();
         emit RaceStarted();

@@ -38,9 +38,7 @@ public:
 signals:
 
 public slots:
-    void encrypted(QNetworkReply *reply);
     void finished(QNetworkReply *reply);
-    void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 
 private:
     void PostRequest(QJsonObject& object, QString uri);

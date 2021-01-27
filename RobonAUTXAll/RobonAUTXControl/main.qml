@@ -39,7 +39,7 @@ Window {
     SwipeView {
         id: view
         anchors.topMargin: 150
-        currentIndex: 2
+        currentIndex: 1
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
