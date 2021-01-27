@@ -34,6 +34,9 @@ CentralController::CentralController() {
     bssCommunicator = new BSSCommunicator(bssUrlString);
 
     connect(&bssManager, SIGNAL(connectionActive(bool)), this,SLOT(bssConnected(bool)));
+
+    //Debug
+    bssCommunicator->SendStartSkillTimer(1);
 }
 
 CentralController::~CentralController()
