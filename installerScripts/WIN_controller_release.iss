@@ -43,6 +43,7 @@ Source: "D:\AUT-Projects\RobonAUTX\build-RobonAUTXAll-Desktop_Qt_5_12_9_MinGW_64
 Source: "D:\AUT-Projects\RobonAUTX\build-RobonAUTXAll-Desktop_Qt_5_12_9_MinGW_64_bit-Release\RobonAUTXControl\release\Qt5Qml.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\AUT-Projects\RobonAUTX\build-RobonAUTXAll-Desktop_Qt_5_12_9_MinGW_64_bit-Release\RobonAUTXControl\release\Qt5Quick.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\AUT-Projects\RobonAUTX\build-RobonAUTXAll-Desktop_Qt_5_12_9_MinGW_64_bit-Release\RobonAUTXControl\release\Qt5QuickTemplates2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\AUT-Projects\RobonAUTX\build-RobonAUTXAll-Desktop_Qt_5_12_9_MinGW_64_bit-Release\RobonAUTXControl\release\Qt5QuickControls2.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
