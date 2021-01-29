@@ -48,3 +48,5 @@ RobonAUTXAll/RobonAUTXDisplay/debug/*
 RobonAUTXAll/RobonAUTXMaster/debug/*
 
 RobonAUTXAll/RobonAUTX/.qmake.stash
+
+installerScripts/Output/

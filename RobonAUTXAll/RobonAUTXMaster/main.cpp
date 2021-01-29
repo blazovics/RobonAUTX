@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     auto osInfo = QOperatingSystemVersion::current();
 
     if(osInfo.type() == QOperatingSystemVersion::Windows){
-        configFIlePath = "D:/Projects/RobonAUTxQt/Win1MainSystem.ini";
+        configFIlePath = "MainSystem.ini";
     }
     else if (osInfo.type() == QOperatingSystemVersion::MacOS){
         configFIlePath = "/Users/blazovics/Projects/RobonAUTX/MainSystem.ini";
