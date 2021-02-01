@@ -121,7 +121,7 @@ qint64 SkillRace::GetTimeCredit() const
     {
         if(checkpointStates[i] == true)
         {
-            timeCredit += 10*1000;
+            timeCredit += 15*1000;
         }
     }
 
