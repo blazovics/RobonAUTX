@@ -26,7 +26,7 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
     case Event_SetGate:
    {
        quint32 index = event.extractQuint32FromRawData();
-       emit CheckpointStateUpdated(index,true,true);
+       emit CheckpointStateUpdated(index,true,false);
         emit TargetCheckpointUpdated(index + 1);
    }
         break;
