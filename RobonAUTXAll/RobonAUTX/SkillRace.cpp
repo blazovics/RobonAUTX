@@ -117,7 +117,7 @@ qint64 SkillRace::GetTimeCredit() const
 {
     //TODO: Change this to be more robust
     qint64 timeCredit = 20*1000;
-    for(unsigned i = 1; i < checkpointStates.size(); i++)
+    for(unsigned i = 0; i < checkpointStates.size(); i++)
     {
         if(checkpointStates[i] == true)
         {
