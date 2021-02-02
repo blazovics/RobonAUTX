@@ -11,9 +11,10 @@
  * RaceEvent implementation
  */
 
-RaceEvent::RaceEvent(shared_ptr<DatabaseManager> dbManager, QObject *parent):QObject (parent)
+RaceEvent::RaceEvent(shared_ptr<DatabaseManager> dbManager, CentralController *parentController, QObject *parent):QObject (parent)
 {
     this->dbManager = dbManager;
+    this->parentController = parentController;
 
     actualRace = nullptr;
     updateTimer = new QTimer();

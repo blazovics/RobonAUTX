@@ -144,7 +144,11 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->ResumeRaceTimer();
         break;
     case Device_ICentralController + Event_UpdateBSS:
-        localController->UpdateBSS();
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        localController->UpdateBSS(first);
+    }
+        break;
     }
 }
 
@@ -329,9 +333,10 @@ void RemoteCentralController::ResumeRaceTimer()
     sendEvent(event);
 }
 
-void RemoteCentralController::UpdateBSS()
+void RemoteCentralController::UpdateBSS(quint32 actionType)
 {
     Event event(Device_ICentralController + Event_UpdateBSS);
+    event.insertQuint32(actionType);
     sendEvent(event);
 }
 

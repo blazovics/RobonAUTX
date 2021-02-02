@@ -12,6 +12,7 @@
 #include "Race.h"
 #include "RTimer.h"
 #include "DatabaseManager.h"
+#include "CentralController.h"
 #include <memory>
 
 #include <QTimer>
@@ -32,11 +33,13 @@ protected:
 
     std::shared_ptr<DatabaseManager> dbManager;
 
+    CentralController *parentController;
+
     void startRaceTimer();
     void stopRaceTimer();
 
 public: 
-    explicit RaceEvent(shared_ptr<DatabaseManager> dbManager, QObject *parent = nullptr);
+    explicit RaceEvent(shared_ptr<DatabaseManager> dbManager, CentralController* parentController, QObject *parent = nullptr);
     ~RaceEvent();
     
     /**

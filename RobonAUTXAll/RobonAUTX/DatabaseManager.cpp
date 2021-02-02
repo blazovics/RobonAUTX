@@ -411,14 +411,7 @@ QList<SpeedRaceResult> DatabaseManager::GetSpeedRaceResults(bool isJunior) {
 
         qint32 positionPoint = qint32(this->calculcateSpeedPointForPosition(returnResult[i].position));
 
-        if(positionPoint-returnResult[i].penalty < 0)
-        {
-            returnResult[i].speedPoint = 0;
-        }
-        else{
-            returnResult[i].speedPoint = quint32(positionPoint + returnResult[i].penalty);
-        }
-
+        returnResult[i].speedPoint = quint32(positionPoint + returnResult[i].penalty);
     }
 
     db.close();

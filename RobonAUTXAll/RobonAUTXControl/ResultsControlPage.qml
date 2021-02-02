@@ -219,7 +219,7 @@ Item {
                 text: qsTr("BSS adatközlés")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    controlUnit.qmlUpdateBSS();
+                    controlUnit.qmlUpdateBSS(0);
                 }
             }
         }

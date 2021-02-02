@@ -60,7 +60,7 @@ public slots:
     void PauseRaceTimer();
     void ResumeRaceTimer();
 
-    void UpdateBSS();
+    void UpdateBSS(quint32 actionType);
 };
 
 #endif //_REMOTECENTRALCONTROLLER_H

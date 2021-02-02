@@ -10,11 +10,13 @@
 
 #include "ICentralController.h"
 #include <memory>
-#include "RaceEvent.h"
+
 #include "DatabaseManager.h"
 
 #include "BSSSocketManager.h"
 #include "BSSCommunicator.h"
+
+class RaceEvent;
 
 class CentralController: public ICentralController {
 
@@ -66,12 +68,15 @@ public slots:
    void PauseRaceTimer();
    void ResumeRaceTimer();
 
-   void UpdateBSS();
+   void UpdateBSS(quint32 actionType);
 
    void saveResultsToFile();
 
 private slots:
    void bssConnected(bool alive);
+
+public:
+   void SkillRaceTimeout();
 };
 
 #endif //_CENTRALCONTROLLER_H

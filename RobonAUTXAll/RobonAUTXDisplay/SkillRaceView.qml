@@ -20,7 +20,7 @@ Rectangle{
     }
 
     function resetView(){
-        for(var i = 0; i<18; i++)
+        for(var i = 0; i<15; i++)
         {
             setCheckpointVisibility(i,false);
         }
@@ -188,7 +188,7 @@ Rectangle{
             font.family: roboto.name
             lineHeight: 1.2
             verticalAlignment: Text.AlignVCenter
-            font.pointSize: 70
+            font.pointSize: 55
         }
         anchors.topMargin: 20
         anchors.bottom: rectangle3.bottom
@@ -315,28 +315,7 @@ Rectangle{
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
-        Image {
-            id: checkpoint15
-            source: "resources/track/16.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.fill: parent
-        }
-        Image {
-            id: checkpoint16
-            source: "resources/track/17.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.fill: parent
-        }
-        Image {
-            id: checkpoint17
-            source: "resources/track/18.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.fill: parent
-        }
     }
 }
 
-/*##^## Designer {
-    D{i:11;anchors_height:100;anchors_width:100;anchors_x:335;anchors_y:208}D{i:10;anchors_height:200;anchors_width:200;anchors_x:293;anchors_y:280}
-}
- ##^##*/
+

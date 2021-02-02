@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include "VoteResult.h"
+#include "QualificationResult.h"
+#include "FinalResult.h"
+#include "SpeedRaceResult.h"
 
 class BSSCommunicator : public QObject
 {
@@ -29,11 +33,23 @@ public:
     void SendSafetyCarFollowed(int teamID,  bool followed);
     void SendSafetyCarOvertaken(int teamID, int occurence);
     void SendSpeedLapAchieved(int teamID, QList<quint32> laps);
-    void SendSpeedRaceFinished(int teamID, int totalScore, QList<int> laps);
+    
+    void SendJuniorSpeedRaceResult(int teamID, int totalScore, int bestSpeedTime, QList<int> laps);
+    void SendSeniorSpeedRaceResult(int teamID, int totalScore, int bestSpeedTime, QList<int> laps);
+
+    void SendJuniorSpeedRaceResults(QList<SpeedRaceResult> results);
+    void SendSeniorSpeedRaceResults(QList<SpeedRaceResult> results);
+
+    void SendVoteResult(QList<VoteResult> results);
+    void SendQualificationResult(QList<QualificationResult> results);
+    
+    void SendSeniorFinalResults(QList<FinalResult> results);
+    void SendJuniorFinalResults(QList<FinalResult> results);
 
     void SendQualificationResult(int teamID, int qualificationPoint);
     void SendAudienceResult(int teamID, int voteCount, int audiencePoint);
-    void SendFinalResult(int teamID, int totalScore, int rank, int juniorRank);
+    void SendSeniorFinalResult(int teamID, int totalScore);
+    void SendJuniorFinalResult(int teamID, int totalScore);
 
 signals:
 

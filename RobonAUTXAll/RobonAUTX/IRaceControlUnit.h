@@ -68,7 +68,7 @@ signals:
     void PauseRaceTimer();
     void ResumeRaceTimer();
 
-    void UpdateBSS();
+    void UpdateBSS(quint32 actionType);
 
 public slots:
 

@@ -24,7 +24,7 @@ qint64 SkillRaceEvent::getRemainingTime()
     return remainingTime;
 }
 
-SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent):RaceEvent (dbManager, parent)
+SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, CentralController* centralController, QObject *parent):RaceEvent (dbManager, centralController, parent)
 {
 
 }
@@ -126,6 +126,10 @@ quint32 SkillRaceEvent::GetLaneChangePoint()
 void SkillRaceEvent::updateRemainingTime()
 {
     remainingTime = static_cast<SkillRace*>(this->actualRace)->GetTimeCredit() - raceTimer.Elapsed();
+    if(remainingTime < 0 && remainingTime > -11)
+    {
+        this->parentController->SkillRaceTimeout();
+    }
 }
 
 void SkillRaceEvent::UpdateTimerFired()

@@ -19,7 +19,7 @@
         <file>resources/icons/10.png</file>
         <file>resources/RobonAUT_logo_black.png</file>
         <file>resources/digital-7.ttf</file>
-        <file>resources/Roboto.ttf</file>
+        <file alias="roboto.ttf">resources/Roboto.ttf</file>
         <file>SpeedRaceView.qml</file>
         <file>Footer.qml</file>
         <file>TopSpeeds.qml</file>
@@ -50,8 +50,5 @@
         <file>resources/track/13.png</file>
         <file>resources/track/14.png</file>
         <file>resources/track/15.png</file>
-        <file>resources/track/16.png</file>
-        <file>resources/track/17.png</file>
-        <file>resources/track/18.png</file>
     </qresource>
 </RCC>

@@ -20,7 +20,7 @@ private:
      qint64 remainingTime;
 
 public: 
-    explicit SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent = nullptr);
+    explicit SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, CentralController* centralController, QObject *parent = nullptr);
     /**
  * @param teamID
  */

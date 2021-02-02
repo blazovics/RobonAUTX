@@ -18,7 +18,7 @@ class SpeedRaceEvent: public RaceEvent {
     quint32 raceTimerOffset;
 
 public: 
-   explicit SpeedRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent = nullptr);
+   explicit SpeedRaceEvent(std::shared_ptr<DatabaseManager> dbManager, CentralController* centralController, QObject *parent = nullptr);
 
     void InitRace(quint32 teamID);
 

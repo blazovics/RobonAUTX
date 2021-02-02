@@ -16,7 +16,7 @@
 /**
  * @param teamID
  */
-SpeedRaceEvent::SpeedRaceEvent(std::shared_ptr<DatabaseManager> dbManager, QObject *parent):RaceEvent (dbManager,parent)
+SpeedRaceEvent::SpeedRaceEvent(std::shared_ptr<DatabaseManager> dbManager, CentralController *centralController, QObject *parent):RaceEvent (dbManager,centralController,parent)
 {
 
 }

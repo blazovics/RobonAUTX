@@ -105,7 +105,7 @@ public slots:
     void qmlPauseRaceTimer();
     void qmlResumeRaceTimer();
 
-    void qmlUpdateBSS();
+    void qmlUpdateBSS(quint32 actionType);
 
 signals:
     void showMainView();

@@ -129,7 +129,7 @@ public slots:
     virtual void PauseRaceTimer() = 0;
     virtual void ResumeRaceTimer() = 0;
 
-    virtual void UpdateBSS() = 0;
+    virtual void UpdateBSS(quint32 actionType) = 0;
 
 };
 

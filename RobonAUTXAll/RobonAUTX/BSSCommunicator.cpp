@@ -115,7 +115,7 @@ void BSSCommunicator::SendSpeedLapAchieved(int teamID, QList<quint32> laps)
     this->PostRequest(obj,"/api/speed/lap");
 }
 
-void BSSCommunicator::SendSpeedRaceFinished(int teamID, int totalScore, QList<int> laps)
+void BSSCommunicator::SendJuniorSpeedRaceResult(int teamID, int totalScore, int bestSpeedTime, QList<int> laps)
 {
     QJsonArray lapArray;
     for (quint32 lap : laps){
@@ -126,10 +126,79 @@ void BSSCommunicator::SendSpeedRaceFinished(int teamID, int totalScore, QList<in
 
     obj["teamId"]= teamID;
     obj["speedScore"]= totalScore;
-    obj["speedBonusScore"]= totalScore;
+    obj["bestSpeedTime"]= bestSpeedTime;
     obj["speedTimes"]= lapArray;
 
-    this->PostRequest(obj,"/api/speed/result");
+    this->PostRequest(obj,"/api/speed/result/junior");
+}
+
+void BSSCommunicator::SendSeniorSpeedRaceResult(int teamID, int totalScore, int bestSpeedTime, QList<int> laps)
+{
+    QJsonArray lapArray;
+    for (quint32 lap : laps){
+        lapArray.append(int(lap));
+    }
+
+    QJsonObject obj;
+
+    obj["teamId"]= teamID;
+    obj["speedScore"]= totalScore;
+    obj["bestSpeedTime"]= bestSpeedTime;
+    obj["speedTimes"]= lapArray;
+
+    this->PostRequest(obj,"/api/speed/result/senior");
+}
+
+void BSSCommunicator::SendJuniorSpeedRaceResults(QList<SpeedRaceResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        QList<int> lapList;
+        lapList.append(results[i].speedTime);
+        SendJuniorSpeedRaceResult(results[i].teamID,results[i].speedPoint,results[i].speedTime,lapList);
+    }
+}
+
+void BSSCommunicator::SendSeniorSpeedRaceResults(QList<SpeedRaceResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        QList<int> lapList;
+        lapList.append(results[i].speedTime);
+        SendSeniorSpeedRaceResult(results[i].teamID,results[i].speedPoint,results[i].speedTime,lapList);
+    }
+}
+
+void BSSCommunicator::SendVoteResult(QList<VoteResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        SendAudienceResult(results[i].teamID,results[i].voteCount,results[i].votePoint);
+    }
+}
+
+void BSSCommunicator::SendQualificationResult(QList<QualificationResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        SendQualificationResult(results[i].teamID,results[i].qualificationPoint);
+    }
+}
+
+void BSSCommunicator::SendSeniorFinalResults(QList<FinalResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        SendSeniorFinalResult(results[i].teamID,results[i].finalPoint);
+    }
+}
+
+void BSSCommunicator::SendJuniorFinalResults(QList<FinalResult> results)
+{
+    for(int i=0; i<results.size(); i++)
+    {
+        SendJuniorFinalResult(results[i].teamID,results[i].finalPoint);
+    }
 }
 
 void BSSCommunicator::SendQualificationResult(int teamID, int qualificationPoint)
@@ -153,16 +222,24 @@ void BSSCommunicator::SendAudienceResult(int teamID, int voteCount, int audience
     this->PostRequest(obj,"/api/scores/audience");
 }
 
-void BSSCommunicator::SendFinalResult(int teamID, int totalScore, int rank, int juniorRank)
+void BSSCommunicator::SendJuniorFinalResult(int teamID, int totalScore)
 {
     QJsonObject obj;
 
     obj["teamId"]= teamID;
     obj["totalScore"]= totalScore;
-    obj["rank"]= rank;
-    obj["juniorRank"]= juniorRank;
 
-    this->PostRequest(obj,"/api/scores/endResult");
+    this->PostRequest(obj,"/api/scores/endResult/junior");
+}
+
+void BSSCommunicator::SendSeniorFinalResult(int teamID, int totalScore)
+{
+    QJsonObject obj;
+
+    obj["teamId"]= teamID;
+    obj["totalScore"]= totalScore;
+
+    this->PostRequest(obj,"/api/scores/endResult/senior");
 }
 
 //Slots
