@@ -213,15 +213,7 @@ Item {
             anchors.topMargin: 20
             anchors.fill: parent
 
-            Button {
-                id: button8
-                width: 250
-                text: qsTr("BSS Közönség")
-                anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: {
-                    controlUnit.qmlUpdateBSS(0);
-                }
-            }
+
             Button {
                 id: button9
                 width: 250
@@ -238,6 +230,15 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     controlUnit.qmlUpdateBSS(2);
+                }
+            }
+            Button {
+                id: button8
+                width: 250
+                text: qsTr("BSS Közönség")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS(0);
                 }
             }
             Button {

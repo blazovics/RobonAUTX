@@ -23,7 +23,7 @@ void BSSCommunicator::SendStartSkillTimer(int offset)
     obj["timerAt"] = offset;
     obj["timerAction"] ="START";
 
-    this->PostRequest(obj,"/api/skill/timer/start");
+    this->PostRequest(obj,"/api/skill/timer");
 }
 
 void BSSCommunicator::SendStopSkillTimer(int offset)
@@ -33,7 +33,7 @@ void BSSCommunicator::SendStopSkillTimer(int offset)
     obj["timerAt"] = offset;
     obj["timerAction"] ="STOP";
 
-    this->PostRequest(obj,"/api/skill/timer/stop");
+    this->PostRequest(obj,"/api/skill/timer");
 }
 
 void BSSCommunicator::SendSkillScoreUpdated(int teamID, int bonusTime, int timeLeft, int newScore, int totalScore)
@@ -66,7 +66,7 @@ void BSSCommunicator::SendStartSpeedTimer(int offset)
     obj["timerAt"] = offset;
     obj["timerAction"] ="START";
 
-    this->PostRequest(obj,"/api/speed/timer/start");
+    this->PostRequest(obj,"/api/speed/timer");
 }
 
 void BSSCommunicator::SendStopSpeedimer(int offset)
@@ -76,7 +76,7 @@ void BSSCommunicator::SendStopSpeedimer(int offset)
     obj["timerAt"] = offset;
     obj["timerAction"] ="STOP";
 
-    this->PostRequest(obj,"/api/speed/timer/stop");
+    this->PostRequest(obj,"/api/speed/timer");
 }
 
 void BSSCommunicator::SendSafetyCarFollowed(int teamID, bool followed)
