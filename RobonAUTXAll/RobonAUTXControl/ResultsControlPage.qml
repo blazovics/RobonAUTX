@@ -196,7 +196,7 @@ Item {
     Rectangle {
         id: rectangle1
         y: 550
-        height: 200
+        height: 300
         color: "#99ffffff"
         anchors.left: rectangle.left
         anchors.leftMargin: 0
@@ -216,12 +216,40 @@ Item {
             Button {
                 id: button8
                 width: 250
-                text: qsTr("BSS adatközlés")
+                text: qsTr("BSS Közönség")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     controlUnit.qmlUpdateBSS(0);
                 }
             }
+            Button {
+                id: button9
+                width: 250
+                text: qsTr("BSS Kvalifikáció")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS(1);
+                }
+            }
+            Button {
+                id: button10
+                width: 250
+                text: qsTr("BSS Gyorsasági")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS(2);
+                }
+            }
+            Button {
+                id: button11
+                width: 250
+                text: qsTr("BSS Végeredmény")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS(3);
+                }
+            }
+
         }
     }
 
