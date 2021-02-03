@@ -373,14 +373,32 @@ void CentralController::ResumeRaceTimer()
 
 void CentralController::UpdateBSS(quint32 actionType)
 {
-    bssCommunicator->SendVoteResult(databaseManager->GetVoteResults());
-    bssCommunicator->SendQualificationResult(databaseManager->GetQualificationResults());
-    bssCommunicator->SendJuniorSpeedRaceResults(databaseManager->GetSpeedRaceResults(true));
-    bssCommunicator->SendSeniorSpeedRaceResults(databaseManager->GetSpeedRaceResults(false));
-    bssCommunicator->SendJuniorFinalResults(databaseManager->GetFinalResults(true));
-    bssCommunicator->SendSeniorFinalResults(databaseManager->GetFinalResults(false));
+    switch (actionType) {
+    case 0:
+    {
+        bssCommunicator->SendVoteResult(databaseManager->GetVoteResults());
+    }
+        break;
+    case 1:
+    {
+        bssCommunicator->SendQualificationResult(databaseManager->GetQualificationResults());
+    }
+        break;
+    case 2:
+    {
+        bssCommunicator->SendJuniorSpeedRaceResults(databaseManager->GetSpeedRaceResults(true));
+        bssCommunicator->SendSeniorSpeedRaceResults(databaseManager->GetSpeedRaceResults(false));
+    }
+        break;
+    case 3:
+    {
+        bssCommunicator->SendJuniorFinalResults(databaseManager->GetFinalResults(true));
+        bssCommunicator->SendSeniorFinalResults(databaseManager->GetFinalResults(false));
 
-    saveResultsToFile();
+        saveResultsToFile();
+    }
+        break;
+    }
 }
 
 void CentralController::saveResultsToFile()
