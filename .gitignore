@@ -50,3 +50,13 @@ RobonAUTXAll/RobonAUTXMaster/debug/*
 RobonAUTXAll/RobonAUTX/.qmake.stash
 
 installerScripts/Output/
+
+RobonAUTXAll/RobonAUTXControl/RobonAUTXControl
+
+RobonAUTXAll/RobonAUTXControl/RobonAUTXControl.dSYM/Contents/Resources/DWARF/RobonAUTXControl
+
+RobonAUTXAll/RobonAUTXMaster/RobonAUTXMaster.dSYM/Contents/Resources/DWARF/RobonAUTXMaster
+
+RobonAUTXAll/RobonAUTXMaster/RobonAUTXMaster
+
+RobonAUTXAll/RobonAUTXDisplay/RobonAUTXDisplay
