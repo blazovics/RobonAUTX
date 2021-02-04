@@ -80,6 +80,7 @@ QList<Team> DatabaseManager::getTeamList() {
         teamItem.setIsJunior(query.value(isJuniorPos).toBool());
         teamItem.setAudienceVoteCount(query.value(audienceVoteCountPos).toUInt());
         teamItem.setQualificationPoint(query.value(qualificationPointPos).toUInt());
+        teamItem.setTeamMembers(this->getTeamMembers(teamItem.getTeamID()));
 
         teams.push_back(teamItem);
     }
@@ -111,6 +112,7 @@ Team DatabaseManager::getTeam(QString name) {
         returnTeam.setIsJunior(query.value(isJuniorPos).toBool());
         returnTeam.setAudienceVoteCount(query.value(audienceVoteCountPos).toUInt());
         returnTeam.setQualificationPoint(query.value(qualificationPointPos).toUInt());
+        returnTeam.setTeamMembers(this->getTeamMembers(returnTeam.getTeamID()));
     }
 
     db.close();
@@ -139,6 +141,7 @@ Team DatabaseManager::getTeam(int id) {
         returnTeam.setIsJunior(query.value(isJuniorPos).toBool());
         returnTeam.setAudienceVoteCount(query.value(audienceVoteCountPos).toUInt());
         returnTeam.setQualificationPoint(query.value(qualificationPointPos).toUInt());
+        returnTeam.setTeamMembers(this->getTeamMembers(returnTeam.getTeamID()));
     }
 
     db.close();
@@ -156,6 +159,20 @@ QString DatabaseManager::getTeamName(int id) {
         returnName = query.value(namePos).toString();
     }
     return returnName;
+}
+
+QList<QString> DatabaseManager::getTeamMembers(int id)
+{
+    QList<QString> returnTeamMembers;
+
+    QSqlQuery query(QString("SELECT Name FROM TeamMember WHERE TeamID=%1").arg(id));
+
+    int namePos = query.record().indexOf("Name");
+
+    while(query.next()) {
+        returnTeamMembers.push_back(query.value(namePos).toString());
+    }
+    return returnTeamMembers;
 }
 
 /**

@@ -54,7 +54,7 @@ public:
     void SendSeniorFinalResult(int teamID, int totalScore);
     void SendJuniorFinalResult(int teamID, int totalScore);
 
-    void SendTeam(int teamID, QString name, bool isJunior);
+    void SendTeam(int teamID, QString name, bool isJunior, QList<QString> teamMembers);
 
 signals:
 

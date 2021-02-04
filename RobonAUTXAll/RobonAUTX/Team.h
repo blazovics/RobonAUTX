@@ -18,6 +18,7 @@ class Team: public DBRecord  {
     quint32 audienceVoteCount;
     quint32 qualificationPoint;
     bool isJunior;
+    QList<QString> teamMembers;
 
 public:
     Team();
@@ -31,7 +32,9 @@ public:
     bool getIsJunior() const;
     void setIsJunior(bool value);
     quint32 getAudienceVoteCount() const;
-    void setAudienceVoteCount(const quint32 &value);
+    void setAudienceVoteCount(const quint32 &value);    
+    QList<QString> getTeamMembers() const;
+    void setTeamMembers(const QList<QString> &value);
 
     friend QDataStream &operator<<(QDataStream &, const Team &);
     friend QDataStream &operator>>(QDataStream &, Team &);

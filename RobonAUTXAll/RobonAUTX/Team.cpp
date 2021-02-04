@@ -66,6 +66,16 @@ void Team::setAudienceVoteCount(const quint32 &value)
     audienceVoteCount = value;
 }
 
+QList<QString> Team::getTeamMembers() const
+{
+    return teamMembers;
+}
+
+void Team::setTeamMembers(const QList<QString> &value)
+{
+    teamMembers = value;
+}
+
 Team::Team()
 {
     
@@ -78,6 +88,7 @@ QDataStream &operator<<(QDataStream &out, const Team &team)
     out << team.audienceVoteCount;
     out << team.qualificationPoint;
     out << quint32(team.isJunior);
+    out << team.teamMembers;
 
     return out;
 }
@@ -91,6 +102,7 @@ QDataStream &operator>>(QDataStream &in, Team &team)
     quint32 intIsJunior;
     in >> intIsJunior;
     team.isJunior = bool(intIsJunior);
+    in >> team.teamMembers;
 
     return in;
 }

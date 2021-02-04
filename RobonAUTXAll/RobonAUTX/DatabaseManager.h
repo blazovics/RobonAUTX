@@ -55,6 +55,8 @@ private:
     void saveLap(const Lap &lap, int SpeedRaceID);
     QString getTeamName(int id);
 
+    QList<QString> getTeamMembers(int id);
+
     quint32 calculcateVotePointForPosition(quint32 position);
     quint32 calculcateSpeedPointForPosition(quint32 position);
 };

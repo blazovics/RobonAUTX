@@ -205,7 +205,7 @@ void BSSCommunicator::SendTeams(QList<Team> teams)
 {
     for(int i=0; i<teams.size(); i++)
     {
-        SendTeam(teams[i].getTeamID(),teams[i].getName(),teams[i].getIsJunior());
+        SendTeam(teams[i].getTeamID(),teams[i].getName(),teams[i].getIsJunior(),teams[i].getTeamMembers());
     }
 }
 
@@ -240,13 +240,19 @@ void BSSCommunicator::SendJuniorFinalResult(int teamID, int totalScore)
     this->PostRequest(obj,"/api/scores/endResult/junior");
 }
 
-void BSSCommunicator::SendTeam(int teamID, QString name, bool isJunior)
+void BSSCommunicator::SendTeam(int teamID, QString name, bool isJunior, QList<QString> teamMembers)
 {
     QJsonObject obj;
+
+    QJsonArray teamMemberArray;
+    for (QString teamMember : teamMembers){
+        teamMemberArray.append(teamMember);
+    }
 
     obj["teamId"]= teamID;
     obj["teamName"]= name;
     obj["teamType"]= isJunior ? "JUNIOR" : "SENIOR";
+    obj["teamMembers"] = teamMemberArray;
 
     this->PostRequest(obj,"/api/team");
 

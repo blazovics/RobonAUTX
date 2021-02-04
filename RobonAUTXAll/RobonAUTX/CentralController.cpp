@@ -463,6 +463,11 @@ void CentralController::saveResultsToFile()
     }
 }
 
+void CentralController::saveResultsToHTML()
+{
+
+}
+
 void CentralController::bssConnected(bool alive)
 {
     if(alive)
