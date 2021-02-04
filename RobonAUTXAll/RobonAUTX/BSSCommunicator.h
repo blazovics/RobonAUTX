@@ -8,6 +8,7 @@
 #include "QualificationResult.h"
 #include "FinalResult.h"
 #include "SpeedRaceResult.h"
+#include "Team.h"
 
 class BSSCommunicator : public QObject
 {
@@ -46,10 +47,14 @@ public:
     void SendSeniorFinalResults(QList<FinalResult> results);
     void SendJuniorFinalResults(QList<FinalResult> results);
 
+    void SendTeams(QList<Team> teams);
+
     void SendQualificationResult(int teamID, int qualificationPoint);
     void SendAudienceResult(int teamID, int voteCount, int audiencePoint);
     void SendSeniorFinalResult(int teamID, int totalScore);
     void SendJuniorFinalResult(int teamID, int totalScore);
+
+    void SendTeam(int teamID, QString name, bool isJunior);
 
 signals:
 

@@ -213,6 +213,15 @@ Item {
             anchors.topMargin: 20
             anchors.fill: parent
 
+            Button {
+                id: button12
+                width: 250
+                text: qsTr("BSS Csapatok")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    controlUnit.qmlUpdateBSS(4);
+                }
+            }
 
             Button {
                 id: button9
@@ -250,6 +259,7 @@ Item {
                     controlUnit.qmlUpdateBSS(3);
                 }
             }
+
 
         }
     }

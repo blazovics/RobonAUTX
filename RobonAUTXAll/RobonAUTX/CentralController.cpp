@@ -398,6 +398,11 @@ void CentralController::UpdateBSS(quint32 actionType)
         saveResultsToFile();
     }
         break;
+    case 4:
+    {
+        bssCommunicator->SendTeams(databaseManager->getTeamList());
+    }
+        break;
     }
 }
 

@@ -201,6 +201,14 @@ void BSSCommunicator::SendJuniorFinalResults(QList<FinalResult> results)
     }
 }
 
+void BSSCommunicator::SendTeams(QList<Team> teams)
+{
+    for(int i=0; i<teams.size(); i++)
+    {
+        SendTeam(teams[i].getTeamID(),teams[i].getName(),teams[i].getIsJunior());
+    }
+}
+
 void BSSCommunicator::SendQualificationResult(int teamID, int qualificationPoint)
 {
     QJsonObject obj;
@@ -230,6 +238,18 @@ void BSSCommunicator::SendJuniorFinalResult(int teamID, int totalScore)
     obj["totalScore"]= totalScore;
 
     this->PostRequest(obj,"/api/scores/endResult/junior");
+}
+
+void BSSCommunicator::SendTeam(int teamID, QString name, bool isJunior)
+{
+    QJsonObject obj;
+
+    obj["teamId"]= teamID;
+    obj["teamName"]= name;
+    obj["teamType"]= isJunior ? "JUNIOR" : "SENIOR";
+
+    this->PostRequest(obj,"/api/team");
+
 }
 
 void BSSCommunicator::SendSeniorFinalResult(int teamID, int totalScore)
