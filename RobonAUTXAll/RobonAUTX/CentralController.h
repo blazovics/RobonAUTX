@@ -72,8 +72,15 @@ public slots:
 
    void saveResultsToFile();
 
+   void saveResultsToHTML();
+
 private slots:
    void bssConnected(bool alive);
+
+private:
+   void SaveVoteResultToHTML();
+   void SaveFinalResultToHTML();
+   void SaveJuniorFinalResultToHTML();
 
 public:
    void SkillRaceTimeout();

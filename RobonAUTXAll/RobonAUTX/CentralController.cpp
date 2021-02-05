@@ -36,6 +36,9 @@ CentralController::CentralController() {
 
     connect(&bssManager, SIGNAL(connectionActive(bool)), this,SLOT(bssConnected(bool)));
 
+    //DEBUG
+    this->saveResultsToHTML();
+
 }
 
 CentralController::~CentralController()
@@ -194,17 +197,22 @@ void CentralController::FinishRace(bool aborted)
 
     if(this->raceEvent->getType() == Skill)
     {
-        emit ClearSkillGates();
+
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr && aborted == false)
         {
             this->InitSpeedRace(currentEvent->GetTeamID());
+        }
+        else
+        {
+            emit ClearSkillGates();
         }
 
         bssCommunicator->SendStopSkillTimer(0);
     }
     else{
         emit StartSafetyCar();
+        emit ClearSkillGates();
 
         bssCommunicator->SendStopSpeedimer(0);
     }
@@ -465,7 +473,9 @@ void CentralController::saveResultsToFile()
 
 void CentralController::saveResultsToHTML()
 {
-
+    this->SaveVoteResultToHTML();
+    this->SaveFinalResultToHTML();
+    this->SaveJuniorFinalResultToHTML();
 }
 
 void CentralController::bssConnected(bool alive)
@@ -474,6 +484,124 @@ void CentralController::bssConnected(bool alive)
     {
         bssManager.sendQualificationPoints(databaseManager->GetQualificationResults());
     }
+}
+
+void CentralController::SaveVoteResultToHTML()
+{
+    QString path = QDir::home().filePath("voteResults.html");
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+            qDebug()<<file.errorString();
+            return;
+    }
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+
+    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Közönségszavazat</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th  class=\"tg-header\">Közönség szavazat</th><th class=\"tg-headertg-bold\">Pontszám</th></tr></thead><tbody>");
+
+    QList<VoteResult> voteResults = databaseManager->GetVoteResults();
+
+    for(VoteResult res: voteResults)
+    {
+
+        out<<"<td class=\"tg-data  tg-bold\">"<<res.position<<"</td>";
+        out<<"<td class=\"tg-data tg-bold tg-lefttext\">"<<res.teamName<<"</td>";
+        out<<"<td class=\"tg-data\">"<<res.voteCount<<"</td>";
+        out<<"<td class=\"tg-data  tg-bold\">"<<res.votePoint<<"</td>";
+
+        out<<"</tr>";
+
+    }
+
+    out<<QString::fromUtf8("</tbody></table>");
+}
+
+void CentralController::SaveFinalResultToHTML()
+{
+    QString path = QDir::home().filePath("FinalResults.html");
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+            qDebug()<<file.errorString();
+            return;
+    }
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+
+    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Összesített Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-header\">Kvalifikáció</th><th class=\"tg-header tg-bold\">Összes</th></tr></thead><tbody>");
+
+    QList<FinalResult> teamResults = databaseManager->GetFinalResults(false);
+
+    for(FinalResult res: teamResults)
+    {
+
+        out<<"<td  class=\"tg-data  tg-bold\">"<<res.position<<"</td>";
+        out<<"<td  class=\"tg-data tg-bold tg-lefttext\">"<<res.teamName<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.skillPoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.speedPoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.votePoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
+        out<<"<td  class=\"tg-data  tg-bold\">"<<res.finalPoint<<"</td>";
+
+        out<<"</tr></tr><td></td><td  class=\"tg-members\">";
+
+        Team t = databaseManager->getTeam(res.teamID);
+        for(QString memberName: t.getTeamMembers())
+        {
+            out<<memberName<<"<br/>";
+        }
+
+        out<<"</td><td></td><td></td><td></td><td></td><td></td></tr>";
+
+    }
+
+    out<<QString::fromUtf8("</tbody></table>");
+}
+
+void CentralController::SaveJuniorFinalResultToHTML()
+{
+    QString path = QDir::home().filePath("JuniorResults.html");
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+            qDebug()<<file.errorString();
+            return;
+    }
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+
+    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Junior Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-header\">Kvalifikáció</th><th class=\"tg-headertg-bold\">Összes</th></tr></thead><tbody>");
+
+    QList<FinalResult> teamResults = databaseManager->GetFinalResults(true);
+
+    for(FinalResult res: teamResults)
+    {
+
+        out<<"<td  class=\"tg-data  tg-bold\">"<<res.position<<"</td>";
+        out<<"<td  class=\"tg-data tg-bold tg-lefttext\">"<<res.teamName<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.skillPoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.speedPoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.votePoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
+        out<<"<td  class=\"tg-data  tg-bold\">"<<res.finalPoint<<"</td>";
+
+        out<<"</tr></tr><td></td><td  class=\"tg-members\">";
+
+        Team t = databaseManager->getTeam(res.teamID);
+        for(QString memberName: t.getTeamMembers())
+        {
+            out<<memberName<<"<br/>";
+        }
+
+        out<<"</td><td></td><td></td><td></td><td></td><td></td></tr>";
+
+    }
+
+    out<<QString::fromUtf8("</tbody></table>");
 }
 
 void CentralController::SkillRaceTimeout()
