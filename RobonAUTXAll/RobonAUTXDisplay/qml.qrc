@@ -16,7 +16,6 @@
         <file>resources/icons/7.png</file>
         <file>resources/icons/8.png</file>
         <file>resources/icons/9.png</file>
-        <file>resources/icons/10.png</file>
         <file>resources/RobonAUT_logo_black.png</file>
         <file>resources/digital-7.ttf</file>
         <file alias="roboto.ttf">resources/Roboto.ttf</file>
@@ -46,7 +45,6 @@
         <file>resources/track/8.png</file>
         <file>resources/track/9.png</file>
         <file>resources/track/palyaterv_red.png</file>
-        <file>resources/icons/11.png</file>
         <file>resources/track/13.png</file>
         <file>resources/track/14.png</file>
         <file>resources/track/15.png</file>

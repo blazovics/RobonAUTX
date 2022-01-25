@@ -530,10 +530,21 @@ QList<FinalResult> DatabaseManager::GetFinalResults(bool isJunior) {
 
     for(int i=0, pos = 1; i<returnResult.size(); i++)
     {
-        if(i>0 && returnResult[i].finalPoint != returnResult[i-1].finalPoint)
+        if(i>0)
         {
+            if(returnResult[i].finalPoint == returnResult[i-1].finalPoint)
+            {
+                //swap order if the speed time is not greater
+                if(returnResult[i].speedTime < returnResult[i-1].speedTime){
+                    FinalResult tmp = returnResult[i];
+                    returnResult[i] = returnResult[i-1];
+                    returnResult[i-1] = tmp;
+                    returnResult[i-1].position = quint32(pos);
+                }
+            }
             pos++;
         }
+
         returnResult[i].position = quint32(pos);
     }
 

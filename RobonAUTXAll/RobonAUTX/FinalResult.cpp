@@ -52,5 +52,9 @@ quint32 FinalResult::CalculateFinalPoint()
 
 bool FinalResult::operator < (const FinalResult& otherResult) const
 {
+    if(finalPoint == otherResult.finalPoint)
+    {
+        return (speedTime < otherResult.speedTime);
+    }
     return (finalPoint > otherResult.finalPoint);
 }
