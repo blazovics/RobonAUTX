@@ -207,8 +207,8 @@ void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
 
     QSqlQuery query;
 
-    query.prepare("INSERT INTO SkillRace (TeamID, StartSucceeded, LaneChangeSucceeded, CheckpointState, Time, Points, IsAborted)"
-                  "VALUES (:TeamID, :StartSucceeded, :LaneChangeSucceeded, :CheckpointState, :Time, :Points, :IsAborted)");
+    query.prepare("INSERT INTO SkillRace (TeamID, StartSucceeded, LaneChangeSucceeded, CheckpointState, Time, Points, WrongGateCount, IsAborted)"
+                  "VALUES (:TeamID, :StartSucceeded, :LaneChangeSucceeded, :CheckpointState, :Time, :Points, :WrongGateCount, :IsAborted)");
 
     query.bindValue(":TeamID",skillRace->getTeamID());
     query.bindValue(":StartSucceeded",quint32(skillRace->GetStartSucceeded()));
@@ -216,6 +216,7 @@ void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
     query.bindValue(":CheckpointState",skillRace->GetSerializedCheckpointStates());
     query.bindValue(":Time",skillRace->getRaceTime());
     query.bindValue(":Points", skillRace->GetRacePoint());
+    query.bindValue(":WrongGateCount", skillRace->GetWrongGateCount());
     query.bindValue(":IsAborted", quint32(aborted));
 
     if(!query.exec())
@@ -374,13 +375,14 @@ QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
     QList<SkillRaceResult> returnResult;
     openDatabse();
 
-    QSqlQuery query(QString("SELECT  TeamID, MAX(Points) As Result FROM SkillRace WHERE IsAborted = 0 GROUP BY teamID ORDER BY Result DESC"));
+    QSqlQuery query(QString("SELECT  TeamID, MAX(Points) As Result, WrongGateCount FROM SkillRace WHERE IsAborted = 0 GROUP BY teamID ORDER BY Result DESC"));
 
     while (query.next()) {
         SkillRaceResult result;
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.skillPoint = query.value(1).toUInt();
+        result.wrongGateCount = query.value(2).toUInt();
         returnResult.push_back(result);
     }
 

@@ -107,6 +107,10 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
         break;
     case Device_RaceControlUnit + Event_TargetCheckpointUpdated:
         localUnit->TargetCheckpointUpdated(event.extractQuint32FromRawData());
+        break;
+    case Device_RaceControlUnit + Event_WrongGateCountModified:
+        localUnit->WrongGateCountModified(event.extractQuint32FromRawData());
+        break;
     }
 }
 
@@ -222,6 +226,13 @@ void RemoteRaceControlUnit::TouchCountModified(quint32 numberOfTouches)
 {
     Event event(Device_RaceControlUnit + Event_TouchCountModified);
     event.insertQuint32(numberOfTouches);
+    sendEvent(event);
+}
+
+void RemoteRaceControlUnit::WrongGateCountModified(quint32 numberOfWrongGates)
+{
+    Event event(Device_RaceControlUnit + Event_WrongGateCountModified);
+    event.insertQuint32(numberOfWrongGates);
     sendEvent(event);
 }
 

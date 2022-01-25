@@ -61,6 +61,12 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
     return  false;
 }
 
+quint32 SkillRaceEvent::ModifyWrongGateCount(quint32 wrongGateCount)
+{
+    static_cast<SkillRace*>(this->actualRace)->setWrongGateCount(wrongGateCount);
+    return static_cast<SkillRace*>(this->actualRace)->GetWrongGateCount();
+}
+
 bool SkillRaceEvent::IsLastCheckpointReached()
 {
     return static_cast<SkillRace*>(this->actualRace)->IsLastCheckpointReached();
@@ -111,6 +117,11 @@ quint32 SkillRaceEvent::GetActualPoints()
 quint32 SkillRaceEvent::GetTimeCredit()
 {
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
+}
+
+quint32 SkillRaceEvent::GetWrongGatePoints()
+{
+    return quint32(static_cast<SkillRace*>(this->actualRace)->GetWrongGatePoint());
 }
 
 quint64 SkillRaceEvent::GetLaneChangeTime()

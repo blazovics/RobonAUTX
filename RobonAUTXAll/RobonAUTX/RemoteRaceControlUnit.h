@@ -48,6 +48,7 @@ public slots:
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 numberOfTouches);
+    void WrongGateCountModified(quint32 numberOfWrongGates);
 
     void RaceTimerPaused();
     void RaceTimerResumed();

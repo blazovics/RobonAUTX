@@ -100,7 +100,12 @@ void RemoteCentralController::EventReceived(Event &event)
     case Device_ICentralController + Event_ModifyTouchCount:
         localController->ModifyTouchCount(event.extractQuint32FromRawData());
         break;
-
+    case Device_ICentralController + Event_ModifyWrongGateCount:
+        localController->ModifyWrongGateCount(event.extractQuint32FromRawData());
+        break;
+    case Device_ICentralController + Event_WrongGatePassed:
+        localController->WrongGatePassed();
+        break;
     case Device_ICentralController + Event_ShowSpeedResults:
     {
         quint32 first = event.extractBoolFromRawData();
@@ -261,6 +266,19 @@ void RemoteCentralController:: ModifyTouchCount(quint32 touchCount)
 {
     Event event(Device_ICentralController + Event_ModifyTouchCount);
     event.insertQuint32(touchCount);
+    sendEvent(event);
+}
+
+void RemoteCentralController::ModifyWrongGateCount(quint32 wrongGateCount)
+{
+    Event event(Device_ICentralController + Event_ModifyWrongGateCount);
+    event.insertQuint32(wrongGateCount);
+    sendEvent(event);
+}
+
+void RemoteCentralController::WrongGatePassed()
+{
+    Event event(Device_ICentralController + Event_WrongGatePassed);
     sendEvent(event);
 }
 

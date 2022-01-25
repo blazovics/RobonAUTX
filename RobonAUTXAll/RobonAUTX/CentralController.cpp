@@ -308,6 +308,38 @@ void CentralController::ModifyTouchCount(quint32 touchCount)
     }
 }
 
+void CentralController::ModifyWrongGateCount(quint32 wrongGateCount)
+{
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
+        emit WrongGateCountModified(updatedWrongGateCount);
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+    }
+    else {
+        //throw std::bad_cast();
+    }
+}
+
+void CentralController::WrongGatePassed()
+{
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        quint32 wrongGateCount = currentEvent->GetWrongGatePoints();
+        wrongGateCount+=1;
+        quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
+        emit WrongGateCountModified(updatedWrongGateCount);
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+    }
+    else {
+        //throw std::bad_cast();
+    }
+}
+
 void CentralController::ShowSpeedResults(bool isJunior, quint32 fromPos)
 {
     emit showSpeedResults(this->databaseManager->GetSpeedRaceResults(isJunior),isJunior,fromPos);

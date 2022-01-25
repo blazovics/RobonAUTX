@@ -54,6 +54,7 @@ void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
 {
     eventType = Skill;
     approvedCheckpointIndex = 0;
+    wrongGateCount = 0;
     emit showSkillRaceView(teamID);
 }
 
@@ -153,6 +154,11 @@ void RaceControlUnit::SafetyCarOvertakeConfirmed(quint32 value)
 void RaceControlUnit::TouchCountModified(quint32 numberOfTouches)
 {
     emit updateTouchCountModified(numberOfTouches);
+}
+
+void RaceControlUnit::WrongGateCountModified(quint32 numberOfWrongGates)
+{
+    emit updateWrongGateCountModified(numberOfWrongGates);
 }
 
 void RaceControlUnit::RaceTimerPaused()
@@ -262,6 +268,26 @@ void RaceControlUnit::qmlDecreaseTouchCount()
         touchCount--;
     }
     emit ModifyTouchCount(touchCount);
+}
+
+void RaceControlUnit::qmlIncreaseWrongGateCount()
+{
+    if(wrongGateCount < 100)
+    {
+        wrongGateCount++;
+    }
+    emit ModifyWrongGateCount(wrongGateCount);
+
+}
+
+void RaceControlUnit::qmlDecreaseWrongGateCount()
+{
+    if(wrongGateCount > 0)
+    {
+        wrongGateCount--;
+    }
+    emit ModifyWrongGateCount(wrongGateCount);
+
 }
 
 void RaceControlUnit::qmlIncreaseCheckpoint()

@@ -13,7 +13,8 @@ Rectangle {
     signal laneChangeSucceededButtonPressed(bool state);
     signal decreaseActiveCheckpoint();
     signal increaseActiveCheckpoint();
-
+    signal decreaseWrongGateCount();
+    signal increaseWrongGateCount();
 
     function resetContainer(){
         //startSuccededButton.checked = false;
@@ -120,6 +121,27 @@ Rectangle {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             onReleased: {
                 checkpoints_container.laneChangeSucceededButtonPressed(checked);
+            }
+        }
+
+        RowLayout{
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Button {
+                text: "Error -"
+                id: decreaseWrongGateButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.decreaseWrongGateCount();
+                }
+            }
+            Button {
+                text: "Error +"
+                id: increaseWrongGateButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.increaseWrongGateCount();
+                }
             }
         }
 

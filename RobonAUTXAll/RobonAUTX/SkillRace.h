@@ -12,6 +12,7 @@
 #define SkillCheckpointPoint 2
 #define SkillStartPoint 0
 #define SkillLaneChangePoint 10
+#define SkillWrongGatePoint 1
 
 #include "Race.h"
 #include <vector>
@@ -25,6 +26,8 @@ private:
     bool startSucceeded;
     bool laneChangeSucceeded;
 
+    quint32 wrongGateCount;
+
     quint64 laneChangeTime;
 
     qint64 raceTime;
@@ -35,6 +38,7 @@ public:
     static const quint32 checkpointPoint;
     static const quint32 startPoint;
     static const quint32 laneChangePoint;
+    static const quint32 wrongGatePoint;
 
     /**
     * @param teamID
@@ -42,6 +46,10 @@ public:
     SkillRace(quint32 teamID);
     
     quint32 GetRacePoint() const;
+
+    quint32 GetWrongGateCount() const;
+
+    quint32 GetWrongGatePoint() const;
     
     bool GetCheckpointState(quint32 index) const;
 
@@ -61,7 +69,9 @@ public:
 
     qint64 GetTimeCredit() const;
 
-    static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
+    static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime);
+
+    static quint32 CalculateWrongGatePoints(quint32 wrongGateCount);
 
     quint32 GetSerializedCheckpointStates() const;
 
@@ -70,6 +80,7 @@ public:
     quint32 getLaneChangeTime() const;
 
     quint32 GetLaneChangePoint() const;
+    void setWrongGateCount(quint32 newWrongGateCount);
 };
 
 

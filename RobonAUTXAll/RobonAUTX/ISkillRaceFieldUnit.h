@@ -19,6 +19,7 @@
 #define Event_StopSafetyCar 5
 #define Event_HeartBeat 2
 #define Event_StartSkillRaceGate 34
+#define Event_WrongGate 53
 
 class ISkillRaceFieldUnit : public QObject {
 
@@ -32,6 +33,7 @@ signals:
     void checkpointsReseted();
     void ConnectionStatusUpdated(quint32 status);
     void SkillRaceGateStarted();
+    void WrongGatePassed();
 
 public slots:
 

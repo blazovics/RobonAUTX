@@ -54,6 +54,9 @@ public slots:
    void SafetyCarFollowed(bool achieved);
    void SafetyCarOvertaken(quint32 value);
    void ModifyTouchCount(quint32 touchCount);
+   void ModifyWrongGateCount(quint32 wrongGateCount);
+
+   void WrongGatePassed();
 
    void ShowSpeedResults(bool isJunior, quint32 fromPos);
    void ShowSkillResults(quint32 fromPos);

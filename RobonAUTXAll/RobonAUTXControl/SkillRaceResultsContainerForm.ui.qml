@@ -4,11 +4,12 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     width: 200
-    height: 250
+    height: 300
     color: "#99ffffff"
     property alias skillRacePointLabel: skillRacePointLabel
     property alias elapsedTimeLabel: elapsedTimeLabel
     property alias remainingTimeLabel: remainingTimeLabel
+    property alias wrongGateCountLabel: wrongGateCountLabel
 
     Column {
         id: column
@@ -56,5 +57,24 @@ Rectangle {
             horizontalAlignment: Text.AlignRight
             font.pointSize: 33
         }
+        Label {
+            id: label3
+            text: qsTr("Wrong Gates:")
+        }
+
+        Label {
+            id: wrongGateCountLabel
+            text: qsTr("1")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 33
+        }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:2}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}D{i:7}D{i:8}D{i:9}D{i:1}
+}
+##^##*/

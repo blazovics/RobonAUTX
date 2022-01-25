@@ -26,6 +26,7 @@
 #define Event_RaceTimerPaused 16
 #define Event_RaceTimerResumed 17
 #define Event_TargetCheckpointUpdated 18
+#define Event_WrongGateCountModified 19
 
 #define Device_RaceControlUnit 200
 
@@ -54,6 +55,7 @@ signals:
     void SafetyCarFollowed(bool achieved);
     void SafetyCarOvertaken(quint32 value);
     void ModifyTouchCount(quint32 numberOfTouches);
+    void ModifyWrongGateCount(quint32 numberOfWrongGates);
 
     void ShowSpeedResults(bool isJunior, quint32 fromPos);
     void ShowSkillResults(quint32 fromPos);
@@ -88,6 +90,7 @@ public slots:
     virtual void SafetyCarFollowingConfirmed(bool achieved) = 0;
     virtual void SafetyCarOvertakeConfirmed(quint32 value) = 0;
     virtual void TouchCountModified(quint32 numberOfTouches) = 0;
+    virtual void WrongGateCountModified(quint32 numberOfWrongGates) = 0;
 
     virtual void RaceTimerPaused() = 0;
     virtual void RaceTimerResumed() = 0;

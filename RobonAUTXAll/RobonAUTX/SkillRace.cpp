@@ -11,6 +11,7 @@ const quint32 SkillRace::checkpointCount = SkillCheckpointCount;
 const quint32 SkillRace::checkpointPoint = SkillCheckpointPoint;
 const quint32 SkillRace::startPoint = SkillStartPoint;
 const quint32 SkillRace::laneChangePoint = SkillLaneChangePoint;
+const quint32 SkillRace::wrongGatePoint = SkillWrongGatePoint;
 
 /**
  * SkillRace implementation
@@ -31,6 +32,21 @@ quint32 SkillRace::getLaneChangeTime() const
     return laneChangeTime;
 }
 
+void SkillRace::setWrongGateCount(quint32 newWrongGateCount)
+{
+    wrongGateCount = newWrongGateCount;
+}
+
+quint32 SkillRace::GetWrongGateCount() const
+{
+    return this->wrongGateCount;
+}
+
+quint32 SkillRace::GetWrongGatePoint() const
+{
+    return CalculateWrongGatePoints(this->wrongGateCount);
+}
+
 SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     
     for(unsigned i = 0; i<checkpointCount; i++)
@@ -43,7 +59,7 @@ SkillRace::SkillRace(quint32 teamID):Race(teamID) {
 }
 
 quint32 SkillRace::GetRacePoint() const {
-    return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded, this->laneChangeTime);
+    return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded, this->wrongGateCount, this->laneChangeTime);
 }
 
 bool SkillRace::GetCheckpointState(quint32 index) const
@@ -134,7 +150,7 @@ quint32 SkillRace::GetLaneChangePoint() const
     return unlimitedPoint > laneChangePoint ? laneChangePoint : unlimitedPoint;
 }
 
-quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime)
+quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime)
 {
     quint32 resultPoint = 0;
     for(unsigned i = 0; i < checkpointStates.size(); i++)
@@ -153,8 +169,25 @@ quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool 
         quint32 unlimitedPoint = laneChangeTime / 5000;
         resultPoint += unlimitedPoint > laneChangePoint ? laneChangePoint : unlimitedPoint;
     }
+
+    quint32 wrongGatePenaltyPoint = CalculateWrongGatePoints(wrongGateCount);
+
+    if(resultPoint > wrongGatePenaltyPoint)
+    {
+        resultPoint -= wrongGatePenaltyPoint;
+    }
+    else{
+        resultPoint = 0;
+    }
+
     return resultPoint;
 }
+
+quint32 SkillRace::CalculateWrongGatePoints(quint32 wrongGateCount)
+{
+    return wrongGateCount * wrongGatePoint;
+}
+
 
 quint32 SkillRace::GetSerializedCheckpointStates() const
 {

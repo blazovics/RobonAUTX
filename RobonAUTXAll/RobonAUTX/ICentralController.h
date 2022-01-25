@@ -35,6 +35,8 @@
 #define Event_ResumeRaceTimer 25
 #define Event_UpdateBSS 26
 #define Event_UpdateTargetCheckpoint 27
+#define Event_ModifyWrongGateCount 28
+#define Event_WrongGatePassed 29
 
 #define Device_ICentralController 100
 
@@ -67,10 +69,11 @@ signals:
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
     void SkillPointUpdated(quint32 skillPoint, quint32 timeCredit);
     void VehicleStartConfirmed(bool achieved);
-    void LaneChangeConfirmed(bool achieved, quint32 remainingTime);
+    void LaneChangeConfirmed(bool achieved, quint64 remainingTime);
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 touchCount);
+    void WrongGateCountModified(quint32 wrongGateCount);
     void VotesUpdated(quint32 teamID, quint32 voteCount);
 
     void showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos);
@@ -115,6 +118,9 @@ public slots:
     virtual void SafetyCarFollowed(bool achieved) = 0;
     virtual void SafetyCarOvertaken(quint32 value) = 0;
     virtual void ModifyTouchCount(quint32 touchCount) = 0;
+    virtual void ModifyWrongGateCount(quint32 wrongGateCount) = 0;
+
+    virtual void WrongGatePassed() = 0;
 
     virtual void ShowSpeedResults(bool isJunior, quint32 fromPos) = 0;
     virtual void ShowSkillResults(quint32 fromPos)  = 0;

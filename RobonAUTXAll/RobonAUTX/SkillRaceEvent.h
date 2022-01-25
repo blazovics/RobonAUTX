@@ -33,6 +33,8 @@ public:
  */
     bool UpdateCheckpoint(quint32 index, bool newState, bool forced);
 
+    quint32 ModifyWrongGateCount(quint32 wrongGateCount);
+
     bool IsLastCheckpointReached();
 
     bool UpdateTargetCheckpoint(quint32);
@@ -51,6 +53,8 @@ public:
 
     quint32 GetActualPoints();
     quint32 GetTimeCredit();
+
+    quint32 GetWrongGatePoints();
 
     quint64 GetLaneChangeTime();
     quint32 GetLaneChangePoint();

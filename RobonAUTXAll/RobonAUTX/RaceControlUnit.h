@@ -33,6 +33,7 @@ class RaceControlUnit: public IRaceControlUnit {
     RaceEventType eventType;
 
     quint32 touchCount;
+    quint32 wrongGateCount;
 
     quint32 approvedCheckpointIndex;
     
@@ -65,6 +66,7 @@ public slots:
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 numberOfTouches);
+    void WrongGateCountModified(quint32 numberOfWrongGates);
     void RaceTimerPaused();
     void RaceTimerResumed();
 
@@ -88,6 +90,9 @@ public slots:
     void qmlSafetyCarOvertaken(quint32 value);
     void qmlIncreaseTouchCount();
     void qmlDecreaseTouchCount();
+
+    void qmlIncreaseWrongGateCount();
+    void qmlDecreaseWrongGateCount();
 
     void qmlIncreaseCheckpoint();
     void qmlDecreaseCheckpoint();
@@ -121,6 +126,7 @@ signals:
     void updateSafetyCarFollowingConfirmedButton(bool status);
     void updateSafetyCarOvertakenConfirmedButton(quint32 value);
     void updateTouchCountModified(quint32 numberOfTouches);
+    void updateWrongGateCountModified(quint32 numberOfWrongGates);
     void updateLaserLapTime(QString time);
     void updateManualLapTime(QString time);
     void updateCompletedSpeedLaps(quint32 lapNumber, quint32 lapTime);

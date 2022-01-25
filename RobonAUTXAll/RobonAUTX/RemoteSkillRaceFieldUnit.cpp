@@ -39,6 +39,8 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
     case Event_StartSkillRaceGate:
        emit SkillRaceGateStarted();
        break;
+    case Event_WrongGate:
+       emit WrongGatePassed();
    }
 }
 
