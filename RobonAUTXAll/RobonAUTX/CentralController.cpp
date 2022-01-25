@@ -37,7 +37,7 @@ CentralController::CentralController() {
     connect(&bssManager, SIGNAL(connectionActive(bool)), this,SLOT(bssConnected(bool)));
 
     //DEBUG
-    this->saveResultsToHTML();
+
 
 }
 
@@ -350,7 +350,7 @@ void CentralController::SkillGateStarted()
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr)
         {
-            bssCommunicator->SendStartSkillTimer(0);
+            bssCommunicator->SendStartSkillTimer(currentEvent->getRemainingTime());
 
             emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
@@ -404,6 +404,7 @@ void CentralController::UpdateBSS(quint32 actionType)
         bssCommunicator->SendSeniorFinalResults(databaseManager->GetFinalResults(false));
 
         saveResultsToFile();
+        this->saveResultsToHTML();
     }
         break;
     case 4:
@@ -499,7 +500,7 @@ void CentralController::SaveVoteResultToHTML()
     QTextStream out(&file);
     out.setCodec("UTF-8");
 
-    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Közönségszavazat</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th  class=\"tg-header\">Közönség szavazat</th><th class=\"tg-headertg-bold\">Pontszám</th></tr></thead><tbody>");
+    out<<QString::fromUtf8("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head><body><style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Közönségszavazat</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th  class=\"tg-header\">Közönség szavazat</th><th class=\"tg-headertg-bold\">Pontszám</th></tr></thead>");
 
     QList<VoteResult> voteResults = databaseManager->GetVoteResults();
 
@@ -515,7 +516,7 @@ void CentralController::SaveVoteResultToHTML()
 
     }
 
-    out<<QString::fromUtf8("</tbody></table>");
+    out<<QString::fromUtf8("</tbody></table></body></html>");
 }
 
 void CentralController::SaveFinalResultToHTML()
@@ -531,7 +532,7 @@ void CentralController::SaveFinalResultToHTML()
     QTextStream out(&file);
     out.setCodec("UTF-8");
 
-    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Összesített Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-header\">Kvalifikáció</th><th class=\"tg-header tg-bold\">Összes</th></tr></thead><tbody>");
+    out<<QString::fromUtf8("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head><body><style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Összesített Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Hozott pont</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-header tg-bold\">Összes</th></tr></thead><tbody>");
 
     QList<FinalResult> teamResults = databaseManager->GetFinalResults(false);
 
@@ -540,10 +541,10 @@ void CentralController::SaveFinalResultToHTML()
 
         out<<"<td  class=\"tg-data  tg-bold\">"<<res.position<<"</td>";
         out<<"<td  class=\"tg-data tg-bold tg-lefttext\">"<<res.teamName<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
         out<<"<td  class=\"tg-data\">"<<res.skillPoint<<"</td>";
         out<<"<td  class=\"tg-data\">"<<res.speedPoint<<"</td>";
         out<<"<td  class=\"tg-data\">"<<res.votePoint<<"</td>";
-        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
         out<<"<td  class=\"tg-data  tg-bold\">"<<res.finalPoint<<"</td>";
 
         out<<"</tr></tr><td></td><td  class=\"tg-members\">";
@@ -558,7 +559,7 @@ void CentralController::SaveFinalResultToHTML()
 
     }
 
-    out<<QString::fromUtf8("</tbody></table>");
+    out<<QString::fromUtf8("</tbody></table></body></html>");
 }
 
 void CentralController::SaveJuniorFinalResultToHTML()
@@ -574,7 +575,7 @@ void CentralController::SaveJuniorFinalResultToHTML()
     QTextStream out(&file);
     out.setCodec("UTF-8");
 
-    out<<QString::fromUtf8("<style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Junior Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-header\">Kvalifikáció</th><th class=\"tg-headertg-bold\">Összes</th></tr></thead><tbody>");
+    out<<QString::fromUtf8("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head><body><style type=\"text/css\">.tg{border-collapse:collapse;border-spacing:0;} .tg th,td{border-color:black;border-style:solid;border-width:1px;font-family:Arial,sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px5px;word-break:normal;} .tg .tg-data{background-color:#D9D9D9;text-align:center;vertical-align:middle} .tg .tg-lefttext{text-align:left} .tg .tg-header{text-align:center;vertical-align:middle} .tg .tg-bold{font-weight:bold;} .tg .tg-members{text-align:left;vertical-align:top}</style><table class=\"tg\"><thead><caption><h1>Junior Végeredmény</h1></caption><tr><th class=\"tg-header\">#</th><th class=\"tg-header\">Csapatnév</th><th class=\"tg-header\">Hozott pont</th><th class=\"tg-header\">Ügyességi</th><th class=\"tg-header\">Gyorsasági</th><th class=\"tg-header\">Közönség</th><th class=\"tg-headertg-bold\">Összes</th></tr></thead><tbody>");
 
     QList<FinalResult> teamResults = databaseManager->GetFinalResults(true);
 
@@ -583,10 +584,10 @@ void CentralController::SaveJuniorFinalResultToHTML()
 
         out<<"<td  class=\"tg-data  tg-bold\">"<<res.position<<"</td>";
         out<<"<td  class=\"tg-data tg-bold tg-lefttext\">"<<res.teamName<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
         out<<"<td  class=\"tg-data\">"<<res.skillPoint<<"</td>";
         out<<"<td  class=\"tg-data\">"<<res.speedPoint<<"</td>";
-        out<<"<td  class=\"tg-data\">"<<res.votePoint<<"</td>";
-        out<<"<td  class=\"tg-data\">"<<res.qualificationPoint<<"</td>";
+        out<<"<td  class=\"tg-data\">"<<res.votePoint<<"</td>";    
         out<<"<td  class=\"tg-data  tg-bold\">"<<res.finalPoint<<"</td>";
 
         out<<"</tr></tr><td></td><td  class=\"tg-members\">";
@@ -601,7 +602,7 @@ void CentralController::SaveJuniorFinalResultToHTML()
 
     }
 
-    out<<QString::fromUtf8("</tbody></table>");
+    out<<QString::fromUtf8("</tbody></table></body></html>");
 }
 
 void CentralController::SkillRaceTimeout()
