@@ -114,6 +114,11 @@ quint32 SkillRaceEvent::GetActualPoints()
     return static_cast<SkillRace*>(this->actualRace)->GetRacePoint();
 }
 
+qint32 SkillRaceEvent::GetActualAbsolutePoints()
+{
+    return static_cast<SkillRace*>(this->actualRace)->GetAbsoluteRacePoint();
+}
+
 quint32 SkillRaceEvent::GetTimeCredit()
 {
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());

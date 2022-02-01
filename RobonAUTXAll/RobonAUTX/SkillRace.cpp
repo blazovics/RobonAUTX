@@ -63,6 +63,11 @@ quint32 SkillRace::GetRacePoint() const {
     return CalculateSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded, this->wrongGateCount, this->laneChangeTime);
 }
 
+quint32 SkillRace::GetAbsoluteRacePoint() const
+{
+    return CalculateAbsoluteSkillRacePoints(this->checkpointStates,this->startSucceeded, this->laneChangeSucceeded, this->wrongGateCount, this->laneChangeTime);
+}
+
 bool SkillRace::GetCheckpointState(quint32 index) const
 {
     if(index < this->checkpointStates.size() )
@@ -153,7 +158,16 @@ quint32 SkillRace::GetLaneChangePoint() const
 
 quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime)
 {
-    quint32 resultPoint = 0;
+    qint32 absoluteResultPoint = CalculateAbsoluteSkillRacePoints(checkpointStates, startSucceeded, laneChangeSucceeded, wrongGateCount, laneChangeTime);
+
+    quint32 resultPoint = absoluteResultPoint > 0 ? absoluteResultPoint : 0;
+
+    return resultPoint;
+}
+
+qint32 SkillRace::CalculateAbsoluteSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime)
+{
+    qint32 resultPoint = 0;
     for(unsigned i = 0; i < checkpointStates.size(); i++)
     {
         if(checkpointStates[i] == true)
@@ -173,13 +187,7 @@ quint32 SkillRace::CalculateSkillRacePoints(vector<bool> checkpointStates, bool 
 
     quint32 wrongGatePenaltyPoint = CalculateWrongGatePoints(wrongGateCount);
 
-    if(resultPoint > wrongGatePenaltyPoint)
-    {
-        resultPoint -= wrongGatePenaltyPoint;
-    }
-    else{
-        resultPoint = 0;
-    }
+    resultPoint -= wrongGatePenaltyPoint;
 
     return resultPoint;
 }

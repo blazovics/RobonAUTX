@@ -52,6 +52,8 @@ public:
     RaceEventType getType();
 
     quint32 GetActualPoints();
+    qint32 GetActualAbsolutePoints();
+
     quint32 GetTimeCredit();
     quint32 GetWrongGateCount();
 

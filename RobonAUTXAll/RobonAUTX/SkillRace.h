@@ -47,6 +47,8 @@ public:
     
     quint32 GetRacePoint() const;
 
+    quint32 GetAbsoluteRacePoint() const;
+
     quint32 GetWrongGateCount() const;
 
     quint32 GetWrongGatePoint() const;
@@ -70,6 +72,7 @@ public:
     qint64 GetTimeCredit() const;
 
     static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime);
+    static qint32 CalculateAbsoluteSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime);
 
     static quint32 CalculateWrongGatePoints(quint32 wrongGateCount);
 

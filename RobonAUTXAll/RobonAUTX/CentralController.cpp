@@ -141,7 +141,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
             checkpointPoint = -2;
         }
 
-        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),checkpointPoint,currentEvent->GetActualPoints());
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),checkpointPoint,currentEvent->GetActualAbsolutePoints());
     }
     else {
 
@@ -235,7 +235,7 @@ void CentralController::VechicleStartAchieved(bool achieved)
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
         //TODO BSS
-        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),0,currentEvent->GetActualPoints());
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),0,currentEvent->GetActualAbsolutePoints());
     }
     else {
         //throw std::bad_cast();
@@ -257,7 +257,7 @@ void CentralController::LaneChangeAchieved(bool achieved)
         emit LaneChangeConfirmed(achieved,currentEvent->GetLaneChangeTime());
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
-        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),currentEvent->GetLaneChangePoint(),currentEvent->GetActualPoints());
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),currentEvent->GetLaneChangePoint(),currentEvent->GetActualAbsolutePoints());
 
     }
     else {
@@ -313,9 +313,20 @@ void CentralController::ModifyWrongGateCount(quint32 wrongGateCount)
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
+
+        quint32 prevWrongGateCount = currentEvent->GetWrongGateCount();
+
         quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
         emit WrongGateCountModified(updatedWrongGateCount);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        int wrongGatePoint = -2;
+        if(prevWrongGateCount < updatedWrongGateCount)
+        {
+            wrongGatePoint = 2;
+        }
+
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),wrongGatePoint,currentEvent->GetActualAbsolutePoints());
 
     }
     else {
@@ -333,6 +344,10 @@ void CentralController::WrongGatePassed()
         quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
         emit WrongGateCountModified(updatedWrongGateCount);
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        int wrongGatePoint = -2;
+
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(), wrongGatePoint ,currentEvent->GetActualAbsolutePoints());
 
     }
     else {
