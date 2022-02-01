@@ -158,6 +158,7 @@ void RaceControlUnit::TouchCountModified(quint32 numberOfTouches)
 
 void RaceControlUnit::WrongGateCountModified(quint32 numberOfWrongGates)
 {
+    this->wrongGateCount = numberOfWrongGates;
     emit updateWrongGateCountModified(numberOfWrongGates);
 }
 

@@ -56,6 +56,7 @@ SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     startSucceeded = false;
     laneChangeSucceeded = false;
     laneChangeTime = 0;
+    wrongGateCount = 0;
 }
 
 quint32 SkillRace::GetRacePoint() const {

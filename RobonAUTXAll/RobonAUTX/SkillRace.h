@@ -12,7 +12,7 @@
 #define SkillCheckpointPoint 2
 #define SkillStartPoint 0
 #define SkillLaneChangePoint 10
-#define SkillWrongGatePoint 1
+#define SkillWrongGatePoint 2
 
 #include "Race.h"
 #include <vector>

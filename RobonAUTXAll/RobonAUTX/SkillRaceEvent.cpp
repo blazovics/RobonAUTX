@@ -119,6 +119,11 @@ quint32 SkillRaceEvent::GetTimeCredit()
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
 }
 
+quint32 SkillRaceEvent::GetWrongGateCount()
+{
+    return static_cast<SkillRace*>(this->actualRace)->GetWrongGateCount();
+}
+
 quint32 SkillRaceEvent::GetWrongGatePoints()
 {
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetWrongGatePoint());

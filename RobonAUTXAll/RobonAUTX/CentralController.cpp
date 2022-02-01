@@ -328,7 +328,7 @@ void CentralController::WrongGatePassed()
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
     {
-        quint32 wrongGateCount = currentEvent->GetWrongGatePoints();
+        quint32 wrongGateCount = currentEvent->GetWrongGateCount();
         wrongGateCount+=1;
         quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
         emit WrongGateCountModified(updatedWrongGateCount);

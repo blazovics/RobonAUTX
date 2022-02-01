@@ -53,6 +53,7 @@ public:
 
     quint32 GetActualPoints();
     quint32 GetTimeCredit();
+    quint32 GetWrongGateCount();
 
     quint32 GetWrongGatePoints();
 
