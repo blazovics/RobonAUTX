@@ -208,6 +208,7 @@ void CentralController::FinishRace(bool aborted)
             emit ClearSkillGates();
         }
 
+        bssCommunicator->SendSkillRaceFinished(currentEvent->GetTeamID(),currentEvent->GetActualPoints());
         bssCommunicator->SendStopSkillTimer(0);
     }
     else{
