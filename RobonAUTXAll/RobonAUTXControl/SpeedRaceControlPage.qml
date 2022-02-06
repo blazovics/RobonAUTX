@@ -78,20 +78,18 @@ Item {
 
     Rectangle {
         id: pane
-        y: 479
-        width: 350
+        width: 210
         height: 350
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 30
+        anchors.topMargin: 0
         anchors.left: parent.left
-        anchors.leftMargin: 30
+        anchors.top: skillRaceActions.top
+        anchors.leftMargin: 15
         color: "#99ffffff"
 
         GridLayout {
             id: gridLayout
             rows: 4
             columns: 2
-            anchors.fill: parent
 
             Label {
                 id: label2
@@ -163,19 +161,18 @@ Item {
     Rectangle {
         id: pane1
         x: 43
-        width: 300
-        height: 300
+        width: 200
+        height: 270
         anchors.right: parent.right
-        anchors.rightMargin: 30
+        anchors.rightMargin: 15
         anchors.top: parent.top
-        anchors.topMargin: 30
+        anchors.topMargin: 15
         color: "#99ffffff"
 
         GridLayout {
             id: gridLayout1
             rows: 4
             columns: 2
-            anchors.fill: parent
 
             Button {
                 id: safetyCarFollowedButton
@@ -262,27 +259,26 @@ Item {
 
     RaceActionsContainer{
         id: skillRaceActions
+        height: 400
         anchors.right: parent.right
-        anchors.rightMargin: 30
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 30
+        anchors.top: pane1.bottom
+        anchors.topMargin: 15
+        anchors.rightMargin: 15
     }
 
     Rectangle {
         id: rectangle
-        x: 30
-        y: 121
-        width: 300
-        height: 200
+        width: 160
         color: "#99ffffff"
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: pane1.bottom
+        anchors.bottomMargin: 0
+        anchors.topMargin: 15
+        anchors.leftMargin: 15
 
         ColumnLayout {
             id: columnLayout
-            anchors.rightMargin: 10
-            anchors.leftMargin: 10
-            anchors.bottomMargin: 10
-            anchors.topMargin: 10
-            anchors.fill: parent
 
             Label {
                 id: label
@@ -295,8 +291,9 @@ Item {
             Label {
                 id: lapTimeLabel
                 text: qsTr("00:00.000")
-                font.pointSize: 50
+                font.pointSize: 30
                 verticalAlignment: Text.AlignBottom
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             }
         }
@@ -305,7 +302,4 @@ Item {
 
 
 
-/*##^## Designer {
-    D{i:1;anchors_x:36}D{i:10;anchors_width:300;anchors_x:43;anchors_y:32}
-}
- ##^##*/
+
