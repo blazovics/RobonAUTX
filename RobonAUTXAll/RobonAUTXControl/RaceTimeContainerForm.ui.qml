@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: race_time_container
-    width: 220
+    width: 150
     height: 250
     color: "#99ffffff"
     property alias manualTimerToggle: manualTimerToggle
@@ -19,7 +19,7 @@ Rectangle {
 
         Switch {
             id: manualTimerToggle
-            text: qsTr("Manual Timer Functions")
+            text: qsTr("Manual Timer")
             focusPolicy: Qt.WheelFocus
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }

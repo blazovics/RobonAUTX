@@ -17,7 +17,7 @@ Item {
 
     ListView {
         id: listView
-        width: 230
+        width: 180
         spacing: 10
         boundsBehavior: Flickable.StopAtBounds
         clip: true
@@ -63,8 +63,8 @@ Item {
 
     Pane {
         id: pane
-        width: 300
-        height: 400
+        width: 160
+        height: 250
         anchors.top: parent.top
         anchors.topMargin: 15
         anchors.right: parent.right
@@ -75,7 +75,6 @@ Item {
 
         ColumnLayout {
             id: columnLayout
-            anchors.fill: parent
 
             Button {
                 id: button
@@ -89,7 +88,7 @@ Item {
 
             Switch {
                 id: manualSpeedRaceSwitch
-                text: qsTr("Manual Start Speed Race")
+                text: qsTr("Speed Race")
                 checked: false
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
@@ -111,7 +110,4 @@ Item {
 
 
 
-/*##^## Designer {
-    D{i:1;anchors_height:850}
-}
- ##^##*/
+

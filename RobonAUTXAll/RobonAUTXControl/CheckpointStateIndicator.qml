@@ -7,7 +7,7 @@ Rectangle {
 property bool checked: false;
 
     width: 80
-    height: 60
+    height: 40
     id: checkpoint_0_button
     Label{
         text: qsTr("Chkpt " + (checkpointID + 1))

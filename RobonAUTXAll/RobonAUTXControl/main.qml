@@ -38,12 +38,12 @@ Window {
 
     SwipeView {
         id: view
-        anchors.topMargin: 150
+        anchors.topMargin: 6
         currentIndex: 0
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        anchors.top: parent.top
+        anchors.top: rectangle.bottom
 
         ResultsControlPage{
             id: resultsControlPage
@@ -155,7 +155,4 @@ Window {
 
 
 
-/*##^## Designer {
-    D{i:6;anchors_height:144;anchors_width:768;anchors_x:0;anchors_y:880}
-}
- ##^##*/
+

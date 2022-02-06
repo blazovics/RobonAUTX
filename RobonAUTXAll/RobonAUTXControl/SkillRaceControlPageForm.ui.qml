@@ -3,6 +3,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
 Item {
+    id: item1
     width: 768
     height: 850
     property alias raceResultsContainer: raceResultsContainer
@@ -12,47 +13,41 @@ Item {
 
     RaceTimeContainer {
         id: race_time_container
+        height: 250
         anchors.right: parent.right
         anchors.rightMargin: 10
         anchors.top: parent.top
+        anchors.leftMargin: 15
         anchors.topMargin: 15
-        x: 390
+        anchors.left: checkpoints_container.right
     }
 
     CheckpointsContainer {
         id: checkpoints_container
         anchors.left: parent.left
         anchors.leftMargin: 10
-        anchors.top: parent.top
+        anchors.top: raceResultsContainer.bottom
         anchors.topMargin: 15
     }
 
     RaceActionsContainer {
         id: actions_container
-        anchors.right: parent.right
-        anchors.rightMargin: 10
         anchors.top: race_time_container.bottom
+        anchors.rightMargin: 15
+        anchors.leftMargin: 15
         anchors.topMargin: 15
-        x: 185
+        anchors.left: checkpoints_container.right
+        anchors.right: parent.right
     }
 
     SkillRaceResultsContainer {
         id: raceResultsContainer
+        height: 120
         anchors.top: parent.top
         anchors.topMargin: 15
-        anchors.left: checkpoints_container.right
+        anchors.left: parent.left
         anchors.leftMargin: 15
         anchors.right: race_time_container.left
         anchors.rightMargin: 15
     }
 }
-
-
-
-
-
-
-/*##^## Designer {
-    D{i:2;anchors_y:16}D{i:3;anchors_height:100;anchors_width:100;anchors_x:50;anchors_y:81}
-}
- ##^##*/
