@@ -201,15 +201,14 @@ void CentralController::FinishRace(bool aborted)
         SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
         if(currentEvent != nullptr && aborted == false)
         {
+            bssCommunicator->SendSkillRaceFinished(currentEvent->GetTeamID(),currentEvent->GetActualPoints());
+            bssCommunicator->SendStopSkillTimer(0);
             this->InitSpeedRace(currentEvent->GetTeamID());
         }
         else
         {
             emit ClearSkillGates();
         }
-
-        bssCommunicator->SendSkillRaceFinished(currentEvent->GetTeamID(),currentEvent->GetActualPoints());
-        bssCommunicator->SendStopSkillTimer(0);
     }
     else{
         emit StartSafetyCar();
