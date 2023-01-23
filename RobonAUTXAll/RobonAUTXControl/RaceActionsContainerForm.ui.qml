@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: actions_container
-    width: 220
-    height: 353
+    width: 150
+    height: 350
     color: "#99ffffff"
     property alias save_race_toggle: save_race_toggle
     property alias abort_race_toggle: abort_race_toggle

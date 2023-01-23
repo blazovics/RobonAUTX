@@ -62,3 +62,23 @@ RobonAUTXAll/RobonAUTXMaster/RobonAUTXMaster
 RobonAUTXAll/RobonAUTXDisplay/RobonAUTXDisplay
 
 RobonAUTXAll/.qmake.stash
+
+RobonAUTXAll/RobonAUTXMaster/armeabi-v7a/
+
+RobonAUTXAll/RobonAUTXMaster/android-RobonAUTXMaster-deployment-settings.json
+
+RobonAUTXAll/RobonAUTXDisplay/qml_qmlcache.qrc
+
+RobonAUTXAll/RobonAUTXDisplay/armeabi-v7a/
+
+RobonAUTXAll/RobonAUTXDisplay/android-RobonAUTXDisplay-deployment-settings.json
+
+RobonAUTXAll/RobonAUTXControl/armeabi-v7a/
+
+RobonAUTXAll/RobonAUTXControl/android-build/
+
+RobonAUTXAll/RobonAUTX/armeabi-v7a/
+
+RobonAUTXAll/RobonAUTXControl/android-RobonAUTXControl-deployment-settings.json
+
+RobonAUTXAll/RobonAUTXControl/qml_qmlcache.qrc

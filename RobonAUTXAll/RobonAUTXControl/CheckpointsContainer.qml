@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: checkpoints_container
     width: 200
-    height: 800
+    height: 550
     color: "#99ffffff"
 
     signal checkpointButtonPressed(int checkpointID, bool state);
@@ -58,52 +58,16 @@ Rectangle {
         anchors.topMargin: 15
         anchors.leftMargin: 5
         anchors.rightMargin: 5
-        spacing: 5
+        spacing: 10
         anchors.fill: parent
+        layoutDirection: Qt.RightToLeft
 
 
 
         //ListView{
 
 
-        RowLayout{
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Button {
-                text: "Prev"
-                id: decreaseAchievedCheckpointButton
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                onReleased: {
-                    checkpoints_container.decreaseActiveCheckpoint();
-                }
-            }
-            Button {
-                text: "Next"
-                id: increaseAchievedCheckpointButton
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                onReleased: {
-                    checkpoints_container.increaseActiveCheckpoint();
-                }
-            }
-        }
-
-        GridView{
-            id:checkpointList
-            height: 520
-            flow: GridView.FlowTopToBottom
-            cellWidth: 100
-            cellHeight: 65
-            cacheBuffer: 300
-            contentHeight: 520
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillHeight: false
-            width: 200
-            model: CheckpointListModel {}
-            delegate: ckeckpointButtonDelegate
-
-        }
-/*
+        /*
         Button {
             text: "Star Succeeded"
             id: startSuccededButton
@@ -114,11 +78,58 @@ Rectangle {
             }
         }*/
 
+
+
+
+
+
+
+        RowLayout{
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Button {
+                text: "Prev"
+                Layout.fillHeight: false
+                Layout.fillWidth: true
+                id: decreaseAchievedCheckpointButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.decreaseActiveCheckpoint();
+                }
+            }
+            Button {
+                text: "Next"
+                Layout.fillWidth: true
+                id: increaseAchievedCheckpointButton
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                onReleased: {
+                    checkpoints_container.increaseActiveCheckpoint();
+                }
+            }
+        }
+        GridView{
+            id:checkpointList
+            height: 360
+            contentWidth: 100
+            flow: GridView.FlowTopToBottom
+            cellWidth: 100
+            cellHeight: 45
+            cacheBuffer: 0
+            contentHeight: 360
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            Layout.fillHeight: false
+            model: CheckpointListModel {}
+            delegate: ckeckpointButtonDelegate
+
+        }
+
         Button {
             text: "Lane Change Succeeded"
+            Layout.fillWidth: true
             id: laneChangeSuccededButton
             checkable: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             onReleased: {
                 checkpoints_container.laneChangeSucceededButtonPressed(checked);
             }
@@ -126,9 +137,10 @@ Rectangle {
 
         RowLayout{
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             Button {
                 text: "Error -"
+                Layout.fillWidth: true
                 id: decreaseWrongGateButton
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 onReleased: {
@@ -137,14 +149,24 @@ Rectangle {
             }
             Button {
                 text: "Error +"
+                Layout.fillWidth: true
                 id: increaseWrongGateButton
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 onReleased: {
                     checkpoints_container.increaseWrongGateCount();
                 }
             }
         }
-
     }
 
+
+
+
+
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.9}
+}
+##^##*/
