@@ -19,14 +19,21 @@
 
 using namespace std;
 
+typedef enum{
+    Clean = 0,
+    PlayerFirst,
+    PirateFirst,
+    PirateFirstChecked,
+    PirateSecond,
+    PirateSecondChecked
+} CheckpointState;
+
 class SkillRace: public Race {
 
 private:
-    vector<bool> checkpointStates;
+    vector<CheckpointState> checkpointStates;
     bool startSucceeded;
     bool laneChangeSucceeded;
-
-    quint32 wrongGateCount;
 
     quint64 laneChangeTime;
 
@@ -48,16 +55,10 @@ public:
     quint32 GetRacePoint() const;
 
     quint32 GetAbsoluteRacePoint() const;
-
-    quint32 GetWrongGateCount() const;
-
-    quint32 GetWrongGatePoint() const;
     
-    bool GetCheckpointState(quint32 index) const;
+    CheckpointState GetCheckpointState(quint32 index) const;
 
-    void SetCheckpoint(quint32 index, bool checked);
-
-    void SetTargetCheckpoint(quint32 index);
+    void SetCheckpoint(quint32 index, CheckpointState newState);
     
     bool GetStartSucceeded() const;
     
@@ -71,19 +72,22 @@ public:
 
     qint64 GetTimeCredit() const;
 
-    static quint32 CalculateSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime);
-    static qint32 CalculateAbsoluteSkillRacePoints(vector<bool> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint32 wrongGateCount, quint64 laneChangeTime);
+    static quint32 CalculateSkillRacePoints(vector<CheckpointState> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
+    static qint32 CalculateAbsoluteSkillRacePoints(vector<CheckpointState> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
 
-    static quint32 CalculateWrongGatePoints(quint32 wrongGateCount);
+    QT_DEPRECATED static quint32 CalculateWrongGatePoints(quint32 wrongGateCount);
 
-    quint32 GetSerializedCheckpointStates() const;
+
+
+    quint64 GetSerializedCheckpointStates() const;
 
     qint64 getRaceTime() const;
     void setRaceTime(const qint64 &value);
     quint32 getLaneChangeTime() const;
 
     quint32 GetLaneChangePoint() const;
-    void setWrongGateCount(quint32 newWrongGateCount);
+
+    static quint32 GetCheckpointPoint(CheckpointState state);
 };
 
 

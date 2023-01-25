@@ -8,6 +8,7 @@
 #include "VoteResult.h"
 #include "QualificationResult.h"
 #include "FinalResult.h"
+#include "SkillRace.h"
 #include "memory"
 
 class Event
@@ -35,6 +36,7 @@ public:
     QList<QualificationResult> extractQualificationResultsFromRawData();
     QList<FinalResult> extractFinalResultsFromRawData();
     QList<Team> extractTeamsFromRawData();
+    CheckpointState extractCheckpointStateFromRawData();
 
     void insertTeams(QList<Team> teams);
     void insertQuint32(quint32 value);
@@ -45,6 +47,7 @@ public:
     void insertSkillRaceResults(QList<SkillRaceResult> results);
     void insertQualificationResuls(QList<QualificationResult> results);
     void insertFinalResults(QList<FinalResult> results);
+    void insertCheckpointState(CheckpointState state);
 
 
 

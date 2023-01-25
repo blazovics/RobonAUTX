@@ -34,6 +34,8 @@
 #define Event_PauseRaceTimer 24
 #define Event_ResumeRaceTimer 25
 #define Event_UpdateBSS 26
+
+#warning "Unused defines"
 #define Event_UpdateTargetCheckpoint 27
 #define Event_ModifyWrongGateCount 28
 #define Event_WrongGatePassed 29
@@ -43,6 +45,8 @@
 #include <QObject>
 #include "Team.h"
 #include "TimeSourceType.h"
+
+#include "SkillRace.h"
 
 #include "SpeedRaceResult.h"
 #include "SkillRaceResult.h"
@@ -61,8 +65,7 @@ signals:
     void SpeedRaceInitiated(quint32 teamID);
     void LaserLapTimeUpdated(quint32 laserLapTime);
     void ManualLapTimeUpdated(quint32 manualLapTime);
-    void CheckpointStateUpdated(quint32 checkpointID, bool checked);
-    void TargetCheckpointUpdated(quint32 checkpointID);
+    void CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState);
     void RaceStarted();
     void RaceFinished(bool aborted);
     void TeamListUpdated(QList<Team> teams);
@@ -73,7 +76,6 @@ signals:
     void SafetyCarFollowingConfirmed(bool achieved);
     void SafetyCarOvertakeConfirmed(quint32 value);
     void TouchCountModified(quint32 touchCount);
-    void WrongGateCountModified(quint32 wrongGateCount);
     void VotesUpdated(quint32 teamID, quint32 voteCount);
 
     void showSpeedResults(QList<SpeedRaceResult> result, bool isJunior, quint32 fromPos);
@@ -108,8 +110,7 @@ public slots:
     virtual void ManualMeasureReceived() = 0;
     virtual void LaserMeasureReceived(quint32 time) = 0;
     virtual void TimeSourceForLapSelected(TimeSourceType timeSource) = 0;
-    virtual void UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced) = 0;
-    virtual void UpdateTargetCheckpoint(quint32 checkpointID) = 0;
+    virtual void UpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced) = 0;
     virtual void StartRace() = 0;
     virtual void FinishRace(bool aborted) = 0;
     virtual void TeamListRequested() = 0;
@@ -118,9 +119,6 @@ public slots:
     virtual void SafetyCarFollowed(bool achieved) = 0;
     virtual void SafetyCarOvertaken(quint32 value) = 0;
     virtual void ModifyTouchCount(quint32 touchCount) = 0;
-    virtual void ModifyWrongGateCount(quint32 wrongGateCount) = 0;
-
-    virtual void WrongGatePassed() = 0;
 
     virtual void ShowSpeedResults(bool isJunior, quint32 fromPos) = 0;
     virtual void ShowSkillResults(quint32 fromPos)  = 0;

@@ -119,7 +119,7 @@ void CentralController::TimeSourceForLapSelected(TimeSourceType timeSource)
     }
 }
 
-void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced)
+void CentralController::UpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced)
 {
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
     if(currentEvent != nullptr)
@@ -127,16 +127,22 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
         //TODO: checkpoint update logic!!
 
 
-        qDebug()<<"Update Checkpoint state for #" << checkpointID <<"to "<< checked;
-        if(currentEvent->UpdateCheckpoint(checkpointID,checked,forced))
+        qDebug()<<"Update Checkpoint state for #" << checkpointID <<"to "<< newState;
+        if(currentEvent->UpdateCheckpoint(checkpointID,newState,forced))
         {
-            emit CheckpointStateUpdated(checkpointID,checked);
+            emit CheckpointStateUpdated(checkpointID,newState);
         }
 
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
+        if(currentEvent->IsLastCheckpointReached())
+        {
+            emit SkillRaceLastCheckpointReached();
+        }
+
+        #warning "BSS ISSUE - NEED URGENT RESOLVE!"
         int checkpointPoint = 2;
-        if(checked == false)
+        if(newState == false)
         {
             checkpointPoint = -2;
         }
@@ -146,23 +152,6 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, bool checked
     else {
 
         ////throw std::bad_cast();
-    }
-}
-
-void CentralController::UpdateTargetCheckpoint(quint32 checkpointID)
-{
-    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
-    if(currentEvent != nullptr)
-    {
-
-        emit TargetCheckpointUpdated(checkpointID);
-
-        currentEvent->UpdateTargetCheckpoint(checkpointID);
-
-        if(currentEvent->IsLastCheckpointReached())
-        {
-            emit SkillRaceLastCheckpointReached();
-        }
     }
 }
 
@@ -308,53 +297,6 @@ void CentralController::ModifyTouchCount(quint32 touchCount)
     }
 }
 
-void CentralController::ModifyWrongGateCount(quint32 wrongGateCount)
-{
-    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
-    if(currentEvent != nullptr)
-    {
-
-        quint32 prevWrongGateCount = currentEvent->GetWrongGateCount();
-
-        quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
-        emit WrongGateCountModified(updatedWrongGateCount);
-        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
-
-        int wrongGatePoint = -2;
-        if(prevWrongGateCount < updatedWrongGateCount)
-        {
-            wrongGatePoint = 2;
-        }
-
-        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),wrongGatePoint,currentEvent->GetActualAbsolutePoints());
-
-    }
-    else {
-        //throw std::bad_cast();
-    }
-}
-
-void CentralController::WrongGatePassed()
-{
-    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
-    if(currentEvent != nullptr)
-    {
-        quint32 wrongGateCount = currentEvent->GetWrongGateCount();
-        wrongGateCount+=1;
-        quint32 updatedWrongGateCount = currentEvent->ModifyWrongGateCount(wrongGateCount);
-        emit WrongGateCountModified(updatedWrongGateCount);
-        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
-
-        int wrongGatePoint = -2;
-
-        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(), wrongGatePoint ,currentEvent->GetActualAbsolutePoints());
-
-    }
-    else {
-        //throw std::bad_cast();
-    }
-}
-
 void CentralController::ShowSpeedResults(bool isJunior, quint32 fromPos)
 {
     emit showSpeedResults(this->databaseManager->GetSpeedRaceResults(isJunior),isJunior,fromPos);
@@ -400,8 +342,6 @@ void CentralController::SkillGateStarted()
             bssCommunicator->SendStartSkillTimer(currentEvent->getRemainingTime());
 
             emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
-
-            emit TargetCheckpointUpdated(0);
         }
         this->raceEvent->StartRace();
         emit RaceStarted();

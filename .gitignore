@@ -82,3 +82,5 @@ RobonAUTXAll/RobonAUTX/armeabi-v7a/
 RobonAUTXAll/RobonAUTXControl/android-RobonAUTXControl-deployment-settings.json
 
 RobonAUTXAll/RobonAUTXControl/qml_qmlcache.qrc
+
+RobonAUTXAll/.qtc_clangd/.cache/clangd/index/

@@ -83,6 +83,13 @@ QList<Team> Event::extractTeamsFromRawData()
     return teams;
 }
 
+CheckpointState Event::extractCheckpointStateFromRawData()
+{
+    quint32 state;
+    *inStream >> state;
+    return CheckpointState(state);
+}
+
 void Event::insertTeams(QList<Team> teams)
 {
     *outStream << teams;
@@ -126,6 +133,11 @@ void Event::insertQualificationResuls(QList<QualificationResult> results)
 void Event::insertFinalResults(QList<FinalResult> results)
 {
     *outStream << results;
+}
+
+void Event::insertCheckpointState(CheckpointState state)
+{
+    *outStream << state;
 }
 
 Event::Event():eventID(0)

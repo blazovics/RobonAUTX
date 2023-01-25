@@ -19,6 +19,7 @@
 #include "ILaserGate.h"
 #include "ISkillRaceGate.h"
 
+
 using namespace std;
 
 class CoreController: public QObject {

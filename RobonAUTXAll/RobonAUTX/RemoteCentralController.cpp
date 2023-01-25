@@ -62,15 +62,9 @@ void RemoteCentralController::EventReceived(Event &event)
     case Device_ICentralController + Event_UpdateCheckpointState:
     {
         quint32 first = event.extractQuint32FromRawData();
-        bool second = event.extractBoolFromRawData();
+        CheckpointState second = event.extractCheckpointStateFromRawData();
         bool third = event.extractBoolFromRawData();
         localController->UpdateCheckpointState(first,second,third);
-    }
-        break;
-    case Device_ICentralController + Event_UpdateTargetCheckpoint:
-    {
-        quint32 first = event.extractQuint32FromRawData();
-        localController->UpdateTargetCheckpoint(first);
     }
         break;
     case Device_ICentralController + Event_StartRace:
@@ -99,12 +93,6 @@ void RemoteCentralController::EventReceived(Event &event)
         break;
     case Device_ICentralController + Event_ModifyTouchCount:
         localController->ModifyTouchCount(event.extractQuint32FromRawData());
-        break;
-    case Device_ICentralController + Event_ModifyWrongGateCount:
-        localController->ModifyWrongGateCount(event.extractQuint32FromRawData());
-        break;
-    case Device_ICentralController + Event_WrongGatePassed:
-        localController->WrongGatePassed();
         break;
     case Device_ICentralController + Event_ShowSpeedResults:
     {
@@ -199,21 +187,15 @@ void RemoteCentralController:: TimeSourceForLapSelected(TimeSourceType timeSourc
     sendEvent(event);
 }
 
-void RemoteCentralController:: UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced)
+void RemoteCentralController:: UpdateCheckpointState(quint32 checkpointID, CheckpointState status, bool forced)
 {
     Event event(Device_ICentralController + Event_UpdateCheckpointState);
     event.insertQuint32(checkpointID);
-    event.insertBool(checked);
+    event.insertCheckpointState(status);
     event.insertBool(forced);
     sendEvent(event);
 }
 
-void RemoteCentralController::UpdateTargetCheckpoint(quint32 checkpointID)
-{
-    Event event(Device_ICentralController + Event_UpdateTargetCheckpoint);
-    event.insertQuint32(checkpointID);
-    sendEvent(event);
-}
 
 void RemoteCentralController:: StartRace()
 {
@@ -266,19 +248,6 @@ void RemoteCentralController:: ModifyTouchCount(quint32 touchCount)
 {
     Event event(Device_ICentralController + Event_ModifyTouchCount);
     event.insertQuint32(touchCount);
-    sendEvent(event);
-}
-
-void RemoteCentralController::ModifyWrongGateCount(quint32 wrongGateCount)
-{
-    Event event(Device_ICentralController + Event_ModifyWrongGateCount);
-    event.insertQuint32(wrongGateCount);
-    sendEvent(event);
-}
-
-void RemoteCentralController::WrongGatePassed()
-{
-    Event event(Device_ICentralController + Event_WrongGatePassed);
     sendEvent(event);
 }
 

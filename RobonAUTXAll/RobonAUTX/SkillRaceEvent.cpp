@@ -39,15 +39,15 @@ void SkillRaceEvent::InitRace(quint32 teamID) {
  * @param index
  * @param checked
  */
-bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced) {
+bool SkillRaceEvent::UpdateCheckpoint(quint32 index, CheckpointState newState, bool forced) {
 
     if(remainingTime > 0 || forced == true)
     {
         try{
 
-            bool status = static_cast<SkillRace*>(this->actualRace)->GetCheckpointState(index);
+            CheckpointState currentState = static_cast<SkillRace*>(this->actualRace)->GetCheckpointState(index);
 
-            if(status != newState)
+            if(currentState != newState)
             {
                 static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState);
                 return true;
@@ -61,20 +61,9 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, bool newState, bool forced)
     return  false;
 }
 
-quint32 SkillRaceEvent::ModifyWrongGateCount(quint32 wrongGateCount)
-{
-    static_cast<SkillRace*>(this->actualRace)->setWrongGateCount(wrongGateCount);
-    return static_cast<SkillRace*>(this->actualRace)->GetWrongGateCount();
-}
-
 bool SkillRaceEvent::IsLastCheckpointReached()
 {
     return static_cast<SkillRace*>(this->actualRace)->IsLastCheckpointReached();
-}
-
-bool SkillRaceEvent::UpdateTargetCheckpoint(quint32 index)
-{
-    static_cast<SkillRace*>(this->actualRace)->SetTargetCheckpoint(index);
 }
 
 void SkillRaceEvent::SetStartSucceeded(bool value)
@@ -124,15 +113,6 @@ quint32 SkillRaceEvent::GetTimeCredit()
     return quint32(static_cast<SkillRace*>(this->actualRace)->GetTimeCredit());
 }
 
-quint32 SkillRaceEvent::GetWrongGateCount()
-{
-    return static_cast<SkillRace*>(this->actualRace)->GetWrongGateCount();
-}
-
-quint32 SkillRaceEvent::GetWrongGatePoints()
-{
-    return quint32(static_cast<SkillRace*>(this->actualRace)->GetWrongGatePoint());
-}
 
 quint64 SkillRaceEvent::GetLaneChangeTime()
 {

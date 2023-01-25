@@ -44,8 +44,8 @@ public slots:
    void ManualMeasureReceived();
    void LaserMeasureReceived(quint32 time);
    void TimeSourceForLapSelected(TimeSourceType timeSource);
-   void UpdateCheckpointState(quint32 checkpointID, bool checked, bool forced);
-   void UpdateTargetCheckpoint(quint32 checkpointID);
+   void UpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced);
+
    void StartRace();
    void FinishRace(bool aborted);
    void TeamListRequested();
@@ -54,9 +54,7 @@ public slots:
    void SafetyCarFollowed(bool achieved);
    void SafetyCarOvertaken(quint32 value);
    void ModifyTouchCount(quint32 touchCount);
-   void ModifyWrongGateCount(quint32 wrongGateCount);
 
-   void WrongGatePassed();
 
    void ShowSpeedResults(bool isJunior, quint32 fromPos);
    void ShowSkillResults(quint32 fromPos);

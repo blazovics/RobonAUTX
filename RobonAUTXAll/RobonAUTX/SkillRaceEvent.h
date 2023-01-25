@@ -31,13 +31,9 @@ public:
  * @param checked
  * @param forced - Enables to alternate the status after the race is over.
  */
-    bool UpdateCheckpoint(quint32 index, bool newState, bool forced);
-
-    quint32 ModifyWrongGateCount(quint32 wrongGateCount);
+    bool UpdateCheckpoint(quint32 index, CheckpointState newState, bool forced);
 
     bool IsLastCheckpointReached();
-
-    bool UpdateTargetCheckpoint(quint32);
 
     void SetStartSucceeded(bool value);
 
@@ -55,9 +51,6 @@ public:
     qint32 GetActualAbsolutePoints();
 
     quint32 GetTimeCredit();
-    quint32 GetWrongGateCount();
-
-    quint32 GetWrongGatePoints();
 
     quint64 GetLaneChangeTime();
     quint32 GetLaneChangePoint();
