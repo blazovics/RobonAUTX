@@ -6,8 +6,9 @@ import QtQuick.Layouts 1.3
 Window {
     id: window
     visible: true
-    width: 768
-    height: 1024
+    //Designed for Samsung Galaxy S20
+    width: 360
+    height: 800
     title: qsTr("Hello World")
 
     property int selectedTeamID: -1

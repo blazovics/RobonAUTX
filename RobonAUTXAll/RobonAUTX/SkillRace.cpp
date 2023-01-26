@@ -39,6 +39,7 @@ SkillRace::SkillRace(quint32 teamID):Race(teamID) {
     for(unsigned i = 0; i<checkpointCount; i++)
     {
         checkpointStates.push_back(Clean);
+        prevCheckpointStates.push_back(Clean);
     }
     startSucceeded = false;
     laneChangeSucceeded = false;
@@ -65,6 +66,22 @@ CheckpointState SkillRace::GetCheckpointState(quint32 index) const
         return Clean;
         //throw std::out_of_range("Bad checkpoint index");
     }
+}
+/**
+ * @param index
+ * @param checked
+ */
+void SkillRace::SetCheckpoint(quint32 index, CheckpointState newState) {
+    if(index < this->checkpointStates.size() )
+    {
+        this->prevCheckpointStates[index] = this->checkpointStates[index];
+        this->checkpointStates[index] = newState;
+    }
+}
+
+void SkillRace::RevertCheckpoint(quint32 index)
+{
+    this->checkpointStates[index] = this->prevCheckpointStates[index];
 }
 
 /**
@@ -98,8 +115,13 @@ void SkillRace::SetLaneChangeSucceeded(bool value, qint64 laneChangeTime) {
 
 bool SkillRace::IsLastCheckpointReached()
 {
-#warning "DEPRECATED IMPLEMENTATION"
-    return checkpointStates[checkpointStates.size()-1];
+    for(unsigned i = 0; i<checkpointCount; i++)
+    {
+        if(checkpointStates[i] != (Checked | PirateFirstChecked | PirateSecond)){
+            return false;
+        }
+    }
+    return true;
 }
 
 qint64 SkillRace::GetTimeCredit() const
@@ -129,7 +151,7 @@ quint32 SkillRace::GetCheckpointPoint(CheckpointState state)
     case Clean:
     case PirateSecondChecked:
     case PirateFirst:
-    case PlayerFirst:
+    case Checked:
         return 0;
         break;
     case PirateFirstChecked:

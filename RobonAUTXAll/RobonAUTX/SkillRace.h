@@ -21,7 +21,7 @@ using namespace std;
 
 typedef enum{
     Clean = 0,
-    PlayerFirst,
+    Checked,
     PirateFirst,
     PirateFirstChecked,
     PirateSecond,
@@ -31,6 +31,7 @@ typedef enum{
 class SkillRace: public Race {
 
 private:
+    vector<CheckpointState> prevCheckpointStates;
     vector<CheckpointState> checkpointStates;
     bool startSucceeded;
     bool laneChangeSucceeded;
@@ -59,6 +60,8 @@ public:
     CheckpointState GetCheckpointState(quint32 index) const;
 
     void SetCheckpoint(quint32 index, CheckpointState newState);
+
+    void RevertCheckpoint(quint32 index);
     
     bool GetStartSucceeded() const;
     
