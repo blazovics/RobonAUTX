@@ -63,27 +63,6 @@ Rectangle {
         layoutDirection: Qt.RightToLeft
 
 
-
-        //ListView{
-
-
-        /*
-        Button {
-            text: "Star Succeeded"
-            id: startSuccededButton
-            checkable: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            onReleased: {
-                checkpoints_container.startSucceededButtonPressed(checked);
-            }
-        }*/
-
-
-
-
-
-
-
         RowLayout{
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

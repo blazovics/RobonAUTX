@@ -4,21 +4,23 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: rectangle
-    width: 191
-    height: 140
+    width: 360
+    height: 65
     color: "#99ffffff"
     property alias skillRacePointLabel: skillRacePointLabel
     property alias elapsedTimeLabel: elapsedTimeLabel
     property alias remainingTimeLabel: remainingTimeLabel
-    property alias wrongGateCountLabel: wrongGateCountLabel
 
+    //property alias wrongGateCountLabel: wrongGateCountLabel
     GridLayout {
         id: column
         anchors.fill: parent
-        columns: 2
+        columns: 3
 
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         Layout.fillWidth: true
+
+        anchors.margins: 5
 
         Label {
             text: qsTr("Elapsed Time:")
@@ -31,6 +33,12 @@ Rectangle {
             horizontalAlignment: Text.AlignRight
             font.pointSize: 15
         }
+
+        Label {
+            id: label
+            text: qsTr("Earned Points:")
+        }
+
         Label {
             id: label2
             text: qsTr("Remaining Time:")
@@ -45,11 +53,6 @@ Rectangle {
         }
 
         Label {
-            id: label
-            text: qsTr("Earned Points:")
-        }
-
-        Label {
             id: skillRacePointLabel
             text: qsTr("30")
             horizontalAlignment: Text.AlignRight
@@ -57,6 +60,7 @@ Rectangle {
             font.pointSize: 15
         }
 
+        /*
         Label {
             id: label3
             text: qsTr("Wrong Gates:")
@@ -69,12 +73,13 @@ Rectangle {
             fontSizeMode: Text.Fit
             font.pointSize: 15
         }
+        */
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:2}
+    D{i:0;formeditorZoom:2}D{i:2}D{i:3}D{i:4}D{i:5}D{i:6}D{i:7}D{i:1}
 }
 ##^##*/
 

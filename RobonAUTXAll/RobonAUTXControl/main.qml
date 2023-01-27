@@ -11,6 +11,8 @@ Window {
     height: 800
     title: qsTr("Hello World")
 
+
+
     property int selectedTeamID: -1
 
     Image {
@@ -40,7 +42,7 @@ Window {
     SwipeView {
         id: view
         anchors.topMargin: 6
-        currentIndex: 0
+        currentIndex: 1
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
@@ -69,18 +71,18 @@ Window {
         onConnected:{
             connectButton.enabled = false;
             disconnectButton.enabled = true;
-            connectionStateLabel.text = qsTr("Connected");
+            connectionStateLabel.text = qsTr("Online");
         }
         onDisconnected:{
             connectButton.enabled = true;
             disconnectButton.enabled = false;
-            connectionStateLabel.text = qsTr("Disconnected");
+            connectionStateLabel.text = qsTr("Offline");
         }
     }
 
     Rectangle {
         id: rectangle
-        height: 144
+        height: 100
         color: "#99ffffff"
         anchors.top: parent.top
         anchors.topMargin: 0
@@ -92,8 +94,6 @@ Window {
 
         Button {
             id: button
-            x: 334
-            y: 8
             text: qsTr("Configuration")
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
@@ -101,14 +101,14 @@ Window {
             display: AbstractButton.TextOnly
 
             onClicked: {
-                rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -100 : rectangle.anchors.topMargin = 0;
+                rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -50 : rectangle.anchors.topMargin = 0;
             }
         }
 
 
         RowLayout {
             id: row
-            height: 53
+           //height: 53
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.right: parent.right
@@ -118,19 +118,20 @@ Window {
 
             TextField {
                 id: ipTextField
-                width: 98
-                height: 40
+                //width: 98
+                //height: 40
                 text: qsTr("192.168.5.100")
                 placeholderText: "Server IP"
             }
 
             Label {
                 id: connectionStateLabel
-                text: qsTr("Disconnected")
+                text: qsTr("Offline")
             }
 
             Button {
                 id: connectButton
+                height: 40
                 enabled: true
                 text: qsTr("Connect")
                 onPressed: {

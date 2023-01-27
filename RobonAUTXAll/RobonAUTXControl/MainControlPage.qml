@@ -5,8 +5,8 @@ import QtQuick.Layouts 1.3
 
 Item {
     id: mainControlPage
-    width: 768
-    height: 850
+    width: 360
+    height: 800
 
     signal teamSelected(int teamID);
 
@@ -17,7 +17,7 @@ Item {
 
     ListView {
         id: listView
-        width: 180
+        width: 160
         spacing: 10
         boundsBehavior: Flickable.StopAtBounds
         clip: true
@@ -33,7 +33,7 @@ Item {
             Material.background:  Material.Grey
             Material.elevation: 3
             x: 5
-            width: 200
+            width: 160
             height: 40
 
             Label {
@@ -58,6 +58,11 @@ Item {
 
         onCurrentItemChanged: {
             mainControlPage.teamSelected(selectedTeamID);
+        }
+
+        Rectangle {
+            color: "#99ffffff"
+            anchors.fill: parent
         }
     }
 

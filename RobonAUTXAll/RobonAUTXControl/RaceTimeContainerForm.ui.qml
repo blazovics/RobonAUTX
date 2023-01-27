@@ -4,29 +4,29 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: race_time_container
-    width: 150
-    height: 250
+    width: 360
+    height: 55
     color: "#99ffffff"
     property alias manualTimerToggle: manualTimerToggle
     property alias resumeTimerButton: resumeTimerButton
     property alias pauseTimerButton: pauseTimerButton
     property alias manualStartButton: manualStartButton
-    ColumnLayout {
-        id: columnLayout
-        anchors.topMargin: 10
-        anchors.bottomMargin: 10
+    RowLayout {
+        id: rowLayout
+        anchors.margins: 5
         anchors.fill: parent
 
         Switch {
             id: manualTimerToggle
-            text: qsTr("Manual Timer")
+            text: qsTr("Timer")
+            checked: true
             focusPolicy: Qt.WheelFocus
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         }
 
         Button {
             id: manualStartButton
-            text: qsTr("Manual Start Timer")
+            text: qsTr("Start")
             checkable: true
             visible: manualTimerToggle.checked
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -34,7 +34,7 @@ Rectangle {
 
         Button {
             id: pauseTimerButton
-            text: qsTr("Pause Timer")
+            text: qsTr("Pause")
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             checkable: true
             visible: manualTimerToggle.checked
@@ -42,7 +42,7 @@ Rectangle {
 
         Button {
             id: resumeTimerButton
-            text: qsTr("Resume Timer")
+            text: qsTr("Resume")
             enabled: true
             checkable: true
             visible: manualTimerToggle.checked

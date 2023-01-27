@@ -5,32 +5,31 @@ import QtQuick.Layouts 1.3
 
 Item {
     id: element
-    width: 768
-    height: 850
+    width: 760
+    height: 750
 
     property int fromPos: 1
 
     Rectangle {
         id: column
-        width: 300
+        width: 180
         color: "#99ffffff"
         anchors.top: parent.top
-        anchors.topMargin: 100
+        anchors.topMargin: 10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 100
+        anchors.bottomMargin: 10
         anchors.left: parent.left
-        anchors.leftMargin: 50
+        anchors.leftMargin: 10
 
         Column {
             id: column1
-            height: 590
             spacing: 10
             anchors.fill: parent
             anchors.margins: 20
 
             Button {
                 id: button
-                width: 250
+                //width: 250
                 text: qsTr("Ügyességi eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -40,7 +39,7 @@ Item {
 
             Button {
                 id: button1
-                width: 250
+                //width: 250
                 text: qsTr("Gyorsasági eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -50,7 +49,7 @@ Item {
 
             Button {
                 id: button2
-                width: 250
+               // width: 250
                 text: qsTr("Kvalifikációs eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -60,7 +59,7 @@ Item {
 
             Button {
                 id: button3
-                width: 250
+               // width: 250
                 text: qsTr("Közönségdíj eredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -80,7 +79,7 @@ Item {
 
             Button {
                 id: button4
-                width: 250
+                //width: 250
                 text: qsTr("Junior végeredmény")
                 visible: resultSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -91,7 +90,7 @@ Item {
 
             Button {
                 id: button5
-                width: 250
+               // width: 250
                 text: qsTr("Végeredmény")
                 visible: resultSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -108,7 +107,7 @@ Item {
             }
             Button {
                 id: button6
-                width: 250
+               // width: 250
                 text: qsTr("Egyéni Végeredmény")
                 visible: singleFinalSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -118,7 +117,7 @@ Item {
             }
             Button {
                 id: button7
-                width: 250
+               // width: 250
                 text: qsTr("Egyéni Junior Végeredmény")
                 visible: singleFinalSwitch.checked
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -131,15 +130,15 @@ Item {
 
     Rectangle {
         id: rectangle
-        x: 516
-        width: 300
+        anchors.left: column.right
+        anchors.leftMargin: 10
         color: "#99ffffff"
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 550
         anchors.top: parent.top
-        anchors.topMargin: 100
+        anchors.topMargin: 10
         anchors.right: parent.right
-        anchors.rightMargin: 50
+        anchors.rightMargin: 10
+        anchors.bottom: rectangle1.top
+        anchors.bottomMargin: 10
 
 
         GridLayout {
@@ -167,7 +166,7 @@ Item {
             Button {
                 id: minusButton
                 text: qsTr("-")
-                font.pointSize: 20
+                font.pointSize: 10
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 onClicked: {
                     if (fromPos > 1)
@@ -180,7 +179,7 @@ Item {
             Button {
                 id: plusButton
                 text: qsTr("+")
-                font.pointSize: 20
+                font.pointSize: 10
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 onClicked: {
                     if (fromPos < 11)
@@ -195,15 +194,14 @@ Item {
 
     Rectangle {
         id: rectangle1
-        y: 550
         height: 300
         color: "#99ffffff"
-        anchors.left: rectangle.left
-        anchors.leftMargin: 0
+        anchors.left: column.right
+        anchors.leftMargin: 10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 100
+        anchors.bottomMargin: 10
         anchors.right: parent.right
-        anchors.rightMargin: 50
+        anchors.rightMargin: 10
 
         ColumnLayout {
             id: columnLayout
@@ -215,7 +213,6 @@ Item {
 
             Button {
                 id: button12
-                width: 250
                 text: qsTr("BSS Csapatok")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -225,7 +222,6 @@ Item {
 
             Button {
                 id: button9
-                width: 250
                 text: qsTr("BSS Kvalifikáció")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -234,7 +230,6 @@ Item {
             }
             Button {
                 id: button10
-                width: 250
                 text: qsTr("BSS Gyorsasági")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -243,7 +238,6 @@ Item {
             }
             Button {
                 id: button8
-                width: 250
                 text: qsTr("BSS Közönség")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
@@ -252,7 +246,6 @@ Item {
             }
             Button {
                 id: button11
-                width: 250
                 text: qsTr("BSS Végeredmény")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
