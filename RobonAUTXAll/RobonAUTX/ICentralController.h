@@ -40,6 +40,8 @@
 #define Event_ModifyWrongGateCount 28
 #define Event_WrongGatePassed 29
 
+#define Event_RevertCheckpointState 30
+
 #define Device_ICentralController 100
 
 #include <QObject>
@@ -99,7 +101,7 @@ signals:
     void ResetSkillGates();
 
     void SkillRaceTimeIsUp();
-    void SkillRaceLastCheckpointReached();
+    //void SkillRaceLastCheckpointReached();
 
 public slots:
 
@@ -111,6 +113,7 @@ public slots:
     virtual void LaserMeasureReceived(quint32 time) = 0;
     virtual void TimeSourceForLapSelected(TimeSourceType timeSource) = 0;
     virtual void UpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced) = 0;
+    virtual void RevertCheckpointState(quint32 checkpointID) = 0;
     virtual void StartRace() = 0;
     virtual void FinishRace(bool aborted) = 0;
     virtual void TeamListRequested() = 0;

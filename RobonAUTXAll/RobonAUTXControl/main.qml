@@ -41,7 +41,7 @@ Window {
 
     SwipeView {
         id: view
-        anchors.topMargin: 6
+        anchors.topMargin: 1
         currentIndex: 1
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -82,7 +82,7 @@ Window {
 
     Rectangle {
         id: rectangle
-        height: 100
+        height: 65
         color: "#99ffffff"
         anchors.top: parent.top
         anchors.topMargin: 0
@@ -92,16 +92,31 @@ Window {
         anchors.leftMargin: 0
 
 
-        Button {
+        Rectangle {
             id: button
-            text: qsTr("Configuration")
+            anchors.top: row.bottom
+            anchors.topMargin: 5
+            width: 50
+            height: 20
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-            display: AbstractButton.TextOnly
+            anchors.bottomMargin: 5
 
-            onClicked: {
-                rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -50 : rectangle.anchors.topMargin = 0;
+            radius: 10
+
+            color: "darkGrey"
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -50 : rectangle.anchors.topMargin = 0;
+                }
+            }
+
+            Label{
+                anchors.fill: parent
+                text: qsTr("Configuration")
+                font.pointSize: 7
             }
         }
 
@@ -131,7 +146,6 @@ Window {
 
             Button {
                 id: connectButton
-                height: 40
                 enabled: true
                 text: qsTr("Connect")
                 onPressed: {

@@ -92,11 +92,12 @@ void RemoteSkillRaceFieldUnit::TimeIsUp()
     sendEvent(event);
 }
 
+/*
 void RemoteSkillRaceFieldUnit::SetExitGate()
 {
     Event event(Event_GateStopSending);
     sendEvent(event);
-}
+}*/
 
 void RemoteSkillRaceFieldUnit::sendSet(quint32 checkpointID)
 {

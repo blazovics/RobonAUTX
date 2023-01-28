@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: rectangle
     width: 360
-    height: 65
+    height: 55
     color: "#99ffffff"
     property alias skillRacePointLabel: skillRacePointLabel
     property alias elapsedTimeLabel: elapsedTimeLabel
@@ -20,7 +20,7 @@ Rectangle {
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         Layout.fillWidth: true
 
-        anchors.margins: 5
+        anchors.leftMargin: 5
 
         Label {
             text: qsTr("Elapsed Time:")

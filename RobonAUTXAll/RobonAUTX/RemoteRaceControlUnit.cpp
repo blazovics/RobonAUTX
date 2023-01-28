@@ -66,7 +66,7 @@ void RemoteRaceControlUnit::EventReceived(Event &event)
     case Device_RaceControlUnit + Event_CheckpointStateUpdated :
     {
         quint32 first = event.extractQuint32FromRawData();
-        bool second = event.extractBoolFromRawData();
+        CheckpointState second = event.extractCheckpointStateFromRawData();
         localUnit->CheckpointStateUpdated(first,second);
     }
         break;
@@ -170,11 +170,11 @@ void RemoteRaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime
     sendEvent(event);
 }
 
-void RemoteRaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
+void RemoteRaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState)
 {
     Event event(Device_RaceControlUnit + Event_CheckpointStateUpdated);
     event.insertQuint32(checkpointID);
-    event.insertBool(checked);
+    event.insertCheckpointState(newState);
     sendEvent(event);
 }
 

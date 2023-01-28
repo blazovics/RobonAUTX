@@ -18,6 +18,7 @@ QDataStream &operator<<(QDataStream &out, const SkillRaceResult &res)
     out<<res.teamID;
     out<<res.position;
     out<<res.skillPoint;
+    out<<res.touchCount;
     return out;
 }
 
@@ -27,5 +28,6 @@ QDataStream &operator>>(QDataStream &in, SkillRaceResult &res)
     in>>res.teamID;
     in>>res.position;
     in>>res.skillPoint;
+    in>>res.touchCount;
     return  in;
 }

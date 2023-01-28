@@ -24,6 +24,11 @@ qint64 SkillRaceEvent::getRemainingTime()
     return remainingTime;
 }
 
+qint32 SkillRaceEvent::GetTouchPenaltyPoint()
+{
+    return static_cast<SkillRace*>(this->actualRace)->GetTouchPenaltyPoint();
+}
+
 SkillRaceEvent::SkillRaceEvent(std::shared_ptr<DatabaseManager> dbManager, CentralController* centralController, QObject *parent):RaceEvent (dbManager, centralController, parent)
 {
 
@@ -49,7 +54,7 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, CheckpointState newState, b
 
             if(currentState != newState)
             {
-                static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState);
+                static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState, raceTimer.Elapsed());
                 return true;
             }
         }
@@ -61,10 +66,21 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, CheckpointState newState, b
     return  false;
 }
 
+CheckpointState SkillRaceEvent::GetCheckpointState(quint32 index)
+{
+    return static_cast<SkillRace*>(this->actualRace)->GetCheckpointState(index);
+}
+
+CheckpointState SkillRaceEvent::RevertCheckpoint(quint32 index)
+{
+    return static_cast<SkillRace*>(this->actualRace)->RevertCheckpoint(index);
+}
+
+/*
 bool SkillRaceEvent::IsLastCheckpointReached()
 {
-    return static_cast<SkillRace*>(this->actualRace)->IsLastCheckpointReached();
-}
+    return static_cast<SkillRace*>(this->actualRace)->IsAllCheckpointReached();
+}*/
 
 void SkillRaceEvent::SetStartSucceeded(bool value)
 {
@@ -73,7 +89,12 @@ void SkillRaceEvent::SetStartSucceeded(bool value)
 
 void SkillRaceEvent::SetLaneChangeSuccess(bool value)
 {
-    static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value, remainingTime);
+    static_cast<SkillRace*>(this->actualRace)->SetLaneChangeSucceeded(value, raceTimer.Elapsed());
+}
+
+quint32 SkillRaceEvent::UpdateTouchCount(quint32 newValue)
+{
+    return static_cast<SkillRace*>(this->actualRace)->UpdateTouchCount(newValue);
 }
 
 void SkillRaceEvent::StartRace() {

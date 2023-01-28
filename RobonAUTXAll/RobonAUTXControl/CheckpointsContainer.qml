@@ -4,15 +4,18 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: checkpoints_container
-    width: 200
+    width: 360
     height: 550
     color: "#99ffffff"
 
-    signal checkpointButtonPressed(int checkpointID, bool state);
+    signal checkpointButtonPressed(int checkpointID, int state);
+
     signal startSucceededButtonPressed(bool state);
     signal laneChangeSucceededButtonPressed(bool state);
+
     signal decreaseActiveCheckpoint();
     signal increaseActiveCheckpoint();
+
     signal decreaseWrongGateCount();
     signal increaseWrongGateCount();
 
@@ -54,8 +57,8 @@ Rectangle {
     }
 
     ColumnLayout{
-        anchors.bottomMargin: 15
-        anchors.topMargin: 15
+        anchors.bottomMargin: 5
+        anchors.topMargin: 5
         anchors.leftMargin: 5
         anchors.rightMargin: 5
         spacing: 10
@@ -86,22 +89,120 @@ Rectangle {
                 }
             }
         }
-        GridView{
-            id:checkpointList
-            height: 360
-            contentWidth: 100
-            flow: GridView.FlowTopToBottom
-            cellWidth: 100
-            cellHeight: 45
-            cacheBuffer: 0
-            contentHeight: 360
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            Layout.fillHeight: false
-            model: CheckpointListModel {}
-            delegate: ckeckpointButtonDelegate
+        ColumnLayout{
 
+
+            Layout.fillWidth: true
+            spacing: 10
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 40
+                CheckpointStateIndicator{
+                    id: checkpoint_0
+                    title: "A"
+                    mouseArea.onClicked: {
+                        console.log("click test")
+                    }
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_1
+                    title: "B"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 20
+                CheckpointStateIndicator{
+                    id: checkpoint_2
+                    title: "C"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_3
+                    title: "D"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_4
+                    title: "E"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 40
+                CheckpointStateIndicator{
+                    id: checkpoint_5
+                    title: "F"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_6
+                    title: "G"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 20
+                CheckpointStateIndicator{
+                    id: checkpoint_7
+                    title: "H"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_8
+                    title: "I"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_9
+                    title: "J"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 40
+                CheckpointStateIndicator{
+                    id: checkpoint_10
+                    title: "K"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_11
+                    title: "L"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 20
+                CheckpointStateIndicator{
+                    id: checkpoint_12
+                    title: "M"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_13
+                    title: "N"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_14
+                    title: "O"
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                spacing: 40
+                CheckpointStateIndicator{
+                    id: checkpoint_15
+                    title: "P"
+                }
+                CheckpointStateIndicator{
+                    id: checkpoint_16
+                    title: "Q"
+                }
+            }
         }
+
 
         Button {
             text: "Lane Change Succeeded"
@@ -144,8 +245,4 @@ Rectangle {
 
 }
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.9}
-}
-##^##*/
+

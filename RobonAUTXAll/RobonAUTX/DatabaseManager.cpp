@@ -207,14 +207,15 @@ void DatabaseManager::SaveSkillRace(SkillRace *skillRace, bool aborted) {
 
     QSqlQuery query;
 
-    query.prepare("INSERT INTO SkillRace (TeamID, StartSucceeded, LaneChangeSucceeded, CheckpointState, Time, Points, WrongGateCount, IsAborted)"
-                  "VALUES (:TeamID, :StartSucceeded, :LaneChangeSucceeded, :CheckpointState, :Time, :Points, :WrongGateCount, :IsAborted)");
+    query.prepare("INSERT INTO SkillRace (TeamID, StartSucceeded, LaneChangeSucceeded, CheckpointState, Time, Points, TouchCount, IsAborted)"
+                  "VALUES (:TeamID, :StartSucceeded, :LaneChangeSucceeded, :CheckpointState, :Time, :Points, :TouchCount, :IsAborted)");
 
     query.bindValue(":TeamID",skillRace->getTeamID());
     query.bindValue(":StartSucceeded",quint32(skillRace->GetStartSucceeded()));
     query.bindValue(":LaneChangeSucceeded",quint32(skillRace->GetLaneChangeSucceeded()));
     query.bindValue(":CheckpointState",skillRace->GetSerializedCheckpointStates());
     query.bindValue(":Time",skillRace->getRaceTime());
+    query.bindValue(":TouchCount",skillRace->GetTouchCount());
     query.bindValue(":Points", skillRace->GetRacePoint());
     query.bindValue(":IsAborted", quint32(aborted));
 
@@ -381,6 +382,7 @@ QList<SkillRaceResult> DatabaseManager::GetSkillRaceResults() {
         result.teamID = query.value(0).toUInt();
         result.teamName = getTeamName(query.value(0).toInt());
         result.skillPoint = query.value(1).toUInt();
+        result.touchCount = query.value(2).toUInt();
         returnResult.push_back(result);
     }
 

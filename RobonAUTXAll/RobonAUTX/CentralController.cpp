@@ -126,6 +126,7 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, CheckpointSt
     {
         //TODO: checkpoint update logic!!
 
+        CheckpointState prevState = currentEvent->GetCheckpointState(checkpointID);
 
         qDebug()<<"Update Checkpoint state for #" << checkpointID <<"to "<< newState;
         if(currentEvent->UpdateCheckpoint(checkpointID,newState,forced))
@@ -135,17 +136,44 @@ void CentralController::UpdateCheckpointState(quint32 checkpointID, CheckpointSt
 
         emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
 
+        /*
         if(currentEvent->IsLastCheckpointReached())
         {
             emit SkillRaceLastCheckpointReached();
-        }
+        }*/
 
-        #warning "BSS ISSUE - NEED URGENT RESOLVE!"
-        int checkpointPoint = 2;
-        if(newState == false)
-        {
-            checkpointPoint = -2;
-        }
+
+        int prevPoint = (int)SkillRace::GetCheckpointPoint(prevState);
+        int newPoint = (int)SkillRace::GetCheckpointPoint(newState);
+
+        int checkpointPoint = newPoint - prevPoint;
+
+        bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),checkpointPoint,currentEvent->GetActualAbsolutePoints());
+    }
+    else {
+
+        ////throw std::bad_cast();
+    }
+}
+
+void CentralController::RevertCheckpointState(quint32 checkpointID)
+{
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        CheckpointState prevState = currentEvent->GetCheckpointState(checkpointID);
+        CheckpointState newState = currentEvent->RevertCheckpoint(checkpointID);
+
+        qDebug()<<"Revert Checkpoint state for #" << checkpointID <<"to "<< newState;
+
+        emit CheckpointStateUpdated(checkpointID,newState);
+
+        emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+        int prevPoint = (int)SkillRace::GetCheckpointPoint(prevState);
+        int newPoint = (int)SkillRace::GetCheckpointPoint(newState);
+
+        int checkpointPoint = newPoint - prevPoint;
 
         bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),checkpointPoint,currentEvent->GetActualAbsolutePoints());
     }
@@ -286,14 +314,30 @@ void CentralController::SafetyCarOvertaken(quint32 value)
 
 void CentralController::ModifyTouchCount(quint32 touchCount)
 {
-    SpeedRaceEvent* currentEvent = dynamic_cast<SpeedRaceEvent*>(this->raceEvent.get());
-    if(currentEvent != nullptr)
+    if(this->raceEvent->getType() == Skill)
     {
-        quint32 updatedTouchCount = currentEvent->ModifyTouchCount(touchCount);
-        emit TouchCountModified(updatedTouchCount);
+        SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr)
+        {
+            quint32 newTouchCount = currentEvent->UpdateTouchCount(touchCount);
+
+            emit TouchCountModified(newTouchCount);
+
+            emit SkillPointUpdated(currentEvent->GetActualPoints(),currentEvent->GetTimeCredit());
+
+            bssCommunicator->SendSkillScoreUpdated(currentEvent->GetTeamID(),currentEvent->GetTimeCredit(),currentEvent->getRemainingTime(),currentEvent->GetTouchPenaltyPoint(),currentEvent->GetActualAbsolutePoints());
+        }
     }
-    else {
-        //throw std::bad_cast();
+    else if (this->raceEvent->getType() == Speed){
+        SpeedRaceEvent* currentEvent = dynamic_cast<SpeedRaceEvent*>(this->raceEvent.get());
+        if(currentEvent != nullptr)
+        {
+            quint32 updatedTouchCount = currentEvent->ModifyTouchCount(touchCount);
+            emit TouchCountModified(updatedTouchCount);
+        }
+        else {
+            //throw std::bad_cast();
+        }
     }
 }
 

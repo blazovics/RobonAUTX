@@ -8,11 +8,11 @@
 #ifndef SKILLRACE_H
 #define SKILLRACE_H
 
-#define SkillCheckpointCount 15
+#define SkillCheckpointCount 17
 #define SkillCheckpointPoint 2
-#define SkillStartPoint 0
-#define SkillLaneChangePoint 10
-#define SkillWrongGatePoint 2
+#define SkillStartPoint 3
+#define SkillLaneChangePoint 6
+#define SkillTouchPenaltyPoint 5
 
 #include "Race.h"
 #include <vector>
@@ -31,14 +31,19 @@ typedef enum{
 class SkillRace: public Race {
 
 private:
-    vector<CheckpointState> prevCheckpointStates;
+    vector<vector<CheckpointState>> prevCheckpointStates;
     vector<CheckpointState> checkpointStates;
     bool startSucceeded;
     bool laneChangeSucceeded;
+    bool allCheckpointsReached;
 
     quint64 laneChangeTime;
 
+    quint64 allCheckpointsReachedTime;
+
     qint64 raceTime;
+
+    quint32 touchCount;
 
 public: 
     
@@ -46,7 +51,8 @@ public:
     static const quint32 checkpointPoint;
     static const quint32 startPoint;
     static const quint32 laneChangePoint;
-    static const quint32 wrongGatePoint;
+
+    static const quint32 touchPenaltyPoint;
 
     /**
     * @param teamID
@@ -59,9 +65,11 @@ public:
     
     CheckpointState GetCheckpointState(quint32 index) const;
 
-    void SetCheckpoint(quint32 index, CheckpointState newState);
+    void SetCheckpoint(quint32 index, CheckpointState newState, qint64 updateTime);
 
-    void RevertCheckpoint(quint32 index);
+    CheckpointState RevertCheckpoint(quint32 index);
+
+
     
     bool GetStartSucceeded() const;
     
@@ -71,12 +79,10 @@ public:
     
     void SetLaneChangeSucceeded(bool value, qint64 laneChangeTime);
 
-    bool IsLastCheckpointReached();
-
     qint64 GetTimeCredit() const;
 
-    static quint32 CalculateSkillRacePoints(vector<CheckpointState> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
-    static qint32 CalculateAbsoluteSkillRacePoints(vector<CheckpointState> checkpointStates, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
+    static quint32 CalculateSkillRacePoints(vector<CheckpointState> checkpointStates, quint32 touchCount, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
+    static qint32 CalculateAbsoluteSkillRacePoints(vector<CheckpointState> checkpointStates, quint32 touchCount, bool startSucceeded, bool laneChangeSucceeded, quint64 laneChangeTime);
 
     QT_DEPRECATED static quint32 CalculateWrongGatePoints(quint32 wrongGateCount);
 
@@ -91,6 +97,12 @@ public:
     quint32 GetLaneChangePoint() const;
 
     static quint32 GetCheckpointPoint(CheckpointState state);
+    quint32 GetTouchCount() const;
+    qint32 GetTouchPenaltyPoint() const;
+    quint32 UpdateTouchCount(quint32 newTouchCount);
+
+private:
+    bool IsAllCheckpointReached();
 };
 
 

@@ -40,7 +40,7 @@ public slots:
     void LaserLapTimeUpdated(quint32 time);
     void ManualLapTimeUpdated(quint32 time);
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
-    void CheckpointStateUpdated(quint32 checkpointID, bool checked);
+    void CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState);
     void TargetCheckpointUpdated(quint32 checkpointID);
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime);

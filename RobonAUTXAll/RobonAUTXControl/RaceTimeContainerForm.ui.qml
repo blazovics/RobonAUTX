@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: race_time_container
     width: 360
-    height: 55
+    height: 45
     color: "#99ffffff"
     property alias manualTimerToggle: manualTimerToggle
     property alias resumeTimerButton: resumeTimerButton
@@ -13,8 +13,9 @@ Rectangle {
     property alias manualStartButton: manualStartButton
     RowLayout {
         id: rowLayout
-        anchors.margins: 5
+
         anchors.fill: parent
+        anchors.leftMargin: 5
 
         Switch {
             id: manualTimerToggle

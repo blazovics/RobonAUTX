@@ -6,7 +6,7 @@ SkillRaceResultsContainerForm {
         skillRacePointLabel.text = "0";
         elapsedTimeLabel.text = "0";
         remainingTimeLabel.text = "0";
-        wrongGateCountLabel.text ="0";
+        touchCountLabel.text ="0";
     }
 
     Connections{
@@ -20,8 +20,8 @@ SkillRaceResultsContainerForm {
         onUpdateRaceTime:{
             elapsedTimeLabel.text = time;
         }
-        onUpdateRemainingTime:{
-            remainingTimeLabel.text = time;
+        onUpdateTouchCountModified:{
+            touchCountLabel.text = numberOfTouches;
         }
 
     }

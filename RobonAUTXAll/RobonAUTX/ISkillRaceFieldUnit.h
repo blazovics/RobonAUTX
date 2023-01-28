@@ -12,7 +12,7 @@
 
 
 #define Event_SetGate 50
-#define Event_GateStopSending 51
+//#define Event_GateStopSending 51
 #define Event_Timeout 52
 #define Event_ResetAllGates 54
 #define Event_StartSafetyCar 4
@@ -46,7 +46,7 @@ public slots:
     virtual void StopSafetyCar() = 0;
     virtual void StartSkillRaceGate() = 0;
     virtual void TimeIsUp() = 0;
-    virtual void SetExitGate() = 0;
+    //virtual void SetExitGate() = 0;
 
 };
 

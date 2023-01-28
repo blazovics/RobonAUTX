@@ -113,9 +113,9 @@ void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
     emit updateCompletedSpeedLaps(lapNumber,lapTime);
 }
 
-void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, bool checked)
+void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState)
 {
-    emit updateCheckpointButtons(checkpointID, checked);
+    emit updateCheckpointButtons(checkpointID, newState);
 }
 
 void RaceControlUnit::TargetCheckpointUpdated(quint32 checkpointID)
@@ -232,10 +232,15 @@ void RaceControlUnit::qmlLaserTimeSelected()
 {
     emit SelectTimeSourceForLap(LaserTime);
 }
-void RaceControlUnit::qmlUpdateCheckpointState(quint32 checkpointID, bool checked, bool forced)
+void RaceControlUnit::qmlUpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced)
 {
-    emit updateCheckpointState(checkpointID,checked,forced);
+    emit updateCheckpointState(checkpointID,newState,forced);
 }
+
+void RaceControlUnit::qmlRevertCheckpointState(quint32 checkpointID){
+    emit RevertCheckpointState(checkpointID);
+}
+
 void RaceControlUnit::qmlVehicleStarted(bool achieved)
 {
     emit VehicleStarted(achieved);
@@ -293,17 +298,18 @@ void RaceControlUnit::qmlDecreaseWrongGateCount()
 
 void RaceControlUnit::qmlIncreaseCheckpoint()
 {
-    emit updateCheckpointState(approvedCheckpointIndex,true,true);
-    emit UpdateTargetCheckpoint(approvedCheckpointIndex+1);
+    //emit updateCheckpointState(approvedCheckpointIndex,true,true);
+    //emit UpdateTargetCheckpoint(approvedCheckpointIndex+1);
 }
 
 void RaceControlUnit::qmlDecreaseCheckpoint()
 {
+    /*
    if(approvedCheckpointIndex > 0)
    {
        emit updateCheckpointState(approvedCheckpointIndex-1,false,true);
        emit UpdateTargetCheckpoint(approvedCheckpointIndex-1);
-   }
+   }*/
 }
 
 void RaceControlUnit::qmlPauseRaceTimer()

@@ -33,11 +33,17 @@ public:
  */
     bool UpdateCheckpoint(quint32 index, CheckpointState newState, bool forced);
 
-    bool IsLastCheckpointReached();
+    CheckpointState GetCheckpointState(quint32 index);
+
+    CheckpointState RevertCheckpoint(quint32 index);
+
+    //bool IsLastCheckpointReached();
 
     void SetStartSucceeded(bool value);
 
     void SetLaneChangeSuccess(bool value);
+
+    quint32 UpdateTouchCount(quint32 newValue);
     
     void StartRace();
     
@@ -56,6 +62,8 @@ public:
     quint32 GetLaneChangePoint();
 
     qint64 getRemainingTime();
+
+    qint32 GetTouchPenaltyPoint();
 
 public slots:
     void UpdateTimerFired();

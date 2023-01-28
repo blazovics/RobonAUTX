@@ -58,7 +58,7 @@ public slots:
     void LaserLapTimeUpdated(quint32 time);
     void ManualLapTimeUpdated(quint32 time);
     void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime);
-    void CheckpointStateUpdated(quint32 checkpointID, bool checked);
+    void CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState);
     void TargetCheckpointUpdated(quint32 checkpointID);
     void VehicleStartConfirmed(bool achieved);
     void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime);
@@ -83,7 +83,7 @@ public slots:
     void qmlManualMeasure();
     void qmlManualTimeSelected();
     void qmlLaserTimeSelected();
-    void qmlUpdateCheckpointState(quint32 checkpointID, bool checked, bool forced);
+    void qmlUpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced);
     void qmlVehicleStarted(bool achieved);
     void qmlLaneChanged(bool achieved);
     void qmlSafetyCarFollowed(bool achieved);
@@ -96,6 +96,8 @@ public slots:
 
     void qmlIncreaseCheckpoint();
     void qmlDecreaseCheckpoint();
+
+    void qmlRevertCheckpointState(quint32 checkpointID);
 
     void qmlShowSpeedResults(bool isJunior, quint32 fromPos);
     void qmlShowSkillResults(quint32 fromPos);
@@ -116,7 +118,7 @@ signals:
     void showMainView();
     void showSkillRaceView(quint32 teamID);
     void showSpeedRaceView(quint32 teamID);
-    void updateCheckpointButtons(quint32 checkpointID,bool checked);
+    void updateCheckpointButtons(quint32 checkpointID,CheckpointState newState);
     void updateStartSuccessButton(bool status);
     void updateLaneChangeConfirmedButton(bool status);
     void updateSkillPoint(quint32 point);

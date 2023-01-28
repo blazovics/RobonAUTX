@@ -37,6 +37,7 @@ public slots:
     void LaserMeasureReceived(quint32 time);
     void TimeSourceForLapSelected(TimeSourceType timeSource);
     void UpdateCheckpointState(quint32 checkpointID, CheckpointState status, bool forced);
+    void RevertCheckpointState(quint32 checkpointID);
     void StartRace();
     void FinishRace(bool aborted);
     void TeamListRequested();

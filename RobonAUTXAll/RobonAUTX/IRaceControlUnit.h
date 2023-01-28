@@ -33,6 +33,7 @@
 #include <QObject>
 #include "TimeSourceType.h"
 #include "Team.h"
+#include "SkillRace.h"
 
 class IRaceControlUnit : public QObject{
 
@@ -48,7 +49,10 @@ signals:
     void FinishRace(bool aborted);
     void manualMeasure();
     void SelectTimeSourceForLap(TimeSourceType timeSource);
-    void updateCheckpointState(quint32 checkpointID, bool checked, bool forced);
+    void updateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced);
+
+    void RevertCheckpointState(quint32 checkpointID);
+
     void UpdateTargetCheckpoint(quint32 checkpointID);
     void VehicleStarted(bool achieved);
     void LaneChanged(bool achieved);
@@ -82,7 +86,7 @@ public slots:
     virtual void LaserLapTimeUpdated(quint32 time) = 0;
     virtual void ManualLapTimeUpdated(quint32 time) = 0;
     virtual void SpeedLapCompleted(quint32 lapNumber, quint32 lapTime) = 0;
-    virtual void CheckpointStateUpdated(quint32 checkpointID, bool checked) = 0;
+    virtual void CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState) = 0;
     virtual void TargetCheckpointUpdated(quint32 checkpointID) = 0;
     virtual void VehicleStartConfirmed(bool achieved) = 0;
     virtual void LaneChangeConfirmed(bool achieved, quint64 laneChangeTime) = 0;

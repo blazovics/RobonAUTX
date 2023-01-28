@@ -14,21 +14,21 @@ Item {
     SkillRaceResultsContainer {
         id: raceResultsContainer
         anchors.top: parent.top
-        anchors.topMargin: 5
+        anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
     RaceTimeContainer {
         id: race_time_container
         anchors.top: raceResultsContainer.bottom
-        anchors.topMargin: 5
+        anchors.topMargin: 2
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
     RaceActionsContainer {
         id: actions_container
         anchors.top: race_time_container.bottom
-        anchors.topMargin: 5
+        anchors.topMargin: 2
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
@@ -37,6 +37,6 @@ Item {
         //anchors.left: parent.left
         //anchors.leftMargin: 10
         anchors.top: actions_container.bottom
-        anchors.topMargin: 15
+        anchors.topMargin: 2
     }
 }
