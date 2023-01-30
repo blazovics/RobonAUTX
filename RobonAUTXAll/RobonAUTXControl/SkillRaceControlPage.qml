@@ -29,12 +29,12 @@ SkillRaceControlPageForm {
         controlUnit.qmlIncreaseCheckpoint();
     }
 
-    checkpoints_container.onDecreaseWrongGateCount: {
-        controlUnit.qmlDecreaseWrongGateCount();
+    checkpoints_container.onDecreaseTouchCount: {
+        controlUnit.qmlDecreaseTouchCount();
     }
 
-    checkpoints_container.onIncreaseWrongGateCount: {
-        controlUnit.qmlIncreaseWrongGateCount();
+    checkpoints_container.onIncreaseTouchCount: {
+        controlUnit.qmlIncreaseTouchCount();
     }
 
     Connections{

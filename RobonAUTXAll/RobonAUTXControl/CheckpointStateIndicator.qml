@@ -10,6 +10,8 @@ Rectangle {
 
     property int checkpointID: 0
 
+    property int selectedCheckpointID: -1
+
     property string title: "A"
 
     width: 60
@@ -100,11 +102,24 @@ Rectangle {
 
 
 
-    color: "lightGray"
+    color: {
+        if (selectedCheckpointID == checkpointID){
+            "purple"
+        }
+        else{
+            "lightGray"
+        }
+    }
 
     MouseArea{
         id: mouseArea
         anchors.fill: parent
+/*
+        onClicked: {
+            selectedCheckpointID = checkpointID;
+        }
+        */
+
     }
 
 }

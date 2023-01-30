@@ -11,11 +11,11 @@ Rectangle {
     property alias elapsedTimeLabel: elapsedTimeLabel
     property alias remainingTimeLabel: remainingTimeLabel
 
-    //property alias wrongGateCountLabel: wrongGateCountLabel
+    property alias touchCountLabel: touchCountLabel
     GridLayout {
         id: column
         anchors.fill: parent
-        columns: 3
+        columns: 4
 
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         Layout.fillWidth: true
@@ -36,7 +36,12 @@ Rectangle {
 
         Label {
             id: label
-            text: qsTr("Earned Points:")
+            text: qsTr("Points:")
+        }
+
+        Label {
+            id: label3
+            text: qsTr("Touches:")
         }
 
         Label {
@@ -59,6 +64,15 @@ Rectangle {
             fontSizeMode: Text.Fit
             font.pointSize: 15
         }
+
+        Label {
+            id: touchCountLabel
+            text: qsTr("2")
+            horizontalAlignment: Text.AlignRight
+            fontSizeMode: Text.Fit
+            font.pointSize: 15
+        }
+
 
         /*
         Label {
