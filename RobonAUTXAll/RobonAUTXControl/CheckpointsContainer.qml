@@ -103,6 +103,16 @@ Rectangle {
                 }
             }
         }
+        Button {
+            text: "Lane Change Succeeded"
+            Layout.fillWidth: true
+            id: laneChangeSuccededButton
+            checkable: true
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            onReleased: {
+                checkpoints_container.laneChangeSucceededButtonPressed(checked);
+            }
+        }
         ColumnLayout{
             Layout.fillWidth: true
             spacing: 10
@@ -301,16 +311,7 @@ Rectangle {
                 }
             }
         } 
-        Button {
-            text: "Lane Change Succeeded"
-            Layout.fillWidth: true
-            id: laneChangeSuccededButton
-            checkable: true
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            onReleased: {
-                checkpoints_container.laneChangeSucceededButtonPressed(checked);
-            }
-        }
+
     }
 }
 
