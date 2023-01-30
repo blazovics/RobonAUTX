@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     id: checkpoints_container
     width: 360
-    height: 550
+    height: 490
     color: "#99ffffff"
 
     signal checkpointButtonPressed(int checkpointID, int state);
@@ -49,7 +49,7 @@ Rectangle {
 
         for(var i = 0; i< 17; i++ )
         {
-            findItemById(i).checkpointState = CheckpointState.State.Checked;
+            findItemById(i).checkpointState = CheckpointState.State.Clear;
             //checkpointList.model.setProperty(i,"is_checked",false);
         }
     }
@@ -59,6 +59,7 @@ Rectangle {
         console.log(checkpointID)
         console.log(state)
 
+        findItemById(checkpointID).checkpointState = state;
         //checkpointList.model.setProperty(checkpointID,"is_checked",state);
     }
 
@@ -76,10 +77,13 @@ Rectangle {
     ColumnLayout{
         anchors.margins: 1
         spacing: 1
-        anchors.fill: parent
+        //anchors.fill: parent
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
         layoutDirection: Qt.RightToLeft
         Layout.alignment: Qt.AlignTop
-
+        id: containers
 
         RowLayout{
             Layout.fillWidth: true
@@ -90,7 +94,7 @@ Rectangle {
                 id: decreaseWrongGateButton
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 onReleased: {
-                    checkpoints_container.decreaseWrongGateCount();
+                    checkpoints_container.decreaseTouchCount();
                 }
             }
             Button {
@@ -99,7 +103,7 @@ Rectangle {
                 id: increaseWrongGateButton
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 onReleased: {
-                    checkpoints_container.increaseWrongGateCount();
+                    checkpoints_container.increaseTouchCount();
                 }
             }
         }
@@ -113,8 +117,17 @@ Rectangle {
                 checkpoints_container.laneChangeSucceededButtonPressed(checked);
             }
         }
+    }
         ColumnLayout{
-            Layout.fillWidth: true
+            //Layout.fillWidth: true
+            anchors.top: containers.bottom
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+
+            id: checkpoint_buttons
+
+
+
             spacing: 10
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             RowLayout{
@@ -173,7 +186,6 @@ Rectangle {
                     selectedCheckpointID: selectedCheckpoint
                     mouseArea.onClicked: {
                         selectedCheckpoint = checkpoint_4.checkpointID
-                        resetContainer();
                     }
                 }
             }
@@ -310,9 +322,67 @@ Rectangle {
                     }
                 }
             }
-        } 
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    selectedCheckpoint = -1;
+                }
+                z: -1
+            }
 
-    }
+        }
+        ColumnLayout{
+            anchors.top: containers.bottom
+            anchors.left: checkpoint_buttons.right
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: selectedCheckpoint > -1 ? 0 : (width * -1) + 10
+            visible: selectedCheckpoint > -1 ? true : false
+            anchors.horizontalCenter: parent.horizontalCenter
+
+
+
+            id: setter_buttons
+
+            //Layout.alignment: Qt.AlignTop
+            spacing: 10
+
+            CheckpointSetterButton{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkpointState: CheckpointState.State.Clear
+                mouseArea.onClicked: {
+                    checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
+                }
+            }
+            CheckpointSetterButton{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkpointState: CheckpointState.State.Checked
+                mouseArea.onClicked: {
+                    checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
+                }
+            }
+            CheckpointSetterButton{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkpointState: CheckpointState.State.PirateFirst
+                mouseArea.onClicked: {
+                    checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
+                }
+            }
+            CheckpointSetterButton{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkpointState: CheckpointState.State.PirateFirstChecked
+                mouseArea.onClicked: {
+                    checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
+                }
+            }
+            CheckpointSetterButton{
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                checkpointState: CheckpointState.State.PirateSecond
+                mouseArea.onClicked: {
+                    checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
+                }
+            }
+        }
 }
 
 

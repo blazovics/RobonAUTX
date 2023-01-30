@@ -15,7 +15,7 @@ Rectangle {
     property string title: "A"
 
     width: 60
-    height: 40
+    height: 45
     id: indicator
 
     radius: 5
@@ -76,7 +76,7 @@ Rectangle {
                         "blue"
                     }
                 }
-            }
+            }/*
             Rectangle{
                 border.color: "black"
                 border.width: 1
@@ -95,7 +95,7 @@ Rectangle {
                         "blue"
                     }
                 }
-            }
+            }*/
         }
     }
 

@@ -34,9 +34,8 @@ Item {
 
     CheckpointsContainer {
         id: checkpoints_container
-        //anchors.left: parent.left
-        //anchors.leftMargin: 10
         anchors.top: actions_container.bottom
         anchors.topMargin: 2
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }

@@ -115,6 +115,30 @@ void RaceControlUnit::SpeedLapCompleted(quint32 lapNumber, quint32 lapTime)
 
 void RaceControlUnit::CheckpointStateUpdated(quint32 checkpointID, CheckpointState newState)
 {
+
+
+    int state = 0;
+
+    switch (newState) {
+    case Clear:
+        state = 0;
+        break;
+    case Checked:
+        state = 1;
+        break;
+    case PirateSecond:
+        state = 2;
+        break;
+    case PirateFirst:
+        state = 3;
+        break;
+    case PirateFirstChecked:
+        state = 4;
+        break;
+    }
+
+    qDebug()<<"id: " << checkpointID << "state: " << newState << "convertedState: " << state;
+
     emit updateCheckpointButtons(checkpointID, newState);
 }
 
@@ -232,9 +256,39 @@ void RaceControlUnit::qmlLaserTimeSelected()
 {
     emit SelectTimeSourceForLap(LaserTime);
 }
-void RaceControlUnit::qmlUpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced)
+void RaceControlUnit::qmlUpdateCheckpointState(quint32 checkpointID, quint32 newState, bool forced)
 {
-    emit updateCheckpointState(checkpointID,newState,forced);
+    /*
+    GATE_UNVISITED	0
+    GATE_TWO_POINTS	1
+    GATE_NO_POINT	2
+    GATE_MAX_ONE_POINT	3
+    GATE_ONE_POINT	4
+    */
+
+    CheckpointState st;
+    switch (newState) {
+    case 0:
+        st = CheckpointState::Clear;
+        break;
+    case 1:
+        st = CheckpointState::Checked;
+        break;
+    case 2:
+        st = CheckpointState::PirateSecond;
+        break;
+    case 3:
+        st = CheckpointState::PirateFirst;
+        break;
+    case 4:
+        st = CheckpointState::PirateFirstChecked;
+        break;
+    default:
+        st = CheckpointState::Clear;
+        break;
+    }
+
+    emit updateCheckpointState(checkpointID,st,forced);
 }
 
 void RaceControlUnit::qmlRevertCheckpointState(quint32 checkpointID){

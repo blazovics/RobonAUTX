@@ -18,5 +18,6 @@
         <file>ResultsControlPage.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>CheckpointState.qml</file>
+        <file>CheckpointSetterButton.qml</file>
     </qresource>
 </RCC>

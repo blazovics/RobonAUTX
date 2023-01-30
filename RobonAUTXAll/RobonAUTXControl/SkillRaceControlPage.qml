@@ -12,7 +12,9 @@ SkillRaceControlPageForm {
     checkpoints_container.onCheckpointButtonPressed: {
         console.log(checkpointID);
         console.log(state);
-        controlUnit.qmlUpdateCheckpointState(checkpointID,state,true);
+        var i = 1;
+        i = state;
+        controlUnit.qmlUpdateCheckpointState(checkpointID,i,true);
     }
     checkpoints_container.onStartSucceededButtonPressed: {
         controlUnit.qmlVehicleStarted(state);
@@ -40,7 +42,10 @@ SkillRaceControlPageForm {
     Connections{
         target: controlUnit
         onUpdateCheckpointButtons:{
-            checkpoints_container.updateCheckpoint(checkpointID,checked);
+            console.log(checkpointID)
+            console.log(newState)
+            console.log("?")
+            checkpoints_container.updateCheckpoint(checkpointID,newState);
         }
         onUpdateStartSuccessButton:{
             checkpoints_container.updateStartSucceededButton(status);

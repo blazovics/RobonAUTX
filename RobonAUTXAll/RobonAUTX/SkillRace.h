@@ -20,11 +20,11 @@
 using namespace std;
 
 typedef enum{
-    Clean = 0,
-    Checked,
-    PirateFirst,
-    PirateFirstChecked,
-    PirateSecond,
+    Clear = 0,
+    Checked = 1,
+    PirateSecond = 2,
+    PirateFirst = 3,
+    PirateFirstChecked = 4,
     PirateSecondChecked
 } CheckpointState;
 

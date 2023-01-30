@@ -83,7 +83,7 @@ public slots:
     void qmlManualMeasure();
     void qmlManualTimeSelected();
     void qmlLaserTimeSelected();
-    void qmlUpdateCheckpointState(quint32 checkpointID, CheckpointState newState, bool forced);
+    void qmlUpdateCheckpointState(quint32 checkpointID, quint32 newState, bool forced);
     void qmlVehicleStarted(bool achieved);
     void qmlLaneChanged(bool achieved);
     void qmlSafetyCarFollowed(bool achieved);
@@ -118,7 +118,7 @@ signals:
     void showMainView();
     void showSkillRaceView(quint32 teamID);
     void showSpeedRaceView(quint32 teamID);
-    void updateCheckpointButtons(quint32 checkpointID,CheckpointState newState);
+    void updateCheckpointButtons(quint32 checkpointID,quint32 newState);
     void updateStartSuccessButton(bool status);
     void updateLaneChangeConfirmedButton(bool status);
     void updateSkillPoint(quint32 point);

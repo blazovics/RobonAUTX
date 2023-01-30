@@ -14,8 +14,8 @@ SkillRaceResultsContainerForm {
         onUpdateSkillPoint:{
             skillRacePointLabel.text = point;
         }
-        onUpdateWrongGateCountModified:{
-            wrongGateCountLabel.text = numberOfWrongGates;
+        onUpdateRemainingTime:{
+            remainingTimeLabel.text = time;
         }
         onUpdateRaceTime:{
             elapsedTimeLabel.text = time;
