@@ -23,13 +23,6 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
 {
 
    switch (event.getEventID()) {
-    case Event_SetGate:
-   {
-       quint32 index = event.extractQuint32FromRawData();
-       emit CheckpointStateUpdated(index,true,false);
-        emit TargetCheckpointUpdated(index + 1);
-   }
-        break;
     case Event_ResetAllGates:
         emit checkpointsReseted();
         break;
@@ -39,14 +32,27 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
     case Event_StartSkillRaceGate:
        emit SkillRaceGateStarted();
        break;
-    case Event_WrongGate:
-       emit WrongGatePassed();
+   case Event_PlayerPassed:
+   {
+       quint32 checkpointID = event.extractQuint32FromRawData();
+       emit PlayerPassed(checkpointID);
+   }
+       break;
+   case Event_PiratePassed:
+   {
+       quint32 checkpointID = event.extractQuint32FromRawData();
+       emit PiratePassed(checkpointID);
+   }
+       break;
    }
 }
 
-void RemoteSkillRaceFieldUnit::UpdateTargetCheckpoint(quint32 checkpointID)
+void RemoteSkillRaceFieldUnit::UpdateCheckpoint(quint32 checkpointID, CheckpointState state, bool forced)
 {
-    this->sendSet(checkpointID);
+    Event event(Event_SetGate);
+    event.insertQuint32(checkpointID);
+    event.insertCheckpointState(state);
+    sendEvent(event);
 }
 
 void RemoteSkillRaceFieldUnit::ResetCheckpoints()
@@ -89,6 +95,18 @@ void RemoteSkillRaceFieldUnit::StartSkillRaceGate()
 void RemoteSkillRaceFieldUnit::TimeIsUp()
 {
     Event event(Event_Timeout);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::FreezeOn()
+{
+    Event event(Event_FreezeOn);
+    sendEvent(event);
+}
+
+void RemoteSkillRaceFieldUnit::FreezeOff()
+{
+    Event event(Event_FreezeOff);
     sendEvent(event);
 }
 

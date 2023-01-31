@@ -446,6 +446,16 @@ void CentralController::UpdateBSS(quint32 actionType)
     }
 }
 
+void CentralController::PiratePassedGate(quint32 checkpointID)
+{
+
+}
+
+void CentralController::PlayerPassedGate(quint32 checkpointID)
+{
+
+}
+
 void CentralController::saveResultsToFile()
 {
     QString path = QDir::home().filePath("results.csv");

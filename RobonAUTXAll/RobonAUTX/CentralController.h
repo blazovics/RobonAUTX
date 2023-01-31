@@ -72,6 +72,9 @@ public slots:
 
    void UpdateBSS(quint32 actionType);
 
+   void PiratePassedGate(quint32 checkpointID);
+   void PlayerPassedGate(quint32 checkpointID);
+
    void saveResultsToFile();
 
    void saveResultsToHTML();

@@ -148,6 +148,18 @@ void RemoteCentralController::EventReceived(Event &event)
         localController->UpdateBSS(first);
     }
         break;
+    case Device_ICentralController + Event_PiratePassed:
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        localController->PiratePassedGate(first);
+    }
+        break;
+    case Device_ICentralController + Event_PlayerPassed:
+    {
+        quint32 first = event.extractQuint32FromRawData();
+        localController->PlayerPassedGate(first);
+    }
+        break;
     }
 }
 
@@ -337,6 +349,20 @@ void RemoteCentralController::UpdateBSS(quint32 actionType)
 {
     Event event(Device_ICentralController + Event_UpdateBSS);
     event.insertQuint32(actionType);
+    sendEvent(event);
+}
+
+void RemoteCentralController::PiratePassedGate(quint32 checkpointID)
+{
+    Event event(Device_ICentralController + Event_PiratePassed);
+    event.insertQuint32(checkpointID);
+    sendEvent(event);
+}
+
+void RemoteCentralController::PlayerPassedGate(quint32 checkpointID)
+{
+    Event event(Device_ICentralController + Event_PlayerPassed);
+    event.insertQuint32(checkpointID);
     sendEvent(event);
 }
 

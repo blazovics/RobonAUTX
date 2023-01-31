@@ -22,7 +22,7 @@ public:
     void EventReceived(Event& event);
 
 public slots:
-    void UpdateTargetCheckpoint(quint32 checkpointID);
+    void UpdateCheckpoint(quint32 checkpointID, CheckpointState state, bool forced);
     void ResetCheckpoints();
     void SendHeartBeat();
     void SendClearAllGates();
@@ -31,6 +31,9 @@ public slots:
     void StartSkillRaceGate();
     void TimeIsUp();
     //void SetExitGate();
+
+    void FreezeOn();
+    void FreezeOff();
 
 private:
     void sendSet(quint32 checkpointID);

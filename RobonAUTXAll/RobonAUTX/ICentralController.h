@@ -42,6 +42,9 @@
 
 #define Event_RevertCheckpointState 30
 
+#define Event_PiratePassed 31
+#define Event_PlayerPassed 32
+
 #define Device_ICentralController 100
 
 #include <QObject>
@@ -137,6 +140,9 @@ public slots:
     virtual void ResumeRaceTimer() = 0;
 
     virtual void UpdateBSS(quint32 actionType) = 0;
+
+    virtual void PiratePassedGate(quint32 checkpointID) = 0;
+    virtual void PlayerPassedGate(quint32 checkpointID) = 0;
 
 };
 
