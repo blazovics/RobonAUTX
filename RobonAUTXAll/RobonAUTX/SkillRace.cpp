@@ -56,7 +56,7 @@ bool SkillRace::IsAllCheckpointReached()
 {
     for(unsigned i = 0; i<checkpointCount; i++)
     {
-        if(checkpointStates[i] != Checked && checkpointStates[i] != PirateFirstChecked && checkpointStates[i] != PirateSecond){
+        if(!(checkpointStates[i] == Checked || checkpointStates[i] == PirateFirstChecked || checkpointStates[i] == PirateSecond)){
             return false;
         }
     }
@@ -113,6 +113,9 @@ void SkillRace::SetCheckpoint(quint32 index, CheckpointState newState, qint64 up
             this->allCheckpointsReached = true;
             this->allCheckpointsReachedTime = updateTime;
         }
+        else {
+            this->allCheckpointsReached = false;
+        }
     }
 
 
@@ -127,6 +130,9 @@ CheckpointState SkillRace::RevertCheckpoint(quint32 index)
         if (this->IsAllCheckpointReached() == true){
             this->allCheckpointsReached = true;
             //Mark that checkpoint reached Time does not infected
+        }
+        else {
+            this->allCheckpointsReached = false;
         }
     }
     return this->checkpointStates[index];
