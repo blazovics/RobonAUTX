@@ -123,13 +123,13 @@ void CoreController::connectDevice(ICentralController *controller, ISkillRaceGat
 
 void CoreController::connectDevice(ICentralController *controller, ISkillRaceFieldUnit *device)
 {
-    connect(device,SIGNAL(CheckpointStateUpdated(quint32,CheckpointState,bool)),controller,SLOT(UpdateCheckpointState(quint32,CheckpointState,bool)));
+
     connect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
 
     connect(device,SIGNAL(PiratePassed(quint32)),controller,SLOT(PiratePassedGate(quint32)));
     connect(device,SIGNAL(PlayerPassed(quint32)),controller,SLOT(PlayerPassedGate(quint32)));
 
-
+    connect(controller,SIGNAL(CheckpointStateUpdated(quint32,CheckpointState)),device,SLOT(UpdateCheckpoint(quint32,CheckpointState)));
     connect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     connect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
     connect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));
@@ -244,12 +244,12 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
 {
     //disconnect(device,SIGNAL(TargetCheckpointUpdated(quint32)),controller,SLOT(UpdateTargetCheckpoint(quint32)));
     disconnect(device,SIGNAL(SkillRaceGateStarted()),controller,SLOT(SkillGateStarted()));
-    disconnect(device,SIGNAL(CheckpointStateUpdated(quint32,CheckpointState,bool)),controller,SLOT(UpdateCheckpoint(quint32,CheckpointState,bool)));
     //disconnect(device,SIGNAL(WrongGatePassed()),controller,SLOT(WrongGatePassed()));
 
-    connect(device,SIGNAL(PiratePassed(quint32)),controller,SLOT(PiratePassedGate(quint32)));
-    connect(device,SIGNAL(PlayerPassed(quint32)),controller,SLOT(PlayerPassedGate(quint32)));
+    disconnect(device,SIGNAL(PiratePassed(quint32)),controller,SLOT(PiratePassedGate(quint32)));
+    disconnect(device,SIGNAL(PlayerPassed(quint32)),controller,SLOT(PlayerPassedGate(quint32)));
 
+    disconnect(controller,SIGNAL(CheckpointStateUpdated(quint32,CheckpointState)),device,SLOT(UpdateCheckpoint(quint32,CheckpointState)));
     disconnect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
     disconnect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     disconnect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));

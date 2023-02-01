@@ -47,11 +47,13 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
    }
 }
 
-void RemoteSkillRaceFieldUnit::UpdateCheckpoint(quint32 checkpointID, CheckpointState state, bool forced)
+void RemoteSkillRaceFieldUnit::UpdateCheckpoint(quint32 checkpointID, CheckpointState state)
 {
     Event event(Event_SetGate);
-    event.insertQuint32(checkpointID);
-    event.insertCheckpointState(state);
+    event.insertQuint8(0);
+    event.insertQuint8(0);
+    event.insertQuint8(checkpointID);
+    event.insertCheckpointState8bit(state);
     sendEvent(event);
 }
 

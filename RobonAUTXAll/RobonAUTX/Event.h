@@ -29,6 +29,7 @@ public:
 
     quint32 extractQuint32FromRawData();
     quint64 extractQuint64FromRawData();
+    quint8 extractQuint8FromRawData();
     bool extractBoolFromRawData();
     QList<SpeedRaceResult> extractSpeedRaceResultsFromRawData();
     QList<SkillRaceResult> extractSkillRaceResultFromRawData();
@@ -39,6 +40,7 @@ public:
     CheckpointState extractCheckpointStateFromRawData();
 
     void insertTeams(QList<Team> teams);
+    void insertQuint8(quint8 value);
     void insertQuint32(quint32 value);
     void insertQuint64(quint64 value);
     void insertBool(bool value);
@@ -48,6 +50,7 @@ public:
     void insertQualificationResuls(QList<QualificationResult> results);
     void insertFinalResults(QList<FinalResult> results);
     void insertCheckpointState(CheckpointState state);
+    void insertCheckpointState8bit(CheckpointState state);
 
 
 

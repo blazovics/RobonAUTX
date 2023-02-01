@@ -22,7 +22,7 @@ public:
     void EventReceived(Event& event);
 
 public slots:
-    void UpdateCheckpoint(quint32 checkpointID, CheckpointState state, bool forced);
+    void UpdateCheckpoint(quint32 checkpointID, CheckpointState state);
     void ResetCheckpoints();
     void SendHeartBeat();
     void SendClearAllGates();

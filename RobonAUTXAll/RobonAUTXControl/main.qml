@@ -135,7 +135,7 @@ Window {
                 id: ipTextField
                 //width: 98
                 //height: 40
-                text: qsTr("192.168.5.100")
+                text: qsTr("192.168.100.5")
                 placeholderText: "Server IP"
             }
 

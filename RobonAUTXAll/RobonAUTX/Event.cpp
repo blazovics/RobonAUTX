@@ -34,6 +34,13 @@ quint64 Event::extractQuint64FromRawData()
     return value;
 }
 
+quint8 Event::extractQuint8FromRawData()
+{
+    quint8 value;
+    *inStream >> value;
+    return value;
+}
+
 bool Event::extractBoolFromRawData()
 {
     bool value;
@@ -95,6 +102,11 @@ void Event::insertTeams(QList<Team> teams)
     *outStream << teams;
 }
 
+void Event::insertQuint8(quint8 value)
+{
+    *outStream << value;
+}
+
 void Event::insertQuint32(quint32 value)
 {
     *outStream << value;
@@ -138,6 +150,12 @@ void Event::insertFinalResults(QList<FinalResult> results)
 void Event::insertCheckpointState(CheckpointState state)
 {
     *outStream << state;
+}
+
+void Event::insertCheckpointState8bit(CheckpointState state)
+{
+    quint8 state8 = state;
+    *outStream << state8;
 }
 
 Event::Event():eventID(0)

@@ -49,7 +49,7 @@ signals:
 public slots:
 
     //FIXME: Create a correct implementation
-    virtual void UpdateCheckpoint(quint32 checkpointID, CheckpointState state, bool forced) = 0;
+    virtual void UpdateCheckpoint(quint32 checkpointID, CheckpointState state) = 0;
     virtual void ResetCheckpoints() = 0;
     virtual void SendHeartBeat() = 0;
     virtual void SendClearAllGates() = 0;

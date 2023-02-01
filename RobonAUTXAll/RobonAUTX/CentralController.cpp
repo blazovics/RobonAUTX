@@ -259,6 +259,65 @@ void CentralController::VechicleStartAchieved(bool achieved)
     }
 }
 
+void CentralController::PiratePassedGate(quint32 checkpointID)
+{
+    qDebug()<<"Pirate Passed at: " <<checkpointID;
+
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        CheckpointState prevState = currentEvent->GetCheckpointState(checkpointID);
+
+        CheckpointState newState = Clear;
+
+        switch(prevState){
+            case Clear:
+                newState = PirateFirst;
+            break;
+            case PirateFirst:
+                newState = PirateSecond;
+            break;
+        default:
+            newState = prevState;
+        break;
+        }
+
+        if(newState != prevState){
+            this->UpdateCheckpointState(checkpointID,newState,false);
+        }
+    }
+}
+
+void CentralController::PlayerPassedGate(quint32 checkpointID)
+{
+    qDebug()<<"Player Passed at: " <<checkpointID;
+
+    SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
+    if(currentEvent != nullptr)
+    {
+        CheckpointState prevState = currentEvent->GetCheckpointState(checkpointID);
+
+        CheckpointState newState = Clear;
+
+        switch(prevState){
+            case Clear:
+                newState = Checked;
+            break;
+            case PirateFirst:
+                newState = PirateFirstChecked;
+            break;
+        default:
+            newState = prevState;
+        break;
+        }
+
+        if(newState != prevState){
+            this->UpdateCheckpointState(checkpointID,newState,false);
+        }
+    }
+}
+
+
 void CentralController::LaneChangeAchieved(bool achieved)
 {
     SkillRaceEvent* currentEvent = dynamic_cast<SkillRaceEvent*>(this->raceEvent.get());
@@ -444,16 +503,6 @@ void CentralController::UpdateBSS(quint32 actionType)
     }
         break;
     }
-}
-
-void CentralController::PiratePassedGate(quint32 checkpointID)
-{
-
-}
-
-void CentralController::PlayerPassedGate(quint32 checkpointID)
-{
-
 }
 
 void CentralController::saveResultsToFile()
