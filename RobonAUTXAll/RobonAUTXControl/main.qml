@@ -82,7 +82,7 @@ Window {
 
     Rectangle {
         id: rectangle
-        height: 65
+        height: 75
         color: "#99ffffff"
         anchors.top: parent.top
         anchors.topMargin: 0
@@ -97,7 +97,7 @@ Window {
             anchors.top: row.bottom
             anchors.topMargin: 5
             width: 50
-            height: 20
+            height: 40
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 5
@@ -109,7 +109,7 @@ Window {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -50 : rectangle.anchors.topMargin = 0;
+                    rectangle.anchors.topMargin == 0 ? rectangle.anchors.topMargin = -30 : rectangle.anchors.topMargin = 0;
                 }
             }
 
