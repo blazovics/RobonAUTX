@@ -250,7 +250,7 @@ void CoreController::disconnectDevice(ICentralController *controller, ISkillRace
     disconnect(device,SIGNAL(PlayerPassed(quint32)),controller,SLOT(PlayerPassedGate(quint32)));
 
     disconnect(controller,SIGNAL(CheckpointStateUpdated(quint32,CheckpointState)),device,SLOT(UpdateCheckpoint(quint32,CheckpointState)));
-    disconnect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
+    //disconnect(controller,SIGNAL(TargetCheckpointUpdated(quint32)),device,SLOT(UpdateTargetCheckpoint(quint32)));
     disconnect(controller,SIGNAL( StartSafetyCar()),device, SLOT(StartSafetyCar()));
     disconnect(controller,SIGNAL( StopSafetyCar()),device, SLOT(StopSafetyCar()));
     disconnect(controller,SIGNAL( ClearSkillGates()),device, SLOT(SendClearAllGates()));

@@ -4,15 +4,27 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
 
-        property alias mouseArea: mouseArea
+    property alias mouseArea: mouseArea
 
-        property int checkpointState: CheckpointState.State.Clear;
+    property int checkpointState: CheckpointState.State.Clear;
 
-        width: 45
-        height: 45
-        id: setter
+    property bool selected: false
 
-        radius: 5
+
+    color: {
+        if (selected == false){
+
+            "lightgray"
+        } else {
+            "#84B026"
+        }
+    }
+
+    width: 45
+    height: 45
+    id: setter
+
+    radius: 5
 
         ColumnLayout{
             anchors.fill: parent
@@ -94,7 +106,6 @@ Rectangle {
             }
         }
 
-        color: "darkgray"
 
 
         MouseArea{

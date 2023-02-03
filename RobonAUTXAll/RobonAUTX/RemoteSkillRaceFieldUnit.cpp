@@ -50,8 +50,8 @@ void RemoteSkillRaceFieldUnit::EventReceived(Event &event)
 void RemoteSkillRaceFieldUnit::UpdateCheckpoint(quint32 checkpointID, CheckpointState state)
 {
     Event event(Event_SetGate);
-    event.insertCheckpointState8bit(state);
     event.insertQuint8(checkpointID);
+    event.insertCheckpointState8bit(state);
     event.insertQuint8(0);
     event.insertQuint8(0);
     sendEvent(event);

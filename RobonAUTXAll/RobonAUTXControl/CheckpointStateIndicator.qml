@@ -104,10 +104,10 @@ Rectangle {
 
     color: {
         if (selectedCheckpointID == checkpointID){
-            "purple"
+            "#84B026"
         }
         else{
-            "lightGray"
+            "lightgray"
         }
     }
 

@@ -331,13 +331,35 @@ Rectangle {
             }
 
         }
-        ColumnLayout{
+        Rectangle{
+            id: control_buttons
             anchors.top: containers.bottom
             anchors.left: checkpoint_buttons.right
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            anchors.rightMargin: selectedCheckpoint > -1 ? 0 : (width * -1) + 10
+            //anchors.rightMargin: selectedCheckpoint > -1 ? 0 : (width * -1) + 10
             visible: selectedCheckpoint > -1 ? true : false
+
+
+            states: [
+                     // This adds a second state to the container where the rectangle is farther to the right
+
+                     State { name: "other"
+
+                         PropertyChanges {
+                             target: control_buttons
+                             anchors.rightMargin: (width * -1) + 10
+                         }
+                     }
+                 ]
+
+                transitions: Transition {
+                    PropertyAnimation { properties: "anchors.rightMargin"; easing.type: Easing.InOutQuad }
+                }
+
+            color: "transparent"
+        ColumnLayout{
+            anchors.fill: parent
             anchors.horizontalCenter: parent.horizontalCenter
 
 
@@ -350,6 +372,7 @@ Rectangle {
             CheckpointSetterButton{
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 checkpointState: CheckpointState.State.Clear
+                selected: findItemById(selectedCheckpoint).checkpointState == CheckpointState.State.Clear
                 mouseArea.onClicked: {
                     checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
                 }
@@ -357,6 +380,7 @@ Rectangle {
             CheckpointSetterButton{
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 checkpointState: CheckpointState.State.Checked
+                selected: findItemById(selectedCheckpoint).checkpointState == CheckpointState.State.Checked
                 mouseArea.onClicked: {
                     checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
                 }
@@ -364,6 +388,7 @@ Rectangle {
             CheckpointSetterButton{
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 checkpointState: CheckpointState.State.PirateFirst
+                selected: findItemById(selectedCheckpoint).checkpointState == CheckpointState.State.PirateFirst
                 mouseArea.onClicked: {
                     checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
                 }
@@ -371,6 +396,7 @@ Rectangle {
             CheckpointSetterButton{
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 checkpointState: CheckpointState.State.PirateFirstChecked
+                selected: findItemById(selectedCheckpoint).checkpointState == CheckpointState.State.PirateFirstChecked
                 mouseArea.onClicked: {
                     checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
                 }
@@ -378,10 +404,37 @@ Rectangle {
             CheckpointSetterButton{
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 checkpointState: CheckpointState.State.PirateSecond
+                selected: findItemById(selectedCheckpoint).checkpointState == CheckpointState.State.PirateSecond
                 mouseArea.onClicked: {
                     checkpoints_container.checkpointButtonPressed(selectedCheckpoint,checkpointState);
                 }
             }
+        }
+        Rectangle{
+            width: 20
+            height: 20
+            anchors.top: parent.top
+            anchors.right: parent.right
+            color: "red"
+            anchors.margins: 10
+            radius: 3
+
+            Label{
+                text: "X"
+                color: "white"
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    selectedCheckpoint = -1;
+                }
+            }
+
+        }
         }
 }
 
