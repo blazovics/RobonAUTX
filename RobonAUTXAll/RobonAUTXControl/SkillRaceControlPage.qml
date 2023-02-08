@@ -4,7 +4,7 @@ SkillRaceControlPageForm {
 
     function resetPage(){
         checkpoints_container.resetContainer();
-        race_time_container.resetContainer();
+        race_time_container.resetContainerForSkill();
         raceResultsContainer.resetContainer();
         actions_container.resetContainer();
     }

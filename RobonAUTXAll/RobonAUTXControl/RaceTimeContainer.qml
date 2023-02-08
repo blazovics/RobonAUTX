@@ -33,4 +33,11 @@ RaceTimeContainerForm {
         resumeTimerButton.enabled = false;
         manualTimerToggle.checked = false;
     }
+
+    function resetContainerForSkill(){
+        manualStartButton.enabled = true;
+        pauseTimerButton.enabled = true;
+        resumeTimerButton.enabled = false;
+        manualTimerToggle.checked = true;
+    }
 }

@@ -89,10 +89,10 @@ Rectangle {
                     width: 12
                     height: width
                     color: {
-                        if (setter.checkpointState == CheckpointState.State.Clear || setter.checkpointState == CheckpointState.State.Checked || setter.checkpointState == CheckpointState.State.PirateFirst){
+                        if (setter.checkpointState == CheckpointState.State.Clear || setter.checkpointState == CheckpointState.State.PirateFirst){
                             "lightGray"
                         }
-                        else if (setter.checkpointState == CheckpointState.State.PirateFirstChecked) {
+                        else if (setter.checkpointState == CheckpointState.State.PirateFirstChecked  || setter.checkpointState == CheckpointState.State.Checked ) {
                             "green"
                         }
                         else if (setter.checkpointState == CheckpointState.State.PirateSecond || setter.checkpointState == CheckpointState.State.PirateSecondChecked) {

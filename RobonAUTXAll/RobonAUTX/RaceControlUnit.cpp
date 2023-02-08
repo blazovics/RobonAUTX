@@ -55,6 +55,7 @@ void RaceControlUnit::SkillRaceInitiated(quint32 teamID)
     eventType = Skill;
     approvedCheckpointIndex = 0;
     wrongGateCount = 0;
+    touchCount = 0;
     emit showSkillRaceView(teamID);
 }
 
@@ -314,7 +315,18 @@ void RaceControlUnit::qmlSafetyCarOvertaken(quint32 value)
 
 void RaceControlUnit::qmlIncreaseTouchCount()
 {
-    if(touchCount < 5)
+    quint32 maxTouchCount = 5;
+
+    if(eventType == Skill)
+    {
+        maxTouchCount = 8;
+    }
+    else if(eventType == Speed)
+    {
+        maxTouchCount = 5;
+    }
+
+    if(touchCount < maxTouchCount)
     {
         touchCount++;
     }

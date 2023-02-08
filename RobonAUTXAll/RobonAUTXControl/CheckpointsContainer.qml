@@ -44,7 +44,7 @@ Rectangle {
     }
 
     function resetContainer(){
-        //startSuccededButton.checked = false;
+        startSuccededButton.checked = false;
         laneChangeSuccededButton.checked = false;
 
         for(var i = 0; i< 17; i++ )
@@ -98,7 +98,7 @@ Rectangle {
                 }
             }
             Button {
-                text: "Tocuh +"
+                text: "Touch +"
                 Layout.fillWidth: true
                 id: increaseWrongGateButton
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
@@ -107,14 +107,28 @@ Rectangle {
                 }
             }
         }
-        Button {
-            text: "Lane Change Succeeded"
+        RowLayout{
             Layout.fillWidth: true
-            id: laneChangeSuccededButton
-            checkable: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-            onReleased: {
-                checkpoints_container.laneChangeSucceededButtonPressed(checked);
+            Button {
+                text: "Start Succeeded"
+                Layout.fillWidth: true
+                id: startSuccededButton
+                checkable: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                onReleased: {
+                    checkpoints_container.startSucceededButtonPressed(checked);
+                }
+            }
+            Button {
+                text: "Lane Change Succeeded"
+                Layout.fillWidth: true
+                id: laneChangeSuccededButton
+                checkable: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                onReleased: {
+                    checkpoints_container.laneChangeSucceededButtonPressed(checked);
+                }
             }
         }
     }
@@ -437,5 +451,6 @@ Rectangle {
         }
         }
 }
+
 
 

@@ -46,7 +46,7 @@ qint32 SkillRace::GetTouchPenaltyPoint() const
 
 quint32 SkillRace::UpdateTouchCount(quint32 newTouchCount)
 {
-    if(newTouchCount < 6){
+    if(newTouchCount < 9){
         touchCount = newTouchCount;
     }
     return touchCount;
