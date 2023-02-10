@@ -50,13 +50,8 @@ bool SkillRaceEvent::UpdateCheckpoint(quint32 index, CheckpointState newState, b
     {
         try{
 
-            CheckpointState currentState = static_cast<SkillRace*>(this->actualRace)->GetCheckpointState(index);
-
-            if(currentState != newState)
-            {
-                static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState, raceTimer.Elapsed());
-                return true;
-            }
+            static_cast<SkillRace*>(this->actualRace)->SetCheckpoint(index,newState, raceTimer.Elapsed());
+            return true;
         }
         catch(std::out_of_range e)
         {
