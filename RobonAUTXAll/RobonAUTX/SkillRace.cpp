@@ -232,6 +232,8 @@ qint32 SkillRace::CalculateAbsoluteSkillRacePoints(vector<CheckpointState> check
         resultPoint -= touchPenaltyPoint;
     }
 
+    resultPoint = resultPoint > 40 ? 40 : resultPoint;
+
     return resultPoint;
 }
 
